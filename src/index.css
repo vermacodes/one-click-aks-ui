@@ -2,14 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-.toggle-bg:after {
-  content: '';
-  @apply absolute top-0.5 left-0.5 bg-white border border-gray-300 rounded-full h-4 w-4 transition shadow-sm;
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
 }
-input:checked + .toggle-bg:after {
-  transform: translateX(100%);
-  @apply border-white;
-}
-input:checked + .toggle-bg {
-  @apply bg-sky-500 border-sky-500;
-}
+
+/* @layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 50vh;
+    background: #64748b;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #0ea5e9;
+    border-radius: 50vh;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #0f172a;
+  }
+} */

@@ -1,52 +1,39 @@
-import { useQuery, useQueryClient } from "react-query";
+import { AxiosResponse } from "axios";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { AccountType } from "../dataStructures";
 import { axiosInstance } from "../utils/axios-interceptors";
 
-function getLoginStatus() {
-    return axiosInstance.get("loginstatus");
+function getAccounts(): Promise<AxiosResponse<AccountType[]>> {
+  return axiosInstance.get("accounts");
 }
 
-function login() {
-    return axiosInstance.get("login");
-}
-
-function getCurrentAccount() {
-    return axiosInstance.get("accountshow");
-}
-
-export function useLoginStatus() {
-    const queryClient = useQueryClient();
-    return useQuery("login-status", getLoginStatus, {
-        select: (data) => {
-            return data.data.isLoggedIn;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries("account");
-        },
-        cacheTime: 10000,
-        staleTime: 10000,
-    });
-}
-
-export function useLogin() {
-    const queryClient = useQueryClient();
-    return useQuery("login", login, {
-        select: (data) => {
-            return data.data;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries("login-status");
-            queryClient.invalidateQueries("get-logs");
-        },
-        enabled: false,
-    });
+function setAccount(account: AccountType) {
+  return axiosInstance.put("account", account);
 }
 
 export function useAccount() {
-    return useQuery("account", getCurrentAccount, {
-        select: (data) => {
-            return data.data;
-        },
-        cacheTime: 10000,
-        staleTime: 10000,
-    });
+  return useQuery("account", getAccounts, {
+    select: (data): AccountType[] => {
+      return data.data;
+    },
+    cacheTime: 10000,
+    staleTime: 10000,
+  });
+}
+
+export function useSetAccount() {
+  const queryClient = useQueryClient();
+  return useMutation(setAccount, {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      queryClient.invalidateQueries("account");
+      queryClient.invalidateQueries("get-storage-account");
+      queryClient.invalidateQueries("get-action-status");
+      queryClient.invalidateQueries("list-terraform-workspaces");
+      queryClient.invalidateQueries("get-selected-terraform-workspace");
+      queryClient.invalidateQueries("get-preference");
+      queryClient.invalidateQueries("get-lab");
+      queryClient.invalidateQueries("get-logs");
+    },
+  });
 }
