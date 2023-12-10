@@ -1,21 +1,27 @@
+import { AxiosResponse } from "axios";
 import { useQuery, useQueryClient } from "react-query";
+import { ServerStatus } from "../dataStructures";
 import { axiosInstance } from "../utils/axios-interceptors";
 
-function getServerStatus() {
-    return axiosInstance.get("status");
+function getServerStatus(): Promise<AxiosResponse<ServerStatus>> {
+  return axiosInstance.get("status");
 }
 
 export function useServerStatus() {
-    return useQuery("server-status", getServerStatus, {
-        select: (data) => {
-            return data.data.status;
-        },
-        cacheTime: 0,
-        staleTime: 0,
-    });
+  const queryClient = useQueryClient();
+  return useQuery("server-status", getServerStatus, {
+    select: (data): ServerStatus => {
+      return data.data;
+    },
+    onError: () => {
+      queryClient.invalidateQueries("login-status");
+    },
+    cacheTime: 1000,
+    staleTime: 1000,
+  });
 }
 
 export function useInvalidateServerStatus() {
-    const queryClient = useQueryClient();
-    queryClient.invalidateQueries("server-status");
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries("server-status");
 }
