@@ -67,19 +67,13 @@ export default function AzureRegion() {
     "Brazil Southeast",
   ];
 
-  const {
-    data: preference,
-    isLoading: loadingPreference,
-    isFetching: fetchingPreference,
-  } = usePreference();
+  const { data: preference, isLoading: loadingPreference, isFetching: fetchingPreference } = usePreference();
 
-  const { mutate: setPreference, isLoading: settingPreference } =
-    useSetPreference();
+  const { mutate: setPreference, isLoading: settingPreference } = useSetPreference();
   const { data: lab } = useLab();
   const { mutate: setLogs } = useSetLogs();
 
-  const { data: storageAccount, isFetching: fetchingStorageAccount } =
-    useGetStorageAccount();
+  const { data: storageAccount, isFetching: fetchingStorageAccount } = useGetStorageAccount();
 
   /**
    * Handles the click event.
@@ -119,12 +113,7 @@ export default function AzureRegion() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full rounded px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
         />
-        {searchTerm && (
-          <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
-            onClick={() => setSearchTerm("")}
-          />
-        )}
+        {searchTerm && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" onClick={() => setSearchTerm("")} />}
       </div>
     );
   };
@@ -152,15 +141,10 @@ export default function AzureRegion() {
    */
   const renderItem = (item: string) => {
     // Determine the classes to apply based on whether the current version matches the key
-    const classes =
-      item === preference?.azureRegion
-        ? "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-        : "";
+    const classes = item === preference?.azureRegion ? "bg-green-300 hover:text-slate-900 dark:text-slate-900" : "";
 
     return (
-      <div
-        className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 hover:bg-sky-500 hover:text-slate-100`}
-      >
+      <div className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 hover:bg-sky-500 hover:text-slate-100`}>
         {item}
       </div>
     );
@@ -172,22 +156,15 @@ export default function AzureRegion() {
     <Container title="Azure Region" collapsible={true}>
       <div
         className={`gap-x-reverse flex items-center justify-end gap-x-2 py-2 ${
-          (fetchingStorageAccount ||
-            storageAccount === undefined ||
-            storageAccount.storageAccount.name === "") &&
-          " text-slate-400"
+          (fetchingStorageAccount || storageAccount === undefined || storageAccount.name === "") && " text-slate-400"
         }`}
       >
         <DropdownSelect
           heading={heading()}
-          disabled={
-            loadingPreference || fetchingPreference || settingPreference
-          }
+          disabled={loadingPreference || fetchingPreference || settingPreference}
           search={renderSearchInput()}
           renderItem={renderItem}
-          items={azureRegions.filter((item) =>
-            item.toLowerCase().includes(searchTerm.toLowerCase())
-          )}
+          items={azureRegions.filter((item) => item.toLowerCase().includes(searchTerm.toLowerCase()))}
           onItemClick={handleOnClick}
           height="h-60"
         />

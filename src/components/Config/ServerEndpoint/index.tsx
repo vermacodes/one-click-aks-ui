@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import Checkbox from "../../UserInterfaceComponents/Checkbox";
 import { useQueryClient } from "react-query";
 import { useResetServerCache } from "../../../hooks/useServerCache";
-import Button from "../../UserInterfaceComponents/Button";
 import { useAuth } from "../../Context/AuthContext";
+import Button from "../../UserInterfaceComponents/Button";
+import Checkbox from "../../UserInterfaceComponents/Checkbox";
 import Container from "../../UserInterfaceComponents/Container";
 
 type Props = {};
@@ -18,10 +18,7 @@ export default function ServerEndpoint({}: Props) {
 
   useEffect(() => {
     const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-    if (
-      baseUrlFromLocalStorage != undefined &&
-      baseUrlFromLocalStorage !== ""
-    ) {
+    if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
       setBaseUrl(baseUrlFromLocalStorage);
     }
   }, []);
@@ -51,10 +48,7 @@ export default function ServerEndpoint({}: Props) {
               id="custom"
               checked={
                 baseUrl !== "http://localhost:8880/" &&
-                baseUrl !==
-                  "https://" +
-                    graphResponse.userPrincipalName.split("@")[0] +
-                    "-webapp-actlabs.azurewebsites.net/"
+                baseUrl !== "https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs.azurewebsites.net/"
               }
               disabled={true}
               handleOnChange={() => {}}
@@ -73,38 +67,20 @@ export default function ServerEndpoint({}: Props) {
             />
             <Checkbox
               id="webapp"
-              checked={
-                baseUrl ===
-                "https://" +
-                  graphResponse.userPrincipalName.split("@")[0] +
-                  "-webapp-actlabs.azurewebsites.net/"
-              }
+              checked={baseUrl === "https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs.azurewebsites.net/"}
               disabled={!graphResponse}
               handleOnChange={() => {
-                handleSwitch(
-                  "https://" +
-                    graphResponse.userPrincipalName.split("@")[0] +
-                    "-webapp-actlabs.azurewebsites.net/"
-                );
+                handleSwitch("https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs.azurewebsites.net/");
               }}
               label={"WebApp"}
               key={"key"}
             />
             <Checkbox
               id="webapp-nprd"
-              checked={
-                baseUrl ===
-                "https://" +
-                  graphResponse.userPrincipalName.split("@")[0] +
-                  "-webapp-actlabs-fdpo.azurewebsites.net/"
-              }
+              checked={baseUrl === "https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs-fdpo.azurewebsites.net/"}
               disabled={!graphResponse}
               handleOnChange={() => {
-                handleSwitch(
-                  "https://" +
-                    graphResponse.userPrincipalName.split("@")[0] +
-                    "-webapp-actlabs-fdpo.azurewebsites.net/"
-                );
+                handleSwitch("https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs-fdpo.azurewebsites.net/");
               }}
               label={"WebApp (NonProd)"}
               key={"key"}
@@ -113,38 +89,10 @@ export default function ServerEndpoint({}: Props) {
         ) : (
           // Dummy placeholders
           <div className="flex flex-wrap items-center justify-end gap-2">
-            <Checkbox
-              id="custom"
-              checked={false}
-              disabled={true}
-              handleOnChange={() => {}}
-              label={"Custom"}
-              key={"key"}
-            />
-            <Checkbox
-              id="docker"
-              checked={false}
-              disabled={true}
-              handleOnChange={() => {}}
-              label={"Docker"}
-              key={"key"}
-            />
-            <Checkbox
-              id="webapp"
-              checked={false}
-              disabled={true}
-              handleOnChange={() => {}}
-              label={"WebApp"}
-              key={"key"}
-            />
-            <Checkbox
-              id="webapp"
-              checked={false}
-              disabled={true}
-              handleOnChange={() => {}}
-              label={"WebApp (NonProd)"}
-              key={"key"}
-            />
+            <Checkbox id="custom" checked={false} disabled={true} handleOnChange={() => {}} label={"Custom"} key={"key"} />
+            <Checkbox id="docker" checked={false} disabled={true} handleOnChange={() => {}} label={"Docker"} key={"key"} />
+            <Checkbox id="webapp" checked={false} disabled={true} handleOnChange={() => {}} label={"WebApp"} key={"key"} />
+            <Checkbox id="webapp" checked={false} disabled={true} handleOnChange={() => {}} label={"WebApp (NonProd)"} key={"key"} />
           </div>
         )}
         <div
@@ -156,19 +104,12 @@ export default function ServerEndpoint({}: Props) {
           onDoubleClick={() => setEdit(true)}
         >
           <p
-            className={`${
-              edit && "hidden"
-            } items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1`}
+            className={`${edit && "hidden"} items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1`}
             onClick={() => setEdit(true)}
           >
             {baseUrl}
           </p>
-          <form
-            className={`${
-              !edit && "hidden"
-            } h-full w-full space-x-1 bg-inherit py-1 px-2`}
-            onSubmit={(e) => handleSubmit(e)}
-          >
+          <form className={`${!edit && "hidden"} h-full w-full space-x-1 bg-inherit py-1 px-2`} onSubmit={(e) => handleSubmit(e)}>
             <input
               className={`h-full w-full space-x-1 bg-inherit py-1 px-2 outline-none`}
               value={baseUrl}
@@ -176,11 +117,7 @@ export default function ServerEndpoint({}: Props) {
             />
           </form>
           {!edit && (
-            <div
-              className={`${
-                !showEditButton && "invisible "
-              } flex space-x-1 py-1 px-2 text-sm`}
-            >
+            <div className={`${!showEditButton && "invisible "} flex space-x-1 py-1 px-2 text-sm`}>
               {/* <Button variant="text" onClick={() => setEdit(true)}>
                 <FaEdit />
               </Button> */}
@@ -211,10 +148,7 @@ export default function ServerEndpoint({}: Props) {
           )}
         </div>
         <div className="flex w-full flex-col gap-2">
-          <p className="text-xs">
-            You should get this information from output of the script that you
-            used to deploy the server.
-          </p>
+          <p className="text-xs">You should get this information from output of the script that you used to deploy the server.</p>
           <p className="w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
             Note: ARO labs only work with the Docker option.
           </p>
