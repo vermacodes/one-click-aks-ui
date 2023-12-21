@@ -4,10 +4,7 @@ export const deploymentNameSchema = z
   .string()
   .min(1, "Deployment name must be at least one character long.")
   .max(12, "Deployment name must not exceed 12 characters in length.")
-  .regex(
-    /^[a-z][a-z0-9]*$/,
-    "Deployment name must start with a lowercase letter and consist of lowercase letters and numbers only."
-  );
+  .regex(/^[a-z][a-z0-9]*$/, "Deployment name must start with a lowercase letter and consist of lowercase letters and numbers only.");
 
 // lab name
 export const labNameSchema = z
@@ -23,26 +20,20 @@ export const labNameSchema = z
 //lab description
 export const labDescriptionSchema = z
   .string()
-  .max(
-    5000,
-    "Lab description must not exceed 5000 characters. Wanna write more? Add wiki page and link here."
-  );
+  .max(5000, "Lab description must not exceed 5000 characters. Wanna write more? Add wiki page and link here.");
 
 //lab description
 export const labMessageSchema = z
   .string()
-  .max(
-    5000,
-    "Lab description must not exceed 5000 characters. Wanna write more? Add wiki page and link here."
-  );
+  .max(5000, "Lab description must not exceed 5000 characters. Wanna write more? Add wiki page and link here.");
 
 //lab tag
 export const labTagSchema = z
   .string()
   .min(3, "Tag must be at least 3 characters.")
   .max(50, "Tag must not exceed 50 characters.")
-  .regex(
-    /^[a-zA-Z0-9_-]+$/,
-    "Tag must only contain letters, numbers, underscores, and dashes."
-  )
+  .regex(/^[a-zA-Z0-9_-]+$/, "Tag must only contain letters, numbers, underscores, and dashes.")
   .trim();
+
+//subscription id
+export const subscriptionIdSchema = z.string().uuid("Subscription ID must be a valid UUID.");

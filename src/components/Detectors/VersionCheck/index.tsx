@@ -1,7 +1,7 @@
 import { useServerStatus } from "../../../hooks/useServerStatus";
 
 export default function VersionCheck() {
-  const { data, isFetching } = useServerStatus();
+  const { data, isFetching, isError } = useServerStatus();
 
   //check if version in status is greater than a given number. if so, return true else return false
   function versionCheck(version: string) {
@@ -18,7 +18,7 @@ export default function VersionCheck() {
     return <></>;
   }
 
-  if (data.status !== "OK") {
+  if (isError || data.status !== "OK") {
     return <></>;
   }
 
@@ -29,8 +29,7 @@ export default function VersionCheck() {
   return (
     <div className="my-4">
       <div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
-        <strong>New Version Released:</strong> The UI has been updated and needs
-        newer version of server. Running old version of server may result in
+        <strong>New Version Released:</strong> The UI has been updated and needs newer version of server. Running old version of server may result in
         unexpected behavior.
         <br />
         <a

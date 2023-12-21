@@ -417,12 +417,23 @@ export type ServerNotification = {
   autoClose: number;
 };
 
-export type TerraformOperationType =
-  | "init"
-  | "plan"
-  | "apply"
-  | "destroy"
-  | "delete"
-  | "extend-validate"
-  | "extend-apply"
-  | "extend-destroy";
+export type TerraformOperationType = "init" | "plan" | "apply" | "destroy" | "delete" | "extend-validate" | "extend-apply" | "extend-destroy";
+
+export type ManagedServer = {
+  endpoint: string;
+  status: string;
+  region: string;
+  userPrincipalId: string;
+  userPrincipalName: string;
+  userAlias: string;
+  managedIdentityResourceId: string;
+  managedIdentityClientId: string;
+  managedIdentityPrincipalId: string;
+  subscriptionId: string;
+  resourceGroup: string;
+  logLevel: "0" | "-4";
+  lastUserActivityTime: string;
+  autoCreate: boolean;
+  autoDestroy: boolean;
+  inactivityDurationInMinutes: number;
+};

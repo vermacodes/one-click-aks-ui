@@ -38,7 +38,8 @@ export default function BreakBlobLease({ deployment, buttonVariant }: Props) {
         },
         error: {
           render(data: any) {
-            return `Failed to unlock state file. ${data.data.response.data.error}`;
+            console.log("Data", data);
+            return `Failed to unlock state file. ${data.data.data.error}`;
           },
           autoClose: 5000,
         },
@@ -54,17 +55,11 @@ export default function BreakBlobLease({ deployment, buttonVariant }: Props) {
   }
 
   const disabled =
-    actionStatus.inProgress ||
-    selectedDeployment === undefined ||
-    deployment.deploymentWorkspace !== selectedDeployment.deploymentWorkspace;
+    actionStatus.inProgress || selectedDeployment === undefined || deployment.deploymentWorkspace !== selectedDeployment.deploymentWorkspace;
 
   return (
     <Tooltip message="Use this to unlock the state file if locked" delay={500}>
-      <Button
-        variant={buttonVariant ? buttonVariant : "secondary-outline"}
-        disabled={disabled}
-        onClick={handleBreakBlobLease}
-      >
+      <Button variant={buttonVariant ? buttonVariant : "secondary-outline"} disabled={disabled} onClick={handleBreakBlobLease}>
         <FaUnlock /> State
       </Button>
     </Tooltip>

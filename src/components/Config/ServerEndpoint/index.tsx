@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useQueryClient } from "react-query";
+import { useManagedServer } from "../../../hooks/useManagedServer";
 import { useResetServerCache } from "../../../hooks/useServerCache";
 import { useAuth } from "../../Context/AuthContext";
 import Button from "../../UserInterfaceComponents/Button";
@@ -15,6 +16,8 @@ export default function ServerEndpoint({}: Props) {
   const [edit, setEdit] = useState<boolean>(false);
   const { mutateAsync: resetServerCache } = useResetServerCache();
   const { graphResponse } = useAuth();
+
+  const { data: managedServer } = useManagedServer();
 
   useEffect(() => {
     const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
@@ -65,24 +68,16 @@ export default function ServerEndpoint({}: Props) {
               label={"Docker"}
               key={"key"}
             />
+
             <Checkbox
-              id="webapp"
-              checked={baseUrl === "https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs.azurewebsites.net/"}
-              disabled={!graphResponse}
+              id="managedServer"
+              tooltipMessage="To disable managed server, change the server endpoint to something other than the managed server."
+              checked={managedServer && baseUrl.includes(managedServer?.endpoint)}
+              disabled={managedServer === undefined || baseUrl.includes(managedServer?.endpoint)}
               handleOnChange={() => {
-                handleSwitch("https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs.azurewebsites.net/");
+                handleSwitch("https://" + managedServer?.endpoint + "/");
               }}
-              label={"WebApp"}
-              key={"key"}
-            />
-            <Checkbox
-              id="webapp-nprd"
-              checked={baseUrl === "https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs-fdpo.azurewebsites.net/"}
-              disabled={!graphResponse}
-              handleOnChange={() => {
-                handleSwitch("https://" + graphResponse.userPrincipalName.split("@")[0] + "-webapp-actlabs-fdpo.azurewebsites.net/");
-              }}
-              label={"WebApp (NonProd)"}
+              label={"Managed Server"}
               key={"key"}
             />
           </div>
@@ -90,9 +85,7 @@ export default function ServerEndpoint({}: Props) {
           // Dummy placeholders
           <div className="flex flex-wrap items-center justify-end gap-2">
             <Checkbox id="custom" checked={false} disabled={true} handleOnChange={() => {}} label={"Custom"} key={"key"} />
-            <Checkbox id="docker" checked={false} disabled={true} handleOnChange={() => {}} label={"Docker"} key={"key"} />
-            <Checkbox id="webapp" checked={false} disabled={true} handleOnChange={() => {}} label={"WebApp"} key={"key"} />
-            <Checkbox id="webapp" checked={false} disabled={true} handleOnChange={() => {}} label={"WebApp (NonProd)"} key={"key"} />
+            <Checkbox id="docker" checked={false} disabled={true} handleOnChange={() => {}} label={"Managed"} key={"key"} />
           </div>
         )}
         <div

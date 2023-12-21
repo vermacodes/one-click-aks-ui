@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import AuthServiceEndpoint from "../../components/Config/AuthServiceEndpoint";
 import AzureRegion from "../../components/Config/AzureRegion";
 import AzureSubscriptionSetting from "../../components/Config/AzureSubscriptionSetting";
+import ManagedServer from "../../components/Config/ManagedServer";
 import ResetActionStatus from "../../components/Config/ResetActionStatus";
 import ResetServerCache from "../../components/Config/ResetServerCache";
 import ServerEndpoint from "../../components/Config/ServerEndpoint";
@@ -21,6 +22,7 @@ export default function Settings() {
     <PageLayout heading="Settings">
       <div className="mb-4 flex flex-col gap-4">
         <ServerStatus />
+        <ManagedServer />
         <ServerEndpoint />
         {/* <WebSocketEndpoint /> */}
         <AuthServiceEndpoint />
