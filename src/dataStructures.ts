@@ -421,7 +421,7 @@ export type TerraformOperationType = "init" | "plan" | "apply" | "destroy" | "de
 
 export type ManagedServer = {
   endpoint: string;
-  status: string;
+  status: "Running" | "Stopped" | "Destroyed" | "Registered" | "Unregistered" | "Failed";
   region: string;
   userPrincipalId: string;
   userPrincipalName: string;
