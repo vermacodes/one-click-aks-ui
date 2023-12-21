@@ -33,7 +33,7 @@ export function useDestroyManagedServer() {
 
 export function useCreateManagedServer() {
   const queryClient = useQueryClient();
-  return useMutation((managedServer: ManagedServer) => authAxiosInstance.put("server", managedServer), {
+  return useMutation((managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> => authAxiosInstance.put("server", managedServer), {
     onSuccess: () => {
       queryClient.invalidateQueries("get-managed-server");
       queryClient.invalidateQueries("server-status");
