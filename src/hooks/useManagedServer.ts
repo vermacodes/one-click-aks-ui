@@ -19,12 +19,7 @@ export function useManagedServer() {
 
 export function useManagedServerActivityUpdate() {
   const queryClient = useQueryClient();
-  return useMutation((userPrincipalName: string) => authAxiosInstance.put(`server/activity/${userPrincipalName}`), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("get-managed-server");
-      queryClient.invalidateQueries("server-status");
-    },
-  });
+  return useMutation((userPrincipalName: string) => authAxiosInstance.put(`server/activity/${userPrincipalName}`));
 }
 
 export function useDestroyManagedServer() {
