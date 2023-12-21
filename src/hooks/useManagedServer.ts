@@ -18,7 +18,6 @@ export function useManagedServer() {
 }
 
 export function useManagedServerActivityUpdate() {
-  const queryClient = useQueryClient();
   return useMutation((userPrincipalName: string) => authAxiosInstance.put(`server/activity/${userPrincipalName}`));
 }
 
