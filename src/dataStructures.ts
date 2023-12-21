@@ -433,6 +433,8 @@ export type ManagedServer = {
   resourceGroup: string;
   logLevel: "0" | "-4";
   lastUserActivityTime: string;
+  destroyedAtTime: string;
+  createdAtTime: string;
   autoCreate: boolean;
   autoDestroy: boolean;
   inactivityDurationInMinutes: number;
