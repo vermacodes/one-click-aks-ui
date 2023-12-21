@@ -56,7 +56,7 @@ export default function ServerEndpoint({}: Props) {
               disabled={true}
               handleOnChange={() => {}}
               label={"Custom"}
-              key={"key"}
+              key={"custom-key"}
             />
             <Checkbox
               id="docker"
@@ -66,7 +66,7 @@ export default function ServerEndpoint({}: Props) {
                 handleSwitch("http://localhost:8880/");
               }}
               label={"Docker"}
-              key={"key"}
+              key={"docker-key"}
             />
 
             <Checkbox
@@ -78,14 +78,14 @@ export default function ServerEndpoint({}: Props) {
                 handleSwitch("https://" + managedServer?.endpoint + "/");
               }}
               label={"Managed Server"}
-              key={"key"}
+              key={"managed-server-key"}
             />
           </div>
         ) : (
           // Dummy placeholders
           <div className="flex flex-wrap items-center justify-end gap-2">
-            <Checkbox id="custom" checked={false} disabled={true} handleOnChange={() => {}} label={"Custom"} key={"key"} />
-            <Checkbox id="docker" checked={false} disabled={true} handleOnChange={() => {}} label={"Managed"} key={"key"} />
+            <Checkbox id="custom" checked={false} disabled={true} handleOnChange={() => {}} label={"Custom"} key={"custom-key"} />
+            <Checkbox id="docker" checked={false} disabled={true} handleOnChange={() => {}} label={"Managed"} key={"docker-key"} />
           </div>
         )}
         <div

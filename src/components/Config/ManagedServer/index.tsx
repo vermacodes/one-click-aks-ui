@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { ManagedServer } from "../../../dataStructures";
 import { useCreateManagedServer, useDestroyManagedServer, useManagedServer } from "../../../hooks/useManagedServer";
 import { useResetServerCache } from "../../../hooks/useServerCache";
+import { isManagedServer } from "../../../utils/typeguards";
 import { useAuth } from "../../Context/AuthContext";
 import Button from "../../UserInterfaceComponents/Button";
 import Checkbox from "../../UserInterfaceComponents/Checkbox";
@@ -45,8 +46,11 @@ export default function ManagedServerComponent({}: Props) {
       {
         pending: "Deploying managed server...",
         success: {
-          render(data: any) {
-            return `Managed server deployed.`;
+          render(data) {
+            console.log(data);
+            if (isManagedServer(data?.data?.data)) {
+              return `Managed server ${data.data.data.status}.`;
+            }
           },
           autoClose: 2000,
         },
@@ -59,11 +63,13 @@ export default function ManagedServerComponent({}: Props) {
       }
     );
 
-    response.then(() => {
-      if (managedServer === undefined) {
+    response.then((data) => {
+      if (data.data === undefined) {
         return;
       }
-      handleSwitch(`https://${managedServer.endpoint}/`);
+      if (isManagedServer(data.data) && data.data.status === "Running") {
+        handleSwitch(`https://${data.data.endpoint}/`);
+      }
     });
   }
 
