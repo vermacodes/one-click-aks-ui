@@ -21,7 +21,7 @@ export default function ManagedServerActivityUpdates() {
       return;
     }
     updateActivity(managedServer.userPrincipalName);
-  }, 1000);
+  }, 60000);
 
   return null;
 }
