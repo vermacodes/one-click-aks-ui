@@ -3,9 +3,8 @@ import { useServerStatus } from "../../../hooks/useServerStatus";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 
 export default function WebSocketConnectionStatus() {
-  const { data: serverStatus } = useServerStatus();
-  const { actionStatusConnected, logStreamConnected } =
-    useContext(WebSocketContext);
+  const { data: serverStatus, isError } = useServerStatus();
+  const { actionStatusConnected, logStreamConnected } = useContext(WebSocketContext);
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function WebSocketConnectionStatus() {
   }, [actionStatusConnected, logStreamConnected]);
 
   // If server is not running, don't show the warning
-  if (serverStatus?.status !== "OK") {
+  if (isError || serverStatus?.status !== "OK") {
     return null;
   }
 
@@ -39,13 +38,8 @@ export default function WebSocketConnectionStatus() {
       <a href="/settings" className="cursor-pointer text-sky-600 underline">
         Settings
       </a>
-      , ensure that server is running and Endpoint is correct. All good? this
-      should get fixed if you{" "}
-      <a
-        href="#"
-        onClick={() => window.location.reload()}
-        className="cursor-pointer text-sky-600 underline"
-      >
+      , ensure that server is running and Endpoint is correct. All good? this should get fixed if you{" "}
+      <a href="#" onClick={() => window.location.reload()} className="cursor-pointer text-sky-600 underline">
         Refresh
       </a>{" "}
       browser. Use Help & Feedback if the problem continues.

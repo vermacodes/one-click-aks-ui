@@ -18,6 +18,7 @@ export function useServerStatus() {
     },
     cacheTime: 1000,
     staleTime: 1000,
+    refetchInterval: 5000,
   });
 }
 
