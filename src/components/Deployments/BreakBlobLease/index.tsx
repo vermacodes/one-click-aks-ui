@@ -38,7 +38,6 @@ export default function BreakBlobLease({ deployment, buttonVariant }: Props) {
         },
         error: {
           render(data: any) {
-            console.log("Data", data);
             return `Failed to unlock state file. ${data.data.data.error}`;
           },
           autoClose: 5000,

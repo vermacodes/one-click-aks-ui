@@ -1,11 +1,11 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ManagedServerActivityMonitor from "./components/Config/ManagedServer/ManagedServerActivityMonitor";
 import { AuthProvider } from "./components/Context/AuthContext";
 import { useGlobalStateContext } from "./components/Context/GlobalStateContext";
 import WebSocketContextProvider from "./components/Context/WebSocketContextProvider";
 import RootErrorBoundary from "./components/ErrorBoundaries/RootErrorBoundary";
 import ServerNotification from "./components/ServerNotification";
-import ManagedServerActivityUpdates from "./components/UtilityComponents/ManagedServerActivityUpdates";
 import MainLayout from "./layouts/MainLayout";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <WebSocketContextProvider>
           <RootErrorBoundary>
             <MainLayout />
-            <ManagedServerActivityUpdates />
+            <ManagedServerActivityMonitor />
             <ToastContainer
               toastClassName={`${
                 darkMode ? "bg-slate-100" : "bg-slate-800"

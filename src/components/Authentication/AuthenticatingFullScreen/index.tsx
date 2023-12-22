@@ -16,14 +16,10 @@ type Props = {
   setProfilePhoto: (profilePhoto: string | undefined) => void;
 };
 
-export default function AuthenticatingFullScreen({
-  setGraphResponse,
-  setProfilePhoto,
-}: Props) {
+export default function AuthenticatingFullScreen({ setGraphResponse, setProfilePhoto }: Props) {
   const { instance } = useMsal();
   const [graphAPIAccessToken, setGraphAPIAccessToken] = useState<string>("");
-  const [graphAPITokenAcquired, setGraphAPITokenAcquired] =
-    useState<boolean>(false);
+  const [graphAPITokenAcquired, setGraphAPITokenAcquired] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   // request access tokens after the component has mounted
@@ -60,7 +56,6 @@ export default function AuthenticatingFullScreen({
       },
     }).then((response) => {
       if (response.ok) {
-        console.log("Profile Photo", response);
         response.blob().then((data) => {
           const url = URL.createObjectURL(data);
           const img = new Image();
@@ -99,7 +94,6 @@ export default function AuthenticatingFullScreen({
         }
       }
     } else {
-      console.log("No accounts detected");
       acquireTokenByRedirect(request);
     }
   }

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import AuthServiceEndpoint from "../../components/Config/AuthServiceEndpoint";
 import AzureRegion from "../../components/Config/AzureRegion";
 import AzureSubscriptionSetting from "../../components/Config/AzureSubscriptionSetting";
-import ManagedServer from "../../components/Config/ManagedServer";
+import ManagedServer from "../../components/Config/ManagedServer/ManagedServer";
 import ResetActionStatus from "../../components/Config/ResetActionStatus";
 import ResetServerCache from "../../components/Config/ResetServerCache";
 import ServerEndpoint from "../../components/Config/ServerEndpoint";
