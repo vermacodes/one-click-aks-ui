@@ -41,6 +41,16 @@ export function useCreateManagedServer() {
   });
 }
 
+export function useUpdateManagedServer() {
+  const queryClient = useQueryClient();
+  return useMutation((managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> => authAxiosInstance.put("server/update", managedServer), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("get-managed-server");
+      queryClient.invalidateQueries("server-status");
+    },
+  });
+}
+
 export function useRegisterSubscription() {
   const queryClient = useQueryClient();
   return useMutation((subscriptionId: string) => authAxiosInstance.put(`server/register/${subscriptionId}`), {

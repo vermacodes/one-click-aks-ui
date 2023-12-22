@@ -22,7 +22,15 @@ export default function Checkbox({ id, label, tooltipMessage, tooltipDelay, hand
           } ${disabled && "bg-slate-300 hover:cursor-not-allowed dark:bg-slate-700"}
       `}
         >
-          <input type="checkbox" id={id} className="sr-only" onChange={() => handleOnChange()} checked={checked} {...otherProps} />
+          <input
+            type="checkbox"
+            id={id}
+            className="sr-only"
+            onChange={() => handleOnChange()}
+            checked={checked}
+            disabled={disabled}
+            {...otherProps}
+          />
           <div className={`h-4 w-4 rounded-full bg-white transition-all duration-100 ${checked && "ml-4"} ${disabled && "dark:bg-slate-600"}`}></div>
         </label>
         <span

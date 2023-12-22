@@ -422,6 +422,7 @@ export type TerraformOperationType = "init" | "plan" | "apply" | "destroy" | "de
 export type ManagedServer = {
   endpoint: string;
   status:
+    | "AutoDestroyed"
     | "Deployed"
     | "Deploying"
     | "Destroyed"
