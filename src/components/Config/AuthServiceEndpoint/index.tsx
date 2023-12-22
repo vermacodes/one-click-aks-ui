@@ -11,6 +11,12 @@ export default function AuthServiceEndpoint({}: Props) {
 
   useEffect(() => {
     const baseUrlFromLocalStorage = localStorage.getItem("authServiceBaseUrl");
+
+    if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage == "https://actlabs-auth.azurewebsites.net") {
+      localStorage.setItem("authServiceBaseUrl", baseUrl);
+      return;
+    }
+
     if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
       setBaseUrl(baseUrlFromLocalStorage);
     }
