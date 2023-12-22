@@ -1,6 +1,6 @@
 import ansiHTML from "ansi-to-html";
 import DOMPurify from "dompurify";
-import { DeploymentType, TerraformWorkspace } from "../dataStructures";
+import { DeploymentType } from "../dataStructures";
 
 // Function returns the new epoch time for deployment destroy time.
 export function calculateNewEpochTimeForDeployment(deployment: DeploymentType) {
@@ -29,9 +29,7 @@ export function getDeploymentDestroyTime(deployment: DeploymentType) {
 // Function returns the time remaining in hours, minutes and seconds for the deployment to be destroyed based on user's local time.
 export function getDeploymentDestroyTimeRemaining(
   deployment: DeploymentType,
-  setDeploymentDestroyTimeRemaining: React.Dispatch<
-    React.SetStateAction<string>
-  >
+  setDeploymentDestroyTimeRemaining: React.Dispatch<React.SetStateAction<string>>
 ) {
   setInterval(() => {
     if (deployment.deploymentAutoDelete === false) {
@@ -65,10 +63,7 @@ export function setDefaultValuesInLocalStorage() {
   }
 
   if (localStorage.getItem("authServiceBaseUrl") === null) {
-    localStorage.setItem(
-      "authServiceBaseUrl",
-      "https://actlabs-auth.azurewebsites.net/"
-    );
+    localStorage.setItem("authServiceBaseUrl", "https://ashisverma-actlabs-aci.eastus.azurecontainer.io/");
   }
 
   if (localStorage.getItem("baseUrl") === null) {
