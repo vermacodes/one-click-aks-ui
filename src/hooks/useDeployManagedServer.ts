@@ -31,7 +31,7 @@ export function useDeployManagedServer() {
       success: {
         render(data) {
           if (isManagedServer(data?.data?.data)) {
-            return `Managed server ${data.data.data.status}.`;
+            return `Managed server ${data?.data?.data?.status}.`;
           }
         },
         autoClose: 2000,
@@ -41,7 +41,7 @@ export function useDeployManagedServer() {
           console.log("Data ", { data });
           if (isAxiosError(data)) {
             console.log("Axios Error Found");
-            return `Failed to deploy managed server. ${data.response?.data?.error}`;
+            return `Failed to deploy managed server. ${data?.response?.data?.error}`;
           }
           return `Failed to deploy managed server.`;
         },
@@ -89,7 +89,7 @@ export function useDeployManagedServer() {
       success: {
         render(data) {
           if (isManagedServer(data?.data?.data)) {
-            return `Managed server ${data.data.data.status}.`;
+            return `Managed server ${data?.data?.data?.status}.`;
           }
         },
         autoClose: 2000,
@@ -99,7 +99,7 @@ export function useDeployManagedServer() {
           console.log("Data ", { data });
           if (isAxiosError(data)) {
             console.log("Axios Error Found");
-            return `Failed to destroy managed server. ${data.response?.data?.error}`;
+            return `Failed to destroy managed server. ${data?.response?.data?.error}`;
           }
           return `Failed to destroy managed server.`;
         },
