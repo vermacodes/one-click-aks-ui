@@ -26,7 +26,11 @@ export default function ManagedServerActivityMonitor() {
 
     // if managed server was auto destroyed and the page is visible, auto create a new one
     if (managedServer.status === "AutoDestroyed" && isPageVisible && managedServer.autoCreate) {
-      handleDeploy(managedServer);
+      setTimeout(() => {
+        if (isPageVisible) {
+          handleDeploy(managedServer);
+        }
+      }, 10000); // 10 seconds delay
     }
   }, [managedServer]);
 
