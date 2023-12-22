@@ -452,5 +452,5 @@ export type ManagedServer = {
   createdAtTime: string;
   autoCreate: boolean;
   autoDestroy: boolean;
-  inactivityDurationInMinutes: number;
+  inactivityDurationInSeconds: number;
 };

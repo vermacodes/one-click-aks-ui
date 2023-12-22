@@ -8,6 +8,8 @@ import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../UserInterfaceComponents/Container";
 import GradientBorderContainer from "../../../UserInterfaceComponents/GradientBorderContainer";
+import Tooltip from "../../../UserInterfaceComponents/Tooltip";
+import InactiveDuration from "../InactiveDuration";
 import ManagedServerRegistration from "../ManagedServerRegistration";
 
 type Props = {};
@@ -38,25 +40,29 @@ export default function ManagedServerComponent({}: Props) {
   return (
     <GradientBorderContainer>
       <Container title="Managed Server (Preview)" collapsible={true} hoverEffect={false}>
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex w-full flex-col flex-wrap gap-2">
           {graphResponse && managedServer && (
             <div className="flex flex-wrap items-center gap-2">
-              <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-                <span className="font-bold">Endpoint</span>
-                <span>{managedServer.endpoint}</span>
-              </div>
-              <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-                <span className="font-bold">Status</span>
-                <div className="flex items-center gap-2">
-                  {managedServer.status === "Running" && <FaCheckCircle className="text-green-600" />}
-                  {managedServer.status}
+              <Tooltip message="Your server's endpoint. Its accessible on https" delay={500}>
+                <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
+                  <span>{managedServer.endpoint}</span>
                 </div>
-              </div>
-              <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-                <span className="font-bold">Region</span>
-                <span>{managedServer.region}</span>
-              </div>
+              </Tooltip>
+              <Tooltip message="Server Status" delay={500}>
+                <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
+                  <div className="flex items-center gap-2">
+                    {managedServer.status === "Running" && <FaCheckCircle className="text-green-600" />}
+                    {managedServer.status}
+                  </div>
+                </div>
+              </Tooltip>
+              <Tooltip message="Azure Region" delay={500}>
+                <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
+                  <span>{managedServer.region}</span>
+                </div>
+              </Tooltip>
               <Checkbox
+                key={"autoDeploy"}
                 tooltipDelay={500}
                 tooltipMessage="Server will be deployed again when you become active if it was automatically destroyed due to inactivity."
                 label="Auto Deploy"
@@ -66,6 +72,7 @@ export default function ManagedServerComponent({}: Props) {
                 disabled={isLoading || isFetching || isError || lock}
               />
               <Checkbox
+                key={"autoDestroy"}
                 tooltipDelay={500}
                 tooltipMessage="Server will be will be automatically destroyed if no activity for an hour."
                 label="Auto Destroy"
@@ -74,6 +81,7 @@ export default function ManagedServerComponent({}: Props) {
                 handleOnChange={() => handleUpdate({ ...managedServer, autoDestroy: !managedServer.autoDestroy })}
                 disabled={isLoading || isFetching || isError || lock}
               />
+              <InactiveDuration managedServer={managedServer} />
             </div>
           )}
           <div className="mt-8 flex gap-4">
