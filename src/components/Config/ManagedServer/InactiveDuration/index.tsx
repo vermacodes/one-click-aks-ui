@@ -44,7 +44,7 @@ export default function ManagedServerInactiveLife({ managedServer }: Props) {
         items={lifespans}
         onItemClick={handleManagedServerInactiveDurationChange}
         renderItem={renderItem}
-        tooltipMessage="The deployment will be automatically deleted after the specified duration."
+        tooltipMessage="The managed server will be automatically deleted if there is no user activity for set duration."
         tooltipDelay={1000}
       />
     </div>
