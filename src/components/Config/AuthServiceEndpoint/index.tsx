@@ -5,18 +5,13 @@ import Container from "../../UserInterfaceComponents/Container";
 type Props = {};
 
 export default function AuthServiceEndpoint({}: Props) {
-  const [baseUrl, setBaseUrl] = useState<string>(
-    "https://actlabs-auth.azurewebsites.net"
-  );
+  const [baseUrl, setBaseUrl] = useState<string>("https://ashisverma-actlabs-aci.eastus.azurecontainer.io");
   const [showEditButton, setShowEditButton] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
 
   useEffect(() => {
     const baseUrlFromLocalStorage = localStorage.getItem("authServiceBaseUrl");
-    if (
-      baseUrlFromLocalStorage != undefined &&
-      baseUrlFromLocalStorage !== ""
-    ) {
+    if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
       setBaseUrl(baseUrlFromLocalStorage);
     }
   }, []);
@@ -37,28 +32,13 @@ export default function AuthServiceEndpoint({}: Props) {
           onMouseLeave={() => setShowEditButton(false)}
           onDoubleClick={() => setEdit(true)}
         >
-          <p
-            className={`${edit && "hidden"} items-center bg-inherit px-1`}
-            onClick={() => setEdit(true)}
-          >
+          <p className={`${edit && "hidden"} items-center bg-inherit px-1`} onClick={() => setEdit(true)}>
             {baseUrl}
           </p>
-          <form
-            className={`${!edit && "hidden"} h-full w-full bg-inherit px-1`}
-            onSubmit={(e) => handleSubmit(e)}
-          >
-            <input
-              className={`h-full w-full bg-inherit outline-none`}
-              value={baseUrl}
-              onChange={(event) => setBaseUrl(event.target.value)}
-            />
+          <form className={`${!edit && "hidden"} h-full w-full bg-inherit px-1`} onSubmit={(e) => handleSubmit(e)}>
+            <input className={`h-full w-full bg-inherit outline-none`} value={baseUrl} onChange={(event) => setBaseUrl(event.target.value)} />
           </form>
-          <button
-            className={`${!showEditButton && "hidden"} ${
-              edit && "hidden"
-            } px-1`}
-            onClick={() => setEdit(true)}
-          >
+          <button className={`${!showEditButton && "hidden"} ${edit && "hidden"} px-1`} onClick={() => setEdit(true)}>
             <FaEdit />
           </button>
           <button
@@ -72,9 +52,7 @@ export default function AuthServiceEndpoint({}: Props) {
             <FaCheck />
           </button>
           <button
-            className={`${
-              !edit && "hidden"
-            } px-1 text-slate-900 dark:text-slate-100`}
+            className={`${!edit && "hidden"} px-1 text-slate-900 dark:text-slate-100`}
             onClick={() => {
               setEdit(false);
             }}
@@ -84,8 +62,7 @@ export default function AuthServiceEndpoint({}: Props) {
         </div>
         <div className="flex w-full flex-col gap-2">
           <p className="text-xs">
-            Auth Service Endpoint. You probably don't want to edit this unless
-            you know what you are doing. But, if you know, you know. Go ahead.
+            Auth Service Endpoint. You probably don't want to edit this unless you know what you are doing. But, if you know, you know. Go ahead.
           </p>
         </div>
       </div>

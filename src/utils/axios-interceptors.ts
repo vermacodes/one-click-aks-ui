@@ -1,7 +1,4 @@
-import {
-  InteractionRequiredAuthError,
-  PublicClientApplication,
-} from "@azure/msal-browser";
+import { InteractionRequiredAuthError, PublicClientApplication } from "@azure/msal-browser";
 import axios, { AxiosError } from "axios";
 import { actLabsScope, msalConfig } from "../authConfig";
 
@@ -41,9 +38,7 @@ axiosInstance.interceptors.response.use(
 // );
 
 axiosInstance.interceptors.request.use(async function (config) {
-  const token = await getAuthToken().catch((e) =>
-    myInteractionInProgressHandler()
-  );
+  const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
 
   if (config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -123,9 +118,7 @@ async function myInteractionInProgressHandler() {
 // );
 
 authAxiosInstance.interceptors.request.use(async function (config) {
-  const token = await getAuthToken().catch((e) =>
-    myInteractionInProgressHandler()
-  );
+  const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
 
   if (config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -141,5 +134,5 @@ function getAuthServiceBaseUrl(): string {
     return baseUrlFromLocalStorage;
   }
 
-  return "https://actlabs-auth.azurewebsites.net";
+  return "https://ashisverma-actlabs-aci.eastus.azurecontainer.io";
 }
