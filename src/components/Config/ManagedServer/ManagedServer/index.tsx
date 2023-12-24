@@ -45,7 +45,7 @@ export default function ManagedServerComponent({}: Props) {
             <div className="flex flex-wrap items-center gap-2">
               <Tooltip message="Your server's endpoint. Its accessible on https" delay={500}>
                 <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-                  <span>{managedServer.endpoint}</span>
+                  <span>{managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}</span>
                 </div>
               </Tooltip>
               <Tooltip message="Server Status" delay={500}>

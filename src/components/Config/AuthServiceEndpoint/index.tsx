@@ -5,7 +5,7 @@ import Container from "../../UserInterfaceComponents/Container";
 type Props = {};
 
 export default function AuthServiceEndpoint({}: Props) {
-  const [baseUrl, setBaseUrl] = useState<string>("https://ashisverma-actlabs-aci.eastus.azurecontainer.io");
+  const [baseUrl, setBaseUrl] = useState<string>("https://actlabs-hub.eastus.azurecontainer.io");
   const [showEditButton, setShowEditButton] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
 
