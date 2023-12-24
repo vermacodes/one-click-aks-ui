@@ -63,7 +63,7 @@ export function setDefaultValuesInLocalStorage() {
   }
 
   if (localStorage.getItem("authServiceBaseUrl") === null) {
-    localStorage.setItem("authServiceBaseUrl", "https://ashisverma-actlabs-aci.eastus.azurecontainer.io/");
+    localStorage.setItem("authServiceBaseUrl", "https://actlabs-hub.eastus.azurecontainer.io/");
   }
 
   if (localStorage.getItem("baseUrl") === null) {

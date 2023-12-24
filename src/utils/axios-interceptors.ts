@@ -134,5 +134,5 @@ function getAuthServiceBaseUrl(): string {
     return baseUrlFromLocalStorage;
   }
 
-  return "https://ashisverma-actlabs-aci.eastus.azurecontainer.io";
+  return "https://actlabs-hub.eastus.azurecontainer.io";
 }
