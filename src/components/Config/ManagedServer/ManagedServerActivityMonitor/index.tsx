@@ -7,6 +7,7 @@ import { useManagedServer, useManagedServerActivityUpdate } from "../../../../ho
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);
   const isPageVisibleRef = useRef(isPageVisible);
+  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
   const { data: managedServer } = useManagedServer();
   const { mutate: updateActivity } = useManagedServerActivityUpdate();
@@ -31,6 +32,13 @@ export default function ManagedServerActivityMonitor() {
     }
 
     isPageVisibleRef.current = isPageVisible;
+
+    return () => {
+      if (timeoutIdRef.current !== null) {
+        console.log("Clearing timeout.");
+        clearTimeout(timeoutIdRef.current);
+      }
+    };
   }, [isPageVisible]);
 
   /**
@@ -44,7 +52,7 @@ export default function ManagedServerActivityMonitor() {
     // if managed server was auto destroyed and the page is visible, auto create a new one
     if (managedServer.status === "AutoDestroyed" && isPageVisible && managedServer.autoCreate) {
       // wait for 10 seconds before creating a new managed server
-      setTimeout(() => {
+      timeoutIdRef.current = setTimeout(() => {
         if (isPageVisibleRef.current) {
           console.log("Auto creating a new managed server.");
           handleDeploy(managedServer);
