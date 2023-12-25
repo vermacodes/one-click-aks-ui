@@ -57,7 +57,6 @@ export default function ManagedServerActivityMonitor() {
   useEffect(() => {
     function handleVisibilityChange() {
       setPageVisible(!document.hidden);
-      console.log("Page visibility changed to: ", !document.hidden);
     }
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
