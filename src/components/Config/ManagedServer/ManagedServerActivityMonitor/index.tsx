@@ -23,6 +23,8 @@ export default function ManagedServerActivityMonitor() {
   useEffect(() => {
     if (isPageVisible) {
       queryClient.invalidateQueries("get-managed-server");
+      queryClient.invalidateQueries("server-status");
+
       if (managedServer !== undefined) {
         updateActivity(managedServer.userPrincipalName);
       }
