@@ -454,3 +454,8 @@ export type ManagedServer = {
   autoDestroy: boolean;
   inactivityDurationInSeconds: number;
 };
+
+export type ServerHosting = {
+  environment: "docker" | "custom" | "azure";
+  endpoint: string;
+};
