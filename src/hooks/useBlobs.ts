@@ -17,19 +17,19 @@ export function useSharedMockCases() {
   });
 }
 
-function getTemplates(): Promise<AxiosResponse<Lab[]>> {
-  return axiosInstance("lab/my");
-}
+// function getTemplates(): Promise<AxiosResponse<Lab[]>> {
+//   return axiosInstance("lab/my");
+// }
 
-export function useTemplates() {
-  return useQuery("my-templates", getTemplates, {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-    cacheTime: Infinity,
-    staleTime: Infinity,
-  });
-}
+// export function useTemplates() {
+//   return useQuery("my-templates", getTemplates, {
+//     select: (data): Lab[] => {
+//       return data.data;
+//     },
+//     cacheTime: Infinity,
+//     staleTime: Infinity,
+//   });
+// }
 
 function getSharedTemplates(): Promise<AxiosResponse<Lab[]>> {
   return authAxiosInstance("lab/public/publiclab");
@@ -136,36 +136,6 @@ export function useDeleteLab() {
   });
 }
 
-// function deletePublicLab(lab: Lab) {
-//   return authAxiosInstance.delete(`lab/public/${lab.type}/${lab.id}`);
-// }
-
-// // TODO: Optimistic updates
-// export function useDeletePublicLab() {
-//   const queryClient = useQueryClient();
-//   return useMutation(deletePublicLab, {
-//     onSuccess: () => {
-//       queryClient.invalidateQueries("get-publiclabs");
-//     },
-//   });
-// }
-
-// function deleteProtectedLab(lab: Lab) {
-//   return authAxiosInstance.delete(`lab/protected/${lab.type}/${lab.id}`);
-// }
-
-// // TODO: Optimistic updates
-// export function useDeleteProtectedLab() {
-//   const queryClient = useQueryClient();
-//   return useMutation(deleteProtectedLab, {
-//     onSuccess: () => {
-//       queryClient.invalidateQueries("get-mockcases");
-//       queryClient.invalidateQueries("get-readinesslabs");
-//       queryClient.invalidateQueries("get-all-readiness-labs-redacted");
-//     },
-//   });
-// }
-
 function createMyLab(lab: Lab): Promise<AxiosResponse<Lab[]>> {
   return axiosInstance.post("/lab", lab);
 }
@@ -204,24 +174,14 @@ function getVersionsByTypeAndId({
   typeOfLab: string | undefined;
   categoryOfLab: string;
 }): Promise<AxiosResponse<Lab[]>> {
-  return authAxiosInstance.get(
-    `lab/${categoryOfLab}/versions/${typeOfLab}/${id}`
-  );
+  return authAxiosInstance.get(`lab/${categoryOfLab}/versions/${typeOfLab}/${id}`);
 }
 
-export function useGetVersionsById(
-  id: string | undefined,
-  typeOfLab: string | undefined,
-  categoryOfLab: string = "public"
-) {
+export function useGetVersionsById(id: string | undefined, typeOfLab: string | undefined, categoryOfLab: string = "public") {
   const queryKey = ["lab-versions", id, typeOfLab, categoryOfLab];
-  return useQuery(
-    queryKey,
-    () => getVersionsByTypeAndId({ id, typeOfLab, categoryOfLab }),
-    {
-      select: (data): Lab[] => {
-        return data.data;
-      },
-    }
-  );
+  return useQuery(queryKey, () => getVersionsByTypeAndId({ id, typeOfLab, categoryOfLab }), {
+    select: (data): Lab[] => {
+      return data.data;
+    },
+  });
 }

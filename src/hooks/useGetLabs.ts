@@ -2,14 +2,7 @@ import { useState } from "react";
 import { UseQueryResult } from "react-query";
 import { Lab, LabType } from "../dataStructures";
 import { useGetReadinessLabsRedactedByUserId } from "./useAssignment";
-import {
-  useChallengeLabs,
-  usePrivateLabs,
-  useReadinessLabs,
-  useSharedMockCases,
-  useSharedTemplates,
-  useTemplates,
-} from "./useBlobs";
+import { useChallengeLabs, usePrivateLabs, useReadinessLabs, useSharedMockCases, useSharedTemplates } from "./useBlobs";
 import { useGetMyChallengeLabsRedacted } from "./useChallenge";
 
 export function useGetLabs() {
@@ -24,8 +17,8 @@ export function useGetLabs() {
     privatelab: usePrivateLabs(),
     publiclab: useSharedTemplates(),
     mockcase: useSharedMockCases(),
-    mylabs: useTemplates(), // Deprecated
-    template: useTemplates(),
+    // mylabs: useTemplates(), // Deprecated
+    // template: useTemplates(),
     readinesslab: useReadinessLabs(),
     challengelab: useChallengeLabs(),
     assignment: useGetReadinessLabsRedactedByUserId(userId),
