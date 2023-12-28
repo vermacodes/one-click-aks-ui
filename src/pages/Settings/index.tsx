@@ -5,6 +5,7 @@ import AzureSubscriptionSetting from "../../components/Config/AzureSubscriptionS
 import ManagedServer from "../../components/Config/ManagedServer/ManagedServer";
 import ResetActionStatus from "../../components/Config/ResetActionStatus";
 import ResetServerCache from "../../components/Config/ResetServerCache";
+import ServerConfig from "../../components/Config/Server/ServerConfig";
 import ServerEndpoint from "../../components/Config/ServerEndpoint";
 import ServerStatus from "../../components/Config/ServerStatus";
 import StorageAccount from "../../components/Config/StorageAccount";
@@ -21,6 +22,7 @@ export default function Settings() {
   return (
     <PageLayout heading="Settings">
       <div className="mb-4 flex flex-col gap-4">
+        <ServerConfig />
         <ServerStatus />
         <ManagedServer />
         <ServerEndpoint />
