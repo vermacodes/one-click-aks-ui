@@ -22,7 +22,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
   // }, []);
 
   return (
-    <Container title="Server Environment" collapsible={true} hoverEffect={false} additionalClasses="border dark:border-slate-700 border-slate-300">
+    <Container title="Environment" collapsible={true} hoverEffect={false} additionalClasses="border dark:border-slate-700 border-slate-300">
       <div className="flex w-full flex-col gap-2">
         <div className="flex flex-wrap items-center justify-end gap-2">
           <Checkbox
