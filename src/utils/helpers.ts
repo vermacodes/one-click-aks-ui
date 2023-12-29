@@ -1,6 +1,6 @@
 import ansiHTML from "ansi-to-html";
 import DOMPurify from "dompurify";
-import { DeploymentType } from "../dataStructures";
+import { DeploymentType, ServerHosting } from "../dataStructures";
 
 // Function returns the new epoch time for deployment destroy time.
 export function calculateNewEpochTimeForDeployment(deployment: DeploymentType) {
@@ -66,8 +66,14 @@ export function setDefaultValuesInLocalStorage() {
     localStorage.setItem("actlabsHubBaseUrl", "https://actlabs-hub.eastus.azurecontainer.io/");
   }
 
-  if (localStorage.getItem("baseUrl") === null) {
-    localStorage.setItem("baseUrl", "http://localhost:8880/");
+  if (localStorage.getItem("serverHosting") === null) {
+    localStorage.setItem(
+      "serverHosting",
+      JSON.stringify({
+        endpoint: "http://localhost:8880/",
+        environment: "docker",
+      } as ServerHosting)
+    );
   }
 }
 

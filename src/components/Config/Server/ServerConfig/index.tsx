@@ -46,7 +46,6 @@ export default function ServerConfig({}: Props) {
       <div className="flex flex-col gap-4 pb-4">
         <ServerStatus />
         <ServerEnvironment serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
-        {/* {serverHosting.environment === "custom" && <CustomDeployment serverHosting={serverHosting} setServerHosting={setServerHosting} />} */}
         {serverHosting.environment === "docker" && (
           <Docker serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
         )}

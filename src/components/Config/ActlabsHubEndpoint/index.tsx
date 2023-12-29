@@ -54,7 +54,7 @@ export default function ActlabsHubEndpoint({}: Props) {
               <Button
                 variant="primary-icon"
                 onClick={() => {
-                  localStorage.setItem("baseUrl", baseUrl);
+                  localStorage.setItem("actlabsHubBaseUrl", baseUrl);
                   setEdit(false);
                   window.location.reload();
                 }}

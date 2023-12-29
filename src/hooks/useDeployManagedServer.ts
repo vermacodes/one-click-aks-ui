@@ -3,7 +3,7 @@ import { isAxiosError } from "axios";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import { ManagedServer } from "../dataStructures";
+import { ManagedServer, ServerHosting } from "../dataStructures";
 import { useCreateManagedServer, useDestroyManagedServer, useUpdateManagedServer } from "../hooks/useManagedServer";
 import { useResetServerCache } from "../hooks/useServerCache";
 import { isManagedServer } from "../utils/typeGuards";
@@ -16,7 +16,13 @@ export function useDeployManagedServer() {
   const { mutateAsync: destroyManagedServer } = useDestroyManagedServer();
 
   const handleSwitch = (baseUrl: string) => {
-    localStorage.setItem("baseUrl", baseUrl);
+    localStorage.setItem(
+      "serverHosting",
+      JSON.stringify({
+        endpoint: baseUrl,
+        environment: "azure",
+      } as ServerHosting)
+    );
     window.location.reload();
     resetServerCache().finally(() => {
       const queryClient = useQueryClient();
