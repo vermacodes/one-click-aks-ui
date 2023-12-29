@@ -1,10 +1,10 @@
 import { AxiosResponse } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ManagedServer } from "../dataStructures";
-import { authAxiosInstance } from "../utils/axios-interceptors";
+import { actlabsHubAxiosInstance } from "../utils/axios-interceptors";
 
 function getManagedServer(): Promise<AxiosResponse<ManagedServer>> {
-  return authAxiosInstance.get("server");
+  return actlabsHubAxiosInstance.get("server");
 }
 
 export function useManagedServer() {
@@ -18,12 +18,14 @@ export function useManagedServer() {
 }
 
 export function useManagedServerActivityUpdate() {
-  return useMutation((userPrincipalName: string) => authAxiosInstance.put(`server/activity/${userPrincipalName}`));
+  return useMutation((userPrincipalName: string) =>
+    actlabsHubAxiosInstance.put(`server/activity/${userPrincipalName}`)
+  );
 }
 
 export function useDestroyManagedServer() {
   const queryClient = useQueryClient();
-  return useMutation(() => authAxiosInstance.delete("server"), {
+  return useMutation(() => actlabsHubAxiosInstance.delete("server"), {
     onSuccess: () => {
       queryClient.invalidateQueries("get-managed-server");
       queryClient.invalidateQueries("server-status");
@@ -33,27 +35,35 @@ export function useDestroyManagedServer() {
 
 export function useCreateManagedServer() {
   const queryClient = useQueryClient();
-  return useMutation((managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> => authAxiosInstance.put("server", managedServer), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("get-managed-server");
-      queryClient.invalidateQueries("server-status");
-    },
-  });
+  return useMutation(
+    (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
+      actlabsHubAxiosInstance.put("server", managedServer),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("get-managed-server");
+        queryClient.invalidateQueries("server-status");
+      },
+    }
+  );
 }
 
 export function useUpdateManagedServer() {
   const queryClient = useQueryClient();
-  return useMutation((managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> => authAxiosInstance.put("server/update", managedServer), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("get-managed-server");
-      queryClient.invalidateQueries("server-status");
-    },
-  });
+  return useMutation(
+    (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
+      actlabsHubAxiosInstance.put("server/update", managedServer),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("get-managed-server");
+        queryClient.invalidateQueries("server-status");
+      },
+    }
+  );
 }
 
 export function useRegisterSubscription() {
   const queryClient = useQueryClient();
-  return useMutation((subscriptionId: string) => authAxiosInstance.put(`server/register/${subscriptionId}`), {
+  return useMutation((subscriptionId: string) => actlabsHubAxiosInstance.put(`server/register/${subscriptionId}`), {
     onSuccess: () => {
       queryClient.invalidateQueries("get-managed-server");
       queryClient.invalidateQueries("server-status");

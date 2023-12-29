@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
-import { useDeployManagedServer } from "../../../../hooks/useDeployManagedServer";
-import useInterval from "../../../../hooks/useInterval";
-import { useManagedServer, useManagedServerActivityUpdate } from "../../../../hooks/useManagedServer";
+import { useDeployManagedServer } from "../../../../../hooks/useDeployManagedServer";
+import useInterval from "../../../../../hooks/useInterval";
+import { useManagedServer, useManagedServerActivityUpdate } from "../../../../../hooks/useManagedServer";
 
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);

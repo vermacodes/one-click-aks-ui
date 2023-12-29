@@ -1,10 +1,10 @@
 import { AxiosResponse } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Challenge, Lab } from "../dataStructures";
-import { authAxiosInstance } from "../utils/axios-interceptors";
+import { actlabsHubAxiosInstance } from "../utils/axios-interceptors";
 
 function getChallenges(): Promise<AxiosResponse<Challenge[]>> {
-  return authAxiosInstance("challenge");
+  return actlabsHubAxiosInstance("challenge");
 }
 
 export function useGetChallenges() {
@@ -18,7 +18,7 @@ export function useGetChallenges() {
 }
 
 function getMyChallenges(): Promise<AxiosResponse<Challenge[]>> {
-  return authAxiosInstance("challenge/my");
+  return actlabsHubAxiosInstance("challenge/my");
 }
 
 export function useGetMyChallenges() {
@@ -32,7 +32,7 @@ export function useGetMyChallenges() {
 }
 
 function upsertChallenges(challenges: Challenge[]) {
-  return authAxiosInstance.post("challenge", challenges);
+  return actlabsHubAxiosInstance.post("challenge", challenges);
 }
 
 export function useUpsertChallenges() {
@@ -47,7 +47,7 @@ export function useUpsertChallenges() {
 }
 
 function deleteChallenge(challengeId: string) {
-  return authAxiosInstance.delete(`challenge/${challengeId}`);
+  return actlabsHubAxiosInstance.delete(`challenge/${challengeId}`);
 }
 
 export function useDeleteChallenge() {
@@ -61,59 +61,45 @@ export function useDeleteChallenge() {
   });
 }
 
-function getChallengesByLabId(
-  labId: string
-): Promise<AxiosResponse<Challenge[]>> {
-  return authAxiosInstance.get(`challenge/lab/${labId}`);
+function getChallengesByLabId(labId: string): Promise<AxiosResponse<Challenge[]>> {
+  return actlabsHubAxiosInstance.get(`challenge/lab/${labId}`);
 }
 
 export function useGetChallengesByLabId(labId: string) {
-  return useQuery(
-    ["get-challenges-by-lab-id", labId],
-    () => getChallengesByLabId(labId),
-    {
-      select: (data): Challenge[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-      enabled: !!labId,
-    }
-  );
+  return useQuery(["get-challenges-by-lab-id", labId], () => getChallengesByLabId(labId), {
+    select: (data): Challenge[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+    enabled: !!labId,
+  });
 }
 
 function getAllChallengeLabsRedacted(): Promise<AxiosResponse<Lab[]>> {
-  return authAxiosInstance.get("challenge/labs");
+  return actlabsHubAxiosInstance.get("challenge/labs");
 }
 
 export function useGetAllChallengeLabsRedacted() {
-  return useQuery(
-    "get-all-challenge-labs-redacted",
-    getAllChallengeLabsRedacted,
-    {
-      select: (data): Lab[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery("get-all-challenge-labs-redacted", getAllChallengeLabsRedacted, {
+    select: (data): Lab[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 }
 
 function getMyChallengeLabsRedacted(): Promise<AxiosResponse<Lab[]>> {
-  return authAxiosInstance.get(`challenge/labs/my`);
+  return actlabsHubAxiosInstance.get(`challenge/labs/my`);
 }
 
 export function useGetMyChallengeLabsRedacted() {
-  return useQuery(
-    "get-my-challenge-labs-redacted",
-    getMyChallengeLabsRedacted,
-    {
-      select: (data): Lab[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery("get-my-challenge-labs-redacted", getMyChallengeLabsRedacted, {
+    select: (data): Lab[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 }

@@ -62,8 +62,8 @@ export function setDefaultValuesInLocalStorage() {
     localStorage.setItem("autoScroll", "true");
   }
 
-  if (localStorage.getItem("authServiceBaseUrl") === null) {
-    localStorage.setItem("authServiceBaseUrl", "https://actlabs-hub.eastus.azurecontainer.io/");
+  if (localStorage.getItem("actlabsHubBaseUrl") === null) {
+    localStorage.setItem("actlabsHubBaseUrl", "https://actlabs-hub.eastus.azurecontainer.io/");
   }
 
   if (localStorage.getItem("baseUrl") === null) {

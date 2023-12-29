@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MdDoneOutline, MdOutlineContentCopy } from "react-icons/md";
 import { SiMicrosoftazure } from "react-icons/si";
 import { toast } from "react-toastify";
-import Button from "../../../UserInterfaceComponents/Button";
+import Button from "../../../../UserInterfaceComponents/Button";
 
 type Props = {};
 

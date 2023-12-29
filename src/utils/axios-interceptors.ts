@@ -1,6 +1,7 @@
 import { InteractionRequiredAuthError, PublicClientApplication } from "@azure/msal-browser";
 import axios, { AxiosError } from "axios";
 import { actLabsScope, msalConfig } from "../authConfig";
+import { ServerHosting } from "../dataStructures";
 
 const pca = new PublicClientApplication(msalConfig);
 
@@ -20,23 +21,6 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// axiosInstance.interceptors.request.use(
-//   async (config: AxiosRequestConfig) => {
-//     const authToken = await getAuthToken().catch((e) =>
-//       myInteractionInProgressHandler()
-//     );
-//     if (config.headers) {
-//       config.headers.Authorization = `Bearer ${authToken}`;
-//     } else {
-//       config.headers = { Authorization: `Bearer ${authToken}` };
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
 axiosInstance.interceptors.request.use(async function (config) {
   const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
 
@@ -49,18 +33,22 @@ axiosInstance.interceptors.request.use(async function (config) {
 });
 
 function getBaseUrl(): string {
-  const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-  if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
-    return baseUrlFromLocalStorage;
+  var serverHosting: ServerHosting = {
+    environment: "docker",
+    endpoint: "http://localhost:8880/",
+  };
+
+  const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
+  if (serverHostingFromLocalStorage != null) {
+    serverHosting = JSON.parse(serverHostingFromLocalStorage);
   }
 
-  return "http://localhost:8880/";
+  return serverHosting.endpoint;
 }
 
 // ACTLabs Auth Service
-
-export const authAxiosInstance = axios.create({
-  baseURL: getAuthServiceBaseUrl(),
+export const actlabsHubAxiosInstance = axios.create({
+  baseURL: getActlabsHubBaseUrl(),
 });
 
 // Function to get auth token. This function is called by the axios interceptor
@@ -99,25 +87,7 @@ async function myInteractionInProgressHandler() {
   return await getAuthToken();
 }
 
-// // Axios interceptor to add the auth token to outgoing requests
-// authAxiosInstance.interceptors.request.use(
-//   async (config: AxiosRequestConfig) => {
-//     const authToken = await getAuthToken().catch((e) =>
-//       myInteractionInProgressHandler()
-//     );
-//     if (config.headers) {
-//       config.headers.Authorization = `Bearer ${authToken}`;
-//     } else {
-//       config.headers = { Authorization: `Bearer ${authToken}` };
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-authAxiosInstance.interceptors.request.use(async function (config) {
+actlabsHubAxiosInstance.interceptors.request.use(async function (config) {
   const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
 
   if (config.headers) {
@@ -128,8 +98,8 @@ authAxiosInstance.interceptors.request.use(async function (config) {
   return config;
 });
 
-function getAuthServiceBaseUrl(): string {
-  const baseUrlFromLocalStorage = localStorage.getItem("authServiceBaseUrl");
+function getActlabsHubBaseUrl(): string {
+  const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
   if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
     return baseUrlFromLocalStorage;
   }

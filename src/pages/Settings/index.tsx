@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import AuthServiceEndpoint from "../../components/Config/AuthServiceEndpoint";
+import ActlabsHubEndpoint from "../../components/Config/ActlabsHubEndpoint";
 import AzureRegion from "../../components/Config/AzureRegion";
 import AzureSubscriptionSetting from "../../components/Config/AzureSubscriptionSetting";
-import ManagedServer from "../../components/Config/ManagedServer/ManagedServer";
 import ResetActionStatus from "../../components/Config/ResetActionStatus";
 import ResetServerCache from "../../components/Config/ResetServerCache";
-import ServerEndpoint from "../../components/Config/ServerEndpoint";
-import ServerStatus from "../../components/Config/ServerStatus";
+import ServerConfig from "../../components/Config/Server/ServerConfig";
 import StorageAccount from "../../components/Config/StorageAccount";
 import TerraformInit from "../../components/Config/TerraformInit";
 import TerraformWorkspaces from "../../components/Config/TerraformWorkspaces";
@@ -21,11 +19,12 @@ export default function Settings() {
   return (
     <PageLayout heading="Settings">
       <div className="mb-4 flex flex-col gap-4">
-        <ServerStatus />
+        <ServerConfig />
+        {/* <ServerStatus />
         <ManagedServer />
-        <ServerEndpoint />
+        <ServerEndpoint /> */}
         {/* <WebSocketEndpoint /> */}
-        <AuthServiceEndpoint />
+        <ActlabsHubEndpoint />
         <StorageAccount />
         <AzureSubscriptionSetting />
         <AzureRegion />

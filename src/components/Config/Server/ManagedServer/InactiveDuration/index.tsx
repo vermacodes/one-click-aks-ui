@@ -1,6 +1,6 @@
-import { ManagedServer } from "../../../../dataStructures";
-import { useDeployManagedServer } from "../../../../hooks/useDeployManagedServer";
-import DropdownSelect from "../../../UserInterfaceComponents/DropdownSelect";
+import { ManagedServer } from "../../../../../dataStructures";
+import { useDeployManagedServer } from "../../../../../hooks/useDeployManagedServer";
+import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 
 type Props = {
   managedServer: ManagedServer;
