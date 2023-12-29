@@ -61,9 +61,8 @@ export default function ServerEndpoint({ serverHosting, setServerHosting, editab
               <Button
                 variant="primary-icon"
                 onClick={() => {
-                  localStorage.setItem("baseUrl", baseUrl);
                   setEdit(false);
-                  window.location.reload();
+                  handleSwitch(baseUrl);
                 }}
               >
                 <FaCheck />

@@ -30,19 +30,6 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
     >
       <div className="flex w-full flex-col gap-2">
         <div className="flex flex-wrap items-center justify-end gap-4">
-          {/* <Checkbox
-            id="custom"
-            checked={serverHosting.environment === "custom"}
-            disabled={false}
-            handleOnChange={() =>
-              setServerHosting({
-                environment: "custom",
-                endpoint: "http://localhost:8881/",
-              })
-            }
-            label={"Custom"}
-            key={"custom-key"}
-          /> */}
           <Checkbox
             id="docker"
             checked={serverHosting.environment === "docker"}
