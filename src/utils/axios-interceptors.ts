@@ -140,7 +140,7 @@ authAxiosInstance.interceptors.request.use(async function (config) {
 });
 
 function getAuthServiceBaseUrl(): string {
-  const baseUrlFromLocalStorage = localStorage.getItem("authServiceBaseUrl");
+  const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
   if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
     return baseUrlFromLocalStorage;
   }

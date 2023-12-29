@@ -3,7 +3,6 @@ import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../../dataStructures";
 import { useResetServerCache } from "../../../../hooks/useServerCache";
 import Container from "../../../UserInterfaceComponents/Container";
-import GradientBorderContainer from "../../../UserInterfaceComponents/GradientBorderContainer";
 import Docker from "../Docker";
 import ManagedServerComponent from "../ManagedServer/ManagedServer";
 import ServerEnvironment from "../ServerEnvironment";
@@ -43,31 +42,29 @@ export default function ServerConfig({}: Props) {
   }
 
   return (
-    <GradientBorderContainer>
-      <Container title="Server" hoverEffect={false}>
-        <div className="flex flex-col gap-4 pb-4">
-          <ServerStatus />
-          <ServerEnvironment serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
-          {/* {serverHosting.environment === "custom" && <CustomDeployment serverHosting={serverHosting} setServerHosting={setServerHosting} />} */}
-          {serverHosting.environment === "docker" && (
-            <Docker serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
-          )}
-          {serverHosting.environment === "azure" && (
-            <ManagedServerComponent serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
-          )}
-        </div>
-        <p className="mt-4 text-sm">
-          ✨ To know more about server hosting{" "}
-          <a
-            className="text-sky-500 underline"
-            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started?anchor=option-1%3A-hosting-the-server-on-docker"
-            target="_blank"
-          >
-            read our docs here
-          </a>
-          .
-        </p>
-      </Container>
-    </GradientBorderContainer>
+    <Container title="Server">
+      <div className="flex flex-col gap-4 pb-4">
+        <ServerStatus />
+        <ServerEnvironment serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
+        {/* {serverHosting.environment === "custom" && <CustomDeployment serverHosting={serverHosting} setServerHosting={setServerHosting} />} */}
+        {serverHosting.environment === "docker" && (
+          <Docker serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
+        )}
+        {serverHosting.environment === "azure" && (
+          <ManagedServerComponent serverHosting={serverHosting} setServerHosting={handleServerHostingChange} />
+        )}
+      </div>
+      <p className="mt-4 text-sm">
+        ✨ To know more about server hosting{" "}
+        <a
+          className="text-sky-500 underline"
+          href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started?anchor=option-1%3A-hosting-the-server-on-docker"
+          target="_blank"
+        >
+          read our docs here
+        </a>
+        .
+      </p>
+    </Container>
   );
 }

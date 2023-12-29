@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import AuthServiceEndpoint from "../../components/Config/AuthServiceEndpoint";
+import ActlabsHubEndpoint from "../../components/Config/ActlabsHubEndpoint";
 import AzureRegion from "../../components/Config/AzureRegion";
 import AzureSubscriptionSetting from "../../components/Config/AzureSubscriptionSetting";
 import ResetActionStatus from "../../components/Config/ResetActionStatus";
@@ -24,7 +24,7 @@ export default function Settings() {
         <ManagedServer />
         <ServerEndpoint /> */}
         {/* <WebSocketEndpoint /> */}
-        <AuthServiceEndpoint />
+        <ActlabsHubEndpoint />
         <StorageAccount />
         <AzureSubscriptionSetting />
         <AzureRegion />
