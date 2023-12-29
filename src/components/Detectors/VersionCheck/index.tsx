@@ -11,7 +11,7 @@ export default function VersionCheck() {
     }
 
     const versionNumber = parseInt(version);
-    return versionNumber >= 20231208;
+    return versionNumber >= 20231229;
   }
 
   if (data === undefined || isFetching) {
@@ -29,8 +29,8 @@ export default function VersionCheck() {
   return (
     <div className="my-4">
       <div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
-        <strong>New Version Released:</strong> The UI has been updated and needs newer version of server. Running old version of server may result in
-        unexpected behavior.
+        <strong>New Version Released:</strong> The UI has been updated and needs newer version of server. Running old
+        version of server may result in unexpected behavior.
         <br />
         <a
           href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/849282/Getting-Started"
