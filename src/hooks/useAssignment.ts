@@ -1,10 +1,10 @@
 import { AxiosResponse } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Assignment, BulkAssignment, Lab } from "../dataStructures";
-import { authAxiosInstance } from "../utils/axios-interceptors";
+import { actlabsHubAxiosInstance } from "../utils/axios-interceptors";
 
 function getAssignments(): Promise<AxiosResponse<Assignment[]>> {
-  return authAxiosInstance("assignment");
+  return actlabsHubAxiosInstance("assignment");
 }
 
 export function useGetAssignments() {
@@ -18,7 +18,7 @@ export function useGetAssignments() {
 }
 
 function getMyAssignments(): Promise<AxiosResponse<Assignment[]>> {
-  return authAxiosInstance("assignment/my");
+  return actlabsHubAxiosInstance("assignment/my");
 }
 
 export function useGetMyAssignments() {
@@ -32,7 +32,7 @@ export function useGetMyAssignments() {
 }
 
 function createAssignments(bulkAssignment: BulkAssignment) {
-  return authAxiosInstance.post("assignment", bulkAssignment);
+  return actlabsHubAxiosInstance.post("assignment", bulkAssignment);
 }
 
 export function useCreateAssignments() {
@@ -47,7 +47,7 @@ export function useCreateAssignments() {
 }
 
 function createMyAssignments(bulkAssignment: BulkAssignment) {
-  return authAxiosInstance.post("assignment/my", bulkAssignment);
+  return actlabsHubAxiosInstance.post("assignment/my", bulkAssignment);
 }
 
 export function useCreateMyAssignments() {
@@ -62,7 +62,7 @@ export function useCreateMyAssignments() {
 }
 
 function deleteAssignment(bulkAssignment: string[]) {
-  return authAxiosInstance.delete(`assignment`, { data: bulkAssignment });
+  return actlabsHubAxiosInstance.delete(`assignment`, { data: bulkAssignment });
 }
 
 export function useDeleteAssignment() {
@@ -77,7 +77,7 @@ export function useDeleteAssignment() {
 }
 
 function deleteMyAssignment(bulkAssignment: string[]) {
-  return authAxiosInstance.delete(`assignment/my`, { data: bulkAssignment });
+  return actlabsHubAxiosInstance.delete(`assignment/my`, { data: bulkAssignment });
 }
 
 export function useDeleteMyAssignment() {
@@ -92,7 +92,7 @@ export function useDeleteMyAssignment() {
 }
 
 function getUserAssignedLabs(): Promise<AxiosResponse<Lab[]>> {
-  return authAxiosInstance.get("assignment/labs/my");
+  return actlabsHubAxiosInstance.get("assignment/labs/my");
 }
 
 export function useGetUserAssignedLabs() {
@@ -105,80 +105,58 @@ export function useGetUserAssignedLabs() {
   });
 }
 
-function getAssignmentsByUserId(
-  userId: string
-): Promise<AxiosResponse<Assignment[]>> {
-  return authAxiosInstance.get(`assignment/user/${userId}`);
+function getAssignmentsByUserId(userId: string): Promise<AxiosResponse<Assignment[]>> {
+  return actlabsHubAxiosInstance.get(`assignment/user/${userId}`);
 }
 
 export function useGetAssignmentsByUserId(userId: string) {
-  return useQuery(
-    ["get-assignments-by-user-id", userId],
-    () => getAssignmentsByUserId(userId),
-    {
-      select: (data): Assignment[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery(["get-assignments-by-user-id", userId], () => getAssignmentsByUserId(userId), {
+    select: (data): Assignment[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 }
 
-function getAssignmentsByLabId(
-  labId: string
-): Promise<AxiosResponse<Assignment[]>> {
-  return authAxiosInstance.get(`assignment/lab/${labId}`);
+function getAssignmentsByLabId(labId: string): Promise<AxiosResponse<Assignment[]>> {
+  return actlabsHubAxiosInstance.get(`assignment/lab/${labId}`);
 }
 
 export function useGetAssignmentsByLabId(labId: string) {
-  return useQuery(
-    ["get-assignments-by-lab-id", labId],
-    () => getAssignmentsByLabId(labId),
-    {
-      select: (data): Assignment[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery(["get-assignments-by-lab-id", labId], () => getAssignmentsByLabId(labId), {
+    select: (data): Assignment[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 }
 
 function getAllReadinessLabsRedacted(): Promise<AxiosResponse<Lab[]>> {
-  return authAxiosInstance.get("assignment/labs");
+  return actlabsHubAxiosInstance.get("assignment/labs");
 }
 
 export function useGetAllReadinessLabsRedacted() {
-  return useQuery(
-    "get-all-readiness-labs-redacted",
-    getAllReadinessLabsRedacted,
-    {
-      select: (data): Lab[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery("get-all-readiness-labs-redacted", getAllReadinessLabsRedacted, {
+    select: (data): Lab[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 }
 
-function getReadinessLabsRedactedByUserId(
-  userId: string
-): Promise<AxiosResponse<Lab[]>> {
-  return authAxiosInstance.get(`assignment/labs/${userId}`);
+function getReadinessLabsRedactedByUserId(userId: string): Promise<AxiosResponse<Lab[]>> {
+  return actlabsHubAxiosInstance.get(`assignment/labs/${userId}`);
 }
 
 export function useGetReadinessLabsRedactedByUserId(userId: string) {
-  return useQuery(
-    ["get-readiness-labs-redacted-by-user-id", userId],
-    () => getReadinessLabsRedactedByUserId(userId),
-    {
-      select: (data): Lab[] => {
-        return data.data;
-      },
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    }
-  );
+  return useQuery(["get-readiness-labs-redacted-by-user-id", userId], () => getReadinessLabsRedactedByUserId(userId), {
+    select: (data): Lab[] => {
+      return data.data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 }

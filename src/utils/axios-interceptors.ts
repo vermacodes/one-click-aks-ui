@@ -70,8 +70,8 @@ function getBaseUrl(): string {
 
 // ACTLabs Auth Service
 
-export const authAxiosInstance = axios.create({
-  baseURL: getAuthServiceBaseUrl(),
+export const actlabsHubAxiosInstance = axios.create({
+  baseURL: getActlabsHubBaseUrl(),
 });
 
 // Function to get auth token. This function is called by the axios interceptor
@@ -111,7 +111,7 @@ async function myInteractionInProgressHandler() {
 }
 
 // // Axios interceptor to add the auth token to outgoing requests
-// authAxiosInstance.interceptors.request.use(
+// actlabsHubAxiosInstance.interceptors.request.use(
 //   async (config: AxiosRequestConfig) => {
 //     const authToken = await getAuthToken().catch((e) =>
 //       myInteractionInProgressHandler()
@@ -128,7 +128,7 @@ async function myInteractionInProgressHandler() {
 //   }
 // );
 
-authAxiosInstance.interceptors.request.use(async function (config) {
+actlabsHubAxiosInstance.interceptors.request.use(async function (config) {
   const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
 
   if (config.headers) {
@@ -139,7 +139,7 @@ authAxiosInstance.interceptors.request.use(async function (config) {
   return config;
 });
 
-function getAuthServiceBaseUrl(): string {
+function getActlabsHubBaseUrl(): string {
   const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
   if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
     return baseUrlFromLocalStorage;
