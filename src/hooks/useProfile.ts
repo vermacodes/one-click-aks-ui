@@ -1,13 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Profile, ProfileMutation } from "../dataStructures";
-import { authAxiosInstance } from "../utils/axios-interceptors";
+import { actlabsHubAxiosInstance } from "../utils/axios-interceptors";
 
 function getProfile(userPrincipal: string | undefined): Promise<Profile> {
   return typeof userPrincipal === undefined
     ? Promise.reject(new Error("usePrincipal Required"))
-    : authAxiosInstance
-        .get(`profiles/${userPrincipal}`)
-        .then((res) => res.data);
+    : actlabsHubAxiosInstance.get(`profiles/${userPrincipal}`).then((res) => res.data);
 }
 
 export function useGetProfile(userPrincipal: string) {
@@ -19,7 +17,7 @@ export function useGetProfile(userPrincipal: string) {
 }
 
 function getMyProfile(): Promise<Profile> {
-  return authAxiosInstance.get(`profiles/my`).then((res) => res.data);
+  return actlabsHubAxiosInstance.get(`profiles/my`).then((res) => res.data);
 }
 
 export function useGetMyProfile() {
@@ -30,7 +28,7 @@ export function useGetMyProfile() {
 }
 
 function getAllProfilesRedacted(): Promise<Profile[]> {
-  return authAxiosInstance.get(`profilesRedacted`).then((res) => res.data);
+  return actlabsHubAxiosInstance.get(`profilesRedacted`).then((res) => res.data);
 }
 
 export function useGetAllProfilesRedacted() {
@@ -41,7 +39,7 @@ export function useGetAllProfilesRedacted() {
 }
 
 function getAllProfiles(): Promise<Profile[]> {
-  return authAxiosInstance.get(`profiles`).then((res) => res.data);
+  return actlabsHubAxiosInstance.get(`profiles`).then((res) => res.data);
 }
 
 export function useGetAllProfiles() {
@@ -52,9 +50,7 @@ export function useGetAllProfiles() {
 }
 
 function removeRole(role: ProfileMutation): Promise<Profile> {
-  return authAxiosInstance
-    .delete(`profiles/${role.userPrincipal}/${role.role}`)
-    .then((res) => res.data);
+  return actlabsHubAxiosInstance.delete(`profiles/${role.userPrincipal}/${role.role}`).then((res) => res.data);
 }
 
 export function useRemoveRole() {
@@ -68,9 +64,7 @@ export function useRemoveRole() {
 }
 
 function addRole(role: ProfileMutation): Promise<Profile> {
-  return authAxiosInstance
-    .post(`profiles/${role.userPrincipal}/${role.role}`)
-    .then((res) => res.data);
+  return actlabsHubAxiosInstance.post(`profiles/${role.userPrincipal}/${role.role}`).then((res) => res.data);
 }
 
 export function useAddRole() {
@@ -84,7 +78,7 @@ export function useAddRole() {
 }
 
 function createProfile(profile: Profile) {
-  return authAxiosInstance.post(`profiles`, profile);
+  return actlabsHubAxiosInstance.post(`profiles`, profile);
 }
 
 export function useCreateProfile() {

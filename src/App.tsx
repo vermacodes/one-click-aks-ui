@@ -1,10 +1,10 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ManagedServerActivityMonitor from "./components/Config/ManagedServer/ManagedServerActivityMonitor";
 import { AuthProvider } from "./components/Context/AuthContext";
 import { useGlobalStateContext } from "./components/Context/GlobalStateContext";
 import WebSocketContextProvider from "./components/Context/WebSocketContextProvider";
 import RootErrorBoundary from "./components/ErrorBoundaries/RootErrorBoundary";
+import ManagedServerActivityMonitor from "./components/ManagedServer/ManagedServerActivityMonitor";
 import ServerNotification from "./components/ServerNotification";
 import MainLayout from "./layouts/MainLayout";
 

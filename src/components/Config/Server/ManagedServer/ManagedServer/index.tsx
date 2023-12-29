@@ -1,25 +1,37 @@
+import { useEffect } from "react";
 import { FaCheckCircle, FaRocket, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { ManagedServer } from "../../../../dataStructures";
-import { useDeployManagedServer } from "../../../../hooks/useDeployManagedServer";
-import { useManagedServer } from "../../../../hooks/useManagedServer";
-import { useAuth } from "../../../Context/AuthContext";
-import Button from "../../../UserInterfaceComponents/Button";
-import Checkbox from "../../../UserInterfaceComponents/Checkbox";
-import Container from "../../../UserInterfaceComponents/Container";
-import GradientBorderContainer from "../../../UserInterfaceComponents/GradientBorderContainer";
-import Tooltip from "../../../UserInterfaceComponents/Tooltip";
+import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
+import { useDeployManagedServer } from "../../../../../hooks/useDeployManagedServer";
+import { useManagedServer } from "../../../../../hooks/useManagedServer";
+import { useAuth } from "../../../../Context/AuthContext";
+import Button from "../../../../UserInterfaceComponents/Button";
+import Checkbox from "../../../../UserInterfaceComponents/Checkbox";
+import Container from "../../../../UserInterfaceComponents/Container";
+import GradientBorderContainer from "../../../../UserInterfaceComponents/GradientBorderContainer";
+import Tooltip from "../../../../UserInterfaceComponents/Tooltip";
+import ServerEndpoint from "../../ServerEndpoint";
 import InactiveDuration from "../InactiveDuration";
 import ManagedServerRegistration from "../ManagedServerRegistration";
 
-type Props = {};
+type Props = {
+  serverHosting: ServerHosting;
+  setServerHosting: (serverHosting: ServerHosting) => void;
+};
 
-export default function ManagedServerComponent({}: Props) {
+export default function ManagedServerComponent({ serverHosting, setServerHosting }: Props) {
   const { graphResponse } = useAuth();
-
   const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
-
   const { lock, handleDeploy, handleDestroy, handleUpdate } = useDeployManagedServer();
+
+  useEffect(() => {
+    if (managedServer) {
+      setServerHosting({
+        environment: "azure",
+        endpoint: "https://" + managedServer.endpoint + "/",
+      });
+    }
+  }, [managedServer]);
 
   function onDeployClick() {
     if (graphResponse === undefined) {
@@ -39,13 +51,20 @@ export default function ManagedServerComponent({}: Props) {
 
   return (
     <GradientBorderContainer>
-      <Container title="Managed Server (Preview)" collapsible={true} hoverEffect={false}>
+      <Container
+        title="Managed Server (Preview) 🆕"
+        collapsible={true}
+        hoverEffect={false}
+        additionalClasses="border dark:border-slate-700 border-slate-300"
+      >
         <div className="flex w-full flex-col flex-wrap gap-2">
           {graphResponse && managedServer && (
             <div className="flex flex-wrap items-center gap-2">
               <Tooltip message="Your server's endpoint. Its accessible on https" delay={500}>
                 <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-                  <span>{managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}</span>
+                  <span>
+                    {managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}
+                  </span>
                 </div>
               </Tooltip>
               <Tooltip message="Server Status" delay={500}>
@@ -102,6 +121,10 @@ export default function ManagedServerComponent({}: Props) {
             </Button>
           </div>
         </div>
+        <ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />
+        <p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
+          ARO labs only work in Self-Hosted (Docker) environment.
+        </p>
       </Container>
     </GradientBorderContainer>
   );
