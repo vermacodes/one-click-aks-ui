@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
+import { ServerHosting } from "../../../dataStructures";
 import { useDeployManagedServer } from "../../../hooks/useDeployManagedServer";
 import useInterval from "../../../hooks/useInterval";
 import { useManagedServer, useManagedServerActivityUpdate } from "../../../hooks/useManagedServer";
 
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);
+  const [serverHosting, setServerHosting] = useState<ServerHosting>({
+    environment: "docker",
+    endpoint: "http://localhost:8880/",
+  });
+
   const isPageVisibleRef = useRef(isPageVisible);
+  const serverHostingRef = useRef(serverHosting);
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
   const { data: managedServer } = useManagedServer();
@@ -14,6 +21,13 @@ export default function ManagedServerActivityMonitor() {
 
   const { handleDeploy } = useDeployManagedServer();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
+    if (serverHostingFromLocalStorage != undefined && serverHostingFromLocalStorage !== "") {
+      setServerHosting(JSON.parse(serverHostingFromLocalStorage));
+    }
+  }, []);
 
   /**
    * runs when the page visibility changes.
@@ -26,12 +40,13 @@ export default function ManagedServerActivityMonitor() {
       queryClient.invalidateQueries("get-managed-server");
       queryClient.invalidateQueries("server-status");
 
-      if (managedServer !== undefined) {
+      if (managedServer !== undefined && serverHosting.environment === "azure") {
         updateActivity(managedServer.userPrincipalName);
       }
     }
 
     isPageVisibleRef.current = isPageVisible;
+    serverHostingRef.current = serverHosting;
 
     return () => {
       if (timeoutIdRef.current !== null) {
@@ -39,13 +54,13 @@ export default function ManagedServerActivityMonitor() {
         clearTimeout(timeoutIdRef.current);
       }
     };
-  }, [isPageVisible]);
+  }, [isPageVisible, serverHosting]);
 
   /**
    * handles auto creation of a new managed server if the previous one was auto destroyed.
    */
   useEffect(() => {
-    if (managedServer === undefined) {
+    if (managedServer === undefined || serverHosting.environment !== "azure") {
       return;
     }
 
@@ -53,7 +68,7 @@ export default function ManagedServerActivityMonitor() {
     if (managedServer.status === "AutoDestroyed" && isPageVisible && managedServer.autoCreate) {
       // wait for 10 seconds before creating a new managed server
       timeoutIdRef.current = setTimeout(() => {
-        if (isPageVisibleRef.current) {
+        if (isPageVisibleRef.current && serverHostingRef.current.environment === "azure") {
           console.log("Auto creating a new managed server.");
           handleDeploy(managedServer);
         }
@@ -77,7 +92,7 @@ export default function ManagedServerActivityMonitor() {
    * Updates the activity for the managed server every 60 seconds.
    */
   useInterval(() => {
-    if (!isPageVisible || managedServer === undefined) {
+    if (!isPageVisible || managedServer === undefined || serverHosting.environment !== "azure") {
       return;
     }
     updateActivity(managedServer.userPrincipalName);
