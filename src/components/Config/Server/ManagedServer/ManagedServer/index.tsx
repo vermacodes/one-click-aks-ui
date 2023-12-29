@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { FaCheckCircle, FaRocket, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
@@ -19,10 +20,17 @@ type Props = {
 
 export default function ManagedServerComponent({ serverHosting, setServerHosting }: Props) {
   const { graphResponse } = useAuth();
-
   const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
-
   const { lock, handleDeploy, handleDestroy, handleUpdate } = useDeployManagedServer();
+
+  useEffect(() => {
+    if (managedServer) {
+      setServerHosting({
+        environment: "azure",
+        endpoint: "https://" + managedServer.endpoint + "/",
+      });
+    }
+  }, [managedServer]);
 
   function onDeployClick() {
     if (graphResponse === undefined) {
@@ -52,7 +60,9 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
           <div className="flex flex-wrap items-center gap-2">
             <Tooltip message="Your server's endpoint. Its accessible on https" delay={500}>
               <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-                <span>{managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}</span>
+                <span>
+                  {managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}
+                </span>
               </div>
             </Tooltip>
             <Tooltip message="Server Status" delay={500}>

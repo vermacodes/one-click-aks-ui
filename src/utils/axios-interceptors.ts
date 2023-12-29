@@ -1,6 +1,7 @@
 import { InteractionRequiredAuthError, PublicClientApplication } from "@azure/msal-browser";
 import axios, { AxiosError } from "axios";
 import { actLabsScope, msalConfig } from "../authConfig";
+import { ServerHosting } from "../dataStructures";
 
 const pca = new PublicClientApplication(msalConfig);
 
@@ -49,12 +50,22 @@ axiosInstance.interceptors.request.use(async function (config) {
 });
 
 function getBaseUrl(): string {
-  const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-  if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
-    return baseUrlFromLocalStorage;
+  // const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
+  // if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
+  //   return baseUrlFromLocalStorage;
+  // }
+
+  var serverHosting: ServerHosting = {
+    environment: "docker",
+    endpoint: "http://localhost:8880/",
+  };
+
+  const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
+  if (serverHostingFromLocalStorage != null) {
+    serverHosting = JSON.parse(serverHostingFromLocalStorage);
   }
 
-  return "http://localhost:8880/";
+  return serverHosting.endpoint;
 }
 
 // ACTLabs Auth Service

@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
+import { Link } from "react-router-dom";
 import { ServerHosting } from "../../../../dataStructures";
-import { useResetServerCache } from "../../../../hooks/useServerCache";
+import CodeBlock from "../../../UserInterfaceComponents/CodeBlock";
 import Container from "../../../UserInterfaceComponents/Container";
 import ServerEndpoint from "../ServerEndpoint";
 
@@ -11,36 +10,36 @@ type Props = {
 };
 
 export default function Docker({ serverHosting, setServerHosting }: Props) {
-  const [baseUrl, setBaseUrl] = useState<string>("http://localhost:8880/");
-  const [showEditButton, setShowEditButton] = useState<boolean>(false);
-  const [edit, setEdit] = useState<boolean>(false);
-  const { mutateAsync: resetServerCache } = useResetServerCache();
-
-  useEffect(() => {
-    const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-    if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
-      setBaseUrl(baseUrlFromLocalStorage);
-    }
-  }, []);
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setEdit(false);
-    handleSwitch(baseUrl);
-  }
-
-  function handleSwitch(baseUrl: string) {
-    localStorage.setItem("baseUrl", baseUrl);
-    setBaseUrl(baseUrl);
-    window.location.reload();
-    resetServerCache().finally(() => {
-      const queryClient = useQueryClient();
-      queryClient.invalidateQueries();
-    });
-  }
-
   return (
-    <Container title="Docker" collapsible={true} hoverEffect={false} additionalClasses="border dark:border-slate-700 border-slate-300">
+    <Container
+      title="Self Hosted (Docker)"
+      collapsible={true}
+      hoverEffect={false}
+      additionalClasses="border dark:border-slate-700 border-slate-300"
+    >
+      <p>To self host server on docker, you need WSL (linux) and docker installed on your system.</p>
+      <ol className="my-4 ml-6 list-decimal gap-2">
+        <li className="py-1">Open WSL</li>
+        <li className="py-1">
+          Ensure that you've selected correct default account by running following command.
+          <CodeBlock codeString="az account show" copyEnabled={true} />
+        </li>
+        <li className="py-1">
+          Run following command to complete configuration and deployment.
+          <CodeBlock
+            codeString="curl -o actlabs.sh -sLO https://aka.ms/ACTLabStart; chmod +x actlabs.sh; ./actlabs.sh; rm actlabs.sh"
+            copyEnabled={true}
+          />
+        </li>
+        <li className="py-1">After the deployment is successful, you will see the status changed to "Running".</li>
+        <li className="py-1">
+          If you run into issues{" "}
+          <Link to={"/feedback"} className="text-sky-500 underline">
+            let us know
+          </Link>
+          .
+        </li>
+      </ol>
       <ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} editable={true} />
     </Container>
   );
