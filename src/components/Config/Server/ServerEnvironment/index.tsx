@@ -67,7 +67,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
                 endpoint: "https://" + managedServer?.endpoint + "/",
               })
             }
-            label={"Managed Server (Azure)"}
+            label={"Managed Server (Azure) 🆕"}
             key={"managed-server-key"}
           />
         </div>
