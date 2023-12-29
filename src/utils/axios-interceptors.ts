@@ -21,23 +21,6 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// axiosInstance.interceptors.request.use(
-//   async (config: AxiosRequestConfig) => {
-//     const authToken = await getAuthToken().catch((e) =>
-//       myInteractionInProgressHandler()
-//     );
-//     if (config.headers) {
-//       config.headers.Authorization = `Bearer ${authToken}`;
-//     } else {
-//       config.headers = { Authorization: `Bearer ${authToken}` };
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
 axiosInstance.interceptors.request.use(async function (config) {
   const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
 
@@ -50,11 +33,6 @@ axiosInstance.interceptors.request.use(async function (config) {
 });
 
 function getBaseUrl(): string {
-  // const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-  // if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
-  //   return baseUrlFromLocalStorage;
-  // }
-
   var serverHosting: ServerHosting = {
     environment: "docker",
     endpoint: "http://localhost:8880/",
@@ -69,7 +47,6 @@ function getBaseUrl(): string {
 }
 
 // ACTLabs Auth Service
-
 export const actlabsHubAxiosInstance = axios.create({
   baseURL: getActlabsHubBaseUrl(),
 });
@@ -109,24 +86,6 @@ async function myInteractionInProgressHandler() {
   // wait is over, call myAcquireToken again to re-try acquireTokenSilent
   return await getAuthToken();
 }
-
-// // Axios interceptor to add the auth token to outgoing requests
-// actlabsHubAxiosInstance.interceptors.request.use(
-//   async (config: AxiosRequestConfig) => {
-//     const authToken = await getAuthToken().catch((e) =>
-//       myInteractionInProgressHandler()
-//     );
-//     if (config.headers) {
-//       config.headers.Authorization = `Bearer ${authToken}`;
-//     } else {
-//       config.headers = { Authorization: `Bearer ${authToken}` };
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
 actlabsHubAxiosInstance.interceptors.request.use(async function (config) {
   const token = await getAuthToken().catch((e) => myInteractionInProgressHandler());
