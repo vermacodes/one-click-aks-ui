@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
-import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../../dataStructures";
-import { useResetServerCache } from "../../../../hooks/useServerCache";
 import Button from "../../../UserInterfaceComponents/Button";
 import Tooltip from "../../../UserInterfaceComponents/Tooltip";
 
@@ -14,15 +12,10 @@ type Props = {
 
 export default function ServerEndpoint({ serverHosting, setServerHosting, editable = false }: Props) {
   const [baseUrl, setBaseUrl] = useState<string>("http://localhost:8880/");
-  const [showEditButton, setShowEditButton] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
-  const { mutateAsync: resetServerCache } = useResetServerCache();
 
   useEffect(() => {
-    const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-    if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
-      setBaseUrl(baseUrlFromLocalStorage);
-    }
+    setBaseUrl(serverHosting.endpoint);
   }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -32,13 +25,7 @@ export default function ServerEndpoint({ serverHosting, setServerHosting, editab
   }
 
   function handleSwitch(baseUrl: string) {
-    localStorage.setItem("baseUrl", baseUrl);
-    setBaseUrl(baseUrl);
-    window.location.reload();
-    resetServerCache().finally(() => {
-      const queryClient = useQueryClient();
-      queryClient.invalidateQueries();
-    });
+    setServerHosting({ ...serverHosting, endpoint: baseUrl });
   }
 
   return (
@@ -50,13 +37,17 @@ export default function ServerEndpoint({ serverHosting, setServerHosting, editab
           ${`${
             editable ? "cursor-pointer " : "cursor-default "
           }`} flex h-fit w-full items-center justify-between rounded border border-slate-500 py-1 px-2`}
-          onMouseEnter={() => setShowEditButton(true)}
-          onMouseLeave={() => setShowEditButton(false)}
           onDoubleClick={() => {
             editable && setEdit(true);
           }}
         >
-          <p className={`${edit && "hidden"} items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1`}>{baseUrl}</p>
+          <p
+            className={`${
+              edit && "hidden"
+            } items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1`}
+          >
+            {baseUrl}
+          </p>
           <form className={`${!edit && "hidden"} h-full w-full bg-inherit`} onSubmit={(e) => handleSubmit(e)}>
             <input
               id="endpoint"
