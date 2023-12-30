@@ -5,6 +5,7 @@ import { getDefaultServerHosting } from "../../../defaults";
 import { useDeployManagedServer } from "../../../hooks/useDeployManagedServer";
 import useInterval from "../../../hooks/useInterval";
 import { useManagedServer, useManagedServerActivityUpdate } from "../../../hooks/useManagedServer";
+import { useResetServerCache } from "../../../hooks/useServerCache";
 
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);
@@ -16,16 +17,67 @@ export default function ManagedServerActivityMonitor() {
 
   const { data: managedServer } = useManagedServer();
   const { mutate: updateActivity } = useManagedServerActivityUpdate();
+  const { mutateAsync: resetServerCache } = useResetServerCache();
 
   const { handleDeploy } = useDeployManagedServer();
   const queryClient = useQueryClient();
 
+  /**
+   * This effect is triggered when the `managedServer` changes.
+   * It checks if the server hosting information stored in local storage is for an Azure environment and if the endpoint is empty.
+   * If these conditions are met, it updates the server hosting information in both local storage and state with the `managedServer`'s endpoint.
+   * It then reloads the page and resets the server cache, invalidating all queries in the query client.
+   */
   useEffect(() => {
-    const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
-    if (serverHostingFromLocalStorage != undefined && serverHostingFromLocalStorage !== "") {
-      setServerHosting(JSON.parse(serverHostingFromLocalStorage));
+    // Get the server hosting information from local storage
+    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
+    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
+
+    // Check if the server hosting information is for an Azure environment and if the endpoint is empty
+    if (
+      managedServer &&
+      serverHostingFromLocalStorage.environment === "azure" &&
+      serverHostingFromLocalStorage.endpoint === ""
+    ) {
+      // Create a new server hosting object with the `managedServer`'s endpoint
+      const newServerHosting: ServerHosting = {
+        environment: "azure",
+        endpoint: "https://" + managedServer.endpoint + "/",
+      };
+
+      // Update the server hosting information in both local storage and state
+      setServerHosting(newServerHosting);
+      localStorage.setItem("serverHosting", JSON.stringify(newServerHosting));
+
+      // Reload the page and reset the server cache
+      window.location.reload();
+      resetServerCache().finally(() => {
+        // Invalidate all queries in the query client
+        const queryClient = useQueryClient();
+        queryClient.invalidateQueries();
+      });
     }
-  }, []);
+  }, [managedServer]);
+
+  /**
+   * handles auto creation of a new managed server if the previous one was auto destroyed.
+   */
+  useEffect(() => {
+    if (managedServer === undefined || serverHosting.environment !== "azure") {
+      return;
+    }
+
+    // if managed server was auto destroyed and the page is visible, auto create a new one
+    if (managedServer.status === "AutoDestroyed" && isPageVisible && managedServer.autoCreate) {
+      // wait for 10 seconds before creating a new managed server
+      timeoutIdRef.current = setTimeout(() => {
+        if (isPageVisibleRef.current && serverHostingRef.current.environment === "azure") {
+          console.log("Auto creating a new managed server.");
+          handleDeploy(managedServer);
+        }
+      }, 10000); // 10 seconds delay
+    }
+  }, [managedServer]);
 
   /**
    * runs when the page visibility changes.
@@ -53,26 +105,6 @@ export default function ManagedServerActivityMonitor() {
       }
     };
   }, [isPageVisible, serverHosting]);
-
-  /**
-   * handles auto creation of a new managed server if the previous one was auto destroyed.
-   */
-  useEffect(() => {
-    if (managedServer === undefined || serverHosting.environment !== "azure") {
-      return;
-    }
-
-    // if managed server was auto destroyed and the page is visible, auto create a new one
-    if (managedServer.status === "AutoDestroyed" && isPageVisible && managedServer.autoCreate) {
-      // wait for 10 seconds before creating a new managed server
-      timeoutIdRef.current = setTimeout(() => {
-        if (isPageVisibleRef.current && serverHostingRef.current.environment === "azure") {
-          console.log("Auto creating a new managed server.");
-          handleDeploy(managedServer);
-        }
-      }, 10000); // 10 seconds delay
-    }
-  }, [managedServer]);
 
   /**
    * Sets up an event listener to track the visibility of the page and update the state accordingly.

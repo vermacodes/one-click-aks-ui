@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { FaCheckCircle, FaRocket, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
@@ -23,22 +22,6 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
   const { graphResponse } = useAuth();
   const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
   const { lock, handleDeploy, handleDestroy, handleUpdate } = useDeployManagedServer();
-
-  useEffect(() => {
-    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
-    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
-
-    if (serverHostingFromLocalStorage.environment !== "azure" || serverHostingFromLocalStorage.endpoint !== "") {
-      return;
-    }
-
-    if (managedServer && serverHosting.environment === "azure" && serverHosting.endpoint === "") {
-      setServerHosting({
-        environment: "azure",
-        endpoint: "https://" + managedServer.endpoint + "/",
-      });
-    }
-  }, [managedServer, serverHosting]);
 
   function onDeployClick() {
     if (graphResponse === undefined) {
