@@ -63,7 +63,10 @@ export function setDefaultValuesInLocalStorage() {
   }
 
   if (localStorage.getItem("actlabsHubBaseUrl") === null) {
-    localStorage.setItem("actlabsHubBaseUrl", "https://actlabs-hub.eastus.azurecontainer.io/");
+    localStorage.setItem(
+      "actlabsHubBaseUrl",
+      "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io/"
+    );
   }
 
   if (localStorage.getItem("serverHosting") === null) {
