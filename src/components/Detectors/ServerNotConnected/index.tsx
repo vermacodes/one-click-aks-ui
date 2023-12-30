@@ -50,7 +50,14 @@ export default function ServerNotConnected() {
   }
 
   if (managedServer?.status === "Deploying") {
-    return <></>;
+    return (
+      <div className="my-4">
+        <div className="mt-2 rounded border border-green-500 bg-green-500 bg-opacity-20 p-2">
+          <strong>✅ Managed Server Deploying:</strong> Deployment is in progress. Page will auto reload once deployment
+          completes.
+        </div>
+      </div>
+    );
   }
 
   if (managedServer?.status === "Destroyed") {
@@ -63,6 +70,17 @@ export default function ServerNotConnected() {
             Settings
           </Link>
           .
+        </div>
+      </div>
+    );
+  }
+
+  if (managedServer?.status === "AutoDestroyed" && managedServer?.autoCreate === true) {
+    return (
+      <div className="my-4">
+        <div className="mt-2 rounded border border-yellow-500 bg-yellow-500 bg-opacity-20 p-2">
+          <strong>⚠️ Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity. It will be be
+          deployed again in few seconds.
         </div>
       </div>
     );
