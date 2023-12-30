@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { DeploymentType, Lab, TerraformOperation, TerraformOperationType } from "../dataStructures";
-import { useDeleteDeployment, useGetMyDeployments } from "./useDeployments";
+import { useDeleteDeployment } from "./useDeployments";
 import { useSetLogs } from "./useLogs";
 import { usePreference } from "./usePreference";
 import { useApply, useDestroy, useExtend, useInit, usePlan } from "./useTerraform";
@@ -15,7 +15,6 @@ export function useTerraformOperation() {
   const { mutateAsync: destroyAsync } = useDestroy();
   const { mutateAsync: extendAsync } = useExtend();
   const { data: preference } = usePreference();
-  const { data: deployments } = useGetMyDeployments();
   const { data: terraformWorkspaces } = useTerraformWorkspace();
   const { mutateAsync: deleteDeploymentAsync } = useDeleteDeployment();
 
@@ -99,7 +98,7 @@ export function useTerraformOperation() {
     }
 
     if (terraformWorkspaces === undefined) {
-      toast.error("Unable to get terraform workspaces. Try 'Reset Server Cache' from settings page.", {
+      toast.warn("Waiting for terraform to be ready. Try again in a bit.", {
         autoClose: 10000,
       });
       return;
