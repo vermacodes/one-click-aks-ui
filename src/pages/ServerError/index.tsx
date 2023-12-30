@@ -13,19 +13,18 @@ export default function ServerError() {
       <div className="flex flex-col gap-8 pb-12">
         <p className="text-3xl text-rose-500">Error: Server Not Reachable 😟</p>
         <p className="text-2xl text-slate-500">
-          This part of ACT Labs require server to be running. But, it seems the
-          server is not running.{" "}
+          This part of ACT Labs require server to be running. But, it seems the server is not running.{" "}
         </p>
         <p className="text-2xl text-slate-500">
           <a
-            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/849282/Getting-Started"
+            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started"
             target={"_blank"}
             className="text-sky-500 underline"
           >
             Learn more
           </a>{" "}
-          about deploying configuring the server. If you already know the drill,
-          then, quick deploy using either of the following options.
+          about deploying configuring the server. If you already know the drill, then, quick deploy using either of the
+          following options.
         </p>
       </div>
       <div className={`mb-20 flex flex-col gap-10`}>
@@ -41,11 +40,7 @@ export default function ServerError() {
 
       <p className="text-2xl text-slate-500">
         <span className="font-bold">Is this not helpful?</span>{" "}
-        <a
-          href="https://forms.office.com/r/R513F2YfXE"
-          target={"_blank"}
-          className="text-green-500 underline"
-        >
+        <a href="https://forms.office.com/r/R513F2YfXE" target={"_blank"} className="text-green-500 underline">
           Please share feedback.
         </a>
       </p>

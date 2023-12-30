@@ -23,8 +23,7 @@ export default function Landing() {
               <div className="flex flex-col gap-y-20">
                 <h1 className="text text-9xl">Head start your lab repros</h1>
                 <p className="text-4xl text-slate-500">
-                  Build and deploy labs in minutes ⌚ get a head start with labs
-                  built and tested by AKS Ninjas 🥷
+                  Build and deploy labs in minutes ⌚ get a head start with labs built and tested by AKS Ninjas 🥷
                 </p>
               </div>
             </div>
@@ -36,14 +35,13 @@ export default function Landing() {
               <h4 className="text-xl">Setup Server</h4>
               <h1 className="text-3xl">🚀 Deploy Server on Docker or Azure</h1>
               <p className="text-lg">
-                Server needs access to your subscription. If we host the server
-                for you, we need access to your subscription. We are not ready
-                for that. So, you need to host the server.{" "}
+                Server needs access to your subscription. If we host the server for you, we need access to your
+                subscription. We are not ready for that. So, you need to host the server.{" "}
               </p>
             </div>
             <div>
               <a
-                href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/849282/Getting-Started"
+                href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started"
                 target={"_blank"}
                 className="w-fit whitespace-nowrap rounded-full bg-slate-200 py-2 px-8 text-2xl text-blue-700 hover:bg-slate-300"
               >
@@ -54,13 +52,10 @@ export default function Landing() {
           <div className="flex flex-col justify-between gap-10 rounded bg-gradient-to-r from-sky-600 to-emerald-600 p-4 dark:bg-fuchsia-600">
             <div className="flex flex-col gap-6">
               <h4 className="text-xl">Public Labs</h4>
-              <h1 className="text-3xl">
-                🏃 Start with public labs created by Ninjas
-              </h1>
+              <h1 className="text-3xl">🏃 Start with public labs created by Ninjas</h1>
               <p className="text-lg">
-                There are many labs built by AKS SMEs which cover common
-                scenarios and emerging issues. You can use them as is or modify
-                to match your requirements.
+                There are many labs built by AKS SMEs which cover common scenarios and emerging issues. You can use them
+                as is or modify to match your requirements.
               </p>
             </div>
             <div>
@@ -77,9 +72,8 @@ export default function Landing() {
               <h4 className="text-xl">Build Your Own</h4>
               <h1 className="text-3xl">⚒️ Build your own Awesome Labs</h1>
               <p className="text-lg">
-                None of the public labs work? You are quite unique. Build your
-                own lab using builder and make it powerful by writing an
-                extension script.
+                None of the public labs work? You are quite unique. Build your own lab using builder and make it
+                powerful by writing an extension script.
               </p>
             </div>
             <div>
@@ -93,10 +87,7 @@ export default function Landing() {
           </div>
         </div>
         <div className="flex flex-col gap-10">
-          <h1 className="text-3xl">
-            Already setup? Here is the command to quick start or upgrade server
-            →
-          </h1>
+          <h1 className="text-3xl">Already setup? Here is the command to quick start or upgrade server →</h1>
           <div className="flex flex-col gap-4 rounded bg-gradient-to-r from-blue-600 to-purple-600 p-4 pb-10">
             <h2 className="text-2xl text-slate-50">WebApp</h2>
             <DeployWebAppCommand />
