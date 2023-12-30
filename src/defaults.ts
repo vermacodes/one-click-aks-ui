@@ -1,5 +1,6 @@
 import {
   Lab,
+  ServerHosting,
   ServerNotification,
   TerraformOperation,
   TfvarAddonsType,
@@ -171,4 +172,12 @@ const defaultServerNotification: ServerNotification = {
 };
 export function getDefaultServerNotification(): ServerNotification {
   return structuredClone(defaultServerNotification);
+}
+
+const defaultServerHosting: ServerHosting = {
+  endpoint: "",
+  environment: "azure",
+};
+export function getDefaultServerHosting(): ServerHosting {
+  return structuredClone(defaultServerHosting);
 }

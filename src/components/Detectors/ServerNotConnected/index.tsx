@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ServerHosting } from "../../../dataStructures";
+import { getDefaultServerHosting } from "../../../defaults";
 import { useManagedServer } from "../../../hooks/useManagedServer";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 
 export default function ServerNotConnected() {
-  const [severHosting, setServerHosting] = useState<ServerHosting>({
-    environment: "docker",
-    endpoint: "http://localhost:8880/",
-  });
+  const [severHosting, setServerHosting] = useState<ServerHosting>(getDefaultServerHosting());
   const { data: serverStatus, isError } = useServerStatus();
   const { data: managedServer } = useManagedServer();
 
@@ -32,6 +30,20 @@ export default function ServerNotConnected() {
             Settings
           </Link>{" "}
           to make sure server is deployed and <a className="underline">endpoint</a> is correct.
+        </div>
+      </div>
+    );
+  }
+
+  if (managedServer?.status === "Unregistered") {
+    return (
+      <div className="my-4">
+        <div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
+          <strong>🛑 Server Not Deployed:</strong> Managed server not registered. Goto{" "}
+          <Link to="/settings" className="cursor-pointer text-sky-600 underline">
+            Settings
+          </Link>{" "}
+          to register and deploy or self-host on docker.
         </div>
       </div>
     );

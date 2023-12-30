@@ -25,13 +25,20 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
   const { lock, handleDeploy, handleDestroy, handleUpdate } = useDeployManagedServer();
 
   useEffect(() => {
-    if (managedServer) {
+    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
+    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
+
+    if (serverHostingFromLocalStorage.environment !== "azure" || serverHostingFromLocalStorage.endpoint !== "") {
+      return;
+    }
+
+    if (managedServer && serverHosting.environment === "azure" && serverHosting.endpoint === "") {
       setServerHosting({
         environment: "azure",
         endpoint: "https://" + managedServer.endpoint + "/",
       });
     }
-  }, [managedServer]);
+  }, [managedServer, serverHosting]);
 
   function onDeployClick() {
     if (graphResponse === undefined) {

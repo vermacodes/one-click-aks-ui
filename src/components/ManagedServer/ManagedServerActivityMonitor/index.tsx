@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../dataStructures";
+import { getDefaultServerHosting } from "../../../defaults";
 import { useDeployManagedServer } from "../../../hooks/useDeployManagedServer";
 import useInterval from "../../../hooks/useInterval";
 import { useManagedServer, useManagedServerActivityUpdate } from "../../../hooks/useManagedServer";
 
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);
-  const [serverHosting, setServerHosting] = useState<ServerHosting>({
-    environment: "docker",
-    endpoint: "http://localhost:8880/",
-  });
+  const [serverHosting, setServerHosting] = useState<ServerHosting>(getDefaultServerHosting());
 
   const isPageVisibleRef = useRef(isPageVisible);
   const serverHostingRef = useRef(serverHosting);
