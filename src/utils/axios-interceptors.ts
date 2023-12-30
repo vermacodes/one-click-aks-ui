@@ -102,5 +102,5 @@ function getActlabsHubBaseUrl(): string {
     return baseUrlFromLocalStorage;
   }
 
-  return "https://actlabs-hub.eastus.azurecontainer.io";
+  return "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io";
 }

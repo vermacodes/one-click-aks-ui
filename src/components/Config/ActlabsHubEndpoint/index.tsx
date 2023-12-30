@@ -6,7 +6,9 @@ import Container from "../../UserInterfaceComponents/Container";
 type Props = {};
 
 export default function ActlabsHubEndpoint({}: Props) {
-  const [baseUrl, setBaseUrl] = useState<string>("https://actlabs-hub.eastus.azurecontainer.io");
+  const [baseUrl, setBaseUrl] = useState<string>(
+    "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io"
+  );
   const [edit, setEdit] = useState<boolean>(false);
 
   useEffect(() => {
