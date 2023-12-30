@@ -417,7 +417,15 @@ export type ServerNotification = {
   autoClose: number;
 };
 
-export type TerraformOperationType = "init" | "plan" | "apply" | "destroy" | "delete" | "extend-validate" | "extend-apply" | "extend-destroy";
+export type TerraformOperationType =
+  | "init"
+  | "plan"
+  | "apply"
+  | "destroy"
+  | "delete"
+  | "extend-validate"
+  | "extend-apply"
+  | "extend-destroy";
 
 export type ManagedServer = {
   endpoint: string;
@@ -456,6 +464,6 @@ export type ManagedServer = {
 };
 
 export type ServerHosting = {
-  environment: "docker" | "custom" | "azure";
+  environment: "docker" | "azure";
   endpoint: string;
 };

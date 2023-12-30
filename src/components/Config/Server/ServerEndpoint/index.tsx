@@ -11,12 +11,12 @@ type Props = {
 };
 
 export default function ServerEndpoint({ serverHosting, setServerHosting, editable = false }: Props) {
-  const [baseUrl, setBaseUrl] = useState<string>("http://localhost:8880/");
+  const [baseUrl, setBaseUrl] = useState<string>("");
   const [edit, setEdit] = useState<boolean>(false);
 
   useEffect(() => {
     setBaseUrl(serverHosting.endpoint);
-  }, []);
+  }, [serverHosting]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -2,6 +2,7 @@ import { InteractionRequiredAuthError, PublicClientApplication } from "@azure/ms
 import axios, { AxiosError } from "axios";
 import { actLabsScope, msalConfig } from "../authConfig";
 import { ServerHosting } from "../dataStructures";
+import { getDefaultServerHosting } from "../defaults";
 
 const pca = new PublicClientApplication(msalConfig);
 
@@ -33,10 +34,7 @@ axiosInstance.interceptors.request.use(async function (config) {
 });
 
 function getBaseUrl(): string {
-  var serverHosting: ServerHosting = {
-    environment: "docker",
-    endpoint: "http://localhost:8880/",
-  };
+  var serverHosting: ServerHosting = getDefaultServerHosting();
 
   const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
   if (serverHostingFromLocalStorage != null) {

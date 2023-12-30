@@ -1,22 +1,11 @@
-import {
-  DeploymentType,
-  Lab,
-  TerraformOperation,
-  TerraformOperationType,
-} from "../dataStructures";
+import { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
+import { DeploymentType, Lab, TerraformOperation, TerraformOperationType } from "../dataStructures";
 import { useDeleteDeployment, useGetMyDeployments } from "./useDeployments";
 import { useSetLogs } from "./useLogs";
-import {
-  useApply,
-  useDestroy,
-  useExtend,
-  useInit,
-  usePlan,
-} from "./useTerraform";
 import { usePreference } from "./usePreference";
+import { useApply, useDestroy, useExtend, useInit, usePlan } from "./useTerraform";
 import { useTerraformWorkspace } from "./useWorkspace";
-import { toast } from "react-toastify";
-import { AxiosResponse } from "axios";
 
 export function useTerraformOperation() {
   const { mutate: setLogs } = useSetLogs();
@@ -35,20 +24,13 @@ export function useTerraformOperation() {
     deployment: DeploymentType | undefined;
   };
 
-  async function deleteDeployment({
-    operationId,
-    deployment,
-  }: DeleteDeploymentProps) {
+  async function deleteDeployment({ operationId, deployment }: DeleteDeploymentProps) {
     if (deployment === undefined) {
       toast.error("No deployment selected.");
       return Promise.reject();
     }
 
-    return deleteDeploymentAsync([
-      deployment.deploymentWorkspace,
-      deployment.deploymentSubscriptionId,
-      operationId,
-    ]);
+    return deleteDeploymentAsync([deployment.deploymentWorkspace, deployment.deploymentSubscriptionId, operationId]);
   }
 
   type SubmitOperationProps = {
@@ -109,15 +91,17 @@ export function useTerraformOperation() {
     deployment,
     deleteDeployment = false,
   }: OnClickHandlerProps) => {
-    if (
-      lab === undefined ||
-      lab.template === undefined ||
-      deployments === undefined ||
-      terraformWorkspaces === undefined
-    ) {
-      toast.error(
-        "Something went wrong. Please refresh the page and try again."
-      );
+    if (lab === undefined || lab.template === undefined) {
+      toast.error("This is strange! No lab is defined. Try 'Reset Server Cache' from settings page.", {
+        autoClose: 10000,
+      });
+      return;
+    }
+
+    if (terraformWorkspaces === undefined) {
+      toast.error("Unable to get terraform workspaces. Try 'Reset Server Cache' from settings page.", {
+        autoClose: 10000,
+      });
       return;
     }
 
@@ -129,7 +113,10 @@ export function useTerraformOperation() {
 
     if (deployment === undefined) {
       toast.error(
-        "No deployment selected. Try 'Reset Server Cache' from settings."
+        "No deployment selected. Select a deployment from Deployments page or 'Reset Server Cache' from settings page.",
+        {
+          autoClose: 10000,
+        }
       );
       return;
     }

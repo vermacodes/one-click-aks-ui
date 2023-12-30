@@ -70,8 +70,8 @@ export function setDefaultValuesInLocalStorage() {
     localStorage.setItem(
       "serverHosting",
       JSON.stringify({
-        endpoint: "http://localhost:8880/",
-        environment: "docker",
+        endpoint: "",
+        environment: "azure",
       } as ServerHosting)
     );
   }

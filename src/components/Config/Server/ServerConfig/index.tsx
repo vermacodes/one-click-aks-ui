@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../../dataStructures";
+import { getDefaultServerHosting } from "../../../../defaults";
 import { useResetServerCache } from "../../../../hooks/useServerCache";
 import Container from "../../../UserInterfaceComponents/Container";
 import Docker from "../Docker";
@@ -11,10 +12,7 @@ import ServerStatus from "../ServerStatus";
 type Props = {};
 
 export default function ServerConfig({}: Props) {
-  const [serverHosting, setServerHosting] = useState<ServerHosting>({
-    environment: "docker",
-    endpoint: "http://localhost:8880/",
-  });
+  const [serverHosting, setServerHosting] = useState<ServerHosting>(getDefaultServerHosting());
   const { mutateAsync: resetServerCache } = useResetServerCache();
 
   useEffect(() => {

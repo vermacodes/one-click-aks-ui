@@ -9,17 +9,7 @@ type Props = {
 };
 
 export default function ServerEnvironment({ serverHosting, setServerHosting }: Props) {
-  // const [baseUrl, setBaseUrl] = useState<string>("http://localhost:8880/");
-  // const { mutateAsync: resetServerCache } = useResetServerCache();
-
   const { data: managedServer } = useManagedServer();
-
-  // useEffect(() => {
-  //   const baseUrlFromLocalStorage = localStorage.getItem("baseUrl");
-  //   if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage !== "") {
-  //     setBaseUrl(baseUrlFromLocalStorage);
-  //   }
-  // }, []);
 
   return (
     <Container
@@ -45,7 +35,6 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
           />
           <Checkbox
             id="managedServer"
-            tooltipMessage="To disable managed server, change the server endpoint to something other than the managed server."
             checked={serverHosting.environment === "azure"}
             disabled={managedServer === undefined}
             handleOnChange={() =>
