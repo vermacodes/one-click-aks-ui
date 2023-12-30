@@ -86,6 +86,21 @@ export default function ServerNotConnected() {
     );
   }
 
+  if (managedServer?.status === "AutoDestroyed" && managedServer?.autoCreate === false) {
+    return (
+      <div className="my-4">
+        <div className="mt-2 rounded border border-yellow-500 bg-yellow-500 bg-opacity-20 p-2">
+          <strong>⚠️ Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity and auto-deploy
+          is not enabled. Deploy again from{" "}
+          <Link to="/settings" className="cursor-pointer text-sky-600 underline">
+            Settings
+          </Link>
+          .
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="my-4">
       <div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
