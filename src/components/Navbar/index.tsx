@@ -47,10 +47,7 @@ function Title() {
           ACT Labs
         </h1>
       </Link>
-      <Button
-        className="md pr-4 text-2xl md:invisible"
-        onClick={() => setNavbarOpen(false)}
-      >
+      <Button className="md pr-4 text-2xl md:invisible" onClick={() => setNavbarOpen(false)}>
         <FaTimes />
       </Button>
     </div>
@@ -193,7 +190,7 @@ function Pages() {
         <li>
           <a
             target="_blank"
-            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/849276/ACT-Lab-Tool"
+            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280599/ACT-Lab-Tool"
           >
             <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
               <span>
@@ -263,9 +260,7 @@ function FixedPages() {
           <LoginButton />
         </li>
       </ul>
-      {showSubscriptionModal && (
-        <DefaultSubscription onClick={() => setShowSubscriptionModal(false)} />
-      )}
+      {showSubscriptionModal && <DefaultSubscription onClick={() => setShowSubscriptionModal(false)} />}
     </div>
   );
 }
