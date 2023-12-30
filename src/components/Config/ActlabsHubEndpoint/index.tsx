@@ -14,7 +14,11 @@ export default function ActlabsHubEndpoint({}: Props) {
   useEffect(() => {
     const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
 
-    if (baseUrlFromLocalStorage != undefined && baseUrlFromLocalStorage == "https://actlabs-auth.azurewebsites.net") {
+    if (
+      baseUrlFromLocalStorage != undefined &&
+      (baseUrlFromLocalStorage.includes("https://actlabs-auth.azurewebsites.net") ||
+        baseUrlFromLocalStorage.includes("https://actlabs-hub.eastus.azurecontainer.io"))
+    ) {
       localStorage.setItem("actlabsHubBaseUrl", baseUrl);
       return;
     }
