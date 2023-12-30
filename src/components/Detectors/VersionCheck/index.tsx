@@ -33,7 +33,7 @@ export default function VersionCheck() {
         version of server may result in unexpected behavior.
         <br />
         <a
-          href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/849282/Getting-Started"
+          href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started"
           className="cursor-pointer text-sky-500 underline"
           target="_blank"
         >

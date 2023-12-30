@@ -17,22 +17,18 @@ export default function DefaultSubscription({ onClick }: Props) {
         }}
       >
         <div className="w-100 flex justify-between pb-2 ">
-          <h1 className="flex items-center gap-4 text-3xl">
-            Azure Subscription
-          </h1>
+          <h1 className="flex items-center gap-4 text-3xl">Azure Subscription</h1>
           <button onClick={onClick} className="hover:text-sky-500">
             <MdClose className="text-3xl" />
           </button>
         </div>
         <div className="flex flex-col justify-between gap-y-12 pt-4">
-          <pre className="whitespace-pre-wrap break-words text-sm">
-            {JSON.stringify(defaultAccount, null, 4)}
-          </pre>
+          <pre className="whitespace-pre-wrap break-words text-sm">{JSON.stringify(defaultAccount, null, 4)}</pre>
         </div>
         <p className="mt-4 py-4 text-lg">
           Want to change subscription? Please follow these{" "}
           <a
-            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/849282/Getting-Started"
+            href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started"
             target="_blank"
             className="text-sky-500 underline"
           >
