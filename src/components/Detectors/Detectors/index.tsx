@@ -1,4 +1,5 @@
 import NoSubscriptionsFound from "../NoSubscriptionsFound";
+import SelectedTerraformWorkspaceNotFound from "../SelectedTerraformWorkspaceNotFound";
 import ServerNotConnected from "../ServerNotConnected";
 import StorageAccountNotConfigured from "../StorageAccountNotConfigured";
 import VersionCheck from "../VersionCheck";
@@ -12,6 +13,7 @@ export default function Detectors() {
       <WebSocketConnectionStatus />
       <NoSubscriptionsFound />
       <StorageAccountNotConfigured />
+      <SelectedTerraformWorkspaceNotFound />
     </>
   );
 }
