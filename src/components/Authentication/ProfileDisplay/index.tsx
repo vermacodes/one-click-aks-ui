@@ -33,11 +33,11 @@ export default function ProfileDisplay({ profile, size = "medium", onlyPhoto = f
         )}
       </span>
       {!onlyPhoto && (
-        <div className="flex flex-col text-slate-600 dark:text-slate-400">
+        <div className="flex flex-col ">
           <span>{profile.displayName}</span>
           <span
             className={`${size === "small" ? "text-xs " : size === "medium" ? "text-sm " : "text-base "}
-          }`}
+          } text-slate-600 dark:text-slate-400`}
           >
             {profile.userPrincipal}
           </span>
