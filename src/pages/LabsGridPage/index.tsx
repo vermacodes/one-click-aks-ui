@@ -67,7 +67,7 @@ export default function LabsGridPage() {
         <>
           <CreateAssignmentContainer collapsed={labs && labs?.length > 0} />
           <div className="mb-3"></div>
-          <ListMyAssignment />
+          {labs && labs?.length > 0 && <ListMyAssignment />}
           <div className="mb-3"></div>
         </>
       )}
