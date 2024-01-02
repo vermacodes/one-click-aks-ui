@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../components/Context/AuthContext";
 
+/**
+ *
+ * if you ever wonder why this doesn't pull the display Name.
+ * thats because we want to save users display name in the database
+ * and be available for filters and search.
+ *
+ * @param userPrincipal
+ * @returns profilePhoto
+ */
+
 export function useGetProfilePhoto(userPrincipal: string) {
   const [profilePhoto, setProfilePhoto] = useState<string>("");
   const { graphAPIAccessToken } = useAuth();
