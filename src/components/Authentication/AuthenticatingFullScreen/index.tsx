@@ -14,11 +14,18 @@ type Props = {
   setGraphResponse: (updatedGraphData: GraphData | undefined) => void;
   profilePhoto: string | undefined;
   setProfilePhoto: (profilePhoto: string | undefined) => void;
+  graphAPIAccessToken: string | undefined;
+  setGraphAPIAccessToken: (graphAPIAccessToken: string | undefined) => void;
 };
 
-export default function AuthenticatingFullScreen({ setGraphResponse, setProfilePhoto }: Props) {
+export default function AuthenticatingFullScreen({
+  setGraphResponse,
+  setProfilePhoto,
+  graphAPIAccessToken,
+  setGraphAPIAccessToken,
+}: Props) {
   const { instance } = useMsal();
-  const [graphAPIAccessToken, setGraphAPIAccessToken] = useState<string>("");
+  //const [graphAPIAccessToken, setGraphAPIAccessToken] = useState<string>("");
   const [graphAPITokenAcquired, setGraphAPITokenAcquired] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -58,17 +65,7 @@ export default function AuthenticatingFullScreen({ setGraphResponse, setProfileP
       if (response.ok) {
         response.blob().then((data) => {
           const url = URL.createObjectURL(data);
-          const img = new Image();
-          img.onload = function () {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            canvas.width = 256; // cant store bigger image in DB.
-            canvas.height = 256;
-            ctx?.drawImage(img, 0, 0, 256, 256);
-            const base64String = canvas.toDataURL("image/jpeg");
-            setProfilePhoto(base64String);
-          };
-          img.src = url;
+          setProfilePhoto(url);
         });
       }
     });

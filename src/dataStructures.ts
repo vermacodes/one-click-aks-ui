@@ -353,7 +353,6 @@ export type ButtonContainerObj = {
 export type Profile = {
   objectId: string;
   displayName: string;
-  profilePhoto: string;
   userPrincipal: string;
   roles: string[];
 };

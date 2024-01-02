@@ -1,10 +1,10 @@
 import ReactHtmlParser from "html-react-parser";
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Lab, Profile } from "../../../dataStructures";
 import { useGetAllProfilesRedacted } from "../../../hooks/useProfile";
 import { decodeIfEncoded } from "../../../utils/helpers";
+import ProfileDisplay from "../../Authentication/ProfileDisplay";
 import ChallengeProfiles from "../Challenge/ChallengeProfiles";
 import LabActionButtons from "../LabActionButtons/LabActionButtons";
 import LabProfiles from "../LabProfiles";
@@ -16,11 +16,7 @@ type Props = {
   showVersions?: boolean;
 };
 
-export default function LabCard({
-  lab,
-  fullPage = false,
-  showVersions = false,
-}: Props) {
+export default function LabCard({ lab, fullPage = false, showVersions = false }: Props) {
   function renderBody() {
     if (lab === undefined) {
       return <></>;
@@ -42,12 +38,8 @@ export default function LabCard({
             <LabActionButtons lab={lab} />
             <LabProfiles lab={lab} profileType="owners" />
             <LabProfiles lab={lab} profileType="editors" />
-            {lab.category === "private" && (
-              <LabProfiles lab={lab} profileType="viewers" />
-            )}
-            {(lab.type === "challengelab" || lab.type === "challenge") && (
-              <ChallengeProfiles lab={lab} />
-            )}
+            {lab.category === "private" && <LabProfiles lab={lab} profileType="viewers" />}
+            {(lab.type === "challengelab" || lab.type === "challenge") && <ChallengeProfiles lab={lab} />}
           </>
         )}
         <p className="text-xs text-slate-200 dark:text-slate-800">{lab.id}</p>
@@ -59,11 +51,7 @@ export default function LabCard({
     return <></>;
   }
 
-  return fullPage ? (
-    renderBody()
-  ) : (
-    <Link to={"/lab/" + lab.type + "/" + lab.id}>{renderBody()}</Link>
-  );
+  return fullPage ? renderBody() : <Link to={"/lab/" + lab.type + "/" + lab.id}>{renderBody()}</Link>;
 }
 
 type LabHeaderProps = {
@@ -142,14 +130,8 @@ function LabCredits({ lab }: LabCreditsProps) {
 
   useEffect(() => {
     if (profiles) {
-      setCreatedBy(
-        profiles.find((profile) => profile.userPrincipal === lab.createdBy) ||
-          ({} as Profile)
-      );
-      setUpdatedBy(
-        profiles.find((profile) => profile.userPrincipal === lab.updatedBy) ||
-          ({} as Profile)
-      );
+      setCreatedBy(profiles.find((profile) => profile.userPrincipal === lab.createdBy) || ({} as Profile));
+      setUpdatedBy(profiles.find((profile) => profile.userPrincipal === lab.updatedBy) || ({} as Profile));
     }
   }, [profiles, lab]);
 
@@ -158,55 +140,13 @@ function LabCredits({ lab }: LabCreditsProps) {
       {lab.createdBy !== "" && lab.createdOn !== "" && lab.updatedBy == "" && (
         <div className="flex flex-col gap-1">
           <span>Created on {lab.createdOn}</span>
-          <div className="flex h-fit items-center gap-2">
-            <span>
-              {createdBy.profilePhoto === "" ? (
-                <div className="flex h-7 max-h-7 w-7 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800">
-                  <FaUser />
-                </div>
-              ) : (
-                <img
-                  className="h-full max-h-7 rounded-full"
-                  src={createdBy.profilePhoto}
-                  alt="Profile Picture"
-                />
-              )}
-            </span>
-            <div className="flex flex-col">
-              <span>{createdBy.displayName}</span>
-              <span>
-                {createdBy.userPrincipal &&
-                  createdBy.userPrincipal.split("@")[0]}
-              </span>
-            </div>
-          </div>
+          <ProfileDisplay profile={createdBy} size="small" />
         </div>
       )}
       {lab.updatedBy !== "" && lab.updatedOn !== "" && (
         <div className="flex flex-col gap-1">
           <span>Updated on {lab.updatedOn}</span>
-          <div className="flex h-fit items-center gap-2">
-            <span>
-              {updatedBy.profilePhoto === "" ? (
-                <div className="flex h-7 max-h-7 w-7 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800">
-                  <FaUser />
-                </div>
-              ) : (
-                <img
-                  className="h-full max-h-7 rounded-full"
-                  src={updatedBy.profilePhoto}
-                  alt="Profile Picture"
-                />
-              )}
-            </span>
-            <div className="flex flex-col">
-              <span>{updatedBy.displayName}</span>
-              <span>
-                {updatedBy.userPrincipal &&
-                  updatedBy.userPrincipal.split("@")[0]}
-              </span>
-            </div>
-          </div>
+          <ProfileDisplay profile={updatedBy} size="small" />
         </div>
       )}
     </div>

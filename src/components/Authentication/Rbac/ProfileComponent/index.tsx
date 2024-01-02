@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Profile, ProfileMutation } from "../../../../dataStructures";
 import { useAddRole, useRemoveRole } from "../../../../hooks/useProfile";
 import Button from "../../../UserInterfaceComponents/Button";
+import ProfileDisplay from "../../ProfileDisplay";
 
 type Props = {
   profile: Profile;
@@ -14,6 +14,8 @@ export default function ProfileComponent({ profile }: Props) {
   const [selectedRole, setSelectedRole] = useState("user");
 
   const { mutateAsync: removeRole } = useRemoveRole();
+  const { mutateAsync: addRole } = useAddRole();
+
   function handleRemoveRole(userPrincipal: string, role: string) {
     let ProfileMutation: ProfileMutation = {
       userPrincipal: userPrincipal,
@@ -30,7 +32,6 @@ export default function ProfileComponent({ profile }: Props) {
     });
   }
 
-  const { mutateAsync: addRole } = useAddRole();
   function handleAddRole(userPrincipal: string, role: string) {
     let ProfileMutation: ProfileMutation = {
       userPrincipal: userPrincipal,
@@ -49,27 +50,7 @@ export default function ProfileComponent({ profile }: Props) {
 
   return (
     <div className="flex flex-col justify-between gap-2 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900  dark:outline-slate-600 dark:hover:outline-sky-500 md:flex-row md:items-center">
-      <div className="flex h-fit items-center gap-2">
-        <span>
-          {profile.profilePhoto === "" ? (
-            <div className="flex h-12 max-h-12 w-12 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800">
-              <FaUser />
-            </div>
-          ) : (
-            <img
-              className="h-full max-h-12 rounded-full"
-              src={profile.profilePhoto}
-              alt="Profile Picture"
-            />
-          )}
-        </span>
-        <div className="flex flex-col">
-          <span>{profile.displayName}</span>
-          <span className="text-sm text-slate-600 dark:text-slate-400">
-            {profile.userPrincipal}
-          </span>
-        </div>
-      </div>
+      <ProfileDisplay profile={profile} />
       <div className="flex flex-wrap justify-end gap-2">
         {profile.roles.map((role) => (
           <div
@@ -77,11 +58,7 @@ export default function ProfileComponent({ profile }: Props) {
             className="flex items-center justify-between gap-4 rounded bg-slate-200 py-1 px-4 dark:bg-slate-800"
           >
             <div className="text-lg">{role}</div>
-            <button
-              onClick={() => handleRemoveRole(profile.userPrincipal, role)}
-            >
-              ❌
-            </button>
+            <button onClick={() => handleRemoveRole(profile.userPrincipal, role)}>❌</button>
           </div>
         ))}
         <div className={`${!addRoleFlag && "hidden"} `}>

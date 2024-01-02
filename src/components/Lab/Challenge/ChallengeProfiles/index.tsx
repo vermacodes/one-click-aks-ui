@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
-import { FaSuperpowers, FaUser } from "react-icons/fa";
+import { FaSuperpowers } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { Challenge, Lab, Profile } from "../../../../dataStructures";
-import {
-  useDeleteChallenge,
-  useGetChallengesByLabId,
-} from "../../../../hooks/useChallenge";
-import {
-  useGetAllProfilesRedacted,
-  useGetMyProfile,
-} from "../../../../hooks/useProfile";
+import { useDeleteChallenge, useGetChallengesByLabId } from "../../../../hooks/useChallenge";
+import { useGetAllProfilesRedacted, useGetMyProfile } from "../../../../hooks/useProfile";
+import ProfileDisplay from "../../../Authentication/ProfileDisplay";
 import Button from "../../../UserInterfaceComponents/Button";
 import Container from "../../../UserInterfaceComponents/Container";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
@@ -28,14 +23,9 @@ export default function ChallengeProfiles({ lab }: Props) {
   const [meOwner, setMeOwner] = useState<boolean>(false);
   const [meChallenger, setMeChallenger] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [showConfirmDeleteModal, setShowConfirmDeleteModal] =
-    useState<boolean>(false);
-  const [challengeToBeDeleted, setChallengeToBeDeleted] = useState<Profile>(
-    {} as Profile
-  );
-  const [selectedChallenge, setSelectedChallenge] = useState<
-    Challenge | undefined
-  >(undefined);
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState<boolean>(false);
+  const [challengeToBeDeleted, setChallengeToBeDeleted] = useState<Profile>({} as Profile);
+  const [selectedChallenge, setSelectedChallenge] = useState<Challenge | undefined>(undefined);
 
   const { mutateAsync: deleteChallenge } = useDeleteChallenge();
 
@@ -60,10 +50,7 @@ export default function ChallengeProfiles({ lab }: Props) {
     if (profiles && challenges) {
       const filteredProfiles = profiles.filter((profile) => {
         return challenges?.some((challenge) => {
-          return (
-            challenge.userId === profile.userPrincipal &&
-            challenge.labId === lab.id
-          );
+          return challenge.userId === profile.userPrincipal && challenge.labId === lab.id;
         });
       });
       setChallengers(filteredProfiles);
@@ -80,19 +67,11 @@ export default function ChallengeProfiles({ lab }: Props) {
       if (lab.owners.includes(myProfile.userPrincipal)) {
         setMeOwner(true);
       }
-      if (
-        challenges?.some(
-          (challenge) => challenge.userId === myProfile.userPrincipal
-        )
-      ) {
+      if (challenges?.some((challenge) => challenge.userId === myProfile.userPrincipal)) {
         setMeChallenger(true);
 
         setSelectedChallenge(
-          challenges?.find(
-            (challenge) =>
-              challenge.userId === myProfile.userPrincipal &&
-              challenge.labId === lab.id
-          )
+          challenges?.find((challenge) => challenge.userId === myProfile.userPrincipal && challenge.labId === lab.id)
         );
       }
     }
@@ -122,18 +101,15 @@ export default function ChallengeProfiles({ lab }: Props) {
   function onConfirmDeleteChallenge() {
     setShowConfirmDeleteModal(false);
 
-    const response = toast.promise(
-      deleteChallenge(`${challengeToBeDeleted.userPrincipal}+${lab.id}`),
-      {
-        pending: "Deleting Challenge...",
-        success: "Challenge Deleted.",
-        error: {
-          render(data: any) {
-            return `Failed to delete challenge. ${data.data.response.data.error}`;
-          },
+    const response = toast.promise(deleteChallenge(`${challengeToBeDeleted.userPrincipal}+${lab.id}`), {
+      pending: "Deleting Challenge...",
+      success: "Challenge Deleted.",
+      error: {
+        render(data: any) {
+          return `Failed to delete challenge. ${data.data.response.data.error}`;
         },
-      }
-    );
+      },
+    });
 
     response.then(() => {
       queryClient.invalidateQueries(["get-challenges-by-lab-id", lab.id]);
@@ -141,77 +117,37 @@ export default function ChallengeProfiles({ lab }: Props) {
   }
 
   function onProfileClick(profile: Profile) {
-    const challenge = challenges?.find(
-      (challenge) => challenge.userId === profile.userPrincipal
-    );
+    const challenge = challenges?.find((challenge) => challenge.userId === profile.userPrincipal);
     if (challenge) {
       setSelectedChallenge(challenge);
     }
   }
 
   return (
-    <Container
-      hoverEffect={false}
-      additionalClasses="outline"
-      title="Challenges"
-    >
+    <Container hoverEffect={false} additionalClasses="outline" title="Challenges">
       <div className="flex flex-row flex-wrap justify-between gap-2">
         <div className="flex flex-row flex-wrap gap-2">
           {challengers?.map((profile) => (
-            <Tooltip
-              key={profile.userPrincipal}
-              message={profile.displayName || profile.userPrincipal}
-              delay={300}
-            >
+            <Tooltip key={profile.userPrincipal} message={profile.displayName || profile.userPrincipal} delay={300}>
               <div
                 className={`
                 ${
                   challenges?.some(
-                    (challenge) =>
-                      challenge.userId === profile.userPrincipal &&
-                      challenge.status === "accepted"
+                    (challenge) => challenge.userId === profile.userPrincipal && challenge.status === "accepted"
                   ) && "outline outline-2 outline-purple-500 "
                 }
                 ${
                   challenges?.some(
-                    (challenge) =>
-                      challenge.userId === profile.userPrincipal &&
-                      challenge.status === "completed"
+                    (challenge) => challenge.userId === profile.userPrincipal && challenge.status === "completed"
                   ) && "outline outline-2 outline-green-500 "
                 }
                 ${
-                  (meOwner ||
-                    profile.userPrincipal === myProfile?.userPrincipal) &&
-                  "hover:cursor-pointer"
+                  (meOwner || profile.userPrincipal === myProfile?.userPrincipal) && "hover:cursor-pointer"
                 } group flex w-8 flex-row justify-between rounded-full border border-slate-50 transition-all dark:border-slate-900 `}
               >
                 <div onClick={() => onProfileClick(profile)}>
-                  {profile.profilePhoto === "" ? (
-                    <div className="flex h-8 max-h-8 w-8 items-center justify-center rounded-full bg-slate-300 dark:bg-slate-700">
-                      <FaUser />
-                    </div>
-                  ) : (
-                    <img
-                      className="h-full max-h-8 rounded-full"
-                      src={profile.profilePhoto}
-                      alt="Profile Picture"
-                    />
-                  )}
+                  <ProfileDisplay profile={profile} size="small" onlyPhoto={true} />
                 </div>
-                {/* <div
-                  className={`${
-                    (meOwner ||
-                      profile.userPrincipal === myProfile?.userPrincipal) &&
-                    "group-hover:block "
-                  } hidden`}
-                >
-                  <Button
-                    variant="danger-icon"
-                    onClick={() => onDeleteChallenge(profile)}
-                  >
-                    <FaTimes />
-                  </Button>
-                </div> */}
               </div>
             </Tooltip>
           ))}
@@ -221,9 +157,7 @@ export default function ChallengeProfiles({ lab }: Props) {
             challenges &&
             myProfile &&
             challenges.filter(
-              (challenge) =>
-                challenge.createdBy === myProfile.userPrincipal &&
-                challenge.labId === lab.id
+              (challenge) => challenge.createdBy === myProfile.userPrincipal && challenge.labId === lab.id
             ).length < 2 &&
             challenges.some(
               (challenge) =>
@@ -257,18 +191,12 @@ export default function ChallengeProfiles({ lab }: Props) {
         >
           <p>
             Are you sure you want to delete this challenge for{" "}
-            <strong>
-              {challengeToBeDeleted.displayName ||
-                challengeToBeDeleted.userPrincipal}
-            </strong>
-            ? Not only will lose access to the lab, their progress and credits
-            will be lost irreversibly.
+            <strong>{challengeToBeDeleted.displayName || challengeToBeDeleted.userPrincipal}</strong>? Not only will
+            lose access to the lab, their progress and credits will be lost irreversibly.
           </p>
         </ConfirmationModal>
       )}
-      {selectedChallenge && (
-        <SelectedChallengeProfile challenge={selectedChallenge} lab={lab} />
-      )}
+      {selectedChallenge && <SelectedChallengeProfile challenge={selectedChallenge} lab={lab} />}
     </Container>
   );
 }
