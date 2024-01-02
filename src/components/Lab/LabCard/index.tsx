@@ -136,7 +136,7 @@ function LabCredits({ lab }: LabCreditsProps) {
   }, [profiles, lab]);
 
   return (
-    <div className="flex flex-row justify-between gap-y-1 text-xs text-gray-500">
+    <div className="flex flex-row justify-between gap-y-1 text-xs text-slate-600 dark:text-slate-400">
       {lab.createdBy !== "" && lab.createdOn !== "" && lab.updatedBy == "" && (
         <div className="flex flex-col gap-1">
           <span>Created on {lab.createdOn}</span>
