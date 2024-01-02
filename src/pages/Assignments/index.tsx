@@ -10,23 +10,16 @@ import Checkbox from "../../components/UserInterfaceComponents/Checkbox";
 import Container from "../../components/UserInterfaceComponents/Container";
 import ConfirmationModal from "../../components/UserInterfaceComponents/Modal/ConfirmationModal";
 import { Assignment } from "../../dataStructures";
-import {
-  useDeleteAssignment,
-  useGetAllReadinessLabsRedacted,
-  useGetAssignments,
-} from "../../hooks/useAssignment";
+import { useDeleteAssignment, useGetAllReadinessLabsRedacted, useGetAssignments } from "../../hooks/useAssignment";
 import { useGetMyProfile } from "../../hooks/useProfile";
 import PageLayout from "../../layouts/PageLayout";
 
 type Props = {};
 
 export default function Assignments({}: Props) {
-  const [selectedAssignments, setSelectedAssignments] = useState<Assignment[]>(
-    []
-  );
+  const [selectedAssignments, setSelectedAssignments] = useState<Assignment[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
-  const [confirmationModalOpen, setConfirmationModalOpen] =
-    useState<boolean>(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
 
   const { data: profile } = useGetMyProfile();
   const { data: allAssignments } = useGetAssignments();
@@ -36,21 +29,14 @@ export default function Assignments({}: Props) {
 
   useEffect(() => {
     if (allAssignments) {
-      const allAssignmentsMap = new Map(
-        allAssignments.map((assignment) => [
-          assignment.assignmentId,
-          assignment,
-        ])
-      );
+      const allAssignmentsMap = new Map(allAssignments.map((assignment) => [assignment.assignmentId, assignment]));
       setAssignments(Array.from(allAssignmentsMap.values()));
     }
   }, [allAssignments]);
 
   function handleDeleteSelected() {
     setConfirmationModalOpen(false);
-    let assignmentIds = selectedAssignments.map(
-      (assignment) => assignment.assignmentId
-    );
+    let assignmentIds = selectedAssignments.map((assignment) => assignment.assignmentId);
 
     const response = toast.promise(deleteAssignments(assignmentIds), {
       pending: "Deleting Assignments...",
@@ -65,9 +51,7 @@ export default function Assignments({}: Props) {
     response
       .then(() => {
         // remove selected assignments from assignments state.
-        let newAssignments = assignments.filter(
-          (assignment) => !assignmentIds.includes(assignment.assignmentId)
-        );
+        let newAssignments = assignments.filter((assignment) => !assignmentIds.includes(assignment.assignmentId));
         setAssignments(newAssignments);
 
         // remove selected assignments from selectedAssignments state.
@@ -76,23 +60,11 @@ export default function Assignments({}: Props) {
       .finally(() => {
         // invalidate all lab id queries.
         selectedAssignments.forEach((assignment) => {
-          queryClient.invalidateQueries([
-            "get-assignments-by-lab-id",
-            assignment.labId,
-          ]);
-          queryClient.invalidateQueries([
-            "get-assignments-by-user-id",
-            assignment.userId,
-          ]);
-          queryClient.invalidateQueries([
-            "get-readiness-labs-redacted-by-user-id",
-            assignment.userId,
-          ]);
+          queryClient.invalidateQueries(["get-assignments-by-lab-id", assignment.labId]);
+          queryClient.invalidateQueries(["get-assignments-by-user-id", assignment.userId]);
+          queryClient.invalidateQueries(["get-readiness-labs-redacted-by-user-id", assignment.userId]);
         });
-        queryClient.invalidateQueries([
-          "get-readiness-labs-redacted-by-user-id",
-          "my",
-        ]);
+        queryClient.invalidateQueries(["get-readiness-labs-redacted-by-user-id", "my"]);
         queryClient.invalidateQueries("get-my-assignments");
         queryClient.invalidateQueries("get-assignments");
       });
@@ -112,15 +84,15 @@ export default function Assignments({}: Props) {
     document.title = "ACT Labs | Assignments";
   }, []);
 
-  if (!profile?.roles.includes("mentor")) {
-    return (
-      <PageLayout heading="Lab Assignments">
-        <p className="text-xl">
-          ✋ You don't have permission to access this page.
-        </p>
-      </PageLayout>
-    );
-  }
+  // if (!profile?.roles.includes("mentor")) {
+  //   return (
+  //     <PageLayout heading="Lab Assignments">
+  //       <p className="text-xl">
+  //         ✋ You don't have permission to access this page.
+  //       </p>
+  //     </PageLayout>
+  //   );
+  // }
 
   return (
     <PageLayout heading="Lab Assignments">
@@ -146,8 +118,7 @@ export default function Assignments({}: Props) {
                 title="Confirm Delete All Assignments"
               >
                 <p className="text-xl text-slate-400">
-                  Are you sure you want to delete all the selected assignments?
-                  This is not reversible.
+                  Are you sure you want to delete all the selected assignments? This is not reversible.
                 </p>
               </ConfirmationModal>
             )}
@@ -164,10 +135,7 @@ export default function Assignments({}: Props) {
                         ? () => setSelectedAssignments([])
                         : () => setSelectedAssignments(assignments || [])
                     }
-                    checked={
-                      selectedAssignments.length === assignments?.length &&
-                      selectedAssignments.length !== 0
-                    }
+                    checked={selectedAssignments.length === assignments?.length && selectedAssignments.length !== 0}
                     disabled={assignments?.length === 0}
                   />
                 </th>
@@ -190,24 +158,13 @@ export default function Assignments({}: Props) {
                         label=""
                         handleOnChange={
                           selectedAssignments.includes(assignment)
-                            ? () =>
-                                setSelectedAssignments(
-                                  selectedAssignments.filter(
-                                    (i) => i !== assignment
-                                  )
-                                )
-                            : () =>
-                                setSelectedAssignments([
-                                  ...selectedAssignments,
-                                  assignment,
-                                ])
+                            ? () => setSelectedAssignments(selectedAssignments.filter((i) => i !== assignment))
+                            : () => setSelectedAssignments([...selectedAssignments, assignment])
                         }
                         checked={selectedAssignments.includes(assignment)}
                       />
                     </td>
-                    <td className="space-x-2 px-4 py-2">
-                      {getLabName(assignment.labId)}
-                    </td>
+                    <td className="space-x-2 px-4 py-2">{getLabName(assignment.labId)}</td>
                     <td className="space-x-2 px-4 py-2">{assignment.userId}</td>
                     <td className="space-x-2 px-4 py-2">{assignment.status}</td>
                     <td className="space-x-2 px-4 py-2">
