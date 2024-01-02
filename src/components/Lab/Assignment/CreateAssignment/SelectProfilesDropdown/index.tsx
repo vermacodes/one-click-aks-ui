@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaTimes, FaUser } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { Profile } from "../../../../../dataStructures";
 import { useGetAllProfilesRedacted } from "../../../../../hooks/useProfile";
+import ProfileDisplay from "../../../../Authentication/ProfileDisplay";
 import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../../../UserInterfaceComponents/FilterTextBox";
 
@@ -11,19 +12,11 @@ type Props = {
   noShowProfiles?: Profile[]; // Profiles that should not be shown in the dropdown.
 };
 
-export default function SelectProfilesDropdown({
-  selectedProfiles,
-  setSelectedProfiles,
-  noShowProfiles,
-}: Props) {
+export default function SelectProfilesDropdown({ selectedProfiles, setSelectedProfiles, noShowProfiles }: Props) {
   //const [uniqueProfiles, setUniqueProfiles] = useState<string[]>([]);
   const [uniqueProfiles, setUniqueProfiles] = useState<Profile[]>([]);
   const [profileSearchTerm, setProfileSearchTerm] = useState<string>("");
-  const {
-    data: profiles,
-    isLoading: profilesLoading,
-    isFetching: profilesFetching,
-  } = useGetAllProfilesRedacted();
+  const { data: profiles, isLoading: profilesLoading, isFetching: profilesFetching } = useGetAllProfilesRedacted();
 
   /**
    * Effect hook to update the list of unique profiles.
@@ -98,31 +91,9 @@ export default function SelectProfilesDropdown({
         } rounded `}
       >
         <div className="mt-1 cursor-pointer rounded p-2 hover:bg-opacity-40">
-          <div className="flex h-fit items-center gap-2">
-            <span>
-              {profile.profilePhoto === "" ? (
-                <div className="flex h-12 max-h-12 w-12 items-center justify-center rounded-full bg-slate-300 dark:bg-slate-900">
-                  <FaUser />
-                </div>
-              ) : (
-                <img
-                  className="h-full max-h-12 rounded-full"
-                  src={profile.profilePhoto}
-                  alt="Profile Picture"
-                />
-              )}
-            </span>
-            <div className="flex flex-col">
-              <span>{profile.displayName}</span>
-              <span className="text-sm text-slate-600 dark:text-slate-400">
-                {profile.userPrincipal}
-              </span>
-            </div>
-          </div>
+          <ProfileDisplay profile={profile} />
         </div>
-        {isSelected && (
-          <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />
-        )}
+        {isSelected && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />}
       </div>
     );
   };
@@ -130,22 +101,14 @@ export default function SelectProfilesDropdown({
   return (
     <div className="flex w-full">
       <DropdownSelect
-        heading={
-          selectedProfiles.length > 0
-            ? selectedProfiles.length + " users selected."
-            : "Select Users"
-        }
+        heading={selectedProfiles.length > 0 ? selectedProfiles.length + " users selected." : "Select Users"}
         disabled={profilesLoading || profilesFetching}
         items={[
           ...selectedProfiles,
           ...uniqueProfiles
             .filter((profile) => !selectedProfiles.includes(profile))
             .filter((profile) => !noShowProfiles?.includes(profile))
-            .filter((profile) =>
-              JSON.stringify(profile)
-                .toLowerCase()
-                .includes(profileSearchTerm.toLowerCase())
-            ),
+            .filter((profile) => JSON.stringify(profile).toLowerCase().includes(profileSearchTerm.toLowerCase())),
         ]}
         renderItem={renderUser}
         onItemClick={onUserClick}

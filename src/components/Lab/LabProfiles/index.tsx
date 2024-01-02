@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { MdClose, MdManageAccounts } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Lab, Profile } from "../../../dataStructures";
 import { useCreateLab } from "../../../hooks/useBlobs";
-import {
-  useGetAllProfilesRedacted,
-  useGetMyProfile,
-} from "../../../hooks/useProfile";
+import { useGetAllProfilesRedacted, useGetMyProfile } from "../../../hooks/useProfile";
+import ProfileDisplay from "../../Authentication/ProfileDisplay";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
 import ModalBackdrop from "../../UserInterfaceComponents/Modal/ModalBackdrop";
@@ -60,32 +57,15 @@ export default function LabProfiles({ lab, profileType }: Props) {
         <div className="flex flex-row flex-wrap gap-2">
           {filteredProfiles?.map((profile) => {
             return (
-              <Tooltip
-                key={profile.userPrincipal}
-                message={profile.displayName || profile.userPrincipal}
-                delay={1000}
-              >
-                {profile.profilePhoto === "" ? (
-                  <div className="flex h-8 max-h-8 w-8 items-center justify-center rounded-full bg-slate-300 dark:bg-slate-700">
-                    <FaUser />
-                  </div>
-                ) : (
-                  <img
-                    className="h-full max-h-8 rounded-full"
-                    src={profile.profilePhoto}
-                    alt="Profile Picture"
-                  />
-                )}
+              <Tooltip key={profile.userPrincipal} message={profile.displayName || profile.userPrincipal} delay={1000}>
+                <ProfileDisplay profile={profile} size="small" onlyPhoto={true} />
               </Tooltip>
             );
           })}
         </div>
         {meOwner && lab.type !== "assignment" && lab.type !== "challenge" && (
           <Tooltip message={"Add or Remove " + title} delay={1000}>
-            <Button
-              variant="primary-outline"
-              onClick={() => setShowModal(true)}
-            >
+            <Button variant="primary-outline" onClick={() => setShowModal(true)}>
               <MdManageAccounts /> Manage Access
             </Button>
           </Tooltip>
@@ -114,14 +94,7 @@ type ModalProps = {
   setSelectedProfiles: React.Dispatch<React.SetStateAction<Profile[]>>;
 };
 
-function Modal({
-  title,
-  lab,
-  profileType,
-  setShowModal,
-  selectedProfiles,
-  setSelectedProfiles,
-}: ModalProps) {
+function Modal({ title, lab, profileType, setShowModal, selectedProfiles, setSelectedProfiles }: ModalProps) {
   const { mutateAsync: createLab } = useCreateLab();
 
   function onUpdate() {
@@ -154,18 +127,12 @@ function Modal({
       >
         <div className="w-100 flex justify-between pb-2 ">
           <h1 className="text-3xl">{"Add " + title}</h1>
-          <button
-            onClick={() => setShowModal(false)}
-            className="hover:text-sky-500"
-          >
+          <button onClick={() => setShowModal(false)} className="hover:text-sky-500">
             <MdClose className="text-3xl" />
           </button>
         </div>
         <div className="flex h-[90%] w-full flex-col justify-between">
-          <SelectUsersDropdown
-            selectedProfiles={selectedProfiles}
-            setSelectedProfiles={setSelectedProfiles}
-          />
+          <SelectUsersDropdown selectedProfiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles} />
           <div className="flex flex-row justify-end gap-2">
             <Button variant="primary" onClick={onUpdate}>
               Update

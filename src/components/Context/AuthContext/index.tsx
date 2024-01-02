@@ -8,6 +8,8 @@ interface AuthContextData {
   setGraphResponse: React.Dispatch<React.SetStateAction<GraphData | undefined>>;
   profilePhoto: string | undefined;
   setProfilePhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
+  graphAPIAccessToken: string | undefined;
+  setGraphAPIAccessToken: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -19,6 +21,7 @@ type Props = {
 export function AuthProvider({ children }: Props) {
   const [graphResponse, setGraphResponse] = useState<GraphData | undefined>();
   const [profilePhoto, setProfilePhoto] = useState<string | undefined>();
+  const [graphAPIAccessToken, setGraphAPIAccessToken] = useState<string | undefined>();
 
   const { mutate: createProfile } = useCreateProfile();
 
@@ -28,7 +31,7 @@ export function AuthProvider({ children }: Props) {
         displayName: graphResponse.displayName,
         objectId: graphResponse.id,
         userPrincipal: graphResponse.userPrincipalName,
-        profilePhoto: profilePhoto,
+        //profilePhoto: profilePhoto,
         roles: [],
       };
 
@@ -43,6 +46,8 @@ export function AuthProvider({ children }: Props) {
         setGraphResponse,
         profilePhoto,
         setProfilePhoto,
+        graphAPIAccessToken,
+        setGraphAPIAccessToken,
       }}
     >
       {graphResponse ? (
@@ -53,6 +58,8 @@ export function AuthProvider({ children }: Props) {
           setGraphResponse={setGraphResponse}
           profilePhoto={profilePhoto}
           setProfilePhoto={setProfilePhoto}
+          graphAPIAccessToken={graphAPIAccessToken}
+          setGraphAPIAccessToken={setGraphAPIAccessToken}
         />
       )}
     </AuthContext.Provider>
