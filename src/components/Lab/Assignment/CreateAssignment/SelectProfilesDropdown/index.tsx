@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Profile } from "../../../../../dataStructures";
-import { useGetAllProfilesRedacted } from "../../../../../hooks/useProfile";
+import { useGetAllProfilesRedacted, useGetMyProfile } from "../../../../../hooks/useProfile";
 import ProfileDisplay from "../../../../Authentication/ProfileDisplay";
 import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../../../UserInterfaceComponents/FilterTextBox";
@@ -17,6 +17,7 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
   const [uniqueProfiles, setUniqueProfiles] = useState<Profile[]>([]);
   const [profileSearchTerm, setProfileSearchTerm] = useState<string>("");
   const { data: profiles, isLoading: profilesLoading, isFetching: profilesFetching } = useGetAllProfilesRedacted();
+  const { data: myProfile } = useGetMyProfile();
 
   /**
    * Effect hook to update the list of unique profiles.
@@ -27,6 +28,17 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
    * unique profiles were added), it updates the `uniqueProfiles` state with the new Set.
    */
   useEffect(() => {
+    if (myProfile === undefined) {
+      return;
+    }
+
+    // only add user's profile if they are not a mentor
+    if (!myProfile?.roles.includes("mentor")) {
+      setUniqueProfiles([myProfile]);
+      return;
+    }
+
+    // add other profiles if user is a mentor
     if (profiles) {
       const uniqueProfileSet = new Set(uniqueProfiles);
       profiles.forEach((profile) => {
@@ -36,7 +48,7 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
         setUniqueProfiles([...uniqueProfileSet]);
       }
     }
-  }, [profiles]);
+  }, [profiles, myProfile]);
 
   /**
    * Function to render a search input field.
