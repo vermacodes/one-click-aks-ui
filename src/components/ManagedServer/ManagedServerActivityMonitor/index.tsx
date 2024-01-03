@@ -122,7 +122,11 @@ export default function ManagedServerActivityMonitor() {
    * Updates the activity for the managed server every 60 seconds.
    */
   useInterval(() => {
-    if (!isPageVisible || managedServer === undefined || serverHosting.environment !== "azure") {
+    // Get the server hosting information from local storage
+    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
+    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
+
+    if (!isPageVisible || managedServer === undefined || serverHostingFromLocalStorage.environment !== "azure") {
       return;
     }
     updateActivity(managedServer.userPrincipalName);
