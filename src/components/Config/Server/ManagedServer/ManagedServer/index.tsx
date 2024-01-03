@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FaCheckCircle, FaRocket, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
@@ -8,6 +9,7 @@ import Button from "../../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../../UserInterfaceComponents/Container";
 import GradientBorderContainer from "../../../../UserInterfaceComponents/GradientBorderContainer";
+import ConfirmationModal from "../../../../UserInterfaceComponents/Modal/ConfirmationModal";
 import Tooltip from "../../../../UserInterfaceComponents/Tooltip";
 import ServerEndpoint from "../../ServerEndpoint";
 import InactiveDuration from "../InactiveDuration";
@@ -19,9 +21,11 @@ type Props = {
 };
 
 export default function ManagedServerComponent({ serverHosting, setServerHosting }: Props) {
+  const [confirmUnregister, setConfirmUnregister] = useState<boolean>(false);
+
   const { graphResponse } = useAuth();
   const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
-  const { lock, handleDeploy, handleDestroy, handleUpdate } = useDeployManagedServer();
+  const { lock, handleDeploy, handleDestroy, handleUpdate, handleUnregister } = useDeployManagedServer();
 
   function onDeployClick() {
     if (graphResponse === undefined) {
@@ -65,7 +69,10 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
                   </div>
                 </div>
               </Tooltip>
-              <Tooltip message="Azure Region" delay={500}>
+              <Tooltip
+                message="Azure Region. To change, unregister and select other region when registering again."
+                delay={500}
+              >
                 <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
                   <span>{managedServer.region}</span>
                 </div>
@@ -94,18 +101,18 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
             </div>
           )}
           <div className="mt-8 flex gap-4">
-            <Button variant="primary" onClick={onDeployClick}>
+            <Button variant="primary" disabled={lock} onClick={onDeployClick}>
               <FaRocket /> Deploy
             </Button>
-            <Button variant="secondary" onClick={handleDestroy}>
+            <Button variant="secondary" disabled={lock} onClick={handleDestroy}>
               <FaTrash /> Destroy
             </Button>
             <Button
               variant="danger-outline"
-              onClick={handleDestroy}
-              disabled
-              tooltipMessage="Not available at the moment. Please contact admin."
+              onClick={() => setConfirmUnregister(true)}
+              tooltipMessage="Unregister the managed server."
               tooltipDelay={1000}
+              disabled={lock}
             >
               <FaTimes /> Unregister
             </Button>
@@ -115,6 +122,18 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
         <p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
           ARO labs only work in Self-Hosted (Docker) environment.
         </p>
+        {confirmUnregister && (
+          <ConfirmationModal
+            title="Confirm Unregister"
+            onConfirm={() => {
+              setConfirmUnregister(false);
+              handleUnregister;
+            }}
+            onClose={() => setConfirmUnregister(false)}
+          >
+            <p>Are you sure you want to unregister the managed server?</p>
+          </ConfirmationModal>
+        )}
       </Container>
     </GradientBorderContainer>
   );
