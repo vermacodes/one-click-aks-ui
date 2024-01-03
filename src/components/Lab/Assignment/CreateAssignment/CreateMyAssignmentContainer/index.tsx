@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaCheck } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { BulkAssignment, Lab } from "../../../../../dataStructures";
@@ -65,7 +66,7 @@ export default function CreateMyAssignmentContainer() {
         <SelectLabsDropdown selectedLabs={selectedLabs} setSelectedLabs={setSelectedLabs} />
         <div className="flex">
           <Button variant="primary-outline" onClick={onAssignClick}>
-            Assign
+            <FaCheck /> Assign
           </Button>
         </div>
       </div>
