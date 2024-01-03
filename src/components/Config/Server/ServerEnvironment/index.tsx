@@ -36,7 +36,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
           <Checkbox
             id="managedServer"
             checked={serverHosting.environment === "azure"}
-            disabled={managedServer === undefined}
+            disabled={false}
             handleOnChange={() =>
               setServerHosting({
                 environment: "azure",

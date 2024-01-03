@@ -35,15 +35,16 @@ export default function ServerNotConnected() {
     );
   }
 
-  if (managedServer?.status === "Unregistered") {
+  if (managedServer === undefined || managedServer?.status === "Unregistered") {
     return (
       <div className="my-4">
         <div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
-          <strong>🛑 Server Not Deployed:</strong> Managed server not registered. Goto{" "}
+          <strong>🛑 Server Not Deployed:</strong> ACT Labs{" "}
+          <a className="underline">requires user to deploy the server.</a> Goto{" "}
           <Link to="/settings" className="cursor-pointer text-sky-600 underline">
             Settings
           </Link>{" "}
-          to register and deploy or self-host on docker.
+          to register and deploy managed server or self-host on docker.
         </div>
       </div>
     );

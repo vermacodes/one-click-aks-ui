@@ -35,7 +35,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
     } as ManagedServer);
   }
 
-  if (managedServer && managedServer.status === "Unregistered") {
+  if (managedServer === undefined || (managedServer && managedServer.status === "Unregistered")) {
     return <ManagedServerRegistration />;
   }
 
