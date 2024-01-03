@@ -14,14 +14,6 @@ export default function MyAssignments({}: Props) {
     document.title = "ACT Labs | My Assignments";
   }, []);
 
-  if (myProfile === undefined || !myProfile?.roles.includes("mentor")) {
-    return (
-      <PageLayout heading="Lab Assignments">
-        <p className="text-xl">✋ You don't have permission to access this page.</p>
-      </PageLayout>
-    );
-  }
-
   return (
     <PageLayout heading="My Readiness Lab Assignments">
       <div className="flex flex-col gap-4">
