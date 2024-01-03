@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SelectedDeployment from "../../components/Deployments/SelectedDeployment";
-import CreateAssignmentContainer from "../../components/Lab/Assignment/CreateAssignment/CreateAssignmentContainer";
-import ListMyAssignment from "../../components/Lab/Assignment/ListMyAssignment";
 import LabCard from "../../components/Lab/LabCard";
 import Terminal from "../../components/Terminal";
 import FilterTextBox from "../../components/UserInterfaceComponents/FilterTextBox";
@@ -29,7 +27,7 @@ export default function LabsGridPage() {
     } else if (type.endsWith("case")) {
       setPageHeading(type.charAt(0).toUpperCase() + type.slice(1).replace(/case$/, " Cases"));
     } else if (type.endsWith("assignment")) {
-      setPageHeading("Assignments");
+      setPageHeading("Assigned Readiness Labs");
     } else if (type.endsWith("challenge")) {
       setPageHeading("Challenges");
     } else {
@@ -52,7 +50,7 @@ export default function LabsGridPage() {
       </PageLayout>
     );
 
-  if (!labs?.length && !type.endsWith("assignment")) {
+  if (!labs?.length) {
     return (
       <PageLayout heading={pageHeading}>
         <p className="text-4xl">No {pageHeading.toLowerCase()} found!</p>
@@ -63,14 +61,6 @@ export default function LabsGridPage() {
   return (
     <PageLayout heading={pageHeading}>
       <SelectedDeployment sticky={false} />
-      {type.endsWith("assignment") && (
-        <>
-          <CreateAssignmentContainer collapsed={labs && labs?.length > 0} />
-          <div className="mb-3"></div>
-          {labs && labs?.length > 0 && <ListMyAssignment />}
-          <div className="mb-3"></div>
-        </>
-      )}
       <FilterTextBox
         value={searchTerm}
         onChange={(value: string) => handleSearchChange(value)}

@@ -10,6 +10,7 @@ import LabPage from "../../pages/LabPage";
 import LabVersionsPage from "../../pages/LabVersionsPage";
 import LabsGridPage from "../../pages/LabsGridPage";
 import Landing from "../../pages/Landing";
+import MyAssignments from "../../pages/MyAssignments";
 import Settings from "../../pages/Settings";
 
 export default function MainLayout() {
@@ -33,6 +34,7 @@ export default function MainLayout() {
           <Route path="/lab/versions/:type/:id" element={<LabVersionsPage />} />
           <Route path="/labs/:type" element={<LabsGridPage />} />
           <Route path="/assignments" element={<Assignments />} />
+          <Route path="/my/assignments" element={<MyAssignments />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/rbac" element={<AccessControl />} />
           <Route path="/feedback" element={<Feedback />} />
