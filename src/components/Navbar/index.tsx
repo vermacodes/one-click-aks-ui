@@ -125,7 +125,7 @@ function Pages() {
               <span>
                 <MdAssignment />
               </span>
-              <span>My Assignments</span>
+              <span>Assigned Labs</span>
             </button>
           </Link>
         </li>
@@ -136,6 +136,16 @@ function Pages() {
                 <FaSuperpowers />
               </span>
               <span>My Challenges</span>
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to={"/my/assignments"}>
+            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+              <span>
+                <FaList />
+              </span>
+              <span>My Assignments</span>
             </button>
           </Link>
         </li>

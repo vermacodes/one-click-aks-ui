@@ -83,7 +83,6 @@ export default function ListAssignment({}: Props) {
     <Container
       title="My Assignments"
       collapsible={true}
-      collapsed={true}
       additionalContainerBodyClasses="h-fit overflow-auto scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-200 scrollbar-track-rounded dark:scrollbar-thumb-slate-700 scrollbar-thumb-rounded dark:scrollbar-track-slate-900"
     >
       <div className="flex justify-end p-4">
