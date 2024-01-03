@@ -1,6 +1,4 @@
 import { useEffect, useRef } from "react";
-import DeployWebAppCommand from "../../components/LandingPageComponents/DeployWebAppCommand";
-import StartCommand from "../../components/LandingPageComponents/StartCommand";
 import PageLayout from "../../layouts/PageLayout";
 
 export default function Landing() {
@@ -86,7 +84,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-10">
+        {/* <div className="flex flex-col gap-10">
           <h1 className="text-3xl">Already setup? Here is the command to quick start or upgrade server →</h1>
           <div className="flex flex-col gap-4 rounded bg-gradient-to-r from-blue-600 to-purple-600 p-4 pb-10">
             <h2 className="text-2xl text-slate-50">WebApp</h2>
@@ -96,7 +94,7 @@ export default function Landing() {
             <h2 className="text-2xl text-slate-50">Docker</h2>
             <StartCommand />
           </div>
-        </div>
+        </div> */}
       </div>
     </PageLayout>
   );
