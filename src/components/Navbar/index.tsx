@@ -177,7 +177,7 @@ function Pages() {
                   <span>
                     <FaList />
                   </span>
-                  <span>Lab Assignments</span>
+                  <span>All Assignments</span>
                 </button>
               </Link>
             </li>
