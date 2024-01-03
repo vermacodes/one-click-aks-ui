@@ -33,8 +33,8 @@ export default function Landing() {
               <h4 className="text-xl">Setup Server</h4>
               <h1 className="text-3xl">🚀 Deploy Server on Docker or Azure</h1>
               <p className="text-lg">
-                Server needs access to your subscription. If we host the server for you, we need access to your
-                subscription. We are not ready for that. So, you need to host the server.{" "}
+                Register your subscription and let actlabs automatically manage a sever for you on Azure in your
+                subscription or self host on docker.{" "}
               </p>
             </div>
             <div>
