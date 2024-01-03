@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaCheck } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { BulkAssignment, Lab, Profile } from "../../../../../dataStructures";
@@ -74,7 +75,7 @@ export default function CreateAssignmentContainer() {
         <SelectProfilesDropdown selectedProfiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles} />
         <div className="flex">
           <Button variant="primary-outline" onClick={onAssignClick}>
-            Assign
+            <FaCheck /> Assign
           </Button>
         </div>
       </div>
