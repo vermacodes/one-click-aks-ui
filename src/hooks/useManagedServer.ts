@@ -70,3 +70,13 @@ export function useRegisterSubscription() {
     },
   });
 }
+
+export function useUnregister() {
+  const queryClient = useQueryClient();
+  return useMutation(() => actlabsHubAxiosInstance.put("server/unregister"), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("get-managed-server");
+      queryClient.invalidateQueries("server-status");
+    },
+  });
+}
