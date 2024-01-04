@@ -1,13 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react";
-import {
-  FaCheck,
-  FaPlus,
-  FaRedo,
-  FaSave,
-  FaTimes,
-  FaTrash,
-} from "react-icons/fa";
+import { FaCheck, FaPlus, FaRedo, FaSave, FaTimes, FaTrash } from "react-icons/fa";
 
 import { useGlobalStateContext } from "../../components/Context/GlobalStateContext";
 import Terminal from "../../components/Terminal";
@@ -67,27 +60,15 @@ function Modal({ showModal, setShowModal }: ModalProps) {
         }}
       >
         <div className="w-100 flex justify-between border-b border-slate-500 pb-1">
-          <h1 className="flex items-center text-xl">Extension Script</h1>
+          <h1 className="flex items-center text-xl">{lab.name}</h1>
           <div className="flex gap-x-2">
-            <ExtendButton
-              variant="secondary-text"
-              lab={lab}
-              mode="extend-apply"
-            >
+            <ExtendButton variant="secondary-text" lab={lab} mode="extend-apply">
               <FaPlus /> Extend
             </ExtendButton>
-            <ExtendButton
-              variant="secondary-text"
-              lab={lab}
-              mode="extend-validate"
-            >
+            <ExtendButton variant="secondary-text" lab={lab} mode="extend-validate">
               <FaCheck /> Validate
             </ExtendButton>
-            <ExtendButton
-              variant="secondary-text"
-              lab={lab}
-              mode="extend-destroy"
-            >
+            <ExtendButton variant="secondary-text" lab={lab} mode="extend-destroy">
               <FaTrash /> Destroy
             </ExtendButton>
             <Button
@@ -104,8 +85,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
             <Button
               variant="secondary-text"
               onClick={() => {
-                _extendScript &&
-                  setLab({ ...lab, extendScript: _extendScript });
+                _extendScript && setLab({ ...lab, extendScript: _extendScript });
               }}
             >
               <span>
@@ -127,8 +107,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
             <Button
               onClick={() => {
                 setShowModal(false);
-                _extendScript &&
-                  setLab({ ...lab, extendScript: _extendScript });
+                _extendScript && setLab({ ...lab, extendScript: _extendScript });
               }}
               variant="primary"
             >
