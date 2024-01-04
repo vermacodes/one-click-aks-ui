@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../dataStructures";
-import { getDefaultServerHosting } from "../../../defaults";
 import { useDeployManagedServer } from "../../../hooks/useDeployManagedServer";
 import useInterval from "../../../hooks/useInterval";
 import { useManagedServer, useManagedServerActivityUpdate } from "../../../hooks/useManagedServer";
@@ -9,7 +8,7 @@ import { useResetServerCache } from "../../../hooks/useServerCache";
 
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);
-  const [serverHosting, setServerHosting] = useState<ServerHosting>(getDefaultServerHosting());
+  const [serverHosting, setServerHosting] = useState<ServerHosting>(getServerHostingFromLocalStorage());
 
   const isPageVisibleRef = useRef(isPageVisible);
   const serverHostingRef = useRef(serverHosting);
@@ -30,8 +29,7 @@ export default function ManagedServerActivityMonitor() {
    */
   useEffect(() => {
     // Get the server hosting information from local storage
-    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
-    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
+    const serverHostingFromLocalStorage: ServerHosting = getServerHostingFromLocalStorage();
 
     // Check if the server hosting information is for an Azure environment and if the endpoint is empty
     if (
@@ -118,13 +116,17 @@ export default function ManagedServerActivityMonitor() {
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
+  function getServerHostingFromLocalStorage(): ServerHosting {
+    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
+    return JSON.parse(serverHostingFromLocalStorageString);
+  }
+
   /**
    * Updates the activity for the managed server every 60 seconds.
    */
   useInterval(() => {
     // Get the server hosting information from local storage
-    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
-    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
+    const serverHostingFromLocalStorage: ServerHosting = getServerHostingFromLocalStorage();
 
     if (!isPageVisible || managedServer === undefined || serverHostingFromLocalStorage.environment !== "azure") {
       return;
