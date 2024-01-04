@@ -54,13 +54,13 @@ function Modal({ showModal, setShowModal }: ModalProps) {
       }}
     >
       <div
-        className="w-screen gap-y-2 rounded bg-slate-100 p-5 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="w-screen gap-y-2 rounded bg-slate-100 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="w-100 flex justify-between border-b border-slate-500 pb-1">
-          <h1 className="flex items-center text-xl">{lab.name}</h1>
+        <div className="w-100 sticky top-0 z-50 flex justify-between border-b border-slate-500 bg-inherit p-4 pb-1">
+          <h1 className="flex items-center text-xl">{lab.name || "Extension Script"}</h1>
           <div className="flex gap-x-2">
             <ExtendButton variant="secondary-text" lab={lab} mode="extend-apply">
               <FaPlus /> Extend
@@ -118,7 +118,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
             </Button>
           </div>
         </div>
-        <div className={`my-1 h-[95%] space-y-1`}>
+        <div className={`my-1 h-[95%] gap-4 px-4`}>
           <Editor
             height={`100%`}
             width={`100%`}
@@ -130,8 +130,8 @@ function Modal({ showModal, setShowModal }: ModalProps) {
               value && setExtendScript(btoa(value));
             }}
           />
+          <Terminal />
         </div>
-        <Terminal />
       </div>
     </div>
   );
