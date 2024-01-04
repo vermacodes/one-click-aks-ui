@@ -120,7 +120,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
         </div>
         <div className={`my-1 h-[95%] gap-4 px-4`}>
           <Editor
-            height={`100%`}
+            height={`80%`}
             width={`100%`}
             language={"shell"}
             value={_extendScript && atob(_extendScript)}
