@@ -127,7 +127,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
             title="Confirm Unregister"
             onConfirm={() => {
               setConfirmUnregister(false);
-              handleUnregister;
+              handleUnregister();
             }}
             onClose={() => setConfirmUnregister(false)}
           >
