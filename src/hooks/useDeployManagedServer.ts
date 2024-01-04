@@ -127,7 +127,7 @@ export function useDeployManagedServer() {
   const handleUnregister = () => {
     setLock(true);
     const response = toast.promise(unregisterManagedServer, {
-      pending: "Un registering managed server...",
+      pending: "Unregistering managed server...",
       success: {
         render(data) {
           if (isManagedServer(data?.data?.data)) {
