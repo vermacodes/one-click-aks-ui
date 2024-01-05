@@ -3,9 +3,12 @@ import { BsArrowUpRight } from "react-icons/bs";
 import {
   FaBook,
   FaBookReader,
+  FaChalkboardTeacher,
+  FaChevronRight,
   FaClipboard,
   FaCog,
   FaComments,
+  FaFlask,
   FaKey,
   FaList,
   FaPuzzlePiece,
@@ -55,6 +58,7 @@ function Title() {
 }
 
 function Pages() {
+  const [expanded, setExpanded] = useState<string>("");
   const { data: profile } = useGetMyProfile();
   return (
     <div className="h-9/10 mt-2 flex w-full flex-col overflow-y-scroll border-b border-slate-300 px-4 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-thumb-slate-600">
@@ -80,98 +84,193 @@ function Pages() {
           </Link>
         </li>
         <li>
-          <Link to={"/labs/privatelab"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaUser />
-              </span>
-              <span>Private Labs</span>
+          <div>
+            <button
+              className={`
+                ${expanded === "labs" && "bg-slate-200 dark:bg-slate-800 "}
+                flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+              onClick={() => {
+                setExpanded(expanded == "labs" ? "" : "labs");
+              }}
+            >
+              <div className="flex items-center gap-1">
+                <span>
+                  <FaFlask />
+                </span>
+                <span>Labs</span>
+              </div>
+              <div className={`${expanded === "labs" && "rotate-90 "} transition-all`}>
+                <FaChevronRight />
+              </div>
             </button>
-          </Link>
+            {expanded == "labs" && (
+              <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
+                <li>
+                  <Link to={"/labs/privatelab"}>
+                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                      <div className="ml-4 flex items-center gap-1">
+                        <span>
+                          <FaUser />
+                        </span>
+                        <span>Private Labs</span>
+                      </div>
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/labs/publiclab"}>
+                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                      <div className="ml-4 flex items-center gap-1">
+                        <span>
+                          <FaUsers />
+                        </span>
+                        <span>Public Labs</span>
+                      </div>
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/labs/challengelab"}>
+                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                      <div className="ml-4 flex items-center gap-1">
+                        <span>
+                          <FaPuzzlePiece />
+                        </span>
+                        <span>Challenge Labs</span>
+                      </div>
+                    </button>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
         </li>
         <li>
-          <Link to={"/labs/publiclab"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaUsers />
-              </span>
-              <span>Public Labs</span>
+          <div>
+            <button
+              className={`
+                ${expanded === "learning" && "bg-slate-200 dark:bg-slate-800 "}
+                flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+              onClick={() => {
+                setExpanded(expanded == "learning" ? "" : "learning");
+              }}
+            >
+              <div className="flex items-center gap-1">
+                <span>
+                  <FaBookReader />
+                </span>
+                <span>Learning</span>
+              </div>
+              <div className={`${expanded === "learning" && "rotate-90 "} transition-all`}>
+                <FaChevronRight />
+              </div>
             </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={"/labs/challengelab"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaPuzzlePiece />
-              </span>
-              <span>Challenge Labs</span>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={"/labs/assignment"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <MdAssignment />
-              </span>
-              <span>Assigned Labs</span>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={"/labs/challenge"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaSuperpowers />
-              </span>
-              <span>My Challenges</span>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={"/my/assignments"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaList />
-              </span>
-              <span>My Assignments</span>
-            </button>
-          </Link>
+            {expanded == "learning" && (
+              <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
+                <li>
+                  <Link to={"/labs/challenge"}>
+                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                      <div className="ml-4 flex items-center gap-1">
+                        <span>
+                          <FaSuperpowers />
+                        </span>
+                        <span>My Challenges</span>
+                      </div>
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/labs/assignment"}>
+                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                      <div className="ml-4 flex items-center gap-1">
+                        <span>
+                          <MdAssignment />
+                        </span>
+                        <span>Assigned Labs</span>
+                      </div>
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/my/assignments"}>
+                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                      <div className="ml-4 flex items-center gap-1">
+                        <span>
+                          <FaList />
+                        </span>
+                        <span>Assignments</span>
+                      </div>
+                    </button>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
         </li>
         {profile && profile.roles.includes("mentor") && (
-          <>
-            <li>
-              <Link to={"/labs/readinesslab"}>
-                <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+          <li>
+            <div>
+              <button
+                className={`
+                ${expanded === "mentor" && "bg-slate-200 dark:bg-slate-800 "}
+                flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+                onClick={() => {
+                  setExpanded(expanded == "mentor" ? "" : "mentor");
+                }}
+              >
+                <div className="flex items-center gap-1">
                   <span>
-                    <FaBookReader />
+                    <FaChalkboardTeacher />
                   </span>
-                  <span>Readiness Labs</span>
-                </button>
-              </Link>
-            </li>
-            <li>
-              <Link to={"/labs/mockcase"}>
-                <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                  <span>
-                    <FaClipboard />
-                  </span>
-                  <span>Mock Cases</span>
-                </button>
-              </Link>
-            </li>
-            <li>
-              <Link to={"/assignments"}>
-                <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                  <span>
-                    <FaList />
-                  </span>
-                  <span>All Assignments</span>
-                </button>
-              </Link>
-            </li>
-          </>
+                  <span>Mentor</span>
+                </div>
+                <div className={`${expanded === "mentor" && "rotate-90 "} transition-all`}>
+                  <FaChevronRight />
+                </div>
+              </button>
+              {expanded == "mentor" && (
+                <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
+                  {" "}
+                  <li>
+                    <Link to={"/labs/mockcase"}>
+                      <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                        <div className="ml-4 flex items-center gap-1">
+                          <span>
+                            <FaClipboard />
+                          </span>
+                          <span>Mock Cases</span>
+                        </div>
+                      </button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/labs/readinesslab"}>
+                      <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                        <div className="ml-4 flex items-center gap-1">
+                          <span>
+                            <FaBookReader />
+                          </span>
+                          <span>Readiness Labs</span>
+                        </div>
+                      </button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/assignments"}>
+                      <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+                        <div className="ml-4 flex items-center gap-1">
+                          <span>
+                            <FaList />
+                          </span>
+                          <span>Assignments</span>
+                        </div>
+                      </button>
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </li>
         )}
         {profile && profile.roles.includes("admin") && (
           <>
