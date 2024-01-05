@@ -48,18 +48,18 @@ function Modal({ showModal, setShowModal }: ModalProps) {
   if (!showModal || lab === undefined) return null;
   return (
     <div
-      className="max-w-ful -gap-x-2 fixed inset-0 z-20 flex max-h-full justify-center bg-slate-800 dark:bg-slate-100 dark:bg-opacity-80"
+      className="max-w-ful -gap-x-2 fixed inset-0 z-20 flex max-h-full justify-center"
       onClick={() => {
         setShowModal(false);
       }}
     >
       <div
-        className="w-screen gap-y-2 rounded bg-slate-100 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="max-w-screen gap-y-2 rounded bg-slate-100 dark:divide-slate-700 dark:bg-slate-700"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="w-100 sticky top-0 z-50 flex justify-between border-b border-slate-500 bg-inherit p-4 pb-1">
+        <div className="w-100 sticky top-0 z-50 flex justify-between border-b border-slate-500 bg-slate-100 p-4 pb-1 dark:bg-slate-900">
           <h1 className="flex items-center text-xl">{lab.name || "Extension Script"}</h1>
           <div className="flex gap-x-2">
             <ExtendButton variant="secondary-text" lab={lab} mode="extend-apply">
@@ -118,7 +118,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
             </Button>
           </div>
         </div>
-        <div className={`my-1 h-[95%] gap-4 px-4`}>
+        <div className={`h-[95%] gap-4 overflow-auto px-12 py-4 scrollbar scrollbar-thumb-slate-500`}>
           <Editor
             height={`80%`}
             width={`100%`}
