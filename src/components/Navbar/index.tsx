@@ -79,16 +79,6 @@ function Pages() {
             </button>
           </Link>
         </li>
-        {/* <li>
-          <Link to={"/labs/mylabs"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaFileCode />
-              </span>
-              <span>My Saved Labs</span>
-            </button>
-          </Link>
-        </li> */}
         <li>
           <Link to={"/labs/privatelab"}>
             <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
