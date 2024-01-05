@@ -7,7 +7,6 @@ import {
   FaChevronRight,
   FaClipboard,
   FaCog,
-  FaComments,
   FaFlask,
   FaKey,
   FaList,
@@ -20,7 +19,6 @@ import {
   FaUser,
   FaUsers,
 } from "react-icons/fa";
-import { MdAssignment } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDefaultAccount } from "../../hooks/useDefaultAccount";
 import { useGetMyProfile } from "../../hooks/useProfile";
@@ -62,27 +60,20 @@ function Pages() {
   const { data: profile } = useGetMyProfile();
   return (
     <div className="h-9/10 mt-2 flex w-full flex-col overflow-y-scroll border-b border-slate-300 px-4 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-thumb-slate-600">
-      <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
-        <li>
-          <Link to={"/builder"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaTools />
-              </span>
-              <span>Lab Builder</span>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={"/deployments"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-              <span>
-                <FaRocket />
-              </span>
-              <span>Deployments</span>
-            </button>
-          </Link>
-        </li>
+      <ul className="md:text-l flex w-full flex-col justify-start gap-2 py-2 text-sm lg:text-xl">
+        <NavItem
+          icon={<FaTools />}
+          label="Lab Builder"
+          to={"/builder"}
+          toolTipMessage={"build or modify labs"}
+          toolTipDirection="bottom"
+        />
+        <NavItem
+          icon={<FaRocket />}
+          label="Deployments"
+          to={"/deployments"}
+          toolTipMessage={"manage multiple lab deployments"}
+        />
         <li>
           <div>
             <button
@@ -105,42 +96,27 @@ function Pages() {
             </button>
             {expanded == "labs" && (
               <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
-                <li>
-                  <Link to={"/labs/privatelab"}>
-                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                      <div className="ml-4 flex items-center gap-1">
-                        <span>
-                          <FaUser />
-                        </span>
-                        <span>Private Labs</span>
-                      </div>
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/labs/publiclab"}>
-                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                      <div className="ml-4 flex items-center gap-1">
-                        <span>
-                          <FaUsers />
-                        </span>
-                        <span>Public Labs</span>
-                      </div>
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/labs/challengelab"}>
-                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                      <div className="ml-4 flex items-center gap-1">
-                        <span>
-                          <FaPuzzlePiece />
-                        </span>
-                        <span>Challenge Labs</span>
-                      </div>
-                    </button>
-                  </Link>
-                </li>
+                <NavItem
+                  icon={<FaUser />}
+                  label="Private Labs"
+                  to={"/labs/privatelab"}
+                  toolTipMessage="Labs created by you or shared privately with you."
+                  depth={1}
+                />
+                <NavItem
+                  icon={<FaUsers />}
+                  label="Public Labs"
+                  to={"/labs/publiclab"}
+                  toolTipMessage="Publicly available labs created by SMEs."
+                  depth={1}
+                />
+                <NavItem
+                  icon={<FaPuzzlePiece />}
+                  label="Challenge Labs"
+                  to={"/labs/challengelab"}
+                  toolTipMessage="Challenge labs created by you or shared privately with you. Looking for your challenges to solve? Go to Learning > My Challenges."
+                  depth={1}
+                />
               </ul>
             )}
           </div>
@@ -167,42 +143,27 @@ function Pages() {
             </button>
             {expanded == "learning" && (
               <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
-                <li>
-                  <Link to={"/labs/challenge"}>
-                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                      <div className="ml-4 flex items-center gap-1">
-                        <span>
-                          <FaSuperpowers />
-                        </span>
-                        <span>My Challenges</span>
-                      </div>
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/labs/assignment"}>
-                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                      <div className="ml-4 flex items-center gap-1">
-                        <span>
-                          <MdAssignment />
-                        </span>
-                        <span>Assigned Labs</span>
-                      </div>
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/my/assignments"}>
-                    <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                      <div className="ml-4 flex items-center gap-1">
-                        <span>
-                          <FaList />
-                        </span>
-                        <span>Assignments</span>
-                      </div>
-                    </button>
-                  </Link>
-                </li>
+                <NavItem
+                  icon={<FaSuperpowers />}
+                  label="My Challenges"
+                  to={"/labs/challenge"}
+                  toolTipMessage="Challenges by your friends. Solve them to learn new skills."
+                  depth={1}
+                />
+                <NavItem
+                  icon={<FaBookReader />}
+                  label="Readiness Labs"
+                  to={"/labs/assignment"}
+                  toolTipMessage="Labs assigned to you by your mentor or yourself for mandatory learning."
+                  depth={1}
+                />
+                <NavItem
+                  icon={<FaList />}
+                  label="Assignments"
+                  to={"/my/assignments"}
+                  toolTipMessage="Manage your readiness labs assignments."
+                  depth={1}
+                />
               </ul>
             )}
           </div>
@@ -231,60 +192,39 @@ function Pages() {
               {expanded == "mentor" && (
                 <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
                   {" "}
-                  <li>
-                    <Link to={"/labs/mockcase"}>
-                      <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                        <div className="ml-4 flex items-center gap-1">
-                          <span>
-                            <FaClipboard />
-                          </span>
-                          <span>Mock Cases</span>
-                        </div>
-                      </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/labs/readinesslab"}>
-                      <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                        <div className="ml-4 flex items-center gap-1">
-                          <span>
-                            <FaBookReader />
-                          </span>
-                          <span>Readiness Labs</span>
-                        </div>
-                      </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/assignments"}>
-                      <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                        <div className="ml-4 flex items-center gap-1">
-                          <span>
-                            <FaList />
-                          </span>
-                          <span>Assignments</span>
-                        </div>
-                      </button>
-                    </Link>
-                  </li>
+                  <NavItem
+                    icon={<FaClipboard />}
+                    label="Mock Cases"
+                    to={"/labs/mockcase"}
+                    toolTipMessage="View, create, manage and deploy mock cases for your mentees."
+                    depth={1}
+                  />
+                  <NavItem
+                    icon={<FaBookReader />}
+                    label="Readiness Labs"
+                    to={"/labs/readinesslab"}
+                    toolTipMessage="View, create, and manage readiness labs. For assignments, Go to Mentor > All Assignments."
+                    depth={1}
+                  />
+                  <NavItem
+                    icon={<FaList />}
+                    label="All Assignments"
+                    to={"/assignments"}
+                    toolTipMessage="Manage Readiness Labs assignments for your mentees."
+                    depth={1}
+                  />
                 </ul>
               )}
             </div>
           </li>
         )}
         {profile && profile.roles.includes("admin") && (
-          <>
-            <li>
-              <Link to={"/rbac"}>
-                <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-                  <span>
-                    <FaShieldAlt />
-                  </span>
-                  <span>Access Control</span>
-                </button>
-              </Link>
-            </li>
-          </>
+          <NavItem
+            icon={<FaShieldAlt />}
+            label="Access Control"
+            to={"/rbac"}
+            toolTipMessage="Manage access control for ACT Labs. Only Admins can access this page."
+          />
         )}
         <li>
           <a
@@ -333,33 +273,60 @@ function FixedPages() {
             </Tooltip>
           </li>
         )}
-        <li>
-          <Link to={"/settings"}>
-            <button
-              className={`flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
-            >
-              <span>
-                <FaCog />
-              </span>
-              <span>Settings</span>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to={"/feedback"}>
-            <button className="flex h-full w-full items-center justify-start gap-2 rounded bg-green-500 bg-opacity-20 py-3 px-4 text-left text-base hover:bg-slate-200 dark:bg-inherit dark:hover:bg-slate-800">
-              <span>
-                <FaComments />
-              </span>
-              <span className="dark:text-green-500">Help & Feedback</span>
-            </button>
-          </Link>
-        </li>
+        <NavItem
+          icon={<FaCog />}
+          label="Settings"
+          to={"/settings"}
+          toolTipMessage="Manage actlabs configurations and Your server."
+        />
+        <NavItem
+          icon={<FaCog />}
+          label="Help & Feedback"
+          to={"/feedback"}
+          toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
+        />
         <li>
           <LoginButton />
         </li>
       </ul>
       {showSubscriptionModal && <DefaultSubscription onClick={() => setShowSubscriptionModal(false)} />}
     </div>
+  );
+}
+
+type NavItemProps = {
+  icon: React.ReactNode;
+  label: string;
+  to: string;
+  toolTipMessage?: string;
+  toolTipDelay?: number;
+  toolTipDirection?: "top" | "bottom" | "left" | "right";
+  depth?: number;
+};
+
+function NavItem({
+  icon,
+  label,
+  to,
+  toolTipMessage,
+  toolTipDelay = 500,
+  toolTipDirection = "top",
+  depth = 0,
+}: NavItemProps) {
+  return (
+    <li>
+      <Link to={to}>
+        <Tooltip message={toolTipMessage} delay={toolTipDelay} direction={toolTipDirection}>
+          <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+            <div className={`ml-${depth * 4}`}>
+              <div className="flex items-center gap-2 text-base">
+                <span>{icon}</span>
+                <span>{label}</span>
+              </div>
+            </div>
+          </button>
+        </Tooltip>
+      </Link>
+    </li>
   );
 }
