@@ -67,9 +67,11 @@ export default function LabsGridPage() {
         placeHolderText={`Filter ${pageHeading.toLowerCase()}`}
       />
       <LabGridLayout>
-        {filteredLabs?.map((lab) => (
-          <LabCard lab={lab} key={lab.id} />
-        ))}
+        {filteredLabs
+          ?.sort((a, b) => a.name.localeCompare(b.name))
+          .map((lab) => (
+            <LabCard lab={lab} key={lab.id} />
+          ))}
       </LabGridLayout>
       <Terminal />
     </PageLayout>
