@@ -9,18 +9,11 @@ type Props = {
   selectedLabs: Lab[];
   setSelectedLabs: React.Dispatch<React.SetStateAction<Lab[]>>;
 };
-export default function SelectLabsDropdown({
-  selectedLabs,
-  setSelectedLabs,
-}: Props) {
+export default function SelectLabsDropdown({ selectedLabs, setSelectedLabs }: Props) {
   const [uniqueLabs, setUniqueLabs] = useState<Lab[]>([]);
   const [labsSearchTerm, setLabsSearchTerm] = useState<string>("");
 
-  const {
-    data: labs,
-    isLoading: labsLoading,
-    isFetching: labsFetching,
-  } = useGetAllReadinessLabsRedacted();
+  const { data: labs, isLoading: labsLoading, isFetching: labsFetching } = useGetAllReadinessLabsRedacted();
 
   /**
    * Effect hook to update the list of unique labs.
@@ -79,9 +72,7 @@ export default function SelectLabsDropdown({
    */
   const onLabClick = (lab: Lab) => {
     setSelectedLabs((selectedLabs) =>
-      selectedLabs.includes(lab)
-        ? selectedLabs.filter((i) => i !== lab)
-        : [...selectedLabs, lab]
+      selectedLabs.includes(lab) ? selectedLabs.filter((i) => i !== lab) : [...selectedLabs, lab]
     );
   };
 
@@ -104,9 +95,7 @@ export default function SelectLabsDropdown({
         <p className="mt-1 cursor-pointer rounded p-2 hover:bg-opacity-40">
           {typeof lab === "string" ? lab : lab.name}
         </p>
-        {isSelected && (
-          <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />
-        )}
+        {isSelected && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />}
       </div>
     );
   };
@@ -114,19 +103,14 @@ export default function SelectLabsDropdown({
   return (
     <div className="flex w-full">
       <DropdownSelect
-        heading={
-          selectedLabs.length > 0
-            ? selectedLabs.length + " labs selected."
-            : "Select Labs"
-        }
+        heading={selectedLabs.length > 0 ? selectedLabs.length + " labs selected." : "Select Labs"}
         disabled={labsLoading || labsFetching}
         items={[
-          ...selectedLabs,
+          ...selectedLabs.sort((a, b) => a.name.localeCompare(b.name)),
           ...uniqueLabs
             .filter((lab) => !selectedLabs.includes(lab))
-            .filter((lab) =>
-              lab.name.toLowerCase().includes(labsSearchTerm.toLowerCase())
-            ),
+            .filter((lab) => lab.name.toLowerCase().includes(labsSearchTerm.toLowerCase()))
+            .sort((a, b) => a.name.localeCompare(b.name)),
         ]}
         renderItem={renderLab}
         onItemClick={onLabClick}
