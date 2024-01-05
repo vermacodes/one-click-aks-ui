@@ -48,13 +48,13 @@ function Modal({ showModal, setShowModal }: ModalProps) {
   if (!showModal || lab === undefined) return null;
   return (
     <div
-      className="max-w-ful -gap-x-2 fixed inset-0 z-20 flex max-h-full justify-center"
+      className="fixed inset-0 z-20 flex items-center justify-center"
       onClick={() => {
         setShowModal(false);
       }}
     >
       <div
-        className="max-w-screen gap-y-2 rounded bg-slate-100 dark:divide-slate-700 dark:bg-slate-700"
+        className="h-full w-full gap-y-2 overflow-auto rounded bg-slate-100 dark:divide-slate-700 dark:bg-slate-700"
         onClick={(e) => {
           e.stopPropagation();
         }}
