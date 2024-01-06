@@ -61,7 +61,15 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
                   </span>
                 </div>
               </Tooltip>
-              <Tooltip message="Server Status. " delay={500}>
+              <Tooltip
+                message={
+                  `Server Status as seen by Actlabs Hub. ` +
+                  `If this shows running and server is still not connecting that can be due to DNS sync delay. ` +
+                  `Try opening https://${managedServer.endpoint}/status in a different tab to ensure DNS resolves correctly and ` +
+                  `you get a response back. If thee is no response, give it a few minutes and try again.`
+                }
+                delay={500}
+              >
                 <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
                   <div className="flex items-center gap-2">
                     {managedServer.status === "Running" && <FaCheckCircle className="text-green-600" />}
