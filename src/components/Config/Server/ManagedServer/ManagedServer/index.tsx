@@ -61,7 +61,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
                   </span>
                 </div>
               </Tooltip>
-              <Tooltip message="Server Status" delay={500}>
+              <Tooltip message="Server Status. " delay={500}>
                 <div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
                   <div className="flex items-center gap-2">
                     {managedServer.status === "Running" && <FaCheckCircle className="text-green-600" />}
@@ -100,7 +100,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
               <InactiveDuration managedServer={managedServer} />
             </div>
           )}
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex flex-wrap gap-4">
             <Button variant="primary" disabled={lock} onClick={onDeployClick}>
               <FaRocket /> Deploy
             </Button>
