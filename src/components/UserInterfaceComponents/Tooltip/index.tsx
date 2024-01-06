@@ -31,7 +31,7 @@ export default function Tooltip({ message, children, delay = 100, direction = "b
       {message && visible && (
         <div
           className={`absolute
-          z-10 w-48 min-w-full transform whitespace-pre-wrap rounded bg-slate-800 p-2 text-xs text-slate-100
+          z-10 w-48 min-w-fit transform whitespace-pre-wrap rounded bg-slate-800 p-2 text-xs text-slate-100
           transition-all  dark:bg-slate-100 dark:text-slate-900 
           ${direction === "top" ? "bottom-full -translate-y-2" : ""}
           ${direction === "bottom" ? "top-full translate-y-2" : ""}
