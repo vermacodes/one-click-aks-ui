@@ -22,6 +22,7 @@ type Props = {
 
 export default function ManagedServerComponent({ serverHosting, setServerHosting }: Props) {
   const [confirmUnregister, setConfirmUnregister] = useState<boolean>(false);
+  const [confirmDestroy, setConfirmDestroy] = useState<boolean>(false);
 
   const { graphResponse } = useAuth();
   const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
@@ -112,11 +113,11 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
             <Button variant="primary" disabled={lock} onClick={onDeployClick}>
               <FaRocket /> Deploy
             </Button>
-            <Button variant="secondary" disabled={lock} onClick={handleDestroy}>
+            <Button variant="secondary-outline" disabled={lock} onClick={() => setConfirmDestroy(true)}>
               <FaTrash /> Destroy
             </Button>
             <Button
-              variant="danger-outline"
+              variant="secondary-outline"
               onClick={() => setConfirmUnregister(true)}
               tooltipMessage="Unregister the managed server."
               tooltipDelay={1000}
@@ -140,6 +141,22 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
             onClose={() => setConfirmUnregister(false)}
           >
             <p>Are you sure you want to unregister the managed server?</p>
+          </ConfirmationModal>
+        )}
+        {confirmDestroy && (
+          <ConfirmationModal
+            title="Confirm Destroy Server"
+            onConfirm={() => {
+              setConfirmDestroy(false);
+              handleDestroy();
+            }}
+            onClose={() => setConfirmDestroy(false)}
+          >
+            <p className="text-xl">Are you sure you want to destroy the managed server?</p>
+            <p className="text-sm">
+              Please note that, when manually destroyed, server wont be deployed again automatically and you have to
+              manually deploy it.
+            </p>
           </ConfirmationModal>
         )}
       </Container>
