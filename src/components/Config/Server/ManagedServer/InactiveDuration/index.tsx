@@ -39,7 +39,7 @@ export default function ManagedServerInactiveLife({ managedServer }: Props) {
   };
 
   return (
-    <div className="w-32 min-w-fit">
+    <div className="w-36 min-w-fit">
       <DropdownSelect
         heading={
           managedServer.autoDestroy ? secondsToHoursOrMinutes(managedServer.inactivityDurationInSeconds) : "Never"
