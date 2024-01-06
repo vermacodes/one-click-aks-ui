@@ -23,6 +23,7 @@ type Props = {
 export default function ManagedServerComponent({ serverHosting, setServerHosting }: Props) {
   const [confirmUnregister, setConfirmUnregister] = useState<boolean>(false);
   const [confirmDestroy, setConfirmDestroy] = useState<boolean>(false);
+  const [confirmAutoDestroyDisabled, setConfirmAutoDestroyDisabled] = useState<boolean>(false);
 
   const { graphResponse } = useAuth();
   const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
@@ -38,6 +39,19 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
       userPrincipalId: graphResponse?.id,
       logLevel: "-4",
     } as ManagedServer);
+  }
+
+  function onAutoDestroyClick() {
+    if (!managedServer) {
+      return;
+    }
+
+    if (managedServer.autoDestroy) {
+      setConfirmAutoDestroyDisabled(true);
+      return;
+    }
+
+    handleUpdate({ ...managedServer, autoDestroy: true });
   }
 
   if (managedServer === undefined || (managedServer && managedServer.status === "Unregistered")) {
@@ -103,7 +117,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
                 label="Auto Destroy"
                 id="autoDestroy"
                 checked={managedServer.autoDestroy}
-                handleOnChange={() => handleUpdate({ ...managedServer, autoDestroy: !managedServer.autoDestroy })}
+                handleOnChange={onAutoDestroyClick}
                 disabled={isLoading || isFetching || isError || lock}
               />
               <InactiveDuration managedServer={managedServer} />
@@ -156,6 +170,22 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
             <p className="text-sm">
               Please note that, when manually destroyed, server wont be deployed again automatically and you have to
               manually deploy it.
+            </p>
+          </ConfirmationModal>
+        )}
+        {confirmAutoDestroyDisabled && (
+          <ConfirmationModal
+            title="Confirm Disable Auto Destroy"
+            onConfirm={() => {
+              setConfirmAutoDestroyDisabled(false);
+              handleUpdate({ ...managedServer, autoDestroy: false });
+            }}
+            onClose={() => setConfirmAutoDestroyDisabled(false)}
+          >
+            <p className="text-xl">Are you sure you want to disable auto destroy?</p>
+            <p className="text-sm">
+              Please note that, when auto destroy is disabled, server wont be automatically destroyed and you may incur
+              unnecessary cost.
             </p>
           </ConfirmationModal>
         )}
