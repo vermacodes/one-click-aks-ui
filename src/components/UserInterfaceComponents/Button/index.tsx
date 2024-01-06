@@ -53,6 +53,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   tooltipMessage?: string;
   tooltipDelay?: number;
   tooltipDirection?: "top" | "bottom" | "left" | "right";
+  tooltipAlign?: "start" | "center" | "end";
 };
 
 export default function Button({
@@ -61,13 +62,14 @@ export default function Button({
   tooltipMessage,
   tooltipDelay,
   tooltipDirection,
+  tooltipAlign,
   children,
   ...rest
 }: Props) {
   const className = getClassName(variant, hidden);
 
   return (
-    <Tooltip message={tooltipMessage} delay={tooltipDelay} direction={tooltipDirection}>
+    <Tooltip message={tooltipMessage} delay={tooltipDelay} direction={tooltipDirection} align={tooltipAlign}>
       <button className={className} {...rest}>
         {children}
       </button>
