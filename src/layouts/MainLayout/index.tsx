@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import CookiesConsent from "../../components/Authentication/CookiesConcent";
 import { useGlobalStateContext } from "../../components/Context/GlobalStateContext";
 import Navbar from "../../components/Navbar";
 import AccessControl from "../../pages/AccessControl";
@@ -40,6 +41,7 @@ export default function MainLayout() {
           <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </div>
+      <CookiesConsent />
     </div>
   );
 }
