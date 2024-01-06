@@ -7,6 +7,7 @@ import {
   FaChevronRight,
   FaClipboard,
   FaCog,
+  FaComments,
   FaFlask,
   FaKey,
   FaList,
@@ -280,7 +281,7 @@ function FixedPages() {
           toolTipMessage="Manage actlabs configurations and Your server."
         />
         <NavItem
-          icon={<FaCog />}
+          icon={<FaComments />}
           label="Help & Feedback"
           to={"/feedback"}
           toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
