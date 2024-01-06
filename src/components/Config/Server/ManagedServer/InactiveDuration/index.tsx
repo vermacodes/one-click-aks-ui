@@ -29,7 +29,8 @@ export default function ManagedServerInactiveLife({ managedServer }: Props) {
     return (
       <div
         className={`${
-          lifespan === managedServer.inactivityDurationInSeconds && "bg-green-300 hover:text-slate-900 dark:text-slate-900"
+          lifespan === managedServer.inactivityDurationInSeconds &&
+          "bg-green-300 hover:text-slate-900 dark:text-slate-900"
         } w-full cursor-pointer items-center justify-between rounded p-2 hover:bg-sky-500 hover:text-slate-100`}
       >
         {secondsToHoursOrMinutes(lifespan)}
@@ -40,12 +41,19 @@ export default function ManagedServerInactiveLife({ managedServer }: Props) {
   return (
     <div className="w-32 min-w-fit">
       <DropdownSelect
-        heading={secondsToHoursOrMinutes(managedServer.inactivityDurationInSeconds)}
+        heading={
+          managedServer.autoDestroy ? secondsToHoursOrMinutes(managedServer.inactivityDurationInSeconds) : "Never"
+        }
         items={lifespans}
         onItemClick={handleManagedServerInactiveDurationChange}
         renderItem={renderItem}
-        tooltipMessage="The managed server will be automatically deleted if there is no user activity for set duration."
-        tooltipDelay={1000}
+        tooltipMessage={
+          managedServer.autoDestroy
+            ? "The managed server will be automatically deleted if there is no user activity for set duration."
+            : "Enable auto destroy to set inactivity duration."
+        }
+        tooltipDelay={500}
+        disabled={!managedServer.autoDestroy}
       />
     </div>
   );
