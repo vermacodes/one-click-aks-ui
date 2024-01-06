@@ -55,7 +55,12 @@ export default function SelectedDeployment({ sticky = true }: Props) {
           <div className="mx-2 h-6 border-r border-gray-300"></div>
           <BreakBlobLease deployment={selectedDeploymentState} buttonVariant="secondary-text" />
           <Link to={"/deployments"}>
-            <Button variant="secondary-text" tooltipMessage="View all deployments" tooltipDelay={200}>
+            <Button
+              variant="secondary-text"
+              tooltipMessage="View and manage all deployments"
+              tooltipDelay={200}
+              tooltipAlign="end"
+            >
               <FaBinoculars /> View All
             </Button>
           </Link>
