@@ -116,6 +116,33 @@ export default function ManagedServerActivityMonitor() {
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
+  /**
+   * If managed cluster status is 'Deploying' start a poller to check the status every 10 seconds.
+   * As soon as the status changes to something other than 'Deploying', stop the poller.
+   * and refresh the page.
+   */
+  useEffect(() => {
+    if (managedServer === undefined || serverHosting.environment !== "azure") {
+      return;
+    }
+
+    if (managedServer.status === "Deploying") {
+      const intervalId = setInterval(() => {
+        if (managedServer !== undefined && serverHosting.environment === "azure") {
+          queryClient.invalidateQueries("get-managed-server");
+          queryClient.invalidateQueries("server-status");
+        }
+      }, 10000); // 10 seconds interval
+
+      return () => clearInterval(intervalId);
+    }
+  }, [managedServer]);
+
+  /**
+   * Retrieves the server hosting information from local storage.
+   *
+   * @returns {ServerHosting} The server hosting information.
+   */
   function getServerHostingFromLocalStorage(): ServerHosting {
     const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
     return JSON.parse(serverHostingFromLocalStorageString);
