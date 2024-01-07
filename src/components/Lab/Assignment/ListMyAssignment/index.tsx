@@ -80,6 +80,17 @@ export default function ListAssignment({}: Props) {
     return "";
   }
 
+  if (assignments && assignments.length === 0) {
+    return (
+      <Container title="My Assignments" collapsible={true}>
+        <p className="text-xl">
+          You have no assignments. Self-assign readiness labs using 'Create Assignment' above ☝️ or ask your TA/Mentor
+          to help you.
+        </p>
+      </Container>
+    );
+  }
+
   return (
     <Container
       title="My Assignments"
