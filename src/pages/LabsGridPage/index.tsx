@@ -55,7 +55,7 @@ export default function LabsGridPage() {
       <PageLayout heading={pageHeading}>
         <div className="flex flex-col gap-4">
           <p className="text-4xl">No {pageHeading.toLowerCase()} found!</p>
-          <p>There is nothing to show here, here are some possible reasons -</p>
+          <p>There is nothing to show here, some possible reasons -</p>
           <ul className="list-inside list-disc">
             <li>You have not created and saved any labs yet.</li>
             <li>You have no assignments or challenges.</li>
