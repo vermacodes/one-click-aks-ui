@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SelectedDeployment from "../../components/Deployments/SelectedDeployment";
 import LabCard from "../../components/Lab/LabCard";
 import Terminal from "../../components/Terminal";
@@ -53,7 +53,22 @@ export default function LabsGridPage() {
   if (!labs?.length) {
     return (
       <PageLayout heading={pageHeading}>
-        <p className="text-4xl">No {pageHeading.toLowerCase()} found!</p>
+        <div className="flex flex-col gap-4">
+          <p className="text-4xl">No {pageHeading.toLowerCase()} found!</p>
+          <p>There is nothing to show here, here are some possible reasons -</p>
+          <ul className="list-inside list-disc">
+            <li>You have not created and saved any labs yet.</li>
+            <li>You have no assignments or challenges.</li>
+            <li>You don't have access to view these labs.</li>
+          </ul>
+          <p>
+            Something isn't right?{" "}
+            <Link to={"/feedback"} className="text-sky-500 underline">
+              Let us know
+            </Link>
+            .
+          </p>
+        </div>
       </PageLayout>
     );
   }
