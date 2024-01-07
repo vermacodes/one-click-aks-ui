@@ -6,57 +6,20 @@ import {
   FaChalkboardTeacher,
   FaChevronRight,
   FaClipboard,
-  FaCog,
-  FaComments,
   FaFlask,
-  FaKey,
   FaList,
   FaPuzzlePiece,
   FaRocket,
   FaShieldAlt,
   FaSuperpowers,
-  FaTimes,
   FaTools,
   FaUser,
   FaUsers,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { useDefaultAccount } from "../../hooks/useDefaultAccount";
-import { useGetMyProfile } from "../../hooks/useProfile";
-import DefaultSubscription from "../../modals/DefaultSubscription";
-import LoginButton from "../Authentication/LoginButton";
-import { useGlobalStateContext } from "../Context/GlobalStateContext";
-import Button from "../UserInterfaceComponents/Button";
-import Tooltip from "../UserInterfaceComponents/Tooltip";
+import { useGetMyProfile } from "../../../hooks/useProfile";
+import NavItem from "../NavItem";
 
-export default function Navbar() {
-  return (
-    <nav className="flex h-screen w-full min-w-max flex-col  text-slate-900 dark:text-slate-100">
-      <Title />
-      <Pages />
-      <FixedPages />
-    </nav>
-  );
-}
-
-function Title() {
-  const { navbarOpen, setNavbarOpen } = useGlobalStateContext();
-  return (
-    <div className="flex items-center justify-between pt-6 pb-2">
-      <Link to={"/"}>
-        <h1 className="flex flex-row items-center pl-8 text-2xl font-bold hover:text-sky-500">
-          <img src="/actlabs_logo_rocket.svg" className="mr-2 h-8 w-8"></img>
-          ACT Labs
-        </h1>
-      </Link>
-      <Button className="md pr-4 text-2xl md:invisible" onClick={() => setNavbarOpen(false)}>
-        <FaTimes />
-      </Button>
-    </div>
-  );
-}
-
-function Pages() {
+export default function Pages() {
   const [expanded, setExpanded] = useState<string>("");
   const { data: profile } = useGetMyProfile();
   return (
@@ -245,89 +208,5 @@ function Pages() {
         </li>
       </ul>
     </div>
-  );
-}
-
-function FixedPages() {
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const { defaultAccount } = useDefaultAccount();
-
-  return (
-    <div className="h-fit w-full flex-col p-4">
-      <ul className="md:text-l flex w-full flex-col justify-start gap-y-1 text-sm lg:text-xl">
-        {defaultAccount && (
-          <li>
-            <Tooltip
-              message="This is the selected Azure subscription. To change redeploy server in correct subscription."
-              delay={1000}
-              direction="top"
-            >
-              <button
-                className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
-                onClick={() => setShowSubscriptionModal(true)}
-              >
-                <span className="-rotate-45">
-                  <FaKey />
-                </span>{" "}
-                {defaultAccount.name}
-              </button>
-            </Tooltip>
-          </li>
-        )}
-        <NavItem
-          icon={<FaCog />}
-          label="Settings"
-          to={"/settings"}
-          toolTipMessage="Manage actlabs configurations and Your server."
-        />
-        <NavItem
-          icon={<FaComments />}
-          label="Help & Feedback"
-          to={"/feedback"}
-          toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
-        />
-        <li>
-          <LoginButton />
-        </li>
-      </ul>
-      {showSubscriptionModal && <DefaultSubscription onClick={() => setShowSubscriptionModal(false)} />}
-    </div>
-  );
-}
-
-type NavItemProps = {
-  icon: React.ReactNode;
-  label: string;
-  to: string;
-  toolTipMessage?: string;
-  toolTipDelay?: number;
-  toolTipDirection?: "top" | "bottom" | "left" | "right";
-  depth?: number;
-};
-
-function NavItem({
-  icon,
-  label,
-  to,
-  toolTipMessage,
-  toolTipDelay = 500,
-  toolTipDirection = "top",
-  depth = 0,
-}: NavItemProps) {
-  return (
-    <li>
-      <Link to={to}>
-        <Tooltip message={toolTipMessage} delay={toolTipDelay} direction={toolTipDirection}>
-          <button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-            <div className={`ml-${depth * 4}`}>
-              <div className="flex items-center gap-2 text-base">
-                <span>{icon}</span>
-                <span>{label}</span>
-              </div>
-            </div>
-          </button>
-        </Tooltip>
-      </Link>
-    </li>
   );
 }

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import CookiesConsent from "../../components/Authentication/CookiesConcent";
 import { useGlobalStateContext } from "../../components/Context/GlobalStateContext";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Navigation/Navbar";
 import AccessControl from "../../pages/AccessControl";
 import Assignments from "../../pages/Assignments";
 import Deployments from "../../pages/Deployments";
