@@ -42,7 +42,7 @@ export default function LabProfiles({ lab, profileType }: Props) {
   }, [filteredProfiles]);
 
   useEffect(() => {
-    if (myProfile && lab) {
+    if (myProfile && lab && lab.owners !== null) {
       setMeOwner(lab.owners.includes(myProfile.userPrincipal));
     }
   }, [myProfile, lab, profileType]);

@@ -16,12 +16,8 @@ type Props = {
 
 export default function MockCaseActionButtons({ lab }: Props) {
   const { data: profile } = useGetMyProfile();
-  const [buttons, setButtons] = useState<Record<string, ButtonContainerObj>>(
-    {}
-  );
-  const [overflowButtons, setOverflowButtons] = useState<
-    Record<string, ButtonContainerObj>
-  >({});
+  const [buttons, setButtons] = useState<Record<string, ButtonContainerObj>>({});
+  const [overflowButtons, setOverflowButtons] = useState<Record<string, ButtonContainerObj>>({});
 
   useEffect(() => {
     const initialButtons: Record<string, ButtonContainerObj> = {
@@ -29,11 +25,7 @@ export default function MockCaseActionButtons({ lab }: Props) {
         id: "loadToBuilderButton",
         order: 1,
         button: (
-          <LoadToBuilderButton
-            key={"loadToBuilderButton"}
-            lab={lab}
-            variant="primary-outline"
-          >
+          <LoadToBuilderButton key={"loadToBuilderButton"} lab={lab} variant="primary-outline">
             Open in Builder
           </LoadToBuilderButton>
         ),
@@ -69,11 +61,7 @@ export default function MockCaseActionButtons({ lab }: Props) {
         id: "shareLabButton",
         order: 5,
         button: (
-          <CopyLinkToLabButton
-            key={"shareLabButton"}
-            lab={lab}
-            variant="secondary-text"
-          >
+          <CopyLinkToLabButton key={"shareLabButton"} lab={lab} variant="secondary-text">
             <span>
               <FaCopy />
             </span>
@@ -109,16 +97,12 @@ export default function MockCaseActionButtons({ lab }: Props) {
   }
 
   useEffect(() => {
-    if (profile && lab.owners.includes(profile.userPrincipal)) {
+    if (profile && lab.owners !== null && lab.owners.includes(profile.userPrincipal)) {
       const deleteButton: ButtonContainerObj = {
         id: "deleteLabButton",
         order: 6,
         button: (
-          <DeleteLabButton
-            lab={lab}
-            key={"deleteLabButton"}
-            variant="danger-text"
-          >
+          <DeleteLabButton lab={lab} key={"deleteLabButton"} variant="danger-text">
             Delete
           </DeleteLabButton>
         ),
