@@ -65,7 +65,7 @@ export default function ServerNotConnected() {
 		return (
 			<div className="my-4">
 				<div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
-					<strong>🛑 Server Not Deployed:</strong> You are using managed server but its not deployed. Please deploy your
+					<strong>🛑 Server Not Deployed:</strong> You have destroyed managed server manually. Please deploy your
 					managed server from{" "}
 					<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 						Settings
