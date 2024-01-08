@@ -16,8 +16,8 @@ export function useServerStatus() {
     onError: () => {
       queryClient.invalidateQueries("login-status");
     },
-    cacheTime: 1000,
-    staleTime: 1000,
+    // cacheTime: 1000,
+    // staleTime: 1000,
     refetchInterval: 5000,
   });
 }
