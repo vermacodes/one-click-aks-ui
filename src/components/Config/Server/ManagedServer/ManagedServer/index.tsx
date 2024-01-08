@@ -61,7 +61,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 	return (
 		<GradientBorderContainer>
 			<Container
-				title="Managed Server (Preview) 🆕"
+				title="Managed Server (Azure) 🆕"
 				collapsible={true}
 				hoverEffect={false}
 				additionalClasses="border dark:border-slate-700 border-slate-300"
