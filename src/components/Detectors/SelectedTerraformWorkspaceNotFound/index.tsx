@@ -1,30 +1,55 @@
 import { useEffect, useState } from "react";
-import { useGetSelectedTerraformWorkspace } from "../../../hooks/useGetSelectedTerraformWorkspace";
+import { Link } from "react-router-dom";
 import { useServerStatus } from "../../../hooks/useServerStatus";
+import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
 
 export default function SelectedTerraformWorkspaceNotFound() {
-  const { data: serverStatus, isError } = useServerStatus();
-  const { selectedTerraformWorkspace } = useGetSelectedTerraformWorkspace();
-  const [showMessage, setShowMessage] = useState(false);
+	const [showError, setShowError] = useState(() => {
+		const savedShowError = sessionStorage.getItem("show-terraform-workspace-fetch-error");
+		return savedShowError ? JSON.parse(savedShowError) : false;
+	});
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setShowMessage(true);
-    }, 30000); // 30 seconds delay
+	const { data: serverStatus, isError: serverError } = useServerStatus();
+	const { data: terraformWorkspaces, isError, isFetching, isLoading } = useTerraformWorkspace();
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
+	useEffect(() => {
+		if (terraformWorkspaces && terraformWorkspaces.length > 0) {
+			setShowError(false);
+		}
 
-  if (selectedTerraformWorkspace !== undefined || isError || serverStatus?.status !== "OK" || !showMessage) {
-    return null;
-  }
+		if (isError) {
+			setShowError(true);
+		}
+	}, [terraformWorkspaces, isError]);
 
-  return (
-    <div className="z-5 mt-2 rounded border border-yellow-500 bg-yellow-500 bg-opacity-20 p-2">
-      <strong>⚠️ No Terraform Workspace Selected:</strong> This is normal if server just started or you just reset
-      cache. If this persists, you may have to 'Reset Server Cache' from settings or re-deploy your server.
-    </div>
-  );
+	useEffect(() => {
+		sessionStorage.setItem("show-terraform-workspace-fetch-error", JSON.stringify(showError));
+	}, [showError]);
+
+	if (serverStatus?.status !== "OK" || serverError || terraformWorkspaces) {
+		return null;
+	}
+
+	if (showError) {
+		return (
+			<div className="z-5 mt-2 rounded border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+				<strong>🛑 Terraform Error:</strong> Unable to fetch terraform workspaces. Try 'Reset Server Cache' from{" "}
+				<Link to={"/settings"} className="text-sky-500 underline">
+					settings
+				</Link>{" "}
+				or redeploy server.
+			</div>
+		);
+	}
+
+	if (isFetching || isLoading) {
+		return (
+			<div className="z-5 mt-2 rounded border border-sky-500 bg-sky-500 bg-opacity-20 p-2">
+				<strong>ℹ️ Fetching Terraform Workspace:</strong> Terraform operations will not work at this time. This is
+				normal if server just started or you just reset cache. Please wait...
+			</div>
+		);
+	}
+
+	return null;
 }
