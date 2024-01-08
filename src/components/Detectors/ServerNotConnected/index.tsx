@@ -79,8 +79,8 @@ export default function ServerNotConnected() {
 	if (managedServer?.status === "AutoDestroyed" && managedServer?.autoCreate === true) {
 		return (
 			<div className="my-4">
-				<div className="mt-2 rounded border border-yellow-500 bg-yellow-500 bg-opacity-20 p-2">
-					<strong>⚠️ Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity. It will be be
+				<div className="mt-2 rounded border border-sky-500 bg-sky-500 bg-opacity-20 p-2">
+					<strong>ℹ️ Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity. It will be be
 					deployed again in few seconds.
 				</div>
 			</div>
