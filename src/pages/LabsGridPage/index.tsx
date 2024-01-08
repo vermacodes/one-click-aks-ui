@@ -51,6 +51,9 @@ export default function LabsGridPage() {
 			setPageHeading("My Saved Labs (Deprecated) - Use Private Labs");
 		}
 
+		// Reset the filter term when the type changes
+		setFilterTerm(urlParams.get("filter") || "");
+
 		document.title = "ACT Labs | " + pageHeading;
 	}, [type, pageHeading]);
 
