@@ -17,8 +17,10 @@ export default function SelectedTerraformWorkspaceNotFound() {
 			setShowError(false);
 		}
 
-		if (isError) {
-			setShowError(true);
+		if (isError && serverStatus?.status === "OK") {
+			setTimeout(() => {
+				setShowError(true);
+			}, 10000);
 		}
 	}, [terraformWorkspaces, isError]);
 
