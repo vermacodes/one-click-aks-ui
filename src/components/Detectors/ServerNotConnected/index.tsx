@@ -106,11 +106,8 @@ export default function ServerNotConnected() {
 		<div className="my-4">
 			<div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
 				<strong>🛑 Server Not Connected:</strong> Not able to connect to <a className="underline">managed server</a>.{" "}
-				Try refreshing page or re-deploying server from{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
-					Settings
-				</Link>
-				.
+				This can happen when server is actually running but DNS is not in sync yet. Please wait for few minutes and try
+				refreshing tab.
 			</div>
 		</div>
 	);
