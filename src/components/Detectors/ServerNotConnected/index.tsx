@@ -102,12 +102,22 @@ export default function ServerNotConnected() {
 		);
 	}
 
+	if (managedServer?.status === "Running" && serverStatus?.status !== "OK") {
+		return (
+			<div className="my-4">
+				<div className="mt-2 rounded border border-sky-500 bg-sky-500 bg-opacity-20 p-2">
+					<strong>✋ Please Wait for DNS Sync:</strong> Not able to connect to{" "}
+					<a className="underline">managed server</a>. This can happen when server is actually running but DNS is not in
+					sync yet. Please wait for few minutes.
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="my-4">
 			<div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
-				<strong>🛑 Server Not Connected:</strong> Not able to connect to <a className="underline">managed server</a>.{" "}
-				This can happen when server is actually running but DNS is not in sync yet. Please wait for few minutes and try
-				refreshing tab.
+				<strong>🛑 Unexpected Error:</strong> Something unexpected happened, please report this issue.
 			</div>
 		</div>
 	);
