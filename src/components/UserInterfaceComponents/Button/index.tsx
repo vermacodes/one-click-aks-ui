@@ -24,13 +24,13 @@ const variantStyles: VariantStyles = {
 	"success-outline":
 		"ring-1 ring-green-500 py-1 px-3 text-green-500 disabled:ring-slate-400 disabled:text-slate-400 hover:ring-green-700 hover:bg-green-700  hover:text-slate-100 disabled:hover:ring-slate-400 disabled:hover:bg-inherit disabled:hover:text-slate-400 dark:disabled:ring-slate-700 dark:disabled:text-slate-500 ",
 	"primary-text":
-		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-sky-500 hover:bg-sky-500 hover:bg-opacity-20 disabled:hover:ring-slate-50 disabled:hover:bg-slate-50 dark:ring-slate-900 dark:hover:ring-sky-500 dark:disabled:hover:ring-slate-900 dark:disabled:hover:bg-slate-900",
+		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-sky-500 hover:bg-sky-500 hover:bg-opacity-20 disabled:hover:ring-0 disabled:hover:bg-inherit dark:ring-slate-900 dark:hover:ring-sky-500 dark:disabled:hover:ring-0 dark:disabled:hover:bg-inherit",
 	"secondary-text":
-		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-slate-500 hover:bg-slate-500 hover:bg-opacity-20 disabled:hover:ring-slate-50 disabled:hover:bg-slate-50 dark:ring-slate-900 dark:hover:ring-slate-500 dark:disabled:hover:ring-slate-900 dark:disabled:hover:bg-slate-900",
+		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-slate-500 hover:bg-slate-500 hover:bg-opacity-20 disabled:hover:ring-0 disabled:hover:bg-inherit dark:ring-slate-900 dark:hover:ring-slate-500 dark:disabled:hover:ring-0 dark:disabled:hover:bg-inherit",
 	"danger-text":
-		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-rose-500 hover:bg-rose-500 hover:bg-opacity-20 disabled:hover:ring-slate-50 disabled:hover:bg-slate-50 dark:ring-slate-900 dark:hover:ring-rose-500 dark:disabled:hover:ring-slate-900 dark:disabled:hover:bg-slate-900",
+		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-rose-500 hover:bg-rose-500 hover:bg-opacity-20 disabled:hover:ring-0 disabled:hover:bg-inherit dark:ring-slate-900 dark:hover:ring-rose-500 dark:disabled:hover:ring-0 dark:disabled:hover:bg-inherit",
 	"success-text":
-		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-green-500 hover:bg-green-500 hover:bg-opacity-20 disabled:hover:ring-slate-50 disabled:hover:bg-slate-50 dark:ring-slate-900 hover:dark:ring-green-500 dark:disabled:hover:ring-slate-900 dark:disabled:hover:bg-slate-900",
+		"ring-0 hover:ring-1 ring-slate-50 py-1 px-3 disabled:text-slate-400 hover:ring-green-500 hover:bg-green-500 hover:bg-opacity-20 disabled:hover:ring-0 disabled:hover:bg-inherit dark:ring-slate-900 hover:dark:ring-green-500 dark:disabled:hover:ring-0 dark:disabled:hover:bg-inherit",
 	text: "px-3 disabled:cursor-not-allowed  disabled:text-slate-400 hover:text-sky-500  disabled:hover:text-slate-400 dark:hover:text-sky-500 dark:disabled:hover:text-slate-400 ",
 	"primary-icon":
 		"rounded-full py-2 px-2 hover:bg-sky-500 hover:bg-opacity-50 disabled:text-slate-500 disabled:hover:bg-slate-50 dark:disabled:hover:bg-slate-900 disabled:cursor-not-allowed ",
