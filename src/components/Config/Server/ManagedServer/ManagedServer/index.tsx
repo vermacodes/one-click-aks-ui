@@ -124,7 +124,16 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						</div>
 					)}
 					<div className="mt-8 flex flex-wrap gap-4">
-						<Button variant="primary" disabled={lock} onClick={onDeployClick}>
+						<Button
+							variant="primary"
+							disabled={lock || managedServer.status === "Running"}
+							onClick={onDeployClick}
+							tooltipMessage={
+								managedServer.status === "Running"
+									? "Server is already running. If server was just deployed and status is 'Not Running', Please wait for DNS sync to complete. Refresh the page after a few minutes. Re-deploy will not help."
+									: undefined
+							}
+						>
 							<FaRocket /> Deploy
 						</Button>
 						<Button variant="secondary-outline" disabled={lock} onClick={() => setConfirmDestroy(true)}>
