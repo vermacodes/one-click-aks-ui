@@ -30,7 +30,7 @@ export default function ExtensionScript() {
 	function handleExtendScriptChange(value: string | undefined) {
 		if (value === undefined) return;
 
-		value = value.replace(/\r\n/g, "\n");
+		value = value.replace(/\r\n/g, "\n"); // Replace Windows line endings with Unix line endings
 
 		sessionStorage.setItem(`${lab.id}-extendScript"`, btoa(value));
 		setExtendScript(btoa(value));
@@ -48,7 +48,7 @@ export default function ExtensionScript() {
 
 	return (
 		<Container
-			title={!compareBase64Strings(_extendScript, lab.extendScript) ? "Extension Script (Unsaved)" : "Extension Script"}
+			title="Extension Script"
 			collapsed={compareBase64Strings(_extendScript, lab.extendScript)}
 			collapsible={true}
 			hoverEffect={false}
