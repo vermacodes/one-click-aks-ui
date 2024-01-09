@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react";
-import { FaCheck, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
+import { FaBook, FaCheck, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
 import { useGlobalStateContext } from "../../Context/GlobalStateContext";
 import ExtendButton from "../../Terraform/ActionButtons/ExtendButton";
 import Button from "../../UserInterfaceComponents/Button";
@@ -65,6 +65,15 @@ export default function ExtensionScript() {
 				<ExtendButton variant="secondary-text" lab={lab} mode="extend-destroy">
 					<FaTrash /> Run in Destroy Mode
 				</ExtendButton>
+				<a
+					href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280600/Extension-Script"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<Button variant="secondary-text" tooltipMessage="Learn more about extension script in our documents.">
+						<FaBook /> Documents ↗
+					</Button>
+				</a>
 			</div>
 			{!compareBase64Strings(_extendScript, lab.extendScript) ? (
 				<div className="sticky top-0 z-10 -mb-14 flex w-1/2 translate-x-1/2 items-center justify-center gap-4 rounded-b-lg bg-sky-500 bg-opacity-30 p-1 text-slate-100">
