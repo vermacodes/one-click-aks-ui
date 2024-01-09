@@ -94,17 +94,15 @@ export default function ExtensionScript() {
 					</Button>
 				</div>
 			) : null}
-			{_extendScript && (
-				<Editor
-					height="80vh"
-					width={`100%`}
-					language={"shell"}
-					value={atob(_extendScript)}
-					theme="vs-dark"
-					defaultValue="// some comment"
-					onChange={(value) => handleExtendScriptChange(value)}
-				/>
-			)}
+			<Editor
+				height="80vh"
+				width={`100%`}
+				language={"shell"}
+				value={atob(_extendScript)}
+				theme="vs-dark"
+				defaultValue="// some comment"
+				onChange={(value) => handleExtendScriptChange(value)}
+			/>
 		</Container>
 	);
 }
