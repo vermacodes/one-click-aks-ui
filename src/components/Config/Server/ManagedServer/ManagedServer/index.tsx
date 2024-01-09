@@ -130,7 +130,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							onClick={onDeployClick}
 							tooltipMessage={
 								managedServer.status === "Running"
-									? "Server is already running. If server was just deployed and status is 'Not Running', Please wait for DNS sync to complete. Refresh the page after a few minutes. Re-deploy will not help."
+									? "Server is already running. If server was just deployed and status is 'Not Running', Please wait for DNS sync to complete and refresh the page after a few minutes. Re-deploy will not help."
 									: undefined
 							}
 						>
