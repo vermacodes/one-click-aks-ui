@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Lab } from "../../../dataStructures";
 import { useLab } from "../../../hooks/useLab";
-import CodeEditor from "../../../modals/CodeEditorModal";
 import ExportLabInBuilder from "../../Lab/Export/ExportLabInBuilder";
 import ImportLabToBuilder from "../../Lab/Import/ImportLabToBuilder";
 import ResetLabState from "../../Lab/ResetLabState";
@@ -10,7 +9,6 @@ import ApplyButton from "../../Terraform/ActionButtons/ApplyButton";
 import DestroyButton from "../../Terraform/ActionButtons/DestroyButton";
 import PlanButton from "../../Terraform/ActionButtons/PlanButton";
 import Container from "../../UserInterfaceComponents/Container";
-import Tooltip from "../../UserInterfaceComponents/Tooltip";
 import AzureFirewall from "../AzureFirewall";
 import ContainerRegistry from "../ContainerRegistry";
 import ExtensionScript from "../ExtensionScript";
@@ -52,9 +50,9 @@ export default function Builder() {
 				<DestroyButton variant="danger-text" lab={lab}>
 					Destroy
 				</DestroyButton>
-				<Tooltip message="Update extension script" delay={500}>
+				{/* <Tooltip message="Update extension script" delay={500}>
 					<CodeEditor variant="secondary-text">Extension</CodeEditor>
-				</Tooltip>
+				</Tooltip> */}
 				{/* <LabBuilder variant="secondary-text">Save</LabBuilder> */}
 				<SaveLabButton />
 				<ResetLabState />
