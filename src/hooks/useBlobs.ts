@@ -4,17 +4,17 @@ import { Lab } from "../dataStructures";
 import { actlabsHubAxiosInstance, axiosInstance } from "../utils/axios-interceptors";
 
 function getSharedMockCases(): Promise<AxiosResponse<Lab[]>> {
-  return actlabsHubAxiosInstance("/lab/protected/mockcase");
+	return actlabsHubAxiosInstance("/lab/protected/mockcase");
 }
 
 export function useSharedMockCases() {
-  return useQuery("get-mockcases", getSharedMockCases, {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-    cacheTime: Infinity,
-    staleTime: Infinity,
-  });
+	return useQuery("get-mockcases", getSharedMockCases, {
+		select: (data): Lab[] => {
+			return data.data;
+		},
+		cacheTime: Infinity,
+		staleTime: Infinity,
+	});
 }
 
 // function getTemplates(): Promise<AxiosResponse<Lab[]>> {
@@ -32,160 +32,160 @@ export function useSharedMockCases() {
 // }
 
 function getSharedTemplates(): Promise<AxiosResponse<Lab[]>> {
-  return actlabsHubAxiosInstance("lab/public/publiclab");
+	return actlabsHubAxiosInstance("lab/public/publiclab");
 }
 
 export function useSharedTemplates() {
-  return useQuery("get-publiclabs", getSharedTemplates, {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-    cacheTime: Infinity,
-    staleTime: Infinity,
-  });
+	return useQuery("get-publiclabs", getSharedTemplates, {
+		select: (data): Lab[] => {
+			return data.data;
+		},
+		cacheTime: Infinity,
+		staleTime: Infinity,
+	});
 }
 
 function getPrivateLabs(): Promise<AxiosResponse<Lab[]>> {
-  return actlabsHubAxiosInstance.get("lab/private/privatelab");
+	return actlabsHubAxiosInstance.get("lab/private/privatelab");
 }
 
 export function usePrivateLabs() {
-  return useQuery("get-privatelabs", getPrivateLabs, {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-    cacheTime: Infinity,
-    staleTime: Infinity,
-  });
+	return useQuery("get-privatelabs", getPrivateLabs, {
+		select: (data): Lab[] => {
+			return data.data;
+		},
+		cacheTime: Infinity,
+		staleTime: Infinity,
+	});
 }
 
 function getChallengeLabs(): Promise<AxiosResponse<Lab[]>> {
-  return actlabsHubAxiosInstance.get("lab/private/challengelab");
+	return actlabsHubAxiosInstance.get("lab/private/challengelab");
 }
 
 export function useChallengeLabs() {
-  return useQuery("get-challengelabs", getChallengeLabs, {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-    cacheTime: Infinity,
-    staleTime: Infinity,
-  });
+	return useQuery("get-challengelabs", getChallengeLabs, {
+		select: (data): Lab[] => {
+			return data.data;
+		},
+		cacheTime: Infinity,
+		staleTime: Infinity,
+	});
 }
 
 function getReadinessLabs(): Promise<AxiosResponse<Lab[]>> {
-  return actlabsHubAxiosInstance.get("lab/protected/readinesslab");
+	return actlabsHubAxiosInstance.get("lab/protected/readinesslab");
 }
 
 export function useReadinessLabs() {
-  return useQuery("get-readinesslabs", getReadinessLabs, {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-    cacheTime: Infinity,
-    staleTime: Infinity,
-  });
+	return useQuery("get-readinesslabs", getReadinessLabs, {
+		select: (data): Lab[] => {
+			return data.data;
+		},
+		cacheTime: Infinity,
+		staleTime: Infinity,
+	});
 }
 
-function createLab(lab: Lab): Promise<AxiosResponse<Lab[]>> {
-  if (lab.type === "mockcase" || lab.type === "readinesslab") {
-    return actlabsHubAxiosInstance.post("/lab/protected", lab);
-  }
-  if (lab.type === "challengelab" || lab.type === "privatelab") {
-    return actlabsHubAxiosInstance.post("/lab/private", lab);
-  }
+function createLab(lab: Lab): Promise<AxiosResponse<Lab>> {
+	if (lab.type === "mockcase" || lab.type === "readinesslab") {
+		return actlabsHubAxiosInstance.post("/lab/protected", lab);
+	}
+	if (lab.type === "challengelab" || lab.type === "privatelab") {
+		return actlabsHubAxiosInstance.post("/lab/private", lab);
+	}
 
-  // Public Labs
-  return actlabsHubAxiosInstance.post("/lab/public", lab);
+	// Public Labs
+	return actlabsHubAxiosInstance.post("/lab/public", lab);
 }
 
 // TODO: Optimistic updates
 // ?: Will it make sense to separate create and update functions? Right now server is handling updates.
 export function useCreateLab() {
-  const queryClient = useQueryClient();
-  return useMutation(createLab, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("my-templates");
-      queryClient.invalidateQueries("get-privatelabs");
-      queryClient.invalidateQueries("get-publiclabs");
-      queryClient.invalidateQueries("get-mockcases");
-      queryClient.invalidateQueries("get-readinesslabs");
-      queryClient.invalidateQueries("get-challengelabs");
-      queryClient.invalidateQueries("get-all-readiness-labs-redacted");
-    },
-  });
+	const queryClient = useQueryClient();
+	return useMutation(createLab, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("my-templates");
+			queryClient.invalidateQueries("get-privatelabs");
+			queryClient.invalidateQueries("get-publiclabs");
+			queryClient.invalidateQueries("get-mockcases");
+			queryClient.invalidateQueries("get-readinesslabs");
+			queryClient.invalidateQueries("get-challengelabs");
+			queryClient.invalidateQueries("get-all-readiness-labs-redacted");
+		},
+	});
 }
 
 function deleteLab(lab: Lab) {
-  return actlabsHubAxiosInstance.delete(`lab/${lab.category}/${lab.type}/${lab.id}`);
+	return actlabsHubAxiosInstance.delete(`lab/${lab.category}/${lab.type}/${lab.id}`);
 }
 
 // TODO: Optimistic updates
 export function useDeleteLab() {
-  const queryClient = useQueryClient();
-  return useMutation(deleteLab, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("my-templates");
-      queryClient.invalidateQueries("get-privatelabs");
-      queryClient.invalidateQueries("get-publiclabs");
-      queryClient.invalidateQueries("get-mockcases");
-      queryClient.invalidateQueries("get-readinesslabs");
-      queryClient.invalidateQueries("get-challengelabs");
-      queryClient.invalidateQueries("get-all-readiness-labs-redacted");
-    },
-  });
+	const queryClient = useQueryClient();
+	return useMutation(deleteLab, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("my-templates");
+			queryClient.invalidateQueries("get-privatelabs");
+			queryClient.invalidateQueries("get-publiclabs");
+			queryClient.invalidateQueries("get-mockcases");
+			queryClient.invalidateQueries("get-readinesslabs");
+			queryClient.invalidateQueries("get-challengelabs");
+			queryClient.invalidateQueries("get-all-readiness-labs-redacted");
+		},
+	});
 }
 
 function createMyLab(lab: Lab): Promise<AxiosResponse<Lab[]>> {
-  return axiosInstance.post("/lab", lab);
+	return axiosInstance.post("/lab", lab);
 }
 
 // TODO: Optimistic updates
 // ?: Will it make sense to separate create and update functions? Right now server is handling updates.
 export function useCreateMyLab() {
-  const queryClient = useQueryClient();
-  return useMutation(createMyLab, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("my-templates");
-    },
-  });
+	const queryClient = useQueryClient();
+	return useMutation(createMyLab, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("my-templates");
+		},
+	});
 }
 
 function deleteMyLab(lab: Lab) {
-  return axiosInstance.delete("lab", { data: lab });
+	return axiosInstance.delete("lab", { data: lab });
 }
 
 // TODO: Optimistic updates
 export function useDeleteMyLab() {
-  const queryClient = useQueryClient();
-  return useMutation(deleteMyLab, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("my-templates");
-    },
-  });
+	const queryClient = useQueryClient();
+	return useMutation(deleteMyLab, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("my-templates");
+		},
+	});
 }
 
 function getVersionsByTypeAndId({
-  id,
-  typeOfLab,
-  categoryOfLab,
+	id,
+	typeOfLab,
+	categoryOfLab,
 }: {
-  id: string | undefined;
-  typeOfLab: string | undefined;
-  categoryOfLab: string;
+	id: string | undefined;
+	typeOfLab: string | undefined;
+	categoryOfLab: string;
 }): Promise<AxiosResponse<Lab[]>> {
-  return actlabsHubAxiosInstance.get(`lab/${categoryOfLab}/versions/${typeOfLab}/${id}`);
+	return actlabsHubAxiosInstance.get(`lab/${categoryOfLab}/versions/${typeOfLab}/${id}`);
 }
 
 export function useGetVersionsById(
-  id: string | undefined,
-  typeOfLab: string | undefined,
-  categoryOfLab: string = "public"
+	id: string | undefined,
+	typeOfLab: string | undefined,
+	categoryOfLab: string = "public"
 ) {
-  const queryKey = ["lab-versions", id, typeOfLab, categoryOfLab];
-  return useQuery(queryKey, () => getVersionsByTypeAndId({ id, typeOfLab, categoryOfLab }), {
-    select: (data): Lab[] => {
-      return data.data;
-    },
-  });
+	const queryKey = ["lab-versions", id, typeOfLab, categoryOfLab];
+	return useQuery(queryKey, () => getVersionsByTypeAndId({ id, typeOfLab, categoryOfLab }), {
+		select: (data): Lab[] => {
+			return data.data;
+		},
+	});
 }
