@@ -67,15 +67,26 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 		});
 
 		response.then((response) => {
+			// if the response is an axios error, then return
+			// as the toast.promise will handle the error
 			if (isAxiosError(response)) {
 				return;
 			}
-			//console.log(response);
+
+			// remove extension script of lab in memory from session storage
+			// its of no use to keep that in session storage
+			// as the lab is saved and the extension script is saved in the lab
+			sessionStorage.removeItem(`${lab.id}-extendScript"`);
+
+			// update lab in memory.
 			setLab(response.data);
+
+			// close the modal after lab is saved.
 			handleModalClose();
 		});
 	}
 
+	// handles the closing of save lab modal.
 	function handleModalClose() {
 		setShowModal(false);
 	}
