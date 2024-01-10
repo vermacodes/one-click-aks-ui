@@ -25,7 +25,7 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const { setLab } = useGlobalStateContext();
 	const { mutateAsync: createMyLab } = useCreateMyLab();
-	const { mutateAsync: createLab, data } = useCreateLab();
+	const { mutateAsync: createLab } = useCreateLab();
 
 	function handleCreateMyLab() {
 		const response = toast.promise(createMyLab(labState), {
