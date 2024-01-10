@@ -183,12 +183,20 @@ export default function Pages() {
 					</li>
 				)}
 				{profile && profile.roles.includes("admin") && (
-					<NavItem
-						icon={<FaShieldAlt />}
-						label="Access Control"
-						to={"/rbac"}
-						toolTipMessage="Manage access control for ACT Labs. Only Admins can access this page."
-					/>
+					<>
+						<NavItem
+							icon={<FaShieldAlt />}
+							label="Access Control"
+							to={"/rbac"}
+							toolTipMessage="Manage access control for ACT Labs. Only Admins can access this page."
+						/>
+						<NavItem
+							icon={<FaClipboard />}
+							label="Managed Servers"
+							to={"/managed-servers"}
+							toolTipMessage="Manage managed servers."
+						/>
+					</>
 				)}
 				<li>
 					<a
