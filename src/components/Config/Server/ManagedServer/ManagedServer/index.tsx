@@ -152,6 +152,9 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 				</div>
 				<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />
 				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
+					Managed servers change IP with each deployment. Wait 5 mins for DNS sync, then refresh; redeploy won't solve.
+				</p>
+				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
 					ARO labs only work in Self-Hosted (Docker) environment.
 				</p>
 				{confirmUnregister && (
