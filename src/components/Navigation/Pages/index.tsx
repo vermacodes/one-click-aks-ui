@@ -4,6 +4,7 @@ import {
 	FaBook,
 	FaBookReader,
 	FaChalkboardTeacher,
+	FaChessKing,
 	FaChevronRight,
 	FaClipboard,
 	FaFlask,
@@ -183,20 +184,47 @@ export default function Pages() {
 					</li>
 				)}
 				{profile && profile.roles.includes("admin") && (
-					<>
-						<NavItem
-							icon={<FaShieldAlt />}
-							label="Access Control"
-							to={"/rbac"}
-							toolTipMessage="Manage access control for ACT Labs. Only Admins can access this page."
-						/>
-						<NavItem
-							icon={<FaClipboard />}
-							label="Managed Servers"
-							to={"/managed-servers"}
-							toolTipMessage="Manage managed servers."
-						/>
-					</>
+					<li>
+						<div>
+							<button
+								className={`
+              ${expanded === "admin" && "bg-slate-200 dark:bg-slate-800 "}
+              flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+								onClick={() => {
+									setExpanded(expanded == "admin" ? "" : "admin");
+								}}
+							>
+								<div className="flex items-center gap-1">
+									<span>
+										<FaChessKing />
+									</span>
+									<span>Admin</span>
+								</div>
+								<div className={`${expanded === "admin" && "rotate-90 "} transition-all`}>
+									<FaChevronRight />
+								</div>
+							</button>
+							{expanded == "admin" && (
+								<ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
+									{" "}
+									<NavItem
+										icon={<FaShieldAlt />}
+										label="Access Control"
+										to={"/rbac"}
+										toolTipMessage="Manage access control for ACT Labs. Only Admins can access this page."
+										depth={1}
+									/>
+									<NavItem
+										icon={<FaClipboard />}
+										label="Managed Servers"
+										to={"/managed-servers"}
+										toolTipMessage="Manage managed servers."
+										depth={1}
+									/>
+								</ul>
+							)}
+						</div>
+					</li>
 				)}
 				<li>
 					<a
