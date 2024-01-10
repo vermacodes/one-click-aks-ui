@@ -48,7 +48,8 @@ export default function ManagedServers({}: Props) {
 							<th className="space-x-2 px-4 py-2 text-left">Status</th>
 							{/* <th className="space-x-2 px-4 py-2 text-left">Auto Create</th> */}
 							<th className="space-x-2 px-4 py-2 text-left">Auto Destroy</th>
-							<th className="space-x-2 px-4 py-2 text-left">Last User Activity</th>
+							<th className="space-x-2 px-4 py-2 text-left">Duration Since Last Activity</th>
+							<th className="space-x-2 px-4 py-2 text-left">Idle Timeout</th>
 							<th className="space-x-2 px-4 py-2 text-left">Deployed At</th>
 							<th className="space-x-2 px-4 py-2 text-left">Destroyed At</th>
 							<th className="space-x-2 px-4 py-2 text-left">Up Duration</th>
@@ -63,21 +64,60 @@ export default function ManagedServers({}: Props) {
 									<td className="space-x-2 px-4 py-2">{server.status}</td>
 									{/* <td className="space-x-2 px-4 py-2">{server.autoCreate ? "Enabled" : ""}</td> */}
 									<td className="space-x-2 px-4 py-2">{server.autoDestroy ? "Enabled" : ""}</td>
-									<td className="space-x-2 px-4 py-2">{new Date(server.lastActivityTime).toLocaleString()}</td>
+									<td className="space-x-2 px-4 py-2">
+										{(() => {
+											const lastActivity = new Date(server.lastActivityTime);
+											const now = new Date();
+											const elapsedMs = now.getTime() - lastActivity.getTime();
+
+											const seconds = Math.floor((elapsedMs / 1000) % 60);
+											const minutes = Math.floor((elapsedMs / 1000 / 60) % 60);
+											const hours = Math.floor((elapsedMs / (1000 * 60 * 60)) % 24);
+											const days = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
+
+											let result = "";
+											if (days > 0) result += `${days}d `;
+											if (hours > 0) result += `${hours}h `;
+											if (minutes > 0) result += `${minutes}m `;
+											result += `${seconds}s`;
+
+											return result;
+										})()}
+									</td>
+									<td className="space-x-2 px-4 py-2">
+										{(() => {
+											const totalSeconds = server.inactivityDurationInSeconds;
+											const hours = Math.floor(totalSeconds / 3600);
+											const minutes = Math.floor((totalSeconds % 3600) / 60);
+											const seconds = totalSeconds % 60;
+
+											return `${hours}h ${minutes}m ${seconds}s`;
+										})()}
+									</td>
 									<td className="space-x-2 px-4 py-2">{new Date(server.deployedAtTime).toLocaleString()}</td>
 									<td className="space-x-2 px-4 py-2">{new Date(server.destroyedAtTime).toLocaleString()}</td>
 									<td className="space-x-2 px-4 py-2">
 										{(() => {
 											const deployedAt = new Date(server.deployedAtTime);
 											const destroyedAt = server.destroyedAtTime ? new Date(server.destroyedAtTime) : new Date();
-											const uptimeMs = destroyedAt.getTime() - deployedAt.getTime();
+											let uptimeMs = destroyedAt.getTime() - deployedAt.getTime();
+
+											if (uptimeMs < 0) {
+												uptimeMs = new Date().getTime() - deployedAt.getTime();
+											}
 
 											const seconds = Math.floor((uptimeMs / 1000) % 60);
 											const minutes = Math.floor((uptimeMs / 1000 / 60) % 60);
 											const hours = Math.floor((uptimeMs / (1000 * 60 * 60)) % 24);
 											const days = Math.floor(uptimeMs / (1000 * 60 * 60 * 24));
 
-											return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+											let result = "";
+											if (days > 0) result += `${days}d `;
+											if (hours > 0) result += `${hours}h `;
+											if (minutes > 0) result += `${minutes}m `;
+											result += `${seconds}s`;
+
+											return result;
 										})()}
 									</td>
 								</tr>
