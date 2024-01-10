@@ -98,7 +98,7 @@ export default function ExtensionScript() {
 				height="80vh"
 				width={`100%`}
 				language={"shell"}
-				value={atob(_extendScript)}
+				value={_extendScript && atob(_extendScript)}
 				theme="vs-dark"
 				defaultValue="// some comment"
 				onChange={(value) => handleExtendScriptChange(value)}
