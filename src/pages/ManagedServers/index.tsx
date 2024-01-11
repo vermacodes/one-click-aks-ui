@@ -60,7 +60,9 @@ export default function ManagedServers({}: Props) {
 							.sort((a, b) => new Date(b.lastActivityTime).getTime() - new Date(a.lastActivityTime).getTime())
 							.map((server) => (
 								<tr key={server.userPrincipalId} className="hover:bg-slate-100 hover:dark:bg-slate-800">
-									<td className="space-x-2 px-4 py-2">{getProfileByUserPrincipal(server.userPrincipalName)}</td>
+									<td className="w-64 min-w-fit space-x-2 px-4 py-2">
+										{getProfileByUserPrincipal(server.userPrincipalName)}
+									</td>
 									<td className="space-x-2 px-4 py-2">{server.status}</td>
 									{/* <td className="space-x-2 px-4 py-2">{server.autoCreate ? "Enabled" : ""}</td> */}
 									<td className="space-x-2 px-4 py-2">{server.autoDestroy ? "Enabled" : ""}</td>
