@@ -151,10 +151,11 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 					</div>
 				</div>
 				<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />
-				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
-					Managed servers change IP with each deployment. Wait 5 mins for DNS sync, then refresh; redeploy won't solve.
+				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
+					✋ Managed servers change IP with each deployment. If server is running but not connected, wait 5 mins for DNS
+					sync, then refresh; redeploy won't help.
 				</p>
-				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
+				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
 					ARO labs only work in Self-Hosted (Docker) environment.
 				</p>
 				{confirmUnregister && (
@@ -179,10 +180,20 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						onClose={() => setConfirmDestroy(false)}
 					>
 						<p className="text-xl">Are you sure you want to destroy the managed server?</p>
-						<p className="text-sm">
-							Please note that, when manually destroyed, server wont be deployed again automatically and you have to
-							manually deploy it.
-						</p>
+						<ul className="ml-4 list-disc space-y-2">
+							<li className="text-sm">
+								<span className="font-bold underline">IMPORTANT</span> 👉 Managed server (ACI) change IP with each
+								deployment. If server is running but not connected, wait 5 mins for DNS sync, then refresh; redeploy
+								won't help.
+							</li>
+							<li className="text-sm">
+								Server wont be deployed again automatically and you have to manually deploy it.
+							</li>
+							<li className="text-sm">
+								Any deployments which are set to be auto-destroyed will not be destroyed until server is manually
+								deployed again..
+							</li>
+						</ul>
 					</ConfirmationModal>
 				)}
 				{confirmAutoDestroyDisabled && (
