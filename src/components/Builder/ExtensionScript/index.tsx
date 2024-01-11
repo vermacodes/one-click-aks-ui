@@ -1,4 +1,4 @@
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 import { FaBook, FaCheck, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
 import { useGlobalStateContext } from "../../Context/GlobalStateContext";
@@ -6,9 +6,30 @@ import ExtendButton from "../../Terraform/ActionButtons/ExtendButton";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
 
+// uses https://github.com/suren-atoyan/monaco-react
 export default function ExtensionScript() {
 	const { lab, setLab } = useGlobalStateContext();
 	const [_extendScript, setExtendScript] = useState<string>(sessionStorage.getItem(`${lab.id}-extendScript"`) || "");
+  const [themeDefined, setThemeDefined] = useState(false);
+
+
+  const monaco = useMonaco();
+
+  useEffect(() => {
+    if (monaco) {
+      console.log("executed");
+      monaco.editor.defineTheme("myCustomTheme", {
+        base: "vs-dark",
+        inherit: true,
+        rules: [],
+        colors: {
+          "editor.background": "#020617",
+          "editor.lineHighlightBackground": "#020617",
+        },
+      });
+      setThemeDefined(true);
+    }
+  }, [monaco]);
 
 	useEffect(() => {
 		if (lab !== undefined) {
@@ -44,7 +65,7 @@ export default function ExtensionScript() {
 		return a === b;
 	}
 
-	if (lab === undefined) return null;
+	if (lab === undefined || !themeDefined) return null;
 
 	return (
 		<Container
@@ -99,7 +120,7 @@ export default function ExtensionScript() {
 				width={`100%`}
 				language={"shell"}
 				value={_extendScript && atob(_extendScript)}
-				theme="vs-dark"
+				theme="myCustomTheme"
 				defaultValue="// some comment"
 				onChange={(value) => handleExtendScriptChange(value)}
 			/>

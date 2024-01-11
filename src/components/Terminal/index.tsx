@@ -99,7 +99,7 @@ export default function Terminal() {
         </div>
       </div>
       <div
-        className="mb-5 h-1/2 max-h-[80vh] min-h-[80vh] overflow-y-auto rounded border border-slate-900 bg-slate-900 p-4 text-sm text-slate-100 shadow shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded hover:border-sky-500 dark:shadow-slate-700 dark:scrollbar-thumb-slate-600 dark:hover:border-sky-500"
+        className="mb-5 h-1/2 max-h-[80vh] min-h-[80vh] overflow-y-auto rounded border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded hover:border-sky-500 dark:shadow-slate-700 dark:scrollbar-thumb-slate-600 dark:hover:border-sky-500"
         ref={logContainerRef}
       >
         <div ref={logContentRef} className="w-full overflow-x-clip whitespace-pre-wrap break-words font-mono">
@@ -192,12 +192,12 @@ function Modal({ showModal, setShowModal }: ModalProps) {
       }}
     >
       <div
-        className="w-screen gap-y-2 bg-slate-100 p-5 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="w-screen gap-y-2 bg-slate-100 p-0 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="space-2 mb-1 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500">
+        <div className="space-2 -mb-10 p-2 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500">
           <div>{selectedDeployment && <DeploymentStatus deployment={selectedDeployment} />}</div>
           <div className="pl-2">
             <Checkbox
@@ -216,7 +216,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
           </Button>
         </div>
         <div
-          className="mb-5 h-[90%] overflow-y-auto rounded border border-slate-900 bg-slate-900 p-4 text-sm text-slate-100 shadow shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded hover:border-sky-500 dark:shadow-slate-700 dark:scrollbar-thumb-slate-600 dark:hover:border-sky-500"
+          className="h-full overflow-y-auto rounded border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded hover:border-sky-500 dark:shadow-slate-700 dark:scrollbar-thumb-slate-600 dark:hover:border-sky-500"
           ref={logContainerRef}
         >
           <div ref={logContentRef} className="w-full overflow-x-clip whitespace-pre-wrap break-words font-mono">
