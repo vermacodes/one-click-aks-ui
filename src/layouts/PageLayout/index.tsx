@@ -41,6 +41,11 @@ export default function PageLayout({ heading, children }: Props) {
 						<h1 className="text-xl md:text-4xl">{heading}</h1>
 					</div>
 					<div className="flex gap-4">
+						{/* <a href="https://teams.microsoft.com/l/chat/0/0?users=ashisverma@microsoft.com" target="_blank">
+							<Button variant="danger-icon" tooltipMessage="Found Bug? Report it Now!">
+								<FaBug />
+							</Button>
+						</a> */}
 						<ResetLabState buttonVariant="text" newLab={true}>
 							<FaPlus /> New Lab
 						</ResetLabState>
