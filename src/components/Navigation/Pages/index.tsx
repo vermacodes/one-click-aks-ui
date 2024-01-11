@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 import {
-	FaBook,
-	FaBookReader,
-	FaChalkboardTeacher,
-	FaChessKing,
-	FaChevronRight,
-	FaClipboard,
-	FaFlask,
-	FaList,
-	FaPuzzlePiece,
-	FaRocket,
-	FaShieldAlt,
-	FaSuperpowers,
-	FaTools,
-	FaUser,
-	FaUsers,
+  FaBook,
+  FaBookReader,
+  FaChalkboardTeacher,
+  FaChessKing,
+  FaChevronRight,
+  FaClipboard,
+  FaFlask,
+  FaList,
+  FaPuzzlePiece,
+  FaRocket,
+  FaServer,
+  FaShieldAlt,
+  FaSuperpowers,
+  FaTools,
+  FaUser,
+  FaUsers,
 } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import NavItem from "../NavItem";
@@ -215,7 +216,7 @@ export default function Pages() {
 										depth={1}
 									/>
 									<NavItem
-										icon={<FaClipboard />}
+										icon={<FaServer />}
 										label="Managed Servers"
 										to={"/managed-servers"}
 										toolTipMessage="Manage managed servers."
