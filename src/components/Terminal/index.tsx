@@ -197,7 +197,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
 					e.stopPropagation();
 				}}
 			>
-				<div className="space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 bg-slate-500 bg-opacity-30 p-2">
+				<div className="space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 bg-slate-500 bg-opacity-30 p-2 text-slate-50">
 					<div>{selectedDeployment && <DeploymentStatus deployment={selectedDeployment} />}</div>
 					<div className="pl-2">
 						<Checkbox
@@ -216,7 +216,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
 					</Button>
 				</div>
 				<div
-					className="h-full overflow-y-auto rounded border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded hover:border-sky-500 dark:shadow-slate-700 dark:scrollbar-thumb-slate-600 dark:hover:border-sky-500"
+					className="h-full overflow-y-auto bg-[#020617] p-4 text-sm text-slate-100 shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded dark:scrollbar-thumb-slate-600 "
 					ref={logContainerRef}
 				>
 					<div ref={logContentRef} className="w-full overflow-x-clip whitespace-pre-wrap break-words font-mono">
