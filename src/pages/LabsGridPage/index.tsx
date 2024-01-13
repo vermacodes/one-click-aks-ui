@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import SelectedDeployment from "../../components/Deployments/SelectedDeployment";
 import LabCard from "../../components/Lab/LabCard";
-import Terminal from "../../components/Terminal";
+import Terminal from "../../components/Terminal/Terminal";
 import FilterTextBox from "../../components/UserInterfaceComponents/FilterTextBox";
 import { LabType } from "../../dataStructures";
 import { useGetLabs } from "../../hooks/useGetLabs";
