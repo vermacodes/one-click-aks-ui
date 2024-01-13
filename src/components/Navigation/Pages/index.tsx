@@ -1,31 +1,65 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 import {
-  FaBook,
-  FaBookReader,
-  FaChalkboardTeacher,
-  FaChessKing,
-  FaChevronRight,
-  FaClipboard,
-  FaFlask,
-  FaList,
-  FaPuzzlePiece,
-  FaRocket,
-  FaServer,
-  FaShieldAlt,
-  FaSuperpowers,
-  FaTools,
-  FaUser,
-  FaUsers,
+	FaBook,
+	FaBookReader,
+	FaChalkboardTeacher,
+	FaChessKing,
+	FaChevronRight,
+	FaClipboard,
+	FaFlask,
+	FaList,
+	FaPuzzlePiece,
+	FaRocket,
+	FaServer,
+	FaShieldAlt,
+	FaSuperpowers,
+	FaTools,
+	FaUser,
+	FaUsers,
 } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import NavItem from "../NavItem";
 
-export default function Pages() {
+type Props = {
+	setIsScrolled: (isScrolled: boolean) => void;
+};
+
+export default function Pages({ setIsScrolled }: Props) {
 	const [expanded, setExpanded] = useState<string>("");
 	const { data: profile } = useGetMyProfile();
+	const divRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (!divRef.current) {
+				return;
+			}
+			const currentScrollPos = divRef.current.scrollTop;
+			const isScrolled = currentScrollPos > 0;
+			setIsScrolled(isScrolled);
+		};
+
+		if (!divRef.current) {
+			return;
+		}
+
+		if (divRef.current) {
+			divRef.current.addEventListener("scroll", handleScroll);
+		}
+
+		return () => {
+			if (divRef.current) {
+				divRef.current.removeEventListener("scroll", handleScroll);
+			}
+		};
+	}, [divRef]);
+
 	return (
-		<div className="h-9/10 mt-2 flex w-full flex-col overflow-y-scroll border-b border-slate-300 px-4 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-thumb-slate-600">
+		<div
+			ref={divRef}
+			className={`h-9/10 mt-2 flex w-full flex-col overflow-y-scroll border-b border-slate-300 px-4 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-thumb-slate-600`}
+		>
 			<ul className="md:text-l flex w-full flex-col justify-start gap-2 py-2 text-sm lg:text-xl">
 				<NavItem
 					icon={<FaTools />}
@@ -45,7 +79,7 @@ export default function Pages() {
 						<button
 							className={`
                 ${expanded === "labs" && "bg-slate-200 dark:bg-slate-800 "}
-                flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+                flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
 							onClick={() => {
 								setExpanded(expanded == "labs" ? "" : "labs");
 							}}
@@ -92,7 +126,7 @@ export default function Pages() {
 						<button
 							className={`
                 ${expanded === "learning" && "bg-slate-200 dark:bg-slate-800 "}
-                flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+                flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
 							onClick={() => {
 								setExpanded(expanded == "learning" ? "" : "learning");
 							}}
@@ -140,7 +174,7 @@ export default function Pages() {
 							<button
 								className={`
                 ${expanded === "mentor" && "bg-slate-200 dark:bg-slate-800 "}
-                flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+                flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
 								onClick={() => {
 									setExpanded(expanded == "mentor" ? "" : "mentor");
 								}}
@@ -190,7 +224,7 @@ export default function Pages() {
 							<button
 								className={`
               ${expanded === "admin" && "bg-slate-200 dark:bg-slate-800 "}
-              flex h-full w-full items-center justify-between gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
+              flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
 								onClick={() => {
 									setExpanded(expanded == "admin" ? "" : "admin");
 								}}
@@ -232,7 +266,7 @@ export default function Pages() {
 						target="_blank"
 						href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280599/ACT-Lab-Tool"
 					>
-						<button className="flex h-full w-full items-center justify-start gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+						<button className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
 							<span>
 								<FaBook />
 							</span>
