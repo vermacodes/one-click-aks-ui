@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 import {
 	FaBook,
@@ -21,44 +21,13 @@ import {
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import NavItem from "../NavItem";
 
-type Props = {
-	setIsScrolled: (isScrolled: boolean) => void;
-};
-
-export default function Pages({ setIsScrolled }: Props) {
+export default function Pages() {
 	const [expanded, setExpanded] = useState<string>("");
 	const { data: profile } = useGetMyProfile();
-	const divRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (!divRef.current) {
-				return;
-			}
-			const currentScrollPos = divRef.current.scrollTop;
-			const isScrolled = currentScrollPos > 0;
-			setIsScrolled(isScrolled);
-		};
-
-		if (!divRef.current) {
-			return;
-		}
-
-		if (divRef.current) {
-			divRef.current.addEventListener("scroll", handleScroll);
-		}
-
-		return () => {
-			if (divRef.current) {
-				divRef.current.removeEventListener("scroll", handleScroll);
-			}
-		};
-	}, [divRef]);
 
 	return (
 		<div
-			ref={divRef}
-			className={`h-9/10 mt-2 flex w-full flex-col overflow-y-scroll border-b border-slate-300 px-4 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-thumb-slate-600`}
+			className={`h-9/10 mt-2 flex w-full flex-col overflow-y-scroll border-b border-t border-slate-300 px-4 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
 		>
 			<ul className="md:text-l flex w-full flex-col justify-start gap-2 py-2 text-sm lg:text-xl">
 				<NavItem
