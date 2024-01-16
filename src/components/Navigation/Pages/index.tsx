@@ -5,7 +5,6 @@ import {
 	FaBookReader,
 	FaChalkboardTeacher,
 	FaChessKing,
-	FaChevronRight,
 	FaClipboard,
 	FaFlask,
 	FaList,
@@ -46,26 +45,26 @@ export default function Pages() {
 				/>
 				<li>
 					<div>
-						<button
-							className={`
-                ${expanded === "labs" && "bg-slate-200 dark:bg-slate-800 "}
-                flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
-							onClick={() => {
-								setExpanded(expanded == "labs" ? "" : "labs");
-							}}
+						<NavParent
+							id="labs"
+							expanded={expanded}
+							setExpanded={setExpanded}
+							childTos={[
+								"/labs/privatelab",
+								"/labs/publiclab",
+								"/labs/challengelab",
+								"/lab/privatelab",
+								"/lab/publiclab",
+								"/lab/challengelab",
+							]}
 						>
-							<div className="flex items-center gap-1">
-								<span>
-									<FaFlask />
-								</span>
-								<span>Labs</span>
-							</div>
-							<div className={`${expanded === "labs" && "rotate-90 "} transition-all`}>
-								<FaChevronRight />
-							</div>
-						</button>
+							<span>
+								<FaFlask />
+							</span>
+							<span>Labs</span>
+						</NavParent>
 						{expanded == "labs" && (
-							<ul className="md:text-l flex w-full flex-col justify-start gap-y-1 py-2 text-sm lg:text-xl">
+							<ul className="md:text-l flex w-full flex-col justify-start gap-1 pt-1 text-sm lg:text-xl">
 								<NavItem
 									icon={<FaUser />}
 									label="Private Labs"
@@ -97,7 +96,7 @@ export default function Pages() {
 							id="learning"
 							expanded={expanded}
 							setExpanded={setExpanded}
-							childTos={["/labs/challenge", "/labs/assignment", "/my/assignments"]}
+							childTos={["/labs/challenge", "/lab/challenge", "/labs/assignment", "/my/assignments", "/lab/assignment"]}
 						>
 							<span>
 								<FaBookReader />
@@ -105,7 +104,7 @@ export default function Pages() {
 							<span>Learning</span>
 						</NavParent>
 						{expanded == "learning" && (
-							<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-1 text-sm lg:text-xl">
+							<ul className="md:text-l flex w-full flex-col justify-start gap-1 pt-1 text-sm lg:text-xl">
 								<NavItem
 									icon={<FaSuperpowers />}
 									label="My Challenges"
@@ -138,7 +137,13 @@ export default function Pages() {
 								id="mentor"
 								expanded={expanded}
 								setExpanded={setExpanded}
-								childTos={["/labs/mockcase", "/labs/readinesslab", "/assignments"]}
+								childTos={[
+									"/labs/mockcase",
+									"/lab/mockcase",
+									"/labs/readinesslab",
+									"/lab/readinesslab",
+									"/assignments",
+								]}
 							>
 								<span>
 									<FaChalkboardTeacher />
@@ -146,7 +151,7 @@ export default function Pages() {
 								<span>Mentor</span>
 							</NavParent>
 							{expanded == "mentor" && (
-								<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-1 text-sm lg:text-xl">
+								<ul className="md:text-l flex w-full flex-col justify-start gap-1 pt-1 text-sm lg:text-xl">
 									{" "}
 									<NavItem
 										icon={<FaClipboard />}
@@ -189,7 +194,7 @@ export default function Pages() {
 								<span>Admin</span>
 							</NavParent>
 							{expanded == "admin" && (
-								<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-1 text-sm lg:text-xl">
+								<ul className="md:text-l flex w-full flex-col justify-start gap-1 pt-1 text-sm lg:text-xl">
 									{" "}
 									<NavItem
 										icon={<FaShieldAlt />}

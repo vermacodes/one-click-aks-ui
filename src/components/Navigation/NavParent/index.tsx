@@ -12,7 +12,16 @@ type Props = {
 export default function NavParent({ id, expanded, setExpanded, children, childTos }: Props) {
 	const location = useLocation();
 
-	const isActive = childTos?.some((childTo) => location.pathname.includes(childTo));
+	const isActive = childTos?.some((childTo) => {
+		// If location.pathname includes "challengelab" and id is "learning", ignore this childTo
+		if (location.pathname.includes("challengelab") && id === "learning") {
+			return false;
+		}
+
+		// Otherwise, check if location.pathname starts with childTo
+		return location.pathname.startsWith(childTo);
+	});
+
 	const activeClass = isActive ? "bg-sky-200 dark:bg-sky-800 " : "hover:bg-slate-200 dark:hover:bg-slate-800 ";
 
 	return (
