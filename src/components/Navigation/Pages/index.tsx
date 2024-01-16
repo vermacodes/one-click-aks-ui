@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import NavItem from "../NavItem";
+import NavParent from "../NavParent";
 
 export default function Pages() {
 	const [expanded, setExpanded] = useState<string>("");
@@ -92,24 +93,17 @@ export default function Pages() {
 				</li>
 				<li>
 					<div>
-						<button
-							className={`
-                ${expanded === "learning" && "bg-slate-200 dark:bg-slate-800 "}
-                flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
-							onClick={() => {
-								setExpanded(expanded == "learning" ? "" : "learning");
-							}}
+						<NavParent
+							id="learning"
+							expanded={expanded}
+							setExpanded={setExpanded}
+							childTos={["/labs/challenge", "/labs/assignment", "/my/assignments"]}
 						>
-							<div className="flex items-center gap-1">
-								<span>
-									<FaBookReader />
-								</span>
-								<span>Learning</span>
-							</div>
-							<div className={`${expanded === "learning" && "rotate-90 "} transition-all`}>
-								<FaChevronRight />
-							</div>
-						</button>
+							<span>
+								<FaBookReader />
+							</span>
+							<span>Learning</span>
+						</NavParent>
 						{expanded == "learning" && (
 							<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-1 text-sm lg:text-xl">
 								<NavItem
@@ -140,24 +134,17 @@ export default function Pages() {
 				{profile && profile.roles.includes("mentor") && (
 					<li>
 						<div>
-							<button
-								className={`
-                ${expanded === "mentor" && "bg-slate-200 dark:bg-slate-800 "}
-                flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
-								onClick={() => {
-									setExpanded(expanded == "mentor" ? "" : "mentor");
-								}}
+							<NavParent
+								id="mentor"
+								expanded={expanded}
+								setExpanded={setExpanded}
+								childTos={["/labs/mockcase", "/labs/readinesslab", "/assignments"]}
 							>
-								<div className="flex items-center gap-1">
-									<span>
-										<FaChalkboardTeacher />
-									</span>
-									<span>Mentor</span>
-								</div>
-								<div className={`${expanded === "mentor" && "rotate-90 "} transition-all`}>
-									<FaChevronRight />
-								</div>
-							</button>
+								<span>
+									<FaChalkboardTeacher />
+								</span>
+								<span>Mentor</span>
+							</NavParent>
 							{expanded == "mentor" && (
 								<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-1 text-sm lg:text-xl">
 									{" "}
@@ -190,24 +177,17 @@ export default function Pages() {
 				{profile && profile.roles.includes("admin") && (
 					<li>
 						<div>
-							<button
-								className={`
-              ${expanded === "admin" && "bg-slate-200 dark:bg-slate-800 "}
-              flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800`}
-								onClick={() => {
-									setExpanded(expanded == "admin" ? "" : "admin");
-								}}
+							<NavParent
+								id="admin"
+								expanded={expanded}
+								setExpanded={setExpanded}
+								childTos={["/rbac", "/managed-servers"]}
 							>
-								<div className="flex items-center gap-1">
-									<span>
-										<FaChessKing />
-									</span>
-									<span>Admin</span>
-								</div>
-								<div className={`${expanded === "admin" && "rotate-90 "} transition-all`}>
-									<FaChevronRight />
-								</div>
-							</button>
+								<span>
+									<FaChessKing />
+								</span>
+								<span>Admin</span>
+							</NavParent>
 							{expanded == "admin" && (
 								<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-1 text-sm lg:text-xl">
 									{" "}
