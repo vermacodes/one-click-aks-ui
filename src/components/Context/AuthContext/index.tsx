@@ -4,72 +4,69 @@ import { useCreateProfile } from "../../../hooks/useProfile";
 import AuthenticatingFullScreen from "../../Authentication/AuthenticatingFullScreen";
 
 interface AuthContextData {
-  graphResponse: GraphData | undefined;
-  setGraphResponse: React.Dispatch<React.SetStateAction<GraphData | undefined>>;
-  profilePhoto: string | undefined;
-  setProfilePhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
-  graphAPIAccessToken: string | undefined;
-  setGraphAPIAccessToken: React.Dispatch<React.SetStateAction<string | undefined>>;
+	graphResponse: GraphData | undefined;
+	setGraphResponse: React.Dispatch<React.SetStateAction<GraphData | undefined>>;
+	profilePhoto: string | undefined;
+	setProfilePhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
+	graphAPIAccessToken: string | undefined;
+	setGraphAPIAccessToken: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
 
 type Props = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export function AuthProvider({ children }: Props) {
-  const [graphResponse, setGraphResponse] = useState<GraphData | undefined>();
-  const [profilePhoto, setProfilePhoto] = useState<string | undefined>();
-  const [graphAPIAccessToken, setGraphAPIAccessToken] = useState<string | undefined>();
+	const [graphResponse, setGraphResponse] = useState<GraphData | undefined>();
+	const [profilePhoto, setProfilePhoto] = useState<string | undefined>();
+	const [graphAPIAccessToken, setGraphAPIAccessToken] = useState<string | undefined>();
 
-  const { mutate: createProfile } = useCreateProfile();
+	const { mutate: createProfile } = useCreateProfile();
 
-  useEffect(() => {
-    if (graphResponse && profilePhoto) {
-      let profile: Profile = {
-        displayName: graphResponse.displayName,
-        objectId: graphResponse.id,
-        userPrincipal: graphResponse.userPrincipalName,
-        //profilePhoto: profilePhoto,
-        roles: [],
-      };
+	useEffect(() => {
+		if (graphResponse) {
+			let profile: Profile = {
+				displayName: graphResponse.displayName,
+				objectId: graphResponse.id,
+				userPrincipal: graphResponse.userPrincipalName,
+				roles: [],
+			};
 
-      createProfile(profile);
-    }
-  }, [graphResponse, profilePhoto]);
+			createProfile(profile);
+		}
+	}, [graphResponse]);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        graphResponse,
-        setGraphResponse,
-        profilePhoto,
-        setProfilePhoto,
-        graphAPIAccessToken,
-        setGraphAPIAccessToken,
-      }}
-    >
-      {graphResponse ? (
-        children
-      ) : (
-        <AuthenticatingFullScreen
-          graphResponse={graphResponse}
-          setGraphResponse={setGraphResponse}
-          profilePhoto={profilePhoto}
-          setProfilePhoto={setProfilePhoto}
-          graphAPIAccessToken={graphAPIAccessToken}
-          setGraphAPIAccessToken={setGraphAPIAccessToken}
-        />
-      )}
-    </AuthContext.Provider>
-  );
+	return (
+		<AuthContext.Provider
+			value={{
+				graphResponse,
+				setGraphResponse,
+				profilePhoto,
+				setProfilePhoto,
+				graphAPIAccessToken,
+				setGraphAPIAccessToken,
+			}}
+		>
+			{graphResponse ? (
+				children
+			) : (
+				<AuthenticatingFullScreen
+					setGraphResponse={setGraphResponse}
+					setProfilePhoto={setProfilePhoto}
+					graphAPIAccessToken={graphAPIAccessToken}
+					setGraphAPIAccessToken={setGraphAPIAccessToken}
+				/>
+			)}
+		</AuthContext.Provider>
+	);
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
+	const context = useContext(AuthContext);
+	if (!context) {
+		throw new Error("useAuth must be used within an AuthProvider");
+	}
+	return context;
 }
