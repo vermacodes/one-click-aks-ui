@@ -48,7 +48,6 @@ export default function NavItem({
 			// If the path does not include "labs", check if the current location starts with the path
 			isActive = location.startsWith(to);
 		}
-
 		// Return the result
 		return isActive;
 	}
