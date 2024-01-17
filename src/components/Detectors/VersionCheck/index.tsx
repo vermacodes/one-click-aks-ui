@@ -12,7 +12,7 @@ export default function VersionCheck() {
 		}
 
 		const versionNumber = parseInt(version);
-		return versionNumber >= 20231229;
+		return versionNumber >= 20240117;
 	}
 
 	if (data === undefined || isFetching) {
