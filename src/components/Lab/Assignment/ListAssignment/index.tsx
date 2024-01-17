@@ -12,6 +12,7 @@ import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../UserInterfaceComponents/Container";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
+import AssignmentStatus from "../AssignmentStatus";
 import DeleteAssignment from "../DeleteAssignment";
 
 type Props = {};
@@ -150,7 +151,9 @@ export default function ListAssignment({}: Props) {
 									</td>
 									<td className="space-x-2 px-4 py-2">{getLabName(assignment.labId)}</td>
 									<td className="space-x-2 px-4 py-2">{assignment.userId}</td>
-									<td className="space-x-2 px-4 py-2">{assignment.status}</td>
+									<td className="space-x-2 px-4 py-2">
+										<AssignmentStatus assignment={assignment} />
+									</td>
 									<td className="space-x-2 px-4 py-2">
 										<DeleteAssignment assignment={assignment} />
 									</td>
