@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../dataStructures";
-import { getDefaultServerHosting } from "../../../defaults";
 import { useDeployManagedServer } from "../../../hooks/useDeployManagedServer";
 import useInterval from "../../../hooks/useInterval";
 import { useManagedServer, useManagedServerActivityUpdate } from "../../../hooks/useManagedServer";
@@ -9,7 +8,7 @@ import { useResetServerCache } from "../../../hooks/useServerCache";
 
 export default function ManagedServerActivityMonitor() {
   const [isPageVisible, setPageVisible] = useState(!document.hidden);
-  const [serverHosting, setServerHosting] = useState<ServerHosting>(getDefaultServerHosting());
+  const [serverHosting, setServerHosting] = useState<ServerHosting>(getServerHostingFromLocalStorage());
 
   const isPageVisibleRef = useRef(isPageVisible);
   const serverHostingRef = useRef(serverHosting);
@@ -30,8 +29,7 @@ export default function ManagedServerActivityMonitor() {
    */
   useEffect(() => {
     // Get the server hosting information from local storage
-    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
-    const serverHostingFromLocalStorage: ServerHosting = JSON.parse(serverHostingFromLocalStorageString);
+    const serverHostingFromLocalStorage: ServerHosting = getServerHostingFromLocalStorage();
 
     // Check if the server hosting information is for an Azure environment and if the endpoint is empty
     if (
@@ -119,10 +117,45 @@ export default function ManagedServerActivityMonitor() {
   }, []);
 
   /**
+   * If managed cluster status is 'Deploying' start a poller to check the status every 10 seconds.
+   * As soon as the status changes to something other than 'Deploying', stop the poller.
+   * and refresh the page.
+   */
+  useEffect(() => {
+    if (managedServer === undefined || serverHosting.environment !== "azure") {
+      return;
+    }
+
+    if (managedServer.status === "Deploying") {
+      const intervalId = setInterval(() => {
+        if (managedServer !== undefined && serverHosting.environment === "azure") {
+          queryClient.invalidateQueries("get-managed-server");
+          queryClient.invalidateQueries("server-status");
+        }
+      }, 10000); // 10 seconds interval
+
+      return () => clearInterval(intervalId);
+    }
+  }, [managedServer]);
+
+  /**
+   * Retrieves the server hosting information from local storage.
+   *
+   * @returns {ServerHosting} The server hosting information.
+   */
+  function getServerHostingFromLocalStorage(): ServerHosting {
+    const serverHostingFromLocalStorageString = localStorage.getItem("serverHosting") || "{}";
+    return JSON.parse(serverHostingFromLocalStorageString);
+  }
+
+  /**
    * Updates the activity for the managed server every 60 seconds.
    */
   useInterval(() => {
-    if (!isPageVisible || managedServer === undefined || serverHosting.environment !== "azure") {
+    // Get the server hosting information from local storage
+    const serverHostingFromLocalStorage: ServerHosting = getServerHostingFromLocalStorage();
+
+    if (!isPageVisible || managedServer === undefined || serverHostingFromLocalStorage.environment !== "azure") {
       return;
     }
     updateActivity(managedServer.userPrincipalName);
