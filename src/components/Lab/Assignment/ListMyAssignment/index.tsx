@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaCheckCircle, FaExclamationCircle, FaTrash } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -78,6 +78,36 @@ export default function ListAssignment({}: Props) {
 			}
 		}
 		return "";
+	}
+
+	function assignmentStatus(assignment: Assignment) {
+		if (assignment.status === "Created") {
+			return (
+				<span className="flex items-center gap-2">
+					<FaCheckCircle className="text-sky-500" /> Created
+				</span>
+			);
+		}
+		if (assignment.status === "InProgress") {
+			return (
+				<span className="flex items-center gap-2">
+					<FaCheckCircle className="text-purple-500" /> In Progress
+				</span>
+			);
+		}
+		if (assignment.status === "Completed") {
+			return (
+				<span className="flex items-center gap-2">
+					<FaCheckCircle className="text-green-500" /> Completed
+				</span>
+			);
+		}
+
+		return (
+			<span className="flex items-center gap-2">
+				<FaExclamationCircle className="text-yellow-500" /> Unknown
+			</span>
+		);
 	}
 
 	if (assignments && assignments.filter((assignment) => assignment.status !== "Deleted").length === 0) {
@@ -164,7 +194,7 @@ export default function ListAssignment({}: Props) {
 										<Link to={`/lab/assignment/${assignment.labId}`}>{getLabName(assignment.labId)}</Link>
 									</td>
 									<td className="space-x-2 px-4 py-2">{assignment.userId}</td>
-									<td className="space-x-2 px-4 py-2">{assignment.status}</td>
+									<td className="space-x-2 px-4 py-2">{assignmentStatus(assignment)}</td>
 									<td className="space-x-2 px-4 py-2">
 										<DeleteMyAssignment assignment={assignment} />
 									</td>

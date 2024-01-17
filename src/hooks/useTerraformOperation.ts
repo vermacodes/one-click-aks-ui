@@ -127,7 +127,7 @@ export function useTerraformOperation() {
 			return;
 		}
 
-		submitOperation({
+		return submitOperation({
 			operationType,
 			operationId,
 			lab,
