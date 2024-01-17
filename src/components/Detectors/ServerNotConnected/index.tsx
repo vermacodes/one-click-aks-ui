@@ -114,6 +114,17 @@ export default function ServerNotConnected() {
 		);
 	}
 
+	if (managedServer?.status === "Registered" && serverStatus?.status !== "OK") {
+		return (
+			<div className="my-4">
+				<div className="mt-2 rounded border border-sky-500 bg-sky-500 bg-opacity-20 p-2">
+					<strong>☑️ Registration Completed:</strong> Managed server is now registered, Please use 'Deploy' button in
+					Settings to deploy.
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="my-4">
 			<div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
