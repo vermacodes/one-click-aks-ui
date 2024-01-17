@@ -15,12 +15,8 @@ type Props = {
 
 export default function PrivateLabActionButtons({ lab }: Props) {
   const { data: profile } = useGetMyProfile();
-  const [buttons, setButtons] = useState<Record<string, ButtonContainerObj>>(
-    {}
-  );
-  const [overflowButtons, setOverflowButtons] = useState<
-    Record<string, ButtonContainerObj>
-  >({});
+  const [buttons, setButtons] = useState<Record<string, ButtonContainerObj>>({});
+  const [overflowButtons, setOverflowButtons] = useState<Record<string, ButtonContainerObj>>({});
 
   useEffect(() => {
     const initialButtons: Record<string, ButtonContainerObj> = {
@@ -28,11 +24,7 @@ export default function PrivateLabActionButtons({ lab }: Props) {
         id: "loadToBuilderButton",
         order: 4,
         button: (
-          <LoadToBuilderButton
-            key={"loadToBuilderButton"}
-            lab={lab}
-            variant="primary-outline"
-          >
+          <LoadToBuilderButton key={"loadToBuilderButton"} lab={lab} variant="primary-outline">
             Open in Builder
           </LoadToBuilderButton>
         ),
@@ -59,11 +51,7 @@ export default function PrivateLabActionButtons({ lab }: Props) {
         id: "shareLabButton",
         order: 4,
         button: (
-          <CopyLinkToLabButton
-            key={"shareLabButton"}
-            lab={lab}
-            variant="secondary-text"
-          >
+          <CopyLinkToLabButton key={"shareLabButton"} lab={lab} variant="secondary-text">
             <span>
               <FaCopy />
             </span>
@@ -75,12 +63,7 @@ export default function PrivateLabActionButtons({ lab }: Props) {
         id: "shareAssignmentButton",
         order: 5,
         button: (
-          <CopyLinkToLabButton
-            key={"shareAssignmentButton"}
-            lab={lab}
-            labType="assignment"
-            variant="secondary-text"
-          >
+          <CopyLinkToLabButton key={"shareAssignmentButton"} lab={lab} labType="assignment" variant="secondary-text">
             <span>
               <FaCopy />
             </span>
@@ -116,16 +99,12 @@ export default function PrivateLabActionButtons({ lab }: Props) {
   }
 
   useEffect(() => {
-    if (profile && lab.owners.includes(profile.userPrincipal)) {
+    if (profile && lab.owners !== null && lab.owners.includes(profile.userPrincipal)) {
       const deleteButton: ButtonContainerObj = {
         id: "deleteLabButton",
         order: 6,
         button: (
-          <DeleteLabButton
-            lab={lab}
-            key={"deleteLabButton"}
-            variant="danger-text"
-          >
+          <DeleteLabButton lab={lab} key={"deleteLabButton"} variant="danger-text">
             Delete
           </DeleteLabButton>
         ),

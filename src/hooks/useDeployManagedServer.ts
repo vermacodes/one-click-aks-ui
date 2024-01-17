@@ -4,7 +4,12 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../dataStructures";
-import { useCreateManagedServer, useDestroyManagedServer, useUpdateManagedServer } from "../hooks/useManagedServer";
+import {
+  useCreateManagedServer,
+  useDestroyManagedServer,
+  useUnregister,
+  useUpdateManagedServer,
+} from "../hooks/useManagedServer";
 import { useResetServerCache } from "../hooks/useServerCache";
 import { isManagedServer } from "../utils/typeGuards";
 
@@ -14,6 +19,7 @@ export function useDeployManagedServer() {
   const { mutateAsync: deployManagedServer } = useCreateManagedServer();
   const { mutateAsync: updateManagedServer } = useUpdateManagedServer();
   const { mutateAsync: destroyManagedServer } = useDestroyManagedServer();
+  const { mutateAsync: unregisterManagedServer } = useUnregister();
 
   const handleSwitch = (baseUrl: string) => {
     localStorage.setItem(
@@ -118,5 +124,36 @@ export function useDeployManagedServer() {
     });
   };
 
-  return { lock, handleDeploy, handleUpdate, handleDestroy };
+  const handleUnregister = () => {
+    setLock(true);
+    const response = toast.promise(unregisterManagedServer, {
+      pending: "Unregistering managed server...",
+      success: {
+        render(data) {
+          if (isManagedServer(data?.data?.data)) {
+            return `Managed server unregistered.`;
+          }
+        },
+        autoClose: 2000,
+      },
+      error: {
+        render({ data }) {
+          console.log("Data ", { data });
+          if (isAxiosError(data)) {
+            console.log("Axios Error Found");
+            return `Failed to unregister managed server. ${data?.response?.data?.error}`;
+          }
+          return `Failed to unregister managed server.`;
+        },
+        autoClose: 5000,
+      },
+    });
+
+    response.finally(() => {
+      setLock(false);
+      window.location.reload();
+    });
+  };
+
+  return { lock, handleDeploy, handleUpdate, handleDestroy, handleUnregister };
 }

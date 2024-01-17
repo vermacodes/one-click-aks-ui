@@ -16,10 +16,9 @@ export default function NetworkPluginMode({ index }: Props) {
 
   const newLab = structuredClone(lab);
 
-  const cluster = lab?.template?.kubernetesClusters[index];
+  const cluster = newLab?.template?.kubernetesClusters[index];
 
-  const noKubernetesClustersMessage =
-    "You must create a Kubernetes cluster first.";
+  const noKubernetesClustersMessage = "You must create a Kubernetes cluster first.";
   const networkPluginNotAzureMessage = "Azure CNI required.";
   const networkPolicyNotAzureMessage = "Not supported with Calico";
 
@@ -37,11 +36,7 @@ export default function NetworkPluginMode({ index }: Props) {
     newTooltipMessage += networkPolicyNotAzureMessage + " ";
   }
 
-  if (
-    cluster &&
-    cluster.networkPlugin === "azure" &&
-    cluster.networkPolicy === "azure"
-  ) {
+  if (cluster && cluster.networkPlugin === "azure" && cluster.networkPolicy === "azure") {
     newTooltipMessage = "";
   }
 
@@ -58,18 +53,14 @@ export default function NetworkPluginMode({ index }: Props) {
         cluster.networkPluginMode = "Overlay";
         cluster.addons.appGateway = false;
       }
-      !actionStatus.inProgress &&
-        setLogs({ logs: JSON.stringify(newLab?.template, null, 4) });
+      !actionStatus.inProgress && setLogs({ logs: JSON.stringify(newLab?.template, null, 4) });
       setLab(newLab);
     }
   };
 
   // Determine checked and disabled states
   const checked = cluster?.networkPluginMode === "Overlay";
-  const disabled =
-    !cluster ||
-    cluster.networkPlugin !== "azure" ||
-    cluster.networkPolicy !== "azure";
+  const disabled = !cluster || cluster.networkPlugin !== "azure" || cluster.networkPolicy !== "azure";
 
   // If lab or template is undefined, return nothing
   return lab?.template ? (

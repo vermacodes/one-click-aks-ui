@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaRedo } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonVariant } from "../../../dataStructures";
 import { useDeleteLab, useLab } from "../../../hooks/useLab";
@@ -11,14 +12,18 @@ import ConfirmationModal from "../../UserInterfaceComponents/Modal/ConfirmationM
 type Props = {
   buttonVariant?: ButtonVariant;
   children?: React.ReactNode;
+  newLab?: boolean;
 };
 
-export default function ResetLabState({ buttonVariant, children }: Props) {
+export default function ResetLabState({ buttonVariant, children, newLab = false }: Props) {
+  const [showModal, setShowModal] = useState(false);
+
   const { mutate: setLogs } = useSetLogs();
   const { mutateAsync: deleteLab } = useDeleteLab();
   const { refetch } = useLab();
   const { setSyncLab } = useGlobalStateContext();
-  const [showModal, setShowModal] = useState(false);
+
+  const navigate = useNavigate();
 
   function onClickHandler() {
     setShowModal(true);
@@ -41,7 +46,7 @@ export default function ResetLabState({ buttonVariant, children }: Props) {
       await refetch();
     };
 
-    toast.promise(
+    const response = toast.promise(
       labResetPromise(),
       {
         pending: "Resetting lab...",
@@ -52,14 +57,15 @@ export default function ResetLabState({ buttonVariant, children }: Props) {
         toastId: "reset-lab",
       }
     );
+
+    response.then(() => {
+      navigate("/builder");
+    });
   }
 
   return (
     <>
-      <Button
-        variant={buttonVariant ? buttonVariant : "secondary-text"}
-        onClick={() => onClickHandler()}
-      >
+      <Button variant={buttonVariant ? buttonVariant : "secondary-text"} onClick={() => onClickHandler()}>
         {children ? (
           children
         ) : (
@@ -72,11 +78,11 @@ export default function ResetLabState({ buttonVariant, children }: Props) {
         <ConfirmationModal
           onClose={() => setShowModal(false)}
           onConfirm={handleResetLabState}
-          title="Confirm Lab Reset"
+          title={newLab ? "Confirm Adding New Lab" : "Confirm Lab Reset"}
         >
           <p className="text-xl">
-            <strong>Are you sure?</strong> This will irreversibly reset all
-            changes you made to lab including the extension script.
+            <strong>Are you sure?</strong> This will irreversibly reset all changes you made to lab in memory including
+            the extension script.
           </p>
         </ConfirmationModal>
       )}

@@ -113,7 +113,12 @@ export default function AzureRegion() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full rounded px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
         />
-        {searchTerm && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" onClick={() => setSearchTerm("")} />}
+        {searchTerm && (
+          <FaTimes
+            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            onClick={() => setSearchTerm("")}
+          />
+        )}
       </div>
     );
   };
@@ -144,7 +149,9 @@ export default function AzureRegion() {
     const classes = item === preference?.azureRegion ? "bg-green-300 hover:text-slate-900 dark:text-slate-900" : "";
 
     return (
-      <div className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 hover:bg-sky-500 hover:text-slate-100`}>
+      <div
+        className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 hover:bg-sky-500 hover:text-slate-100`}
+      >
         {item}
       </div>
     );
@@ -169,6 +176,10 @@ export default function AzureRegion() {
           height="h-60"
         />
       </div>
+      <p className="text-xs">
+        Azure region where your labs will be created. We've not tested all regions, if you see issues please let us
+        know.
+      </p>
     </Container>
   );
 }

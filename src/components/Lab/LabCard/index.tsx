@@ -59,19 +59,6 @@ type LabHeaderProps = {
   showVersions: boolean;
 };
 
-// function LabHeader({ lab, showVersions }: LabHeaderProps) {
-//   return (
-//     <div className="flex items-center justify-between">
-//       <Link to={"/lab/" + lab.type + "/" + lab.id}>
-//         <h1 className="whitespace-pre-line text-3xl hover:text-sky-500 hover:underline dark:border-slate-700">
-//           {lab.name}
-//         </h1>
-//       </Link>
-//       {showVersions && <LabVersionsButton lab={lab} />}
-//     </div>
-//   );
-// }
-
 function LabHeader({ lab, showVersions }: LabHeaderProps) {
   return (
     <div className="flex items-center justify-between">
@@ -90,7 +77,7 @@ function LabDescription({ lab, fullPage = false }: LabDescriptionProps) {
   return (
     <div
       className={`${
-        !fullPage && "max-h-[360px]"
+        !fullPage && "max-h-[180px]"
       } overflow-y-auto px-1 overflow-x-hidden scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-900 dark:scrollbar-thumb-slate-700`}
     >
       {ReactHtmlParser(decodeIfEncoded(lab.description))}

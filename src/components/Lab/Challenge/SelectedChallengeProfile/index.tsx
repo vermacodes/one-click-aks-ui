@@ -69,7 +69,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
    */
   useEffect(() => {
     if (myProfile && lab) {
-      if (lab.owners.includes(myProfile.userPrincipal)) {
+      if (lab.owners !== null && lab.owners.includes(myProfile.userPrincipal)) {
         setMeOwner(true);
       }
       // if (
