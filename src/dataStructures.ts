@@ -246,7 +246,7 @@ export type Assignment = {
 	createdOn: string;
 	acceptedOn: string;
 	completedOn: string;
-	status: "created" | "accepted" | "completed";
+	status: "Created" | "InProgress" | "Completed" | "Deleted";
 };
 
 export type BulkAssignment = {
