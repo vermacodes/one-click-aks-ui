@@ -9,34 +9,35 @@ import Container from "../../UserInterfaceComponents/Container";
 // uses https://github.com/suren-atoyan/monaco-react
 export default function ExtensionScript() {
 	const { lab, setLab } = useGlobalStateContext();
-	const [_extendScript, setExtendScript] = useState<string>(sessionStorage.getItem(`${lab.id}-extendScript"`) || "");
-  const [themeDefined, setThemeDefined] = useState(false);
+	const [_extendScript, setExtendScript] = useState<string>(sessionStorage.getItem(`${lab.id}-extendScript`) || "");
+	const [themeDefined, setThemeDefined] = useState(false);
 
+	const { darkMode } = useGlobalStateContext();
 
-  const monaco = useMonaco();
+	const monaco = useMonaco();
 
-  useEffect(() => {
-    if (monaco) {
-      console.log("executed");
-      monaco.editor.defineTheme("myCustomTheme", {
-        base: "vs-dark",
-        inherit: true,
-        rules: [],
-        colors: {
-          "editor.background": "#020617",
-          "editor.lineHighlightBackground": "#020617",
-        },
-      });
-      setThemeDefined(true);
-    }
-  }, [monaco]);
+	useEffect(() => {
+		if (monaco) {
+			console.log("executed");
+			monaco.editor.defineTheme("myCustomTheme", {
+				base: "vs-dark",
+				inherit: true,
+				rules: [],
+				colors: {
+					"editor.background": darkMode ? "#020617" : "#0f172a",
+					"editor.lineHighlightBackground": darkMode ? "#020617" : "#0f172a",
+				},
+			});
+			setThemeDefined(true);
+		}
+	}, [monaco]);
 
 	useEffect(() => {
 		if (lab !== undefined) {
-			const extendScriptFromSessionStorage = sessionStorage.getItem(`${lab.id}-extendScript"`) || "";
+			const extendScriptFromSessionStorage = sessionStorage.getItem(`${lab.id}-extendScript`) || "";
 			if (extendScriptFromSessionStorage === "") {
 				setExtendScript(lab.extendScript);
-				sessionStorage.setItem(`${lab.id}-extendScript"`, lab.extendScript || "");
+				sessionStorage.setItem(`${lab.id}-extendScript`, lab.extendScript || "");
 				return;
 			}
 			setExtendScript(extendScriptFromSessionStorage);
@@ -44,7 +45,7 @@ export default function ExtensionScript() {
 	}, [lab]);
 
 	function handleExtendScriptSave() {
-		sessionStorage.removeItem(`${lab.id}-extendScript"`);
+		sessionStorage.removeItem(`${lab.id}-extendScript`);
 		setLab({ ...lab, extendScript: _extendScript });
 	}
 
@@ -53,7 +54,7 @@ export default function ExtensionScript() {
 
 		value = value.replace(/\r\n/g, "\n"); // Replace Windows line endings with Unix line endings
 
-		sessionStorage.setItem(`${lab.id}-extendScript"`, btoa(value));
+		sessionStorage.setItem(`${lab.id}-extendScript`, btoa(value));
 		setExtendScript(btoa(value));
 	}
 
