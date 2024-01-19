@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useQueryClient } from "react-query";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Assignment } from "../../../../dataStructures";
 import {
@@ -151,7 +152,9 @@ export default function ListAssignment({}: Props) {
 											checked={selectedAssignments.includes(assignment)}
 										/>
 									</td>
-									<td className="space-x-2 px-4 py-2">{getLabName(assignment.labId)}</td>
+									<td className="space-x-2 px-4 py-2 hover:text-sky-500 hover:underline">
+										<Link to={`/lab/readinesslab/${assignment.labId}`}>{getLabName(assignment.labId)}</Link>
+									</td>
 									<td className="space-x-2 px-4 py-2">{assignment.userId}</td>
 									<td className="space-x-2 px-4 py-2">
 										<AssignmentStatus assignment={assignment} />
