@@ -27,7 +27,7 @@ export default function TerminalFullScreen({ autoScroll, handleAutoScrollChange,
 					e.stopPropagation();
 				}}
 			>
-				<div className="space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 bg-slate-500 bg-opacity-30 p-2 text-slate-50">
+				<div className="space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 bg-slate-800 bg-opacity-90 p-2 text-slate-50">
 					<div>{selectedDeployment && <DeploymentStatus deployment={selectedDeployment} />}</div>
 					<div className="pl-2">
 						<Checkbox
