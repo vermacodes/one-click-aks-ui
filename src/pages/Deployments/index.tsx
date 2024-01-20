@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CreateNewDeployment from "../../components/Deployments/CreateNewDeployment";
 import Deployment from "../../components/Deployments/Deployment";
 import Terminal from "../../components/Terminal/Terminal";
+import BackButton from "../../components/UserInterfaceComponents/BackButton";
 import Button from "../../components/UserInterfaceComponents/Button";
 import { DeploymentType } from "../../dataStructures";
 import { useGetMyDeployments } from "../../hooks/useDeployments";
@@ -37,15 +38,19 @@ export default function Deployments() {
 
 	return (
 		<PageLayout heading="Deployments">
-			<div className={`mb-3 flex justify-end gap-x-2 rounded`}>
-				<Link to="/builder">
-					<Button variant="secondary-outline">
-						<FaTools /> Lab Builder
-					</Button>
-				</Link>
-				<CreateNewDeployment variant="primary">
-					<FaPlus /> Add Deployment
-				</CreateNewDeployment>
+			<div className="flex items-center justify-between">
+				<BackButton />
+
+				<div className={`mb-3 flex justify-end gap-x-2 rounded`}>
+					<Link to="/builder">
+						<Button variant="secondary-outline">
+							<FaTools /> Lab Builder
+						</Button>
+					</Link>
+					<CreateNewDeployment variant="primary">
+						<FaPlus /> Add Deployment
+					</CreateNewDeployment>
+				</div>
 			</div>
 			{deployments &&
 				deployments.length > 0 &&
