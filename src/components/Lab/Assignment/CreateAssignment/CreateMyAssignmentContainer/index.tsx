@@ -62,7 +62,7 @@ export default function CreateMyAssignmentContainer() {
 	}
 
 	return (
-		<Container title="Create Assignment" collapsible={true}>
+		<Container title="Create Self-Assignments" collapsible={true}>
 			<div className="mb-4 flex w-full flex-col justify-between gap-4 bg-slate-50 dark:bg-slate-900 md:flex-row">
 				<SelectLabsDropdown selectedLabs={selectedLabs} setSelectedLabs={setSelectedLabs} />
 				<div className="flex">
