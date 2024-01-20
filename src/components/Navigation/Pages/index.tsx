@@ -12,8 +12,8 @@ import {
 	FaRocket,
 	FaServer,
 	FaShieldAlt,
-	FaSuperpowers,
 	FaTools,
+	FaTrophy,
 	FaUser,
 	FaUsers,
 } from "react-icons/fa";
@@ -106,8 +106,8 @@ export default function Pages() {
 						{expanded == "learning" && (
 							<ul className="md:text-l flex w-full flex-col justify-start gap-1 pt-1 text-sm lg:text-xl">
 								<NavItem
-									icon={<FaSuperpowers />}
-									label="My Challenges"
+									icon={<FaTrophy />}
+									label="Challenges"
 									to={"/labs/challenge"}
 									toolTipMessage="Challenges by your friends. Solve them to learn new skills."
 									depth={1}
