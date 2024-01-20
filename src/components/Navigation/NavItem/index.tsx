@@ -2,8 +2,9 @@ import { Link, useLocation } from "react-router-dom";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 
 type NavItemProps = {
-	icon: React.ReactNode;
+	icon?: React.ReactNode;
 	label: string;
+	children?: React.ReactNode;
 	to: string;
 	toolTipMessage?: string;
 	toolTipDelay?: number;
@@ -14,6 +15,7 @@ type NavItemProps = {
 export default function NavItem({
 	icon,
 	label,
+	children,
 	to,
 	toolTipMessage,
 	toolTipDelay = 500,
@@ -65,8 +67,8 @@ export default function NavItem({
 					>
 						<div className={`ml-${depth * 4}`}>
 							<div className="flex items-center gap-2 text-base">
-								<span>{icon}</span>
-								<span>{label}</span>
+								{icon && <span>{icon}</span>}
+								<span>{children || label}</span>
 							</div>
 						</div>
 					</button>

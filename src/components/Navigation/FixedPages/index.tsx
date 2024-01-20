@@ -1,11 +1,23 @@
 import { FaCog, FaComments } from "react-icons/fa";
+import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import LoginButton from "../../Authentication/LoginButton";
 import NavItem from "../NavItem";
 
 export default function FixedPages() {
+	const { selectedDeployment } = useSelectedDeployment();
+
 	return (
 		<div className="h-fit w-full flex-col p-4">
 			<ul className="md:text-l flex w-full flex-col justify-start gap-y-1 text-sm lg:text-xl">
+				{/* {selectedDeployment && (
+					<NavItem
+						to="/deployments"
+						label="Deployments"
+						toolTipMessage="Selected Deployment's status. Click to see all deployments."
+					>
+						<DeploymentStatus deployment={selectedDeployment} />
+					</NavItem>
+				)} */}
 				<NavItem
 					icon={<FaCog />}
 					label="Settings"
