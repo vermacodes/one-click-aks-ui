@@ -114,9 +114,9 @@ export default function ListAssignment({}: Props) {
 	if (assignments && assignments.filter((assignment) => assignment.status !== "Deleted").length === 0) {
 		return (
 			<Container title="My Assignments" collapsible={true}>
-				<p className="text-xl">
-					You have no assignments. Self-assign readiness labs using 'Create Assignment' above ☝️ or ask your TA/Mentor
-					to help you.
+				<p className="text-slate-500">
+					You have no assignments. Self-assign readiness labs using 'Create Self-Assignments' above ☝️ or ask your
+					TA/Mentor to help you.
 				</p>
 			</Container>
 		);
