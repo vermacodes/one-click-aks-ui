@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
@@ -9,6 +9,8 @@ import {
 	useGetAllReadinessLabsRedacted,
 	useGetAssignments,
 } from "../../../../hooks/useAssignment";
+import { useGetAllProfilesRedacted } from "../../../../hooks/useProfile";
+import ProfileDisplay from "../../../Authentication/ProfileDisplay";
 import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../UserInterfaceComponents/Container";
@@ -23,19 +25,40 @@ type Props = {};
 export default function ListAssignment({}: Props) {
 	const [selectedAssignments, setSelectedAssignments] = useState<Assignment[]>([]);
 	const [assignments, setAssignments] = useState<Assignment[]>([]);
+	const [filterText, setFilterText] = useState<string>("");
 	const [confirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
 
+	const { data: profiles } = useGetAllProfilesRedacted();
 	const { data: allAssignments } = useGetAssignments();
 	const { data: labs } = useGetAllReadinessLabsRedacted();
 	const { mutateAsync: deleteAssignments } = useDeleteAssignment();
 	const queryClient = useQueryClient();
 
+	/**
+	 * This useEffect hook is triggered when either allAssignments or profiles change.
+	 * It maps over allAssignments and for each assignment, it finds the corresponding profile.
+	 * It then creates a new object that is a copy of the assignment with the displayName added from the profile.
+	 * If the profile doesn't exist, it uses an empty string for the displayName.
+	 * It then creates a Map where the keys are assignmentIds and the values are the assignments.
+	 * This effectively removes any duplicate assignments.
+	 * Finally, it updates the assignments state with the unique assignments.
+	 */
 	useEffect(() => {
-		if (allAssignments) {
-			const allAssignmentsMap = new Map(allAssignments.map((assignment) => [assignment.assignmentId, assignment]));
-			setAssignments(Array.from(allAssignmentsMap.values()));
+		if (allAssignments && profiles && labs) {
+			const updatedAssignments = allAssignments.map((assignment) => {
+				const profile = profiles.find((profile) => profile.userPrincipal === assignment.userId);
+				const lab = labs.find((lab) => lab.id === assignment.labId);
+				return {
+					...assignment,
+					displayName: profile ? profile.displayName : "",
+					labName: lab ? lab.name : "",
+				};
+			});
+
+			const assignmentsMap = new Map(updatedAssignments.map((assignment) => [assignment.assignmentId, assignment]));
+			setAssignments(Array.from(assignmentsMap.values()));
 		}
-	}, [allAssignments]);
+	}, [allAssignments, profiles, labs]);
 
 	function handleDeleteSelected() {
 		setConfirmationModalOpen(false);
@@ -73,14 +96,12 @@ export default function ListAssignment({}: Props) {
 			});
 	}
 
-	function getLabName(labId: string) {
-		if (labs) {
-			const lab = labs.find((lab) => lab.id === labId);
-			if (lab) {
-				return lab.name;
-			}
+	function getProfileByUserPrincipal(userPrincipal: string): ReactNode | string {
+		const profile = profiles?.find((profile) => profile.userPrincipal === userPrincipal);
+		if (!profile) {
+			return userPrincipal;
 		}
-		return "";
+		return <ProfileDisplay profile={profile} size="small" />;
 	}
 
 	return (
@@ -89,12 +110,12 @@ export default function ListAssignment({}: Props) {
 			collapsible={true}
 			additionalContainerBodyClasses="h-fit overflow-auto scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-200 scrollbar-track-rounded dark:scrollbar-thumb-slate-700 scrollbar-thumb-rounded dark:scrollbar-track-slate-900"
 		>
-			<div className="flex justify-end gap-4 p-4">
+			<div className="flex justify-end gap-4 px-1 py-4">
 				<FilterTextBox
-					value={""}
-					onChange={function (value: string): void {
-						throw new Error("Function not implemented.");
-					}}
+					value={filterText}
+					onChange={setFilterText}
+					placeHolderText="Filter by User's ID, Name or Assignment Status"
+					customClasses="py-1"
 				/>
 				<ExportAssignments assignments={allAssignments} />
 				<Button
@@ -108,7 +129,7 @@ export default function ListAssignment({}: Props) {
 					<ConfirmationModal
 						onConfirm={handleDeleteSelected}
 						onClose={() => setConfirmationModalOpen(false)}
-						title="Confirm Delete All Assignments"
+						title="Confirm Delete Selected Assignments"
 					>
 						<p className="text-xl text-slate-400">
 							Are you sure you want to delete all the selected assignments? This is not reversible.
@@ -142,6 +163,11 @@ export default function ListAssignment({}: Props) {
 					{assignments &&
 						assignments
 							.filter((assignment) => assignment.status !== "Deleted")
+							.filter((assignment) =>
+								Object.values(assignment).some((value) =>
+									value.toString().toLowerCase().includes(filterText.toLowerCase())
+								)
+							)
 							.map((assignment) => (
 								<tr
 									key={assignment.assignmentId + assignment.userId}
@@ -160,9 +186,9 @@ export default function ListAssignment({}: Props) {
 										/>
 									</td>
 									<td className="space-x-2 px-4 py-2 hover:text-sky-500 hover:underline">
-										<Link to={`/lab/readinesslab/${assignment.labId}`}>{getLabName(assignment.labId)}</Link>
+										<Link to={`/lab/readinesslab/${assignment.labId}`}>{assignment.labName}</Link>
 									</td>
-									<td className="space-x-2 px-4 py-2">{assignment.userId}</td>
+									<td className="space-x-2 px-4 py-2">{getProfileByUserPrincipal(assignment.userId)}</td>
 									<td className="space-x-2 px-4 py-2">
 										<AssignmentStatus assignment={assignment} />
 									</td>

@@ -240,7 +240,9 @@ export type Lab = {
 export type Assignment = {
 	assignmentId: string;
 	userId: string;
+	displayName: string;
 	labId: string;
+	labName: string;
 	createdBy: string;
 	deletedBy: string;
 	createdAt: string;
