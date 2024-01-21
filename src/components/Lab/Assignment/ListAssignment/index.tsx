@@ -12,6 +12,7 @@ import {
 import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../UserInterfaceComponents/Container";
+import FilterTextBox from "../../../UserInterfaceComponents/FilterTextBox";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
 import AssignmentStatus from "../AssignmentStatus";
 import DeleteAssignment from "../DeleteAssignment";
@@ -89,6 +90,12 @@ export default function ListAssignment({}: Props) {
 			additionalContainerBodyClasses="h-fit overflow-auto scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-200 scrollbar-track-rounded dark:scrollbar-thumb-slate-700 scrollbar-thumb-rounded dark:scrollbar-track-slate-900"
 		>
 			<div className="flex justify-end gap-4 p-4">
+				<FilterTextBox
+					value={""}
+					onChange={function (value: string): void {
+						throw new Error("Function not implemented.");
+					}}
+				/>
 				<ExportAssignments assignments={allAssignments} />
 				<Button
 					variant="danger-outline"

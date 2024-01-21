@@ -95,11 +95,13 @@ export default function LabsGridPage() {
 	return (
 		<PageLayout heading={pageHeading}>
 			{/* <SelectedDeployment sticky={false} /> */}
-			<FilterTextBox
-				value={filterTerm}
-				onChange={(value: string) => handleSearchChange(value)}
-				placeHolderText={`Filter ${pageHeading.toLowerCase()}`}
-			/>
+			<div className="mb-4">
+				<FilterTextBox
+					value={filterTerm}
+					onChange={(value: string) => handleSearchChange(value)}
+					placeHolderText={`Filter ${pageHeading.toLowerCase()}`}
+				/>
+			</div>
 			<LabGridLayout>
 				{filteredLabs
 					?.sort((a, b) => a.name.localeCompare(b.name))
