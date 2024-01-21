@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import CreateAssignmentContainer from "../../components/Lab/Assignment/CreateAssignment/CreateAssignmentContainer";
 import ListAssignment from "../../components/Lab/Assignment/ListAssignment";
-import Terminal from "../../components/Terminal/Terminal";
 import { useGetMyProfile } from "../../hooks/useProfile";
 import PageLayout from "../../layouts/PageLayout";
 
@@ -28,7 +27,6 @@ export default function Assignments({}: Props) {
 				<CreateAssignmentContainer />
 				<ListAssignment />
 			</div>
-			<Terminal />
 		</PageLayout>
 	);
 }
