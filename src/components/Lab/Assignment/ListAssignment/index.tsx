@@ -114,8 +114,8 @@ export default function ListAssignment({}: Props) {
 				<FilterTextBox
 					value={filterText}
 					onChange={setFilterText}
-					placeHolderText="Filter by User's ID, Name or Assignment Status"
-					customClasses="py-1"
+					placeHolderText="Filter assignments by lab name, user, or status"
+					customClasses="py-1 ring-1 ring-slate-500 hover:ring-sky-500 focus:ring-sky-500 border-0"
 				/>
 				<ExportAssignments assignments={allAssignments} />
 				<Button
