@@ -20,7 +20,7 @@ export default function Landing() {
 
           </div> */}
 					<div className="relative">
-						<div className="bg-hidden inline-block bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
+						<div className="bg-hidden inline-block animate-gradient-x bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
 							<h1 className="pb-20 text-9xl font-bold">Head start your lab repros</h1>
 							<p className="text-4xl text-slate-500">
 								Build and deploy labs in minutes ⌚ get a head start with labs built and tested by AKS Ninjas 🥷

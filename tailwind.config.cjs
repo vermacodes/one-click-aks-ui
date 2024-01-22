@@ -6,7 +6,10 @@ module.exports = {
     extend: {
       backgroundColor: ["checked"],
       animation: {
-        blob: "blob 7s infinite"
+        blob: "blob 7s infinite",
+        'gradient-x':'gradient-x 15s ease infinite',
+        'gradient-y':'gradient-y 15s ease infinite',
+        'gradient-xy':'gradient-xy 15s ease infinite',
       },
       keyframes: {
         blob: {
@@ -23,6 +26,36 @@ module.exports = {
             transform: "translate(0px, 0px) scale(1)",
           },
         },
+        'gradient-y': {
+            '0%, 100%': {
+                'background-size':'400% 400%',
+                'background-position': 'center top'
+            },
+            '50%': {
+                'background-size':'200% 200%',
+                'background-position': 'center center'
+            }
+        },
+        'gradient-x': {
+            '0%, 100%': {
+                'background-size':'200% 200%',
+                'background-position': 'left center'
+            },
+            '50%': {
+                'background-size':'200% 200%',
+                'background-position': 'right center'
+            }
+        },
+        'gradient-xy': {
+            '0%, 100%': {
+                'background-size':'400% 400%',
+                'background-position': 'left center'
+            },
+            '50%': {
+                'background-size':'200% 200%',
+                'background-position': 'right center'
+            }
+        }
       },
     },
   },
