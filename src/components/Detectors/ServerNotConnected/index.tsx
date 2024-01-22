@@ -103,8 +103,11 @@ export default function ServerNotConnected() {
 	if (managedServer?.status === "Registered" && serverStatus?.status !== "OK") {
 		return (
 			<Alert variant="info">
-				<strong>☑️ Registration Completed:</strong> Managed server is now registered, Please use 'Deploy' button in
-				Settings to deploy.
+				<strong>☑️ Registration Completed:</strong> Managed server is now registered, Please go to{" "}
+				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+					Settings
+				</Link>{" "}
+				and 'Deploy' button to deploy managed server.
 			</Alert>
 		);
 	}
