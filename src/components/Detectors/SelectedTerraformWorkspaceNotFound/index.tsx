@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
+import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function SelectedTerraformWorkspaceNotFound() {
 	const [showError, setShowError] = useState(() => {
@@ -34,22 +35,22 @@ export default function SelectedTerraformWorkspaceNotFound() {
 
 	if (showError) {
 		return (
-			<div className="z-5 mt-2 rounded border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+			<Alert variant="danger">
 				<strong>🛑 Terraform Error:</strong> Unable to fetch terraform workspaces. Try 'Reset Server Cache' from{" "}
 				<Link to={"/settings"} className="text-sky-500 underline">
 					settings
 				</Link>{" "}
 				or redeploy server.
-			</div>
+			</Alert>
 		);
 	}
 
 	if (isFetching || isLoading) {
 		return (
-			<div className="z-5 mt-2 rounded border border-sky-500 bg-sky-500 bg-opacity-20 p-2">
+			<Alert variant="info">
 				<strong>ℹ️ Fetching Terraform Workspace:</strong> Terraform operations will not work at this time. This is
 				normal if server just started or you just reset cache. Please wait...
-			</div>
+			</Alert>
 		);
 	}
 

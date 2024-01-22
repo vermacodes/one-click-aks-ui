@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { WebSocketContext } from "../../Context/WebSocketContext";
+import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function WebSocketConnectionStatus() {
 	const { data: serverStatus, isError } = useServerStatus();
@@ -33,7 +34,7 @@ export default function WebSocketConnectionStatus() {
 	}
 
 	return (
-		<div className="z-5 mt-2 rounded border border-yellow-500 bg-yellow-500 bg-opacity-20 p-2">
+		<Alert variant="warning">
 			<strong>⚠️ Connection Issue Detected:</strong> Goto{" "}
 			<a href="/settings" className="cursor-pointer text-sky-600 underline">
 				Settings
@@ -43,6 +44,6 @@ export default function WebSocketConnectionStatus() {
 				Refresh
 			</a>{" "}
 			browser. Use Help & Feedback if the problem continues.
-		</div>
+		</Alert>
 	);
 }
