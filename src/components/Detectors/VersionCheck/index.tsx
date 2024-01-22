@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useServerStatus } from "../../../hooks/useServerStatus";
+import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function VersionCheck() {
 	const { data, isFetching, isError } = useServerStatus();
@@ -28,14 +29,12 @@ export default function VersionCheck() {
 	}
 
 	return (
-		<div className="my-4">
-			<div className="mt-2 rounded border border-red-500 bg-red-500 bg-opacity-20 p-2">
-				<strong>New Version Released:</strong> Goto{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
-					Settings
-				</Link>
-				, and follow steps to deploy server again.
-			</div>
-		</div>
+		<Alert variant="danger">
+			<strong>New Version Released:</strong> Goto{" "}
+			<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+				Settings
+			</Link>
+			, and follow steps to deploy server again.
+		</Alert>
 	);
 }
