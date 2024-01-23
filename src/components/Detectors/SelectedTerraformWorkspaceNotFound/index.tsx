@@ -22,7 +22,7 @@ export default function SelectedTerraformWorkspaceNotFound() {
 		if (isError && serverStatus?.status === "OK") {
 			setTimeout(() => {
 				setShowError(true);
-			}, 10000);
+			}, 120000);
 		}
 	}, [terraformWorkspaces, isError]);
 
