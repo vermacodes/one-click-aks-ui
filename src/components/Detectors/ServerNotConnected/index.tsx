@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ImSpinner10 } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { ServerHosting } from "../../../dataStructures";
 import { getDefaultServerHosting } from "../../../defaults";
@@ -24,8 +25,8 @@ export default function ServerNotConnected() {
 
 	if (severHosting.environment === "docker") {
 		return (
-			<Alert variant="danger">
-				<strong>🛑 Server Not Connected:</strong> Your self-hosted server is not available. Check your{" "}
+			<Alert variant="warning">
+				<strong>⚠️ Server Not Connected:</strong> Your self-hosted server is not available. Check your{" "}
 				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 					Settings
 				</Link>{" "}
@@ -36,8 +37,8 @@ export default function ServerNotConnected() {
 
 	if (managedServer === undefined || managedServer?.status === "Unregistered") {
 		return (
-			<Alert variant="danger">
-				<strong>🛑 Server Not Deployed:</strong> ACT Labs{" "}
+			<Alert variant="warning">
+				<strong>⚠️ Server Not Deployed:</strong> ACT Labs{" "}
 				<a className="underline">requires user to deploy the server.</a> Goto{" "}
 				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 					Settings
@@ -49,22 +50,24 @@ export default function ServerNotConnected() {
 
 	if (managedServer?.status === "Deploying") {
 		return (
-			<Alert variant="success">
-				<strong>✅ Managed Server Deploying:</strong> Deployment is in progress. Page will auto reload once deployment
-				completes.
+			<Alert variant="info">
+				<div className="flex items-center gap-2">
+					<ImSpinner10 className="animate-spin" />
+					<strong>Managed Server Deploying:</strong> Deployment is in progress. Page will auto reload once deployment
+					completes.
+				</div>
 			</Alert>
 		);
 	}
 
 	if (managedServer?.status === "Destroyed") {
 		return (
-			<Alert variant="danger">
-				<strong>🛑 Server Not Deployed:</strong> You have destroyed managed server manually. Please deploy your managed
-				server from{" "}
+			<Alert variant="warning">
+				<strong>⚠️ Managed Server Not Deployed:</strong> You have destroyed server manually. Please deploy again from{" "}
 				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 					Settings
-				</Link>
-				.
+				</Link>{" "}
+				page.
 			</Alert>
 		);
 	}
@@ -81,8 +84,8 @@ export default function ServerNotConnected() {
 	if (managedServer?.status === "AutoDestroyed" && managedServer?.autoCreate === false) {
 		return (
 			<Alert variant="warning">
-				<strong>⚠️ Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity and auto-deploy is
-				not enabled. Deploy again from{" "}
+				<strong>Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity and auto-deploy is not
+				enabled. Deploy again from{" "}
 				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 					Settings
 				</Link>
@@ -94,8 +97,10 @@ export default function ServerNotConnected() {
 	if (managedServer?.status === "Running" && serverStatus?.status !== "OK") {
 		return (
 			<Alert variant="info">
-				<strong>✋ Please Wait for DNS Sync:</strong> Not able to connect to <a className="underline">managed server</a>
-				. This can happen when server is actually running but DNS is not in sync yet. Please wait for few minutes.
+				<div className="flex items-center gap-2">
+					<ImSpinner10 className="animate-spin" />
+					<strong>Waiting for DNS Sync:</strong> This can take several minutes. Please don't destroy the managed server.
+				</div>
 			</Alert>
 		);
 	}
