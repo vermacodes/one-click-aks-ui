@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ImSpinner10 } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
@@ -48,8 +49,10 @@ export default function SelectedTerraformWorkspaceNotFound() {
 	if (isFetching || isLoading) {
 		return (
 			<Alert variant="info">
-				<strong>ℹ️ Fetching Terraform Workspace:</strong> Terraform operations will not work at this time. This is
-				normal if server just started or you just reset cache. Please wait...
+				<div className="flex items-center gap-2">
+					<ImSpinner10 className="animate-spin" />
+					<strong>Fetching Terraform Workspace:</strong> Terraform operations will not work at this time. Please wait...
+				</div>
 			</Alert>
 		);
 	}
