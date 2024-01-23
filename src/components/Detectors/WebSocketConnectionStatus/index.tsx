@@ -38,7 +38,7 @@ export default function WebSocketConnectionStatus() {
 		<Alert variant="info">
 			<div className="flex items-center gap-2">
 				<ImSpinner10 className="animate-spin" />
-				<strong>Reconnecting WebSockets:</strong> Please wait.. Use Help & Feedback if the problem continues.
+				<strong>Connecting WebSockets:</strong> Please wait.. Use Help & Feedback if the problem continues.
 			</div>
 		</Alert>
 	);
