@@ -11,21 +11,19 @@ export default function Alert({ variant = "info", children }: Props) {
 	useEffect(() => {
 		switch (variant) {
 			case "success":
-				setColor("green");
+				setColor("border-green-500 bg-green-500");
 				break;
 			case "warning":
-				setColor("yellow");
+				setColor("border-amber-500 bg-amber-500");
 				break;
 			case "danger":
-				setColor("rose");
+				setColor("border-rose-500 bg-rose-500");
 				break;
 			case "info":
-				setColor("sky");
+				setColor("border-sky-500 bg-sky-500");
 				break;
 		}
 	}, [variant]);
 
-	return (
-		<div className={`top-0 mt-2 rounded border border-${color}-500 bg-${color}-500 bg-opacity-20 p-2`}>{children}</div>
-	);
+	return <div className={`${color} top-0 mt-2 rounded border bg-opacity-20 p-2`}>{children}</div>;
 }
