@@ -126,7 +126,11 @@ export default function ManagedServerActivityMonitor() {
 			return;
 		}
 
-		if (managedServer.status === "Deploying") {
+		if (
+			managedServer.status === "Deploying" ||
+			managedServer.status === "AutoDestroyed" ||
+			managedServer.status === "Destroyed"
+		) {
 			const intervalId = setInterval(() => {
 				if (managedServer !== undefined && serverHosting.environment === "azure") {
 					queryClient.invalidateQueries("get-managed-server");
