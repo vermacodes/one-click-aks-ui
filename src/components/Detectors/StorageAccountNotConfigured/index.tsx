@@ -1,5 +1,7 @@
+import { useEffect } from "react";
+import { ImSpinner10 } from "react-icons/im";
 import { useServerStatus } from "../../../hooks/useServerStatus";
-import { useConfigureStorageAccount, useGetStorageAccount } from "../../../hooks/useStorageAccount";
+import { useGetStorageAccount } from "../../../hooks/useStorageAccount";
 import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function StorageAccountNotConfigured() {
@@ -8,30 +10,39 @@ export default function StorageAccountNotConfigured() {
 		data: storageAccount,
 		isLoading: getStorageAccountLoading,
 		isFetching: fetchingStorageAccount,
+		refetch: getStorageAccount,
 	} = useGetStorageAccount();
 
-	const { refetch: configureStorageAccount, isLoading: configureStorageAccountLoading } = useConfigureStorageAccount();
+	useEffect(() => {
+		let interval: NodeJS.Timeout | null = null;
+
+		if (!getStorageAccountLoading && !fetchingStorageAccount && (!storageAccount || storageAccount.name === "")) {
+			interval = setInterval(() => {
+				getStorageAccount();
+			}, 2000);
+		}
+
+		return () => {
+			if (interval) {
+				clearInterval(interval);
+			}
+		};
+	}, [getStorageAccountLoading, fetchingStorageAccount, storageAccount]);
 
 	if (isError || serverStatus?.status !== "OK") {
 		return null;
 	}
 
-	if (
-		configureStorageAccountLoading ||
-		getStorageAccountLoading ||
-		fetchingStorageAccount ||
-		(storageAccount && storageAccount.name !== "")
-	) {
+	if (getStorageAccountLoading || fetchingStorageAccount || (storageAccount && storageAccount.name !== "")) {
 		return null;
 	}
 
 	return (
-		<Alert variant="warning">
-			<strong>⚠️ Storage Account Issue Detected:</strong> It seems storage account is not configured.{" "}
-			<a href="#" onClick={() => configureStorageAccount()} className="cursor-pointer text-sky-600 underline">
-				Configure
-			</a>{" "}
-			now. Use Help & Feedback if the problem continues.
+		<Alert variant="info">
+			<div className="flex items-center gap-2">
+				<ImSpinner10 className="animate-spin" />
+				<strong>Fetching Storage account</strong> Please wait...
+			</div>
 		</Alert>
 	);
 }
