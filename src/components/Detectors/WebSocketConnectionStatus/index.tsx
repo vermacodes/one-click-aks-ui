@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { ImSpinner10 } from "react-icons/im";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 import Alert from "../../UserInterfaceComponents/Alert";
@@ -34,16 +35,11 @@ export default function WebSocketConnectionStatus() {
 	}
 
 	return (
-		<Alert variant="warning">
-			<strong>⚠️ Connection Issue Detected:</strong> Goto{" "}
-			<a href="/settings" className="cursor-pointer text-sky-600 underline">
-				Settings
-			</a>
-			, ensure that server is running and Endpoint is correct. All good? this should get fixed if you{" "}
-			<a href="#" onClick={() => window.location.reload()} className="cursor-pointer text-sky-600 underline">
-				Refresh
-			</a>{" "}
-			browser. Use Help & Feedback if the problem continues.
+		<Alert variant="info">
+			<div className="flex items-center gap-2">
+				<ImSpinner10 className="animate-spin" />
+				<strong>Reconnecting WebSockets:</strong> Please wait.. Use Help & Feedback if the problem continues.
+			</div>
 		</Alert>
 	);
 }
