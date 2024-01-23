@@ -14,7 +14,7 @@ export default function Alert({ variant = "info", children }: Props) {
 				setColor("green");
 				break;
 			case "warning":
-				setColor("amber");
+				setColor("yellow");
 				break;
 			case "danger":
 				setColor("rose");
