@@ -51,7 +51,7 @@ export default function SelectedTerraformWorkspaceNotFound() {
 			<Alert variant="info">
 				<div className="flex items-center gap-2">
 					<ImSpinner10 className="animate-spin" />
-					<strong>Fetching Terraform Workspace:</strong> Terraform operations will not work at this time. Please wait...
+					<strong>Initializing Terraform:</strong> Terraform operations will not work at this time. Please wait...
 				</div>
 			</Alert>
 		);
