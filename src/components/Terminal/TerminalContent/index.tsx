@@ -1,5 +1,6 @@
 import ReactHtmlParser from "html-react-parser";
 import { useContext, useEffect, useRef } from "react";
+import { defaultScrollbarStyle } from "../../../defaults";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 
 type Props = {
@@ -23,7 +24,7 @@ export default function TerminalContent({ autoScroll, updateLogs }: Props) {
 
 	return (
 		<div
-			className="h-screen max-h-screen overflow-y-auto rounded border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow-slate-300 scrollbar-thin scrollbar-thumb-slate-400 scrollbar-thumb-rounded hover:border-sky-500 dark:scrollbar-thumb-slate-600"
+			className={`${defaultScrollbarStyle} h-screen max-h-screen overflow-y-auto rounded border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow-slate-300 hover:border-sky-500`}
 			ref={logContainerRef}
 		>
 			<div ref={logContentRef} className="w-full overflow-x-clip whitespace-pre-wrap break-words font-mono">

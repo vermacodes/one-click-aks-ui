@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import CookiesConsent from "../../components/Authentication/CookiesConcent";
 import { useGlobalStateContext } from "../../components/Context/GlobalStateContext";
 import Navbar from "../../components/Navigation/Navbar";
+import { defaultScrollbarStyle } from "../../defaults";
 import AccessControl from "../../pages/AccessControl";
 import Assignments from "../../pages/Assignments";
 import Deployments from "../../pages/Deployments";
@@ -21,13 +22,12 @@ export default function MainLayout() {
 		<div className="flex h-screen overflow-hidden">
 			{navbarOpen && (
 				<div
-					className="top-0 left-0 h-screen w-screen min-w-fit overflow-y-auto overflow-x-hidden scrollbar-thin 
-      scrollbar-thumb-slate-400  scrollbar-thumb-rounded-full dark:scrollbar-thumb-slate-600 md:w-1/6"
+					className={`left-0 top-0 h-screen w-screen min-w-fit overflow-y-auto overflow-x-hidden ${defaultScrollbarStyle} md:w-1/6`}
 				>
 					<Navbar />
 				</div>
 			)}
-			<div className="flex-1 overflow-auto bg-slate-200 scrollbar-thin scrollbar-thumb-slate-400  scrollbar-thumb-rounded-full dark:bg-slate-800 dark:scrollbar-thumb-slate-600 md:px-4">
+			<div className={`flex-1 overflow-auto bg-slate-200 dark:bg-slate-800 ${defaultScrollbarStyle} md:px-4`}>
 				<Routes>
 					<Route path="/" element={<Landing />} />
 					<Route path="/builder" element={<LabBuilder />} />
