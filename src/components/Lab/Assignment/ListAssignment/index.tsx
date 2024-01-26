@@ -4,6 +4,7 @@ import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Assignment } from "../../../../dataStructures";
+import { defaultScrollbarStyle } from "../../../../defaults";
 import {
 	useDeleteAssignment,
 	useGetAllReadinessLabsRedacted,
@@ -108,7 +109,7 @@ export default function ListAssignment({}: Props) {
 		<Container
 			title="All Assignments"
 			collapsible={true}
-			additionalContainerBodyClasses="h-fit overflow-auto scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-200 scrollbar-track-rounded dark:scrollbar-thumb-slate-700 scrollbar-thumb-rounded dark:scrollbar-track-slate-900"
+			additionalContainerBodyClasses={`h-fit overflow-auto ${defaultScrollbarStyle}`}
 		>
 			<div className="flex justify-end gap-4 px-1 py-4">
 				<FilterTextBox
