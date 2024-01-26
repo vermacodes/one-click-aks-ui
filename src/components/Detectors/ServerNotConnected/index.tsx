@@ -53,7 +53,7 @@ export default function ServerNotConnected() {
 			<Alert variant="info">
 				<div className="flex items-center gap-2">
 					<ImSpinner10 className="animate-spin" />
-					<strong>Managed Server Deploying:</strong> Deployment is in progress. Page will auto reload once deployment
+					<strong>Deploying Managed Server:</strong> Deployment is in progress. Page will auto reload once deployment
 					completes.
 				</div>
 			</Alert>
@@ -75,8 +75,11 @@ export default function ServerNotConnected() {
 	if (managedServer?.status === "AutoDestroyed" && managedServer?.autoCreate === true) {
 		return (
 			<Alert variant="info">
-				<strong>ℹ️ Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity. It will be be
-				deployed again in few seconds.
+				<div className="flex items-center gap-2">
+					<ImSpinner10 className="animate-spin" />
+					<strong>Deploying Managed Server:</strong> Managed server was destroyed due to inactivity. Deploying again
+					momentarily.
+				</div>
 			</Alert>
 		);
 	}
@@ -84,8 +87,8 @@ export default function ServerNotConnected() {
 	if (managedServer?.status === "AutoDestroyed" && managedServer?.autoCreate === false) {
 		return (
 			<Alert variant="warning">
-				<strong>Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity and auto-deploy is not
-				enabled. Deploy again from{" "}
+				<strong>Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity and auto-deploy is
+				disabled. Deploy again from{" "}
 				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 					Settings
 				</Link>
