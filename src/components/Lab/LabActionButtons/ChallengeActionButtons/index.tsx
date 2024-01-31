@@ -1,4 +1,4 @@
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTrophy } from "react-icons/fa";
 import { Challenge, Lab } from "../../../../dataStructures";
 import { useGetChallenges, useUpsertChallenges } from "../../../../hooks/useChallenge";
 import { useGetMyProfile } from "../../../../hooks/useProfile";
@@ -39,11 +39,15 @@ export default function ChallengeActionButtons({ lab }: Props) {
 		(challenge) => challenge.labId === lab.id && challenge.userId === profile.userPrincipal
 	);
 
-	if (!challenge) {
+	if (!challenge || challenge.status === "created") {
 		return (
 			<div className="flex justify-start gap-1">
-				<Button variant="primary" onClick={handleAcceptChallenge}>
-					💪 Accept Challenge
+				<Button
+					variant="primary"
+					onClick={handleAcceptChallenge}
+					tooltipMessage="Accept the challenge to start working on it."
+				>
+					<FaTrophy /> Accept Challenge
 				</Button>
 			</div>
 		);
