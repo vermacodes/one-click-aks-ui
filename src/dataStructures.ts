@@ -233,6 +233,7 @@ export type Lab = {
 	owners: string[];
 	editors: string[];
 	viewers: string[];
+	isPublished: boolean;
 	versionId: string;
 	isCurrentVersion: boolean;
 };
