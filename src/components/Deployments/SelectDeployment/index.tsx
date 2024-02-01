@@ -68,7 +68,7 @@ export default function SelectDeployment({ variant, deployment }: SelectDeployme
 							}, 60000);
 						})
 						.catch(() => {
-							setModalMessage("c❌ Failed to select deployment.");
+							setModalMessage("❌ Failed to select deployment.");
 							setTimeout(() => {
 								setShowModal(false);
 							}, 5000);
