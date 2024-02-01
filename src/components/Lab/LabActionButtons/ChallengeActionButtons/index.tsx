@@ -55,7 +55,7 @@ export default function ChallengeActionButtons({ lab }: Props) {
 
 	return (
 		<div className="flex justify-start gap-1">
-			<ApplyButton variant="primary-text" lab={lab}>
+			<ApplyButton variant="primary-outline" lab={lab}>
 				Deploy
 			</ApplyButton>
 			<ExtendButton lab={lab} variant="success-text" mode="extend-validate">
