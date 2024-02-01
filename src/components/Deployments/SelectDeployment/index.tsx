@@ -57,7 +57,7 @@ export default function SelectDeployment({ variant, deployment }: SelectDeployme
 
 					asyncSelectDeployment(deployment)
 						.then(() => {
-							setModalMessage("⌛ Almost done. Please wait...");
+							setModalMessage("⌛ Almost done, Please wait...");
 							queryClient.invalidateQueries(["list-deployments"]);
 
 							setTimeout(() => {
