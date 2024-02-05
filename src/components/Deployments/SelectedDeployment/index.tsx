@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaBinoculars } from "react-icons/fa";
 import { SiTerraform } from "react-icons/si";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DeploymentType } from "../../../dataStructures";
 import { useGetMyDeployments } from "../../../hooks/useDeployments";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
@@ -22,6 +22,8 @@ export default function SelectedDeployment({ sticky = true }: Props) {
 	const { selectedDeployment } = useSelectedDeployment();
 	const [selectedDeploymentState, setSelectedDeploymentState] = useState<DeploymentType | undefined>(undefined);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (selectedDeployment !== undefined) {
 			setSelectedDeploymentState(selectedDeployment);
@@ -36,34 +38,43 @@ export default function SelectedDeployment({ sticky = true }: Props) {
 
 	return (
 		<Container sticky={sticky} additionalClasses="mb-4 py-2 text-base">
-			<div className="flex justify-between gap-2 text-sm" key={selectedDeploymentState.deploymentId}>
-				<div className="flex items-center gap-x-2 ">
+			<div
+				className="flex justify-between gap-2 text-sm hover:cursor-pointer"
+				key={selectedDeploymentState.deploymentId}
+				onClick={() => navigate(`/deployments`)}
+			>
+				<div className="flex items-center gap-x-2">
 					<SiTerraform className="text-xl" />
 					<h1 className="text-xl text-sky-500">{selectedDeploymentState.deploymentWorkspace}</h1>
 				</div>
 				<div className="flex flex-wrap items-center justify-end gap-2">
 					<DeploymentStatus deployment={selectedDeploymentState} />
-					<div className="mx-2 h-6 border-r border-gray-300"></div>
-					<AutoDestroySwitch
-						deployment={selectedDeploymentState}
-						disabled={false}
-						label="Auto Destroy"
-						key={selectedDeploymentState.deploymentId}
-					/>
-					<DeploymentLifespan deployment={selectedDeploymentState} />
-					<DestroyTime deployment={selectedDeploymentState} />
-					<div className="mx-2 h-6 border-r border-gray-300"></div>
-					<BreakBlobLease deployment={selectedDeploymentState} buttonVariant="secondary-text" />
-					<Link to={"/deployments"}>
-						<Button
-							variant="secondary-text"
-							tooltipMessage="View and manage all deployments"
-							tooltipDelay={200}
-							tooltipAlign="end"
-						>
-							<FaBinoculars /> View All
-						</Button>
-					</Link>
+					<div
+						className="flex flex-wrap items-center justify-end gap-2 hover:cursor-auto"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<div className="mx-2 h-6 border-r border-gray-300"></div>
+						<AutoDestroySwitch
+							deployment={selectedDeploymentState}
+							disabled={false}
+							label="Auto Destroy"
+							key={selectedDeploymentState.deploymentId}
+						/>
+						<DeploymentLifespan deployment={selectedDeploymentState} />
+						<DestroyTime deployment={selectedDeploymentState} />
+						<div className="mx-2 h-6 border-r border-gray-300"></div>
+						<BreakBlobLease deployment={selectedDeploymentState} buttonVariant="secondary-text" />
+						<Link to={"/deployments"}>
+							<Button
+								variant="secondary-text"
+								tooltipMessage="View and manage all deployments"
+								tooltipDelay={200}
+								tooltipAlign="end"
+							>
+								<FaBinoculars /> View All
+							</Button>
+						</Link>
+					</div>
 					{/* <CreateNewDeployment variant="primary-text" tooltipMessage="Add new deployment" tooltipDelay={200}>
             <FaPlus /> Add
           </CreateNewDeployment> */}
