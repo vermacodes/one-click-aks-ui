@@ -23,6 +23,7 @@ export default function ResetActionStatus({
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	function onClickHandler() {
+		setShowModal(false);
 		const response = toast.promise(axiosInstance.put("actionstatus", { inProgress: false }), {
 			pending: "Resetting action status...",
 			success: {
