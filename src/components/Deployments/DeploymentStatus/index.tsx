@@ -1,5 +1,5 @@
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
-import { TbFidgetSpinner } from "react-icons/tb";
+import { ImSpinner10 } from "react-icons/im";
 import { DeploymentType } from "../../../dataStructures";
 
 type Props = {
@@ -13,7 +13,7 @@ export default function DeploymentStatus({ deployment }: Props) {
 	) {
 		return (
 			<div className={`flex items-center gap-2`}>
-				<TbFidgetSpinner className="animate-spin text-xl text-sky-500" />
+				<ImSpinner10 className="animate-spin text-xl text-sky-500" />
 				{deployment.deploymentStatus}
 			</div>
 		);
