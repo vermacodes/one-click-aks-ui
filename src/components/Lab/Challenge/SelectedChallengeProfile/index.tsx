@@ -10,7 +10,7 @@ import Button from "../../../UserInterfaceComponents/Button";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
 
 type Props = {
-	challenge?: Challenge;
+	challenge: Challenge;
 	lab: Lab;
 };
 
@@ -31,6 +31,10 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
 	const { data: myProfile } = useGetMyProfile();
 
 	const queryClient = useQueryClient();
+
+	if (!profiles || !challenge) {
+		return null;
+	}
 
 	/**
 	 * This useEffect hook is used to update the labId state whenever the lab prop changes.
@@ -58,10 +62,6 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
 		}
 	}, [profiles, challenge]);
 
-	if (!profiles || !challenge) {
-		return <></>;
-	}
-
 	/**
 	 * This useEffect hook is used to check if the current user is an owner or a challenger of the lab.
 	 * If the user's principal is included in the lab's owners, it sets meOwner to true.
@@ -72,13 +72,6 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
 			if (lab.owners !== null && lab.owners.includes(myProfile.userPrincipal)) {
 				setMeOwner(true);
 			}
-			// if (
-			//   challenges?.some(
-			//     (challenge) => challenge.userId === myProfile.userPrincipal
-			//   )
-			// ) {
-			//   setMeChallenger(true);
-			// }
 		}
 	}, [myProfile, lab, challenges]);
 
@@ -215,6 +208,10 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
 				</div>
 			);
 		}
+	}
+
+	if (lab.id !== challenge.labId) {
+		return null;
 	}
 
 	return (

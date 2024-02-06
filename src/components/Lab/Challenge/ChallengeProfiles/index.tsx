@@ -117,7 +117,9 @@ export default function ChallengeProfiles({ lab }: Props) {
 	}
 
 	function onProfileClick(profile: Profile) {
-		const challenge = challenges?.find((challenge) => challenge.userId === profile.userPrincipal);
+		const challenge = challenges?.find(
+			(challenge) => challenge.userId === profile.userPrincipal && challenge.labId === lab.id
+		);
 		if (challenge) {
 			setSelectedChallenge(challenge);
 		}
