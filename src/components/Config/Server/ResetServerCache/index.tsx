@@ -27,6 +27,7 @@ export default function ResetServerCache({
 	const { actionStatus } = useContext(WebSocketContext);
 
 	function handleResetServerCache() {
+		setShowModal(false);
 		const response = toast.promise(resetServerCacheAsync(), {
 			pending: "Resetting Server Cache...",
 			success: "Server Cache Reset.",
