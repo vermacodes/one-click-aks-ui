@@ -66,7 +66,11 @@ export default function ManagedServerActivityMonitor() {
 		}
 
 		// if managed server was auto destroyed and the page is visible, auto create a new one
-		if (managedServer.status === "AutoDestroyed" && isPageVisible && managedServer.autoCreate) {
+		if (
+			(managedServer.status === "AutoDestroyed" || managedServer.status === "Registered") &&
+			isPageVisible &&
+			managedServer.autoCreate
+		) {
 			// wait for 5 seconds before creating a new managed server
 			timeoutIdRef.current = setTimeout(() => {
 				if (isPageVisibleRef.current && serverHostingRef.current.environment === "azure") {
