@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaCheckCircle, FaRocket, FaTimes, FaTrash } from "react-icons/fa";
+import { FaCheckCircle, FaRedo, FaRocket, FaStopCircle, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
 import { useDeployManagedServer } from "../../../../../hooks/useDeployManagedServer";
@@ -11,6 +11,8 @@ import Container from "../../../../UserInterfaceComponents/Container";
 import GradientBorderContainer from "../../../../UserInterfaceComponents/GradientBorderContainer";
 import ConfirmationModal from "../../../../UserInterfaceComponents/Modal/ConfirmationModal";
 import Tooltip from "../../../../UserInterfaceComponents/Tooltip";
+import ResetActionStatus from "../../ResetActionStatus";
+import ResetServerCache from "../../ResetServerCache";
 import ServerEndpoint from "../../ServerEndpoint";
 import InactiveDuration from "../InactiveDuration";
 import ManagedServerRegistration from "../ManagedServerRegistration";
@@ -148,6 +150,18 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						>
 							<FaTimes /> Unregister
 						</Button>
+						<ResetServerCache
+							variant="secondary-outline"
+							tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
+						>
+							<FaRedo /> Reset Cache
+						</ResetServerCache>
+						<ResetActionStatus
+							variant="secondary-outline"
+							tooltipMessage="Reset Action Status. This will stop any long running action on server."
+						>
+							<FaStopCircle /> Running Action
+						</ResetActionStatus>
 					</div>
 				</div>
 				<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />

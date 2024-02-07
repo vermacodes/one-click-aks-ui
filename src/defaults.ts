@@ -148,6 +148,7 @@ const defaultLab: Lab = {
 	owners: [],
 	editors: [],
 	viewers: [],
+	isPublished: false,
 	versionId: "",
 	isCurrentVersion: true,
 };

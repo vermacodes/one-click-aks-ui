@@ -13,7 +13,7 @@ export default function VersionCheck() {
 		}
 
 		const versionNumber = parseInt(version);
-		return versionNumber >= 20240117;
+		return versionNumber >= 20240131;
 	}
 
 	if (data === undefined || isFetching) {
@@ -29,8 +29,8 @@ export default function VersionCheck() {
 	}
 
 	return (
-		<Alert variant="danger">
-			<strong>New Version Released:</strong> Goto{" "}
+		<Alert variant="warning">
+			<strong>⚠️ New Version Released:</strong> Goto{" "}
 			<Link to="/settings" className="cursor-pointer text-sky-600 underline">
 				Settings
 			</Link>

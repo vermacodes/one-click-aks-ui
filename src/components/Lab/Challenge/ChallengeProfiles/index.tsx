@@ -117,7 +117,9 @@ export default function ChallengeProfiles({ lab }: Props) {
 	}
 
 	function onProfileClick(profile: Profile) {
-		const challenge = challenges?.find((challenge) => challenge.userId === profile.userPrincipal);
+		const challenge = challenges?.find(
+			(challenge) => challenge.userId === profile.userPrincipal && challenge.labId === lab.id
+		);
 		if (challenge) {
 			setSelectedChallenge(challenge);
 		}
@@ -137,7 +139,7 @@ export default function ChallengeProfiles({ lab }: Props) {
 											challenge.userId === profile.userPrincipal &&
 											challenge.status === "accepted" &&
 											lab.id === challenge.labId
-									) && "outline outline-2 outline-purple-500 "
+									) && "ring-2 ring-purple-500 "
 								}
                 ${
 									challenges?.some(
@@ -145,11 +147,11 @@ export default function ChallengeProfiles({ lab }: Props) {
 											challenge.userId === profile.userPrincipal &&
 											challenge.status === "completed" &&
 											lab.id === challenge.labId
-									) && "outline outline-2 outline-green-500 "
+									) && "ring-2 ring-green-500 "
 								}
                 ${
 									(meOwner || profile.userPrincipal === myProfile?.userPrincipal) && "hover:cursor-pointer"
-								} group flex w-8 flex-row justify-between rounded-full border border-slate-50 transition-all dark:border-slate-900 `}
+								} group flex h-8 w-8 flex-row justify-between rounded-full border border-slate-50 transition-all dark:border-slate-900 `}
 							>
 								<div onClick={() => onProfileClick(profile)}>
 									<ProfileDisplay profile={profile} size="small" onlyPhoto={true} />
