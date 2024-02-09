@@ -186,8 +186,8 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						<ul className="ml-4 list-disc space-y-2">
 							<li className="text-sm">
 								<span className="font-bold underline">IMPORTANT</span> 👉 Unregistering managed server will only delete
-								associated managed server record from our database and will delete the storage account from Azure. It
-								will NOT remove any roles.
+								associated managed server record from our database and storage account from your subscription. It will{" "}
+								<span className="font-bold text-rose-500 underline">NOT</span> remove any roles.
 							</li>
 							<li className="text-sm">
 								<p className="mb-2">To completely remove all roles and resources, use following script.</p>
