@@ -115,12 +115,12 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							<Checkbox
 								key={"autoDestroy"}
 								tooltipDelay={500}
-								tooltipMessage="Server will be will be automatically destroyed if no activity for an hour."
+								tooltipMessage="Server will be will be automatically destroyed if no activity for an hour. Not available for V2 servers."
 								label="Auto Destroy"
 								id="autoDestroy"
 								checked={managedServer.autoDestroy}
 								handleOnChange={onAutoDestroyClick}
-								disabled={isLoading || isFetching || isError || lock}
+								disabled={isLoading || isFetching || isError || lock || managedServer.version === "V2"}
 							/>
 							<InactiveDuration managedServer={managedServer} />
 						</div>

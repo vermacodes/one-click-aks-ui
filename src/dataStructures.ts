@@ -464,6 +464,7 @@ export type ManagedServer = {
 	autoCreate: boolean;
 	autoDestroy: boolean;
 	inactivityDurationInSeconds: number;
+	version: string;
 };
 
 export type ServerHosting = {
