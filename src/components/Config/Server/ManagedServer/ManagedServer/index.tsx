@@ -95,14 +95,6 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 									</div>
 								</div>
 							</Tooltip>
-							{/* <Tooltip
-								message="Azure Region where you managed server is deployed. This is NOT the region where your labs will be deployed. To change that modify 'Azure Region' in settings. To change managed server's region, unregister and select other region when registering again."
-								delay={500}
-							>
-								<div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-									<span>{managedServer.region}</span>
-								</div>
-							</Tooltip> */}
 							<Checkbox
 								key={"autoDeploy"}
 								tooltipDelay={500}
