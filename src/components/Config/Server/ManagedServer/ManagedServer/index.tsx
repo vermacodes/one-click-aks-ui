@@ -7,6 +7,7 @@ import { useManagedServer } from "../../../../../hooks/useManagedServer";
 import { useAuth } from "../../../../Context/AuthContext";
 import Button from "../../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../../UserInterfaceComponents/Checkbox";
+import CodeBlock from "../../../../UserInterfaceComponents/CodeBlock";
 import Container from "../../../../UserInterfaceComponents/Container";
 import GradientBorderContainer from "../../../../UserInterfaceComponents/GradientBorderContainer";
 import ConfirmationModal from "../../../../UserInterfaceComponents/Modal/ConfirmationModal";
@@ -181,7 +182,21 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						}}
 						onClose={() => setConfirmUnregister(false)}
 					>
-						<p>Are you sure you want to unregister the managed server?</p>
+						<p className="text-xl">Are you sure you want to unregister the managed server?</p>
+						<ul className="ml-4 list-disc space-y-2">
+							<li className="text-sm">
+								<span className="font-bold underline">IMPORTANT</span> 👉 Unregistering managed server will only delete
+								associated managed server record from our database and will delete the storage account from Azure. It
+								will NOT remove any roles.
+							</li>
+							<li className="text-sm">
+								<p className="mb-2">To completely remove all roles and resources, use following script.</p>
+								<CodeBlock
+									codeString="curl -o actlabs.sh -sLO https://raw.githubusercontent.com/vermacodes/actlabs-hub/main/scripts/unregister.sh; chmod +x actlabs.sh; ./actlabs.sh; rm actlabs.sh"
+									copyEnabled={true}
+								/>
+							</li>
+						</ul>
 					</ConfirmationModal>
 				)}
 				{confirmDestroy && (
