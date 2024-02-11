@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ImSpinner10 } from "react-icons/im";
+import { TbFidgetSpinner } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
@@ -50,7 +50,7 @@ export default function SelectedTerraformWorkspaceNotFound() {
 		return (
 			<Alert variant="info">
 				<div className="flex items-center gap-2">
-					<ImSpinner10 className="animate-spin" />
+					<TbFidgetSpinner className="animate-spin" />
 					<strong>Initializing Terraform:</strong> Terraform operations will not work at this time. Please wait...
 				</div>
 			</Alert>
