@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ImSpinner10 } from "react-icons/im";
+import { TbFidgetSpinner } from "react-icons/tb";
 import { useAccount } from "../../../hooks/useAccount";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import Alert from "../../UserInterfaceComponents/Alert";
@@ -40,7 +40,7 @@ export default function NoSubscriptionsFound() {
 	return (
 		<Alert variant="info">
 			<div className="flex items-center gap-2">
-				<ImSpinner10 className="animate-spin" />
+				<TbFidgetSpinner className="animate-spin" />
 				<strong>Fetching Subscription</strong> Please wait...
 			</div>
 		</Alert>
