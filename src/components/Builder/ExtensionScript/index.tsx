@@ -10,26 +10,24 @@ import Container from "../../UserInterfaceComponents/Container";
 export default function ExtensionScript() {
 	const { lab, setLab } = useGlobalStateContext();
 	const [_extendScript, setExtendScript] = useState<string>(sessionStorage.getItem(`${lab.id}-extendScript"`) || "");
-  const [themeDefined, setThemeDefined] = useState(false);
+	const [themeDefined, setThemeDefined] = useState(false);
 
+	const monaco = useMonaco();
 
-  const monaco = useMonaco();
-
-  useEffect(() => {
-    if (monaco) {
-      console.log("executed");
-      monaco.editor.defineTheme("myCustomTheme", {
-        base: "vs-dark",
-        inherit: true,
-        rules: [],
-        colors: {
-          "editor.background": "#020617",
-          "editor.lineHighlightBackground": "#020617",
-        },
-      });
-      setThemeDefined(true);
-    }
-  }, [monaco]);
+	useEffect(() => {
+		if (monaco) {
+			monaco.editor.defineTheme("myCustomTheme", {
+				base: "vs-dark",
+				inherit: true,
+				rules: [],
+				colors: {
+					"editor.background": "#020617",
+					"editor.lineHighlightBackground": "#020617",
+				},
+			});
+			setThemeDefined(true);
+		}
+	}, [monaco]);
 
 	useEffect(() => {
 		if (lab !== undefined) {
