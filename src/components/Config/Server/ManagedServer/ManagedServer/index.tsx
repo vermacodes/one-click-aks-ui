@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCheckCircle, FaRedo, FaRocket, FaStopCircle, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
@@ -31,6 +31,16 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 	const { graphResponse } = useAuth();
 	const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
 	const { lock, handleDeploy, handleDestroy, handleUpdate, handleUnregister } = useDeployManagedServer();
+
+	useEffect(() => {
+		if (managedServer === undefined) {
+			return;
+		}
+
+		if (managedServer.endpoint !== serverHosting.endpoint) {
+			setServerHosting({ ...serverHosting, endpoint: "https://" + managedServer.endpoint + "/" });
+		}
+	}, [managedServer]);
 
 	function onDeployClick() {
 		if (graphResponse === undefined) {
