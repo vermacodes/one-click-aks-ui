@@ -37,7 +37,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 			return;
 		}
 
-		if (managedServer.endpoint !== serverHosting.endpoint) {
+		if ("https://" + managedServer.endpoint + "/" !== serverHosting.endpoint) {
 			setServerHosting({ ...serverHosting, endpoint: "https://" + managedServer.endpoint + "/" });
 		}
 	}, [managedServer]);
