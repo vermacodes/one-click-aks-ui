@@ -140,7 +140,7 @@ export default function ManagedServerActivityMonitor() {
 					queryClient.invalidateQueries("get-managed-server");
 					queryClient.invalidateQueries("server-status");
 				}
-			}, 10000); // 10 seconds interval
+			}, 2000); // 2 seconds interval
 
 			return () => clearInterval(intervalId);
 		}
