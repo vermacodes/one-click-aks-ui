@@ -116,6 +116,18 @@ export default function ServerNotConnected() {
 		);
 	}
 
+	if (managedServer?.status === "Failed" && serverStatus?.status !== "OK") {
+		return (
+			<Alert variant="danger">
+				<strong>⚠️ Managed Server Deployment Failed:</strong> Managed server deployment failed. Deploy manually from{" "}
+				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+					Settings
+				</Link>
+				.
+			</Alert>
+		);
+	}
+
 	return (
 		<Alert variant="danger">
 			<strong>🛑 Unexpected Error:</strong> Something unexpected happened.
