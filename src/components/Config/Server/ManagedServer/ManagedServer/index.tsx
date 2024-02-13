@@ -132,11 +132,11 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						>
 							<FaRocket /> Deploy
 						</Button>
-						<Button variant="secondary-text" disabled={lock} onClick={() => setConfirmDestroy(true)}>
+						<Button variant="danger-text" disabled={lock} onClick={() => setConfirmDestroy(true)}>
 							<FaTrash /> Destroy
 						</Button>
 						<Button
-							variant="secondary-text"
+							variant="danger-text"
 							onClick={() => setConfirmUnregister(true)}
 							tooltipMessage="Unregister the managed server."
 							tooltipDelay={1000}
@@ -145,13 +145,13 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							<FaTimes /> Unregister
 						</Button>
 						<ResetServerCache
-							variant="secondary-text"
+							variant="danger-text"
 							tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
 						>
 							<FaRedo /> Reset Cache
 						</ResetServerCache>
 						<ResetActionStatus
-							variant="secondary-text"
+							variant="danger-text"
 							tooltipMessage="Reset Action Status. This will stop any long running action on server."
 						>
 							<FaStopCircle /> Running Action
@@ -182,7 +182,10 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 								<span className="font-bold text-rose-500 underline">NOT</span> remove any roles.
 							</li>
 							<li className="text-sm">
-								<p className="mb-2">To completely remove all roles and resources, use following script.</p>
+								<p className="mb-2">
+									To completely remove all roles and resources, use following script{" "}
+									<span className="italic underline">after</span> unregister.
+								</p>
 								<CodeBlock
 									codeString="curl -o actlabs.sh -sLO https://raw.githubusercontent.com/vermacodes/actlabs-hub/main/scripts/unregister.sh; chmod +x actlabs.sh; ./actlabs.sh; rm actlabs.sh"
 									copyEnabled={true}
