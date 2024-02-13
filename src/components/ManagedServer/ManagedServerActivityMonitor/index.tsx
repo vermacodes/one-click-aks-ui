@@ -71,13 +71,13 @@ export default function ManagedServerActivityMonitor() {
 			isPageVisible &&
 			managedServer.autoCreate
 		) {
-			// wait for 5 seconds before creating a new managed server
+			// wait for 2 seconds before creating a new managed server
 			timeoutIdRef.current = setTimeout(() => {
 				if (isPageVisibleRef.current && serverHostingRef.current.environment === "azure") {
 					console.log("Auto creating a new managed server.");
 					handleDeploy(managedServer);
 				}
-			}, 5000); // 5 seconds delay
+			}, 2000); // 2 seconds delay
 		}
 	}, [managedServer]);
 
