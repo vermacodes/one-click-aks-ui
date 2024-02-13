@@ -118,9 +118,10 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							<InactiveDuration managedServer={managedServer} />
 						</div>
 					)}
+					<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />
 					<div className="mt-8 flex flex-wrap gap-4">
 						<Button
-							variant="primary"
+							variant="primary-text"
 							disabled={lock || managedServer.status === "Running"}
 							onClick={onDeployClick}
 							tooltipMessage={
@@ -131,11 +132,11 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						>
 							<FaRocket /> Deploy
 						</Button>
-						<Button variant="secondary-outline" disabled={lock} onClick={() => setConfirmDestroy(true)}>
+						<Button variant="secondary-text" disabled={lock} onClick={() => setConfirmDestroy(true)}>
 							<FaTrash /> Destroy
 						</Button>
 						<Button
-							variant="secondary-outline"
+							variant="secondary-text"
 							onClick={() => setConfirmUnregister(true)}
 							tooltipMessage="Unregister the managed server."
 							tooltipDelay={1000}
@@ -144,27 +145,26 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							<FaTimes /> Unregister
 						</Button>
 						<ResetServerCache
-							variant="secondary-outline"
+							variant="secondary-text"
 							tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
 						>
 							<FaRedo /> Reset Cache
 						</ResetServerCache>
 						<ResetActionStatus
-							variant="secondary-outline"
+							variant="secondary-text"
 							tooltipMessage="Reset Action Status. This will stop any long running action on server."
 						>
 							<FaStopCircle /> Running Action
 						</ResetActionStatus>
 					</div>
 				</div>
-				<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />
-				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
+				{/* <p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
 					✋ Managed servers change IP with each deployment. If server is running but not connected, wait 5 mins for DNS
 					sync, then refresh; redeploy won't help.
 				</p>
 				<p className="mt-4 w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
 					ARO labs only work in Self-Hosted (Docker) environment.
-				</p>
+				</p> */}
 				{confirmUnregister && (
 					<ConfirmationModal
 						title="Confirm Unregister"
