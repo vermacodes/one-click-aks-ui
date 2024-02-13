@@ -154,7 +154,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							variant="danger-text"
 							tooltipMessage="Reset Action Status. This will stop any long running action on server."
 						>
-							<FaStopCircle /> Running Action
+							<FaStopCircle /> Stop Running Action
 						</ResetActionStatus>
 					</div>
 				</div>
