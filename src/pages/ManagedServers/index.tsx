@@ -50,8 +50,8 @@ export default function ManagedServers({}: Props) {
 							<th className="space-x-2 px-4 py-2 text-left">Auto Destroy</th>
 							<th className="space-x-2 px-4 py-2 text-left">Duration Since Last Activity</th>
 							<th className="space-x-2 px-4 py-2 text-left">Idle Timeout</th>
-							<th className="space-x-2 px-4 py-2 text-left">Deployed At</th>
-							<th className="space-x-2 px-4 py-2 text-left">Destroyed At</th>
+							<th className="space-x-2 px-4 py-2 text-left">Duration Until Destroyed</th>
+							<th className="space-x-2 px-4 py-2 text-left">Version</th>
 							<th className="space-x-2 px-4 py-2 text-left">Up Duration</th>
 						</tr>
 					</thead>
@@ -96,8 +96,26 @@ export default function ManagedServers({}: Props) {
 											return `${hours}h ${minutes}m ${seconds}s`;
 										})()}
 									</td>
-									<td className="space-x-2 px-4 py-2">{new Date(server.deployedAtTime).toLocaleString()}</td>
-									<td className="space-x-2 px-4 py-2">{new Date(server.destroyedAtTime).toLocaleString()}</td>
+									<td className="space-x-2 px-4 py-2">
+										{(() => {
+											const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+											const lastActivityTime = Math.floor(new Date(server.lastActivityTime).getTime() / 1000); // Last activity time in seconds
+											const timeSinceLastActivity = currentTime - lastActivityTime; // Time since last activity in seconds
+
+											const inactivityDurationInSeconds = server.inactivityDurationInSeconds - timeSinceLastActivity;
+
+											if (inactivityDurationInSeconds < 0 || server.status !== "Running") {
+												return "0s";
+											}
+
+											const hours = Math.floor(inactivityDurationInSeconds / 3600);
+											const minutes = Math.floor((inactivityDurationInSeconds % 3600) / 60);
+											const seconds = inactivityDurationInSeconds % 60;
+
+											return `${hours}h ${minutes}m ${seconds}s`;
+										})()}
+									</td>
+									<td className="space-x-2 px-4 py-2">{server.version}</td>
 									<td className="space-x-2 px-4 py-2">
 										{(() => {
 											const deployedAt = new Date(server.deployedAtTime);
