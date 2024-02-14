@@ -2,12 +2,15 @@ import { toast } from "react-toastify";
 import { DeploymentType } from "../../../dataStructures";
 import { usePatchDeployment } from "../../../hooks/useDeployments";
 import { calculateNewEpochTimeForDeployment } from "../../../utils/helpers";
+import { useWebSocketContext } from "../../Context/WebSocketContext";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
 
 type DeploymentLifespanProps = {
 	deployment: DeploymentType;
 };
 export default function DeploymentLifespan({ deployment }: DeploymentLifespanProps) {
+	const { actionStatus } = useWebSocketContext();
+
 	// array allowed lifespans in seconds.
 	const lifespans = [120, 300, 600, 900, 1800, 3600, 7200, 14400, 28800, 43200, 86400, 172800, 259200, 604800];
 	const { mutateAsync: patchDeployment } = usePatchDeployment();
@@ -74,6 +77,7 @@ export default function DeploymentLifespan({ deployment }: DeploymentLifespanPro
 				renderItem={renderItem}
 				tooltipMessage="The deployment will be automatically deleted after the specified duration."
 				tooltipDelay={1000}
+				disabled={actionStatus.inProgress}
 			/>
 		</div>
 	);

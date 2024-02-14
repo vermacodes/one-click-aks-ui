@@ -5,6 +5,7 @@ import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
 import { useDeployManagedServer } from "../../../../../hooks/useDeployManagedServer";
 import { useManagedServer } from "../../../../../hooks/useManagedServer";
 import { useAuth } from "../../../../Context/AuthContext";
+import { useWebSocketContext } from "../../../../Context/WebSocketContext";
 import Button from "../../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../../UserInterfaceComponents/Checkbox";
 import CodeBlock from "../../../../UserInterfaceComponents/CodeBlock";
@@ -32,15 +33,25 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 	const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
 	const { lock, handleDeploy, handleDestroy, handleUpdate, handleUnregister } = useDeployManagedServer();
 
+	const { actionStatus } = useWebSocketContext();
+
 	useEffect(() => {
 		if (managedServer === undefined) {
 			return;
 		}
 
-		if ("https://" + managedServer.endpoint + "/" !== serverHosting.endpoint) {
+		const serverHostingString = localStorage.getItem("serverHostingString");
+		if (serverHostingString == null) {
+			return;
+		}
+
+		serverHosting = JSON.parse(serverHostingString);
+
+		if ("https://" + managedServer.endpoint + "/" !== serverHosting.endpoint && serverHosting.environment === "azure") {
+			console.log("updating server hosting");
 			setServerHosting({ ...serverHosting, endpoint: "https://" + managedServer.endpoint + "/" });
 		}
-	}, [managedServer]);
+	}, [managedServer, serverHosting]);
 
 	function onDeployClick() {
 		if (graphResponse === undefined) {
@@ -142,7 +153,11 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 						>
 							<FaRocket /> Deploy
 						</Button>
-						<Button variant="danger-text" disabled={lock} onClick={() => setConfirmDestroy(true)}>
+						<Button
+							variant="danger-text"
+							disabled={lock || actionStatus.inProgress}
+							onClick={() => setConfirmDestroy(true)}
+						>
 							<FaTrash /> Destroy
 						</Button>
 						<Button
@@ -150,7 +165,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 							onClick={() => setConfirmUnregister(true)}
 							tooltipMessage="Unregister the managed server."
 							tooltipDelay={1000}
-							disabled={lock}
+							disabled={lock || actionStatus.inProgress}
 						>
 							<FaTimes /> Unregister
 						</Button>
