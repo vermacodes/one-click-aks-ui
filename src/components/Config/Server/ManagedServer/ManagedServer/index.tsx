@@ -15,6 +15,7 @@ import ManagedServerDestroyButton from "../ManagedServerDestroyButton";
 import ManagedServerRegistration from "../ManagedServerRegistration";
 import ManagedServerStatus from "../ManagedServerStatus";
 import ManagedServerUnregisterButton from "../ManagedServerUnregisterButton";
+import ManagedServerVersion from "../ManagedServerVersion";
 
 type Props = {
 	serverHosting: ServerHosting;
@@ -47,6 +48,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 									</span>
 								</div>
 							</Tooltip>
+							<ManagedServerVersion />
 							<ManagedServerStatus />
 							<ManagedServerAutoDeployAndDestroy />
 							<InactiveDuration managedServer={managedServer} />
