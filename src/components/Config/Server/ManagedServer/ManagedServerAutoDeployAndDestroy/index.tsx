@@ -8,7 +8,7 @@ type Props = {};
 
 export default function ManagedServerAutoDeployAndDestroy({}: Props) {
 	const [confirmAutoDestroyDisabled, setConfirmAutoDestroyDisabled] = useState<boolean>(false);
-	const { data: managedServer, isLoading, isFetching, isError } = useManagedServer();
+	const { data: managedServer, isError } = useManagedServer();
 	const { lock, handleUpdate } = useDeployManagedServer();
 
 	function onAutoDestroyClick() {
@@ -38,7 +38,7 @@ export default function ManagedServerAutoDeployAndDestroy({}: Props) {
 				id="autoDeploy"
 				checked={managedServer.autoCreate}
 				handleOnChange={() => handleUpdate({ ...managedServer, autoCreate: !managedServer.autoCreate })}
-				disabled={isLoading || isFetching || isError || lock}
+				disabled={isError || lock}
 			/>
 			<Checkbox
 				key={"autoDestroy"}
@@ -48,7 +48,7 @@ export default function ManagedServerAutoDeployAndDestroy({}: Props) {
 				id="autoDestroy"
 				checked={managedServer.autoDestroy}
 				handleOnChange={onAutoDestroyClick}
-				disabled={isLoading || isFetching || isError || lock || managedServer.version === "V2"}
+				disabled={isError || lock || managedServer.version === "V2"}
 			/>
 			{confirmAutoDestroyDisabled && (
 				<ConfirmationModal
