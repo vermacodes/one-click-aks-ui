@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaCheckCircle, FaRedo, FaRocket, FaStopCircle, FaTimes, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ManagedServer, ServerHosting } from "../../../../../dataStructures";
@@ -34,24 +34,6 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 	const { lock, handleDeploy, handleDestroy, handleUpdate, handleUnregister } = useDeployManagedServer();
 
 	const { actionStatus } = useWebSocketContext();
-
-	useEffect(() => {
-		if (managedServer === undefined) {
-			return;
-		}
-
-		const serverHostingString = localStorage.getItem("serverHostingString");
-		if (serverHostingString == null) {
-			return;
-		}
-
-		serverHosting = JSON.parse(serverHostingString);
-
-		if ("https://" + managedServer.endpoint + "/" !== serverHosting.endpoint && serverHosting.environment === "azure") {
-			console.log("updating server hosting");
-			setServerHosting({ ...serverHosting, endpoint: "https://" + managedServer.endpoint + "/" });
-		}
-	}, [managedServer, serverHosting]);
 
 	function onDeployClick() {
 		if (graphResponse === undefined) {
