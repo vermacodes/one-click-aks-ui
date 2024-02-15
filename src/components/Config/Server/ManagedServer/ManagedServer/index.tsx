@@ -4,7 +4,6 @@ import { useManagedServer } from "../../../../../hooks/useManagedServer";
 import { useAuth } from "../../../../Context/AuthContext";
 import Container from "../../../../UserInterfaceComponents/Container";
 import GradientBorderContainer from "../../../../UserInterfaceComponents/GradientBorderContainer";
-import Tooltip from "../../../../UserInterfaceComponents/Tooltip";
 import ResetActionStatus from "../../ResetActionStatus";
 import ResetServerCache from "../../ResetServerCache";
 import ServerEndpoint from "../../ServerEndpoint";
@@ -12,6 +11,7 @@ import InactiveDuration from "../InactiveDuration";
 import ManagedServerAutoDeployAndDestroy from "../ManagedServerAutoDeployAndDestroy";
 import ManagedServerDeployButton from "../ManagedServerDeployButton";
 import ManagedServerDestroyButton from "../ManagedServerDestroyButton";
+import ManagedServerDomain from "../ManagedServerDomain";
 import ManagedServerRegistration from "../ManagedServerRegistration";
 import ManagedServerStatus from "../ManagedServerStatus";
 import ManagedServerUnregisterButton from "../ManagedServerUnregisterButton";
@@ -41,13 +41,7 @@ export default function ManagedServerComponent({ serverHosting, setServerHosting
 				<div className="flex w-full flex-col flex-wrap gap-2">
 					{graphResponse && managedServer && (
 						<div className="flex flex-wrap items-center gap-2">
-							<Tooltip message="Your server's endpoint. Its accessible on https" delay={500}>
-								<div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
-									<span>
-										{managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}
-									</span>
-								</div>
-							</Tooltip>
+							<ManagedServerDomain />
 							<ManagedServerVersion />
 							<ManagedServerStatus />
 							<ManagedServerAutoDeployAndDestroy />
