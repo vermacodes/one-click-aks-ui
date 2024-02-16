@@ -19,7 +19,7 @@ export default function DeploymentStatus({ deployment }: Props) {
 		if (!actionStatus.inProgress) {
 			return (
 				<Tooltip
-					message={`Can not accurately determine the deployment status. Try repeating the last action manually or re-deploy your server.`}
+					message={`Can not accurately determine the deployment status. If you see no logs flowing, try repeating the last action manually or re-deploy your server.`}
 				>
 					<div className={`flex items-center gap-2`}>
 						<FaCircleExclamation className="text-amber-500" />
