@@ -22,7 +22,6 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
 	const [isModified, setIsModified] = useState<boolean>(false);
 
 	function handleLabDescriptionChange(newLabDescription: string) {
-		console.log("lab description changed");
 		let asciiLabDescription = btoa(newLabDescription);
 		const validationResult = labDescriptionSchema.safeParse(asciiLabDescription);
 		setLab({
@@ -30,7 +29,6 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
 			description: asciiLabDescription,
 		});
 		setIsModified(true);
-		console.log("Validation Result", validationResult);
 		if (validationResult.success) {
 			setLabDescriptionError("");
 		} else {
