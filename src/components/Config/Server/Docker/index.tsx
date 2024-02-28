@@ -43,21 +43,21 @@ export default function Docker({ serverHosting, setServerHosting }: Props) {
 					.
 				</li>
 			</ol>
+			<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} editable={true} />
 			<div className="mt-8 flex flex-wrap gap-4">
 				<ResetServerCache
-					variant="secondary-outline"
+					variant="danger-text"
 					tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
 				>
 					<FaRedo /> Reset Cache
 				</ResetServerCache>
 				<ResetActionStatus
-					variant="secondary-outline"
+					variant="danger-text"
 					tooltipMessage="Reset Action Status. This will stop any long running action on server."
 				>
-					<FaStopCircle /> Running Action
+					<FaStopCircle /> Stop Running Action
 				</ResetActionStatus>
 			</div>
-			<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} editable={true} />
 		</Container>
 	);
 }

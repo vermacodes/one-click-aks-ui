@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ImSpinner10 } from "react-icons/im";
+import { TbFidgetSpinner } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { ServerHosting } from "../../../dataStructures";
 import { getDefaultServerHosting } from "../../../defaults";
@@ -52,7 +52,7 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="info">
 				<div className="flex items-center gap-2">
-					<ImSpinner10 className="animate-spin" />
+					<TbFidgetSpinner className="animate-spin" />
 					<strong>Deploying Managed Server:</strong> Deployment is in progress. Page will auto reload once deployment
 					completes.
 				</div>
@@ -76,7 +76,7 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="info">
 				<div className="flex items-center gap-2">
-					<ImSpinner10 className="animate-spin" />
+					<TbFidgetSpinner className="animate-spin" />
 					<strong>Deploying Managed Server:</strong> Managed server was destroyed due to inactivity. Deploying again
 					momentarily.
 				</div>
@@ -101,7 +101,7 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="info">
 				<div className="flex items-center gap-2">
-					<ImSpinner10 className="animate-spin" />
+					<TbFidgetSpinner className="animate-spin" />
 					<strong>Waiting for DNS Sync:</strong> This can take several minutes. Please don't destroy the managed server.
 				</div>
 			</Alert>
@@ -112,6 +112,18 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="info">
 				<strong>☑️ Registration Completed:</strong> Managed server is registered, now deploying.
+			</Alert>
+		);
+	}
+
+	if (managedServer?.status === "Failed" && serverStatus?.status !== "OK") {
+		return (
+			<Alert variant="danger">
+				<strong>⚠️ Managed Server Deployment Failed:</strong> Managed server deployment failed. Deploy manually from{" "}
+				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+					Settings
+				</Link>
+				.
 			</Alert>
 		);
 	}

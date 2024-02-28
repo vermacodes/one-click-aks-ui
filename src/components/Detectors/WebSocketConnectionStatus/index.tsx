@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ImSpinner10 } from "react-icons/im";
+import { TbFidgetSpinner } from "react-icons/tb";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 import Alert from "../../UserInterfaceComponents/Alert";
@@ -37,7 +37,7 @@ export default function WebSocketConnectionStatus() {
 	return (
 		<Alert variant="info">
 			<div className="flex items-center gap-2">
-				<ImSpinner10 className="animate-spin" />
+				<TbFidgetSpinner className="animate-spin" />
 				<strong>Connecting WebSockets:</strong> Please wait.. Use Help & Feedback if the problem continues.
 			</div>
 		</Alert>

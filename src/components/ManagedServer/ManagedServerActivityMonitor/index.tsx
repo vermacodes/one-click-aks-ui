@@ -31,11 +31,11 @@ export default function ManagedServerActivityMonitor() {
 		// Get the server hosting information from local storage
 		const serverHostingFromLocalStorage: ServerHosting = getServerHostingFromLocalStorage();
 
-		// Check if the server hosting information is for an Azure environment and if the endpoint is empty
+		// Check if the server hosting information is for an Azure environment and if the endpoint is not the same as the `managedServer`'s endpoint
 		if (
 			managedServer &&
 			serverHostingFromLocalStorage.environment === "azure" &&
-			serverHostingFromLocalStorage.endpoint === ""
+			serverHostingFromLocalStorage.endpoint !== "https://" + managedServer.endpoint + "/"
 		) {
 			// Create a new server hosting object with the `managedServer`'s endpoint
 			const newServerHosting: ServerHosting = {
@@ -71,13 +71,13 @@ export default function ManagedServerActivityMonitor() {
 			isPageVisible &&
 			managedServer.autoCreate
 		) {
-			// wait for 5 seconds before creating a new managed server
+			// wait for 2 seconds before creating a new managed server
 			timeoutIdRef.current = setTimeout(() => {
 				if (isPageVisibleRef.current && serverHostingRef.current.environment === "azure") {
 					console.log("Auto creating a new managed server.");
 					handleDeploy(managedServer);
 				}
-			}, 5000); // 5 seconds delay
+			}, 2000); // 2 seconds delay
 		}
 	}, [managedServer]);
 
@@ -140,7 +140,7 @@ export default function ManagedServerActivityMonitor() {
 					queryClient.invalidateQueries("get-managed-server");
 					queryClient.invalidateQueries("server-status");
 				}
-			}, 10000); // 10 seconds interval
+			}, 2000); // 2 seconds interval
 
 			return () => clearInterval(intervalId);
 		}
