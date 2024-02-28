@@ -1,4 +1,5 @@
 import { DeploymentType } from "../../../dataStructures";
+import { useWebSocketContext } from "../../Context/WebSocketContext";
 import DestroyButton from "../../Terraform/ActionButtons/DestroyButton";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
 import AutoDestroySwitch from "../AutoDestroySwitch";
@@ -14,6 +15,8 @@ type Props = {
 };
 
 export default function Deployment({ deployment, selectedDeployment }: Props) {
+	const { actionStatus } = useWebSocketContext();
+
 	return (
 		<div
 			className={`${
@@ -30,7 +33,7 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
 					<DeploymentStatus deployment={deployment} />
 					<AutoDestroySwitch
 						deployment={deployment}
-						disabled={false}
+						disabled={actionStatus.inProgress}
 						label="Auto Destroy"
 						key={deployment.deploymentId}
 					/>

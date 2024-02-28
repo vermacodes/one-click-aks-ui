@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { DeploymentType } from "../../../dataStructures";
 import { useGetMyDeployments } from "../../../hooks/useDeployments";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
+import { useWebSocketContext } from "../../Context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
 import AutoDestroySwitch from "../AutoDestroySwitch";
@@ -21,6 +22,8 @@ export default function SelectedDeployment({ sticky = true }: Props) {
 	const { data: deployments } = useGetMyDeployments();
 	const { selectedDeployment } = useSelectedDeployment();
 	const [selectedDeploymentState, setSelectedDeploymentState] = useState<DeploymentType | undefined>(undefined);
+
+	const { actionStatus } = useWebSocketContext();
 
 	const navigate = useNavigate();
 
@@ -56,7 +59,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
 						<div className="mx-2 h-6 border-r border-gray-300"></div>
 						<AutoDestroySwitch
 							deployment={selectedDeploymentState}
-							disabled={false}
+							disabled={actionStatus.inProgress}
 							label="Auto Destroy"
 							key={selectedDeploymentState.deploymentId}
 						/>

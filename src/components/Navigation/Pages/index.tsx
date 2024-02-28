@@ -216,10 +216,7 @@ export default function Pages() {
 					</li>
 				)}
 				<li>
-					<a
-						target="_blank"
-						href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280599/ACT-Lab-Tool"
-					>
+					<a target="_blank" href="https://aka.ms/actlabs-docs">
 						<button className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
 							<span>
 								<FaBook />
