@@ -33,6 +33,10 @@ export default function DefaultNodepoolMax({ index }: Props) {
 
 		cluster.defaultNodePool.maxCount = parsedValue;
 
+		if (cluster.defaultNodePool.minCount > parsedValue) {
+			cluster.defaultNodePool.minCount = parsedValue;
+		}
+
 		if (!actionStatus.inProgress) {
 			setLogs({ logs: JSON.stringify(newLab?.template, null, 4) });
 		}
@@ -53,6 +57,7 @@ export default function DefaultNodepoolMax({ index }: Props) {
 				value={count}
 				disabled={disabled}
 				onChange={(e) => handleOnChange(e.target.value)}
+				onBlur={() => setCount(lab?.template?.kubernetesClusters[index]?.defaultNodePool?.maxCount || 1)}
 			/>
 		</div>
 	);

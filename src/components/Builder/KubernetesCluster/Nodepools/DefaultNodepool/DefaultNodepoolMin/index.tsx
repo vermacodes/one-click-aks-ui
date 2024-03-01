@@ -54,6 +54,7 @@ export default function DefaultNodepoolMin({ index }: Props) {
 			value={count}
 			disabled={disabled}
 			onChange={(e) => handleOnChange(e.target.value)}
+			onBlur={() => setCount(lab?.template?.kubernetesClusters[index]?.defaultNodePool?.minCount || 1)}
 		/>
 	);
 }
