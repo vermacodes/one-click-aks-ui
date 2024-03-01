@@ -15,7 +15,7 @@ export default function NumberInput({ label, ...rest }: Props) {
 				<input
 					className={`${
 						disabled ? "cursor-not-allowed text-slate-500 " : "cursor-pointer "
-					} ::-webkit-outer-spin-button]:m-0 w-full rounded border-none bg-inherit px-2 py-1 outline-none ring-1 ring-slate-500 focus:ring-2 focus:ring-sky-500 [&::-webkit-inner-spin-button]:appearance-none`}
+					} ::-webkit-outer-spin-button]:m-0 rounded border-none bg-inherit px-2 outline-none ring-1 ring-slate-500 focus:ring-2 focus:ring-sky-500 [&::-webkit-inner-spin-button]:appearance-none`}
 					{...rest}
 				/>
 			</form>
