@@ -56,6 +56,7 @@ const defaultNodePool: TfvarDefaultNodepoolType = {
 	enableAutoScaling: false,
 	minCount: 1,
 	maxCount: 1,
+  vmSize: "Standard_D2_v5",
 };
 export function getDefaultNodePool(): TfvarDefaultNodepoolType {
 	return structuredClone(defaultNodePool);

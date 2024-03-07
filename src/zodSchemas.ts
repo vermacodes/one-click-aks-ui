@@ -40,3 +40,9 @@ export const labTagSchema = z
 
 //subscription id
 export const subscriptionIdSchema = z.string().uuid("Subscription ID must be a valid UUID.");
+
+//node count schema
+export const nodeCountSchema = z
+  .number()
+  .min(1, "Node count must be at least 1.")
+  .max(10, "Node count must not exceed 10.");

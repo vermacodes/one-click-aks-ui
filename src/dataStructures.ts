@@ -115,6 +115,7 @@ export type TfvarDefaultNodepoolType = {
 	enableAutoScaling: boolean;
 	minCount: number;
 	maxCount: number;
+  vmSize: string;
 };
 
 export type TfvarKubernetesClusterType = {

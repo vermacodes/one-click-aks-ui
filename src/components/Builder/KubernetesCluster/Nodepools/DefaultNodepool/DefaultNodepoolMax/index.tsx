@@ -15,13 +15,14 @@ export default function DefaultNodepoolMax({ index }: Props) {
 	const { actionStatus } = useContext(WebSocketContext);
 	const { mutate: setLogs } = useSetLogs();
 
+	// Update teh count when the lab or index changes.
 	useEffect(() => {
 		setCount(lab?.template?.kubernetesClusters[index]?.defaultNodePool?.maxCount || 1);
 	}, [lab, index]);
 
 	// Toggle the auto scaling feature
 	const handleOnChange = (value: string) => {
-		const parsedValue = parseInt(value);
+		let parsedValue = parseInt(value);
 		const newLab = structuredClone(lab);
 		const cluster = newLab?.template?.kubernetesClusters[index];
 
@@ -29,6 +30,10 @@ export default function DefaultNodepoolMax({ index }: Props) {
 
 		if (!cluster?.defaultNodePool?.enableAutoScaling || isNaN(parsedValue) || parsedValue === 0) {
 			return;
+		}
+
+		if (parsedValue > 10) {
+			parsedValue = 10;
 		}
 
 		cluster.defaultNodePool.maxCount = parsedValue;
@@ -53,7 +58,7 @@ export default function DefaultNodepoolMax({ index }: Props) {
 				label="Max Nodes"
 				type="number"
 				min={1}
-				max={100}
+				max={10}
 				value={count}
 				disabled={disabled}
 				onChange={(e) => handleOnChange(e.target.value)}
