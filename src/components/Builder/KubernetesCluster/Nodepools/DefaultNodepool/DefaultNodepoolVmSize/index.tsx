@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function DefaultNodepoolVmSize({ index }: Props) {
-  const [vmSize, setVmSize] = useState<string>("nothingsetupyet");
+  const [vmSize, setVmSize] = useState<string>("Default_D2_v5");
 
   const { lab, setLab } = useGlobalStateContext();
   const { actionStatus } = useContext(WebSocketContext);
@@ -17,6 +17,8 @@ export default function DefaultNodepoolVmSize({ index }: Props) {
   useEffect(() => {
     
     if (!lab?.template?.kubernetesClusters[index]?.defaultNodePool?.vmSize) {
+      // if the vmSize is not set, set it to the default value
+      handleOnChange(vmSize);
       return;
     }
 
