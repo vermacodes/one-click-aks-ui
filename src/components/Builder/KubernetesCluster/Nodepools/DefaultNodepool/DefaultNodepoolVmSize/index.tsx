@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function DefaultNodepoolVmSize({ index }: Props) {
-  const [vmSize, setVmSize] = useState<string>("Default_D2_v5");
+  const [vmSize, setVmSize] = useState<string>("Standard_D2_v5");
 
   const { lab, setLab } = useGlobalStateContext();
   const { actionStatus } = useContext(WebSocketContext);
