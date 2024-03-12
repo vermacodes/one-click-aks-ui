@@ -1,6 +1,7 @@
 import AutoScaling from "../../AutoScaling";
 import DefaultNodepoolMax from "../DefaultNodepoolMax";
 import DefaultNodepoolMin from "../DefaultNodepoolMin";
+import DefaultNodepoolOnlyCriticalAddonsEnabled from "../DefaultNodepoolOnlyCriticalAddonEnabled";
 import DefaultNodepoolVmSize from "../DefaultNodepoolVmSize";
 
 type Props = {
@@ -14,6 +15,7 @@ export default function DefaultNodePool({ index }: Props) {
 			<DefaultNodepoolMin index={index} />
 			<DefaultNodepoolMax index={index} />
 			<DefaultNodepoolVmSize index={index} />
+			<DefaultNodepoolOnlyCriticalAddonsEnabled index={index} />
 		</div>
 	);
 }
