@@ -115,8 +115,9 @@ export type TfvarDefaultNodepoolType = {
 	enableAutoScaling: boolean;
 	minCount: number;
 	maxCount: number;
-  vmSize: string;
-  onlyCriticalAddonsEnabled: boolean;
+  	vmSize: string;
+  	onlyCriticalAddonsEnabled: boolean;
+  	nodeOSSKU: string;
 };
 
 export type TfvarKubernetesClusterType = {
@@ -310,6 +311,10 @@ export type PatchVersions = {
 	[key: string]: {
 		upgrades: string[];
 	};
+};
+
+export type NodeOSSKUs = {
+	OSes: string[];
 };
 
 export type Capabilities = {
