@@ -9,29 +9,12 @@ type Props = {
 };
 
 export default function DefaultNodeOSSKU({ index }: Props) {
-    const nodeOSes = ["Ubuntu", "AzureLinux"]
-
     const { lab, setLab } = useGlobalStateContext();
     const { actionStatus } = useWebSocketContext();
     const { mutate: setLogs } = useSetLogs();
 
+    const nodeOSes = ["Ubuntu", "AzureLinux"]
     const currentNodeOSSKU = lab?.template?.kubernetesClusters[index].defaultNodePool.osSku;
-
-    /**
-     * Handles selection of the node OS SKU to use for the default node pool
-     * 
-     * @param {NodeOSSKUs} nodeOS - The selected node OS SKU
-     */
-    const handleOnSelect = (nodeOS: string) => {
-        const nodeOSKey = Object.keys(nodeOS)[0];
-        const newLab = structuredClone(lab);
-        if (newLab?.template && newLab.template.kubernetesClusters[index]) {
-            newLab.template.kubernetesClusters[index].defaultNodePool.osSku = nodeOSKey;
-            !actionStatus.inProgress &&
-                setLogs({ logs: JSON.stringify(newLab.template, null, 4) });
-            setLab(newLab);
-        }
-    };
 
     function handleOnNodeOSChange(nodeOS: string) {
         // clone the lab object so we don't mutate the state directly,
