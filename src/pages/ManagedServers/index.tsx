@@ -57,7 +57,11 @@ export default function ManagedServers({}: Props) {
 					</thead>
 					<tbody className="text-sm">
 						{[...managedServers]
-							.sort((a, b) => new Date(b.lastActivityTime).getTime() - new Date(a.lastActivityTime).getTime())
+							.sort((a, b) => {
+								const aTime = a.lastActivityTime ? new Date(a.lastActivityTime).getTime() : -Infinity;
+								const bTime = b.lastActivityTime ? new Date(b.lastActivityTime).getTime() : -Infinity;
+								return bTime - aTime;
+							})
 							.map((server) => (
 								<tr key={server.userPrincipalId} className="hover:bg-slate-100 hover:dark:bg-slate-800">
 									<td className="w-64 min-w-fit space-x-2 px-4 py-2">
