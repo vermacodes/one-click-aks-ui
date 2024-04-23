@@ -71,7 +71,7 @@ export default function DeploymentLifespan({ deployment }: DeploymentLifespanPro
 	return (
 		<div className="w-32 min-w-fit">
 			<DropdownSelect
-				heading={secondsToHoursOrMinutes(deployment.deploymentLifespan)}
+				heading={deployment.deploymentLifespan}
 				items={lifespans}
 				onItemClick={handleDeploymentLifespanChange}
 				renderItem={renderItem}
