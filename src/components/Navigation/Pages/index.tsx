@@ -221,7 +221,7 @@ export default function Pages() {
 							<span>
 								<FaBook />
 							</span>
-							<span>ACT Labs Docs</span>
+							<span>Documentation</span>
 							<span>
 								<BsArrowUpRight />
 							</span>
