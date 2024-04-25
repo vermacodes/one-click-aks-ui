@@ -12,6 +12,7 @@ import DefaultNodePool from "../Nodepools/DefaultNodepool/DefaultNodepool";
 import PrivateCluster from "../PrivateCluster";
 import UserDefinedRouting from "../UserDefinedRouting";
 import Version from "../Version";
+import WorkloadIdentity from "../WorkloadIdentity";
 
 export default function KubernetesCluster() {
 	const { lab } = useGlobalStateContext();
@@ -47,6 +48,7 @@ export default function KubernetesCluster() {
 							<Calico index={index} />
 							<NetworkPluginMode index={index} />
 							<UserDefinedRouting index={index} />
+							<WorkloadIdentity index={index} />
 						</div>
 					</Container>
 					<Container
