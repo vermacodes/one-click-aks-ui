@@ -6,15 +6,15 @@ import VersionCheck from "../VersionCheck";
 import WebSocketConnectionStatus from "../WebSocketConnectionStatus";
 
 export default function Detectors() {
-	return (
-		<>
-			<NewSubscriptionNotSupported />
-			<ServerNotConnected />
-			<VersionCheck />
-			<WebSocketConnectionStatus />
-			<NoSubscriptionsFound />
-			{/* <StorageAccountNotConfigured /> */}
-			<SelectedTerraformWorkspaceNotFound />
-		</>
-	);
+  return (
+    <>
+      {/* <NewSubscriptionNotSupported /> */}
+      <ServerNotConnected />
+      <VersionCheck />
+      <WebSocketConnectionStatus />
+      <NoSubscriptionsFound />
+      {/* <StorageAccountNotConfigured /> */}
+      <SelectedTerraformWorkspaceNotFound />
+    </>
+  );
 }
