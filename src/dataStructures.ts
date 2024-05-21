@@ -127,8 +127,8 @@ export type TfvarKubernetesClusterType = {
 	networkPluginMode: "Overlay" | "null";
 	outboundType: "loadBalancer" | "userDefinedRouting";
 	privateClusterEnabled: "true" | "false";
-	workloadIdentityEnabled: boolean;
-	oidcIssuerEnabled: boolean;
+	workloadIdentityEnabled: "true" | "false";
+	oidcIssuerEnabled: "true" | "false";
 	addons: TfvarAddonsType;
 	defaultNodePool: TfvarDefaultNodepoolType;
 };
