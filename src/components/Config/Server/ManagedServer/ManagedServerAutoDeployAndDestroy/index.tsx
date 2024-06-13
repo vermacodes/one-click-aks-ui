@@ -48,7 +48,7 @@ export default function ManagedServerAutoDeployAndDestroy({}: Props) {
 				id="autoDestroy"
 				checked={managedServer.autoDestroy}
 				handleOnChange={onAutoDestroyClick}
-				disabled={isError || lock || managedServer.version === "V2"}
+				disabled={isError || lock || managedServer.version !== "V1"}
 			/>
 			{confirmAutoDestroyDisabled && (
 				<ConfirmationModal
