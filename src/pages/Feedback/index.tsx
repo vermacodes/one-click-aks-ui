@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import PageLayout from "../../layouts/PageLayout";
 
 export default function Feedback() {
+	useEffect(() => {
+		document.title = "ACT Labs | Feedback";
+	}, []);
+
 	return (
 		<PageLayout>
 			<iframe
