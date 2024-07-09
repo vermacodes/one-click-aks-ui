@@ -1,3 +1,4 @@
+import ActlabsHubEndpoint from "../ActlabsHubEndpoint";
 import NewSubscriptionNotSupported from "../NewSubscriptionsNotSupported";
 import NoSubscriptionsFound from "../NoSubscriptionsFound";
 import SelectedTerraformWorkspaceNotFound from "../SelectedTerraformWorkspaceNotFound";
@@ -15,6 +16,7 @@ export default function Detectors() {
 			<NoSubscriptionsFound />
 			{/* <StorageAccountNotConfigured /> */}
 			<SelectedTerraformWorkspaceNotFound />
+			<ActlabsHubEndpoint />
 		</>
 	);
 }
