@@ -130,7 +130,8 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 						tooltipDirection="top"
 						disabled={
 							!labNameSchema.safeParse(labState.name).success ||
-							!labDescriptionSchema.safeParse(labState.description).success
+							!labDescriptionSchema.safeParse(labState.description).success ||
+							lab.type !== labState.type
 						}
 						onClick={() => {
 							labState.type === "template" ? handleCreateMyLab() : handleCreateLab();
