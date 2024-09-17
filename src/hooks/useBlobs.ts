@@ -226,6 +226,22 @@ export function useGetVersionsById(
 
 // Supporting Documents
 
+const upsertSupportingDocument = async (supportingDocument: File) => {
+	const formData = new FormData();
+	formData.append("supportingDocument", supportingDocument);
+	const response = await actlabsHubAxiosInstance.post("lab/protected/supportingDocument", formData);
+	return response.data;
+};
+
+export function useUpsertSupportingDocument() {
+	const queryClient = useQueryClient();
+	return useMutation(upsertSupportingDocument, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("get-supporting-documents");
+		},
+	});
+}
+
 const getSupportingDocument = async (supportingDocumentId: string) => {
 	const response = await actlabsHubAxiosInstance.get(`lab/protected/supportingDocument/${supportingDocumentId}`, {
 		responseType: "blob",
@@ -240,4 +256,13 @@ export function useSupportingDocument(supportingDocumentId: string) {
 		},
 		enabled: supportingDocumentId !== "",
 	});
+}
+
+const deleteSupportingDocument = async (supportingDocumentId: string) => {
+	const response = await actlabsHubAxiosInstance.delete(`lab/protected/supportingDocument/${supportingDocumentId}`);
+	return response.data;
+};
+
+export function useDeleteSupportingDocument() {
+	return useMutation(deleteSupportingDocument, {});
 }
