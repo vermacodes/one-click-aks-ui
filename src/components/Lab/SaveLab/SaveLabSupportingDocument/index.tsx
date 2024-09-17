@@ -18,29 +18,21 @@ export default function SaveLabSupportingDocument({ lab, setLab, supportingDocum
 
 	const handleDeleteSupportingDocument = async () => {
 		try {
-			console.log("Starting delete operation for document ID:", lab.supportingDocumentId);
 			const deletePromise = deleteSupportingDocument(lab.supportingDocumentId);
 
 			await toast.promise(deletePromise, {
 				pending: "Deleting supporting document...",
 				success: "Supporting document deleted.",
-				error: {
-					render({ data }) {
-						// Log the error for debugging purposes
-						console.error("Error deleting supporting document:", data);
-						return "Failed to delete supporting document.";
-					},
-				},
+				error: "Failed to delete supporting document.",
 			});
 
-			console.log("Delete operation successful, updating lab state.");
 			// Update the lab state only if the delete operation is successful
 			setLab({ ...lab, supportingDocumentId: "" });
 		} catch (error) {
-			console.error("Caught error during delete operation:", error);
-			toast.error(`Failed to delete supporting document: ${error.message}`);
+			toast.error(`Failed to delete supporting document`);
 		}
 	};
+
 	const handlePdfAttachmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
 			setSupportingDocument(e.target.files[0]);
