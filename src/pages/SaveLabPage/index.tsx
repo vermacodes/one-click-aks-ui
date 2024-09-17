@@ -13,7 +13,12 @@ import Button from "../../components/UserInterfaceComponents/Button";
 import ConfirmationModal from "../../components/UserInterfaceComponents/Modal/ConfirmationModal";
 import { Lab } from "../../dataStructures";
 import { defaultScrollbarStyle, getDefaultLab } from "../../defaults";
-import { useCreateLab, useCreateLabWithSupportingDocument, useCreateMyLab } from "../../hooks/useBlobs";
+import {
+	useCreateLab,
+	useCreateLabWithSupportingDocument,
+	useCreateMyLab,
+	useUpsertSupportingDocument,
+} from "../../hooks/useBlobs";
 import { useLab } from "../../hooks/useLab";
 import PageLayout from "../../layouts/PageLayout";
 import { labDescriptionSchema, labNameSchema } from "../../zodSchemas";
@@ -29,6 +34,7 @@ export default function SaveLabPage() {
 	const { setLab } = useGlobalStateContext();
 	const { mutateAsync: createMyLab } = useCreateMyLab();
 	const { mutateAsync: createLab } = useCreateLab();
+	const { mutateAsync: upsertSupportingDocument } = useUpsertSupportingDocument();
 	const { mutateAsync: createLabWithSupportingDocument } = useCreateLabWithSupportingDocument();
 
 	// Use useEffect to update labState when lab data is available
@@ -80,42 +86,97 @@ export default function SaveLabPage() {
 		}
 	}
 
-	function onConfirmCreateLab() {
+	// function onConfirmCreateLab() {
+	// 	setShowConfirmationModal(false);
+	// 	const createLabPromise = supportingDocument
+	// 		? createLabWithSupportingDocument([labState, supportingDocument])
+	// 		: createLab(labState);
+
+	// 	const response = toast.promise(createLabPromise, {
+	// 		pending: "Saving lab...",
+	// 		success: "Lab saved.",
+	// 		error: {
+	// 			render(data: any) {
+	// 				return `Lab creation failed: ${data.data.response.data.error}`;
+	// 			},
+	// 			autoClose: false,
+	// 		},
+	// 	});
+
+	// 	response
+	// 		.then((response) => {
+	// 			// if the response is an axios error, then return
+	// 			// as the toast.promise will handle the error
+	// 			if (isAxiosError(response)) {
+	// 				return;
+	// 			}
+
+	// 			// remove extension script of lab in memory from session storage
+	// 			// its of no use to keep that in session storage
+	// 			// as the lab is saved and the extension script is saved in the lab
+	// 			lab && sessionStorage.removeItem(`${lab.id}-extendScript"`);
+
+	// 			// update lab in memory.
+	// 			setLab(response.data);
+	// 		})
+	// 		.finally(() => {
+	// 			returnToBuilder();
+	// 		});
+	// }
+
+	async function onConfirmCreateLab() {
 		setShowConfirmationModal(false);
-		const createLabPromise = supportingDocument
-			? createLabWithSupportingDocument([labState, supportingDocument])
-			: createLab(labState);
 
-		const response = toast.promise(createLabPromise, {
-			pending: "Saving lab...",
-			success: "Lab saved.",
-			error: {
-				render(data: any) {
-					return `Lab creation failed: ${data.data.response.data.error}`;
+		try {
+			let documentId = null;
+
+			if (supportingDocument) {
+				// Run upsertSupportingDocument and get the documentId from the response header
+				const upsertResponse = await toast.promise(upsertSupportingDocument(supportingDocument), {
+					pending: "Uploading supporting document...",
+					success: "Supporting document uploaded.",
+					error: "Failed to upload supporting document.",
+				});
+				console.log("upsertResponse", upsertResponse);
+				documentId = upsertResponse.supportingDocumentId;
+				console.log("documentId", documentId);
+
+				// Update the labState with the supportingDocumentId
+				labState.supportingDocumentId = documentId;
+			}
+
+			// Create the lab using the createLab method
+			const createLabPromise = createLab(labState);
+
+			const response = await toast.promise(createLabPromise, {
+				pending: "Saving lab...",
+				success: "Lab saved.",
+				error: {
+					render(data: any) {
+						return `Lab creation failed: ${data.data.response.data.error}`;
+					},
+					autoClose: false,
 				},
-				autoClose: false,
-			},
-		});
-
-		response
-			.then((response) => {
-				// if the response is an axios error, then return
-				// as the toast.promise will handle the error
-				if (isAxiosError(response)) {
-					return;
-				}
-
-				// remove extension script of lab in memory from session storage
-				// its of no use to keep that in session storage
-				// as the lab is saved and the extension script is saved in the lab
-				lab && sessionStorage.removeItem(`${lab.id}-extendScript"`);
-
-				// update lab in memory.
-				setLab(response.data);
-			})
-			.finally(() => {
-				returnToBuilder();
 			});
+
+			// if the response is an axios error, then return
+			// as the toast.promise will handle the error
+			if (isAxiosError(response)) {
+				return;
+			}
+
+			// remove extension script of lab in memory from session storage
+			// its of no use to keep that in session storage
+			// as the lab is saved and the extension script is saved in the lab
+			lab && sessionStorage.removeItem(`${lab.id}-extendScript`);
+
+			// update lab in memory.
+			setLab(response.data);
+
+			returnToBuilder();
+		} catch (error) {
+			toast.error(`Failed to save supporting document`);
+		}
 	}
 
 	// function handleModalClose(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
@@ -147,6 +208,8 @@ export default function SaveLabPage() {
 				)}
 				{labState.type === "mockcase" && (
 					<SaveLabSupportingDocument
+						lab={labState}
+						setLab={setLabState}
 						supportingDocument={supportingDocument}
 						setSupportingDocument={setSupportingDocument}
 					/>

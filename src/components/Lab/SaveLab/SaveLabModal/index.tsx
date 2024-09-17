@@ -133,6 +133,8 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 				)}
 				{labState.type === "mockcase" && (
 					<SaveLabSupportingDocument
+						lab={labState}
+						setLab={setLabState}
 						supportingDocument={supportingDocument}
 						setSupportingDocument={setSupportingDocument}
 					/>
