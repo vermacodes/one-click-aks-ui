@@ -13,8 +13,12 @@ export default function SaveLabSupportingDocument({ supportingDocument, setSuppo
 	return (
 		<>
 			<div className="flex flex-col ">
-				<label htmlFor="labName" className="text-lg">
-					Supporting Document (Optional)
+				<label htmlFor="labName" className="flex flex-col text-lg">
+					Supporting Documents
+					<span className="mb-2 text-sm italic text-gray-500">
+						Optional PDF Format Document only. You can add supporting documents in addition to the description of the
+						lab.
+					</span>
 				</label>
 				<input
 					className="rounded border border-slate-500 bg-slate-100 p-2 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"

@@ -14,6 +14,7 @@ import LabsGridPage from "../../pages/LabsGridPage";
 import Landing from "../../pages/Landing";
 import ManagedServers from "../../pages/ManagedServers";
 import MyAssignments from "../../pages/MyAssignments";
+import SaveLabPage from "../../pages/SaveLabPage";
 import Settings from "../../pages/Settings";
 
 export default function MainLayout() {
@@ -33,6 +34,7 @@ export default function MainLayout() {
 					<Route path="/builder" element={<LabBuilder />} />
 					<Route path="/deployments" element={<Deployments />} />
 					<Route path="/lab/:type/:id" element={<LabPage />} />
+					<Route path="/lab/save" element={<SaveLabPage />} />
 					<Route path="/lab/versions/:type/:id" element={<LabVersionsPage />} />
 					<Route path="/labs/:type" element={<LabsGridPage />} />
 					<Route path="/assignments" element={<Assignments />} />
