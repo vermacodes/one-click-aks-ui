@@ -115,9 +115,9 @@ export type TfvarDefaultNodepoolType = {
 	enableAutoScaling: boolean;
 	minCount: number;
 	maxCount: number;
-  	vmSize: string;
-  	onlyCriticalAddonsEnabled: boolean;
-  	osSku: string;
+	vmSize: string;
+	onlyCriticalAddonsEnabled: boolean;
+	osSku: string;
 };
 
 export type TfvarKubernetesClusterType = {
@@ -238,9 +238,11 @@ export type Lab = {
 	owners: string[];
 	editors: string[];
 	viewers: string[];
+	rbacEnforcedProtectedLab: boolean;
 	isPublished: boolean;
 	versionId: string;
 	isCurrentVersion: boolean;
+	supportingDocumentId: string;
 };
 
 export type Assignment = {

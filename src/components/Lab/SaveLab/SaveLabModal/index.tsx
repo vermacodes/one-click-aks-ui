@@ -4,7 +4,7 @@ import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Lab } from "../../../../dataStructures";
 import { defaultScrollbarStyle } from "../../../../defaults";
-import { useCreateLab, useCreateMyLab } from "../../../../hooks/useBlobs";
+import { useCreateLab, useCreateLabWithSupportingDocument, useCreateMyLab } from "../../../../hooks/useBlobs";
 import { labDescriptionSchema, labNameSchema } from "../../../../zodSchemas";
 import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
 import Button from "../../../UserInterfaceComponents/Button";
@@ -12,6 +12,7 @@ import ConfirmationModal from "../../../UserInterfaceComponents/Modal/Confirmati
 import SaveLabDescription from "../SaveLabDescription";
 import SaveLabMessage from "../SaveLabMessage";
 import SaveLabName from "../SaveLabName";
+import SaveLabSupportingDocument from "../SaveLabSupportingDocument";
 import SaveLabTags from "../SaveLabTags";
 import SaveLabType from "../SaveLabType";
 
@@ -24,9 +25,12 @@ type Props = {
 export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 	const [labState, setLabState] = useState<Lab>({ ...lab });
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+	const [supportingDocument, setSupportingDocument] = useState<File | null>(null);
+
 	const { setLab } = useGlobalStateContext();
 	const { mutateAsync: createMyLab } = useCreateMyLab();
 	const { mutateAsync: createLab } = useCreateLab();
+	const { mutateAsync: createLabWithSupportingDocument } = useCreateLabWithSupportingDocument();
 
 	function handleCreateMyLab() {
 		const response = toast.promise(createMyLab(labState), {
@@ -56,7 +60,11 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 
 	function onConfirmCreateLab() {
 		setShowConfirmationModal(false);
-		const response = toast.promise(createLab(labState), {
+		const createLabPromise = supportingDocument
+			? createLabWithSupportingDocument([labState, supportingDocument])
+			: createLab(labState);
+
+		const response = toast.promise(createLabPromise, {
 			pending: "Saving lab...",
 			success: "Lab saved.",
 			error: {
@@ -117,11 +125,18 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 				</div>
 				<SaveLabName lab={labState} setLab={setLabState} />
 				<SaveLabTags lab={labState} setLab={setLabState} />
+				<SaveLabType lab={labState} setLab={setLabState} />
+
 				<SaveLabDescription lab={labState} setLab={setLabState} />
 				{(labState.type === "challengelab" || labState.type === "readinesslab") && (
 					<SaveLabMessage lab={labState} setLab={setLabState} />
 				)}
-				<SaveLabType lab={labState} setLab={setLabState} />
+				{labState.type === "mockcase" && (
+					<SaveLabSupportingDocument
+						supportingDocument={supportingDocument}
+						setSupportingDocument={setSupportingDocument}
+					/>
+				)}
 				<div className="flex items-end justify-end gap-x-4">
 					<Button
 						variant="primary"
@@ -130,8 +145,9 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 						tooltipDirection="top"
 						disabled={
 							!labNameSchema.safeParse(labState.name).success ||
-							!labDescriptionSchema.safeParse(labState.description).success ||
-							lab.type !== labState.type
+							!labDescriptionSchema.safeParse(labState.description).success
+							//  ||
+							// lab.type !== labState.type
 						}
 						onClick={() => {
 							labState.type === "template" ? handleCreateMyLab() : handleCreateLab();
