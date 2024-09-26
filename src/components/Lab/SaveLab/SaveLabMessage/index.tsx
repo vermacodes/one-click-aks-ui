@@ -11,6 +11,7 @@ import { Lab } from "../../../../dataStructures";
 import { decodeIfEncoded } from "../../../../utils/helpers";
 import { labMessageSchema } from "../../../../zodSchemas";
 import Button from "../../../UserInterfaceComponents/Button";
+import Container from "../../../UserInterfaceComponents/Container";
 
 type Props = {
 	lab: Lab;
@@ -111,14 +112,12 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
 	}
 
 	return (
-		<>
+		<Container collapsible title="Message" additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex">
 			<div className="flex flex-col space-y-2">
-				<label htmlFor="labMessage" className="line break-words text-lg">
-					Message{" "}
-					<p className="text-base italic text-slate-700 dark:text-slate-300">
-						End Users will see this instead of description.
-					</p>
-				</label>
+				<span className="mb-2 text-sm italic text-gray-500">
+					End users of readiness labs and challenges will see this message instead of the description. Use this to
+					provide additional context or instructions. You can use the toolbar below to format the message.
+				</span>
 				<div className="flex space-x-1">
 					<Button
 						variant={editor.isActive("heading", { level: 2 }) ? "secondary" : "secondary-outline"}
@@ -201,6 +200,6 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
 					<p className="error-message">{labMessageError}</p>
 				</div>
 			)}
-		</>
+		</Container>
 	);
 }
