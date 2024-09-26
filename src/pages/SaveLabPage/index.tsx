@@ -6,6 +6,7 @@ import { useGlobalStateContext } from "../../components/Context/GlobalStateConte
 import SaveLabDescription from "../../components/Lab/SaveLab/SaveLabDescription";
 import SaveLabMessage from "../../components/Lab/SaveLab/SaveLabMessage";
 import SaveLabName from "../../components/Lab/SaveLab/SaveLabName";
+import SaveLabRbacEnforcedProtectedLab from "../../components/Lab/SaveLab/SaveLabRbacEnforcedProtectedLab";
 import SaveLabSupportingDocument from "../../components/Lab/SaveLab/SaveLabSupportingDocument";
 import SaveLabTags from "../../components/Lab/SaveLab/SaveLabTags";
 import SaveLabType from "../../components/Lab/SaveLab/SaveLabType";
@@ -201,6 +202,7 @@ export default function SaveLabPage() {
 				<SaveLabName lab={labState} setLab={setLabState} />
 				<SaveLabTags lab={labState} setLab={setLabState} />
 				<SaveLabType lab={labState} setLab={setLabState} />
+				<SaveLabRbacEnforcedProtectedLab lab={labState} setLab={setLabState} />
 
 				<SaveLabDescription lab={labState} setLab={setLabState} />
 				{(labState.type === "challengelab" || labState.type === "readinesslab") && (

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Lab } from "../../../../dataStructures";
 import { labNameSchema } from "../../../../zodSchemas";
+import Container from "../../../UserInterfaceComponents/Container";
 
 type Props = {
 	lab: Lab;
@@ -38,16 +39,13 @@ export default function SaveLabName({ lab, setLab }: Props) {
 	}
 
 	return (
-		<>
+		<Container collapsible title="Name" additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex">
 			<div className="flex flex-col ">
-				<label htmlFor="labName" className="text-lg">
-					Name
-				</label>
 				<input
 					className="h-10 rounded border border-slate-500 bg-slate-100 p-2 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"
 					id="labName"
 					type="text"
-					placeholder="Lab Name"
+					placeholder="Lab name"
 					value={lab.name}
 					onChange={(e) => handleLabNameChange(e)}
 				/>
@@ -57,6 +55,6 @@ export default function SaveLabName({ lab, setLab }: Props) {
 					<p className="error-message">{labNameError}</p>
 				</div>
 			)}
-		</>
+		</Container>
 	);
 }
