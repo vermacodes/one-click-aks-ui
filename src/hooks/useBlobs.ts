@@ -99,11 +99,45 @@ function createLab(lab: Lab): Promise<AxiosResponse<Lab>> {
 	return actlabsHubAxiosInstance.post("/lab/public", lab);
 }
 
-// TODO: Optimistic updates
-// ?: Will it make sense to separate create and update functions? Right now server is handling updates.
 export function useCreateLab() {
 	const queryClient = useQueryClient();
 	return useMutation(createLab, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("my-templates");
+			queryClient.invalidateQueries("get-privatelabs");
+			queryClient.invalidateQueries("get-publiclabs");
+			queryClient.invalidateQueries("get-mockcases");
+			queryClient.invalidateQueries("get-readinesslabs");
+			queryClient.invalidateQueries("get-challengelabs");
+			queryClient.invalidateQueries("get-all-readiness-labs-redacted");
+		},
+	});
+}
+
+function createLabWithSupportingDocument(lab: Lab, supportingDocument: File): Promise<AxiosResponse<Lab>> {
+	const formData = new FormData();
+	formData.append("lab", JSON.stringify(lab));
+	formData.append("supportingDocument", supportingDocument);
+
+	let url = "/lab/public/withSupportingDocument";
+	if (lab.type === "mockcase" || lab.type === "readinesslab") {
+		url = "/lab/protected/withSupportingDocument";
+	} else if (lab.type === "challengelab" || lab.type === "privatelab") {
+		url = "/lab/private/withSupportingDocument";
+	}
+
+	return actlabsHubAxiosInstance.post(url, formData, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
+}
+
+// TODO: Optimistic updates
+// ?: Will it make sense to separate create and update functions? Right now server is handling updates.
+export function useCreateLabWithSupportingDocument() {
+	const queryClient = useQueryClient();
+	return useMutation((params: [Lab, File]) => createLabWithSupportingDocument(params[0], params[1]), {
 		onSuccess: () => {
 			queryClient.invalidateQueries("my-templates");
 			queryClient.invalidateQueries("get-privatelabs");
@@ -188,4 +222,47 @@ export function useGetVersionsById(
 			return data.data;
 		},
 	});
+}
+
+// Supporting Documents
+
+const upsertSupportingDocument = async (supportingDocument: File) => {
+	const formData = new FormData();
+	formData.append("supportingDocument", supportingDocument);
+	const response = await actlabsHubAxiosInstance.post("lab/protected/supportingDocument", formData);
+	return response.data;
+};
+
+export function useUpsertSupportingDocument() {
+	const queryClient = useQueryClient();
+	return useMutation(upsertSupportingDocument, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("get-supporting-documents");
+		},
+	});
+}
+
+const getSupportingDocument = async (supportingDocumentId: string) => {
+	const response = await actlabsHubAxiosInstance.get(`lab/protected/supportingDocument/${supportingDocumentId}`, {
+		responseType: "blob",
+	});
+	return response.data;
+};
+
+export function useSupportingDocument(supportingDocumentId: string) {
+	return useQuery(["supporting-document", supportingDocumentId], () => getSupportingDocument(supportingDocumentId), {
+		select: (data): Blob => {
+			return data;
+		},
+		enabled: supportingDocumentId !== "",
+	});
+}
+
+const deleteSupportingDocument = async (supportingDocumentId: string) => {
+	const response = await actlabsHubAxiosInstance.delete(`lab/protected/supportingDocument/${supportingDocumentId}`);
+	return response.data;
+};
+
+export function useDeleteSupportingDocument() {
+	return useMutation(deleteSupportingDocument, {});
 }

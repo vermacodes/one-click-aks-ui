@@ -11,6 +11,7 @@ import { Lab } from "../../../../dataStructures";
 import { decodeIfEncoded } from "../../../../utils/helpers";
 import { labDescriptionSchema } from "../../../../zodSchemas";
 import Button from "../../../UserInterfaceComponents/Button";
+import Container from "../../../UserInterfaceComponents/Container";
 
 type Props = {
 	lab: Lab;
@@ -111,11 +112,12 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
 	}
 
 	return (
-		<>
+		<Container
+			collapsible
+			title="Description"
+			additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
+		>
 			<div className="flex flex-col space-y-2">
-				<label htmlFor="labDescription" className="line break-words text-lg">
-					Description
-				</label>
 				<div className="flex space-x-1">
 					<Button
 						variant={editor.isActive("heading", { level: 2 }) ? "secondary" : "secondary-outline"}
@@ -198,6 +200,6 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
 					<p className="error-message">{labDescriptionError}</p>
 				</div>
 			)}
-		</>
+		</Container>
 	);
 }

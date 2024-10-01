@@ -16,7 +16,8 @@ export default function ActlabsHubEndpoint() {
 
 	if (
 		localStorage.getItem("actlabsHubBaseUrl") ===
-		"https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/"
+			"https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/" ||
+		localStorage.getItem("actlabsHubBaseUrl") === "http://localhost:8883/"
 	) {
 		return <></>;
 	}
