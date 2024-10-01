@@ -153,9 +153,11 @@ const defaultLab: Lab = {
 	owners: [],
 	editors: [],
 	viewers: [],
+	rbacEnforcedProtectedLab: false,
 	isPublished: false,
 	versionId: "",
 	isCurrentVersion: true,
+	supportingDocumentId: "",
 };
 export function getDefaultLab(): Lab {
 	return structuredClone(defaultLab);

@@ -9,6 +9,7 @@ import WebSocketConnectionStatus from "../WebSocketConnectionStatus";
 export default function Detectors() {
 	return (
 		<>
+			{/* <CustomMessage /> */}
 			<NewSubscriptionNotSupported />
 			<ServerNotConnected />
 			<VersionCheck />
