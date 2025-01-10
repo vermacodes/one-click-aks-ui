@@ -124,7 +124,7 @@ export type TfvarKubernetesClusterType = {
 	kubernetesVersion: string;
 	networkPlugin: "azure" | "kubenet";
 	networkPolicy: "azure" | "calico" | "null";
-	networkPluginMode: "Overlay" | "null";
+	networkPluginMode: "overlay" | "null";
 	outboundType: "loadBalancer" | "userDefinedRouting";
 	privateClusterEnabled: "true" | "false";
 	workloadIdentityEnabled: boolean;
