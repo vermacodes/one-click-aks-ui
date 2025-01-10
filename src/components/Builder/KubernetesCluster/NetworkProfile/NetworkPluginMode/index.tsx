@@ -5,73 +5,73 @@ import { WebSocketContext } from "../../../../Context/WebSocketContext";
 import Checkbox from "../../../../UserInterfaceComponents/Checkbox";
 
 type Props = {
-  index: number;
+	index: number;
 };
 
 export default function NetworkPluginMode({ index }: Props) {
-  const [tooltipMessage, setTooltipMessage] = useState<string>("");
-  const { actionStatus } = useContext(WebSocketContext);
-  const { mutate: setLogs } = useSetLogs();
-  const { lab, setLab } = useGlobalStateContext();
+	const [tooltipMessage, setTooltipMessage] = useState<string>("");
+	const { actionStatus } = useContext(WebSocketContext);
+	const { mutate: setLogs } = useSetLogs();
+	const { lab, setLab } = useGlobalStateContext();
 
-  const newLab = structuredClone(lab);
+	const newLab = structuredClone(lab);
 
-  const cluster = newLab?.template?.kubernetesClusters[index];
+	const cluster = newLab?.template?.kubernetesClusters[index];
 
-  const noKubernetesClustersMessage = "You must create a Kubernetes cluster first.";
-  const networkPluginNotAzureMessage = "Azure CNI required.";
-  const networkPolicyNotAzureMessage = "Not supported with Calico";
+	const noKubernetesClustersMessage = "You must create a Kubernetes cluster first.";
+	const networkPluginNotAzureMessage = "Azure CNI required.";
+	const networkPolicyNotAzureMessage = "Not supported with Calico";
 
-  let newTooltipMessage = "";
+	let newTooltipMessage = "";
 
-  if (!cluster) {
-    newTooltipMessage += noKubernetesClustersMessage + " ";
-  }
+	if (!cluster) {
+		newTooltipMessage += noKubernetesClustersMessage + " ";
+	}
 
-  if (cluster?.networkPlugin !== "azure") {
-    newTooltipMessage += networkPluginNotAzureMessage + " ";
-  }
+	if (cluster?.networkPlugin !== "azure") {
+		newTooltipMessage += networkPluginNotAzureMessage + " ";
+	}
 
-  if (cluster?.networkPolicy !== "azure") {
-    newTooltipMessage += networkPolicyNotAzureMessage + " ";
-  }
+	if (cluster?.networkPolicy !== "azure") {
+		newTooltipMessage += networkPolicyNotAzureMessage + " ";
+	}
 
-  if (cluster && cluster.networkPlugin === "azure" && cluster.networkPolicy === "azure") {
-    newTooltipMessage = "";
-  }
+	if (cluster && cluster.networkPlugin === "azure" && cluster.networkPolicy === "azure") {
+		newTooltipMessage = "";
+	}
 
-  if (newTooltipMessage !== tooltipMessage) {
-    setTooltipMessage(newTooltipMessage);
-  }
+	if (newTooltipMessage !== tooltipMessage) {
+		setTooltipMessage(newTooltipMessage);
+	}
 
-  // Handle checkbox change
-  const handleOnChange = () => {
-    if (cluster) {
-      if (cluster.networkPluginMode === "Overlay") {
-        cluster.networkPluginMode = "null";
-      } else {
-        cluster.networkPluginMode = "Overlay";
-        cluster.addons.appGateway = false;
-      }
-      !actionStatus.inProgress && setLogs({ logs: JSON.stringify(newLab?.template, null, 4) });
-      setLab(newLab);
-    }
-  };
+	// Handle checkbox change
+	const handleOnChange = () => {
+		if (cluster) {
+			if (cluster.networkPluginMode === "overlay") {
+				cluster.networkPluginMode = "null";
+			} else {
+				cluster.networkPluginMode = "overlay";
+				cluster.addons.appGateway = false;
+			}
+			!actionStatus.inProgress && setLogs({ logs: JSON.stringify(newLab?.template, null, 4) });
+			setLab(newLab);
+		}
+	};
 
-  // Determine checked and disabled states
-  const checked = cluster?.networkPluginMode === "Overlay";
-  const disabled = !cluster || cluster.networkPlugin !== "azure" || cluster.networkPolicy !== "azure";
+	// Determine checked and disabled states
+	const checked = cluster?.networkPluginMode === "overlay";
+	const disabled = !cluster || cluster.networkPlugin !== "azure" || cluster.networkPolicy !== "azure";
 
-  // If lab or template is undefined, return nothing
-  return lab?.template ? (
-    <Checkbox
-      id="toggle-overlay"
-      label="Overlay"
-      checked={checked}
-      disabled={disabled}
-      tooltipMessage={tooltipMessage}
-      tooltipDelay={200}
-      handleOnChange={handleOnChange}
-    />
-  ) : null;
+	// If lab or template is undefined, return nothing
+	return lab?.template ? (
+		<Checkbox
+			id="toggle-overlay"
+			label="overlay"
+			checked={checked}
+			disabled={disabled}
+			tooltipMessage={tooltipMessage}
+			tooltipDelay={200}
+			handleOnChange={handleOnChange}
+		/>
+	) : null;
 }
