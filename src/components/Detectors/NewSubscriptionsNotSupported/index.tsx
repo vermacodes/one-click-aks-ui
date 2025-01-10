@@ -28,7 +28,7 @@ export default function NewSubscriptionsNotSupported() {
 						Please consider switching to an FDPO Subscription or hosting the server yourself. To switch to an FDPO
 						Subscription, you'll need to unregister the server and register it again under the new subscription. If you
 						need assistance,{" "}
-						<a className="text-blue-500 underline" href="https://actlabs.azureedge.net/feedback">
+						<a className="text-blue-500 underline" href="https://app.msftactlabs.com/feedback">
 							click here
 						</a>
 						.

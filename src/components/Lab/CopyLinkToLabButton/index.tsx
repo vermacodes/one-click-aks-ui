@@ -20,7 +20,7 @@ export default function CopyLinkToLabButton({
 }: Props) {
 	const [copied, setCopied] = useState(false);
 	const copyLinkToLab = useCallback((lab: Lab) => {
-		navigator.clipboard.writeText(`https://actlabs.azureedge.net/lab/${labType || lab.type}/${lab.id}`);
+		navigator.clipboard.writeText(`https://app.msftactlabs.com/lab/${labType || lab.type}/${lab.id}`);
 		setCopied(true);
 		toast.success("Link copied to clipboard.", {
 			autoClose: 1000,
