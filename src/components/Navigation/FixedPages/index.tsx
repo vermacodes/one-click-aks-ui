@@ -1,3 +1,4 @@
+import { BsArrowUpRight } from "react-icons/bs";
 import { FaCog, FaComments } from "react-icons/fa";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import LoginButton from "../../Authentication/LoginButton";
@@ -24,12 +25,28 @@ export default function FixedPages() {
 					to={"/settings"}
 					toolTipMessage="Manage actlabs configurations and Your server."
 				/>
-				<NavItem
+				{/* <NavItem
 					icon={<FaComments />}
 					label="Help & Feedback"
 					to={"/feedback"}
 					toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
-				/>
+				/> */}
+				<li>
+					<a
+						target="_blank"
+						href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
+					>
+						<button className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+							<span>
+								<FaComments />
+							</span>
+							<span>Help & Feedback</span>
+							<span>
+								<BsArrowUpRight />
+							</span>
+						</button>
+					</a>
+				</li>
 				<li>
 					<LoginButton />
 				</li>
