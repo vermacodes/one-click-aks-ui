@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getDefaultTfvarConfig } from "../../../defaults";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { useGlobalStateContext } from "../../Context/GlobalStateContext";
@@ -28,6 +28,19 @@ export default function VirtualMachine() {
 		}
 	};
 
+	useEffect(() => {
+		if (
+			lab &&
+			lab.template &&
+			lab.template.virtualNetworks.length === 0 &&
+			tooltipMessage !== noVirtualNetworksMessage
+		) {
+			setTooltipMessage(noVirtualNetworksMessage);
+		} else if (lab && lab.template && lab.template.virtualNetworks.length > 0 && tooltipMessage) {
+			setTooltipMessage("");
+		}
+	}, [lab, tooltipMessage]);
+
 	// Define the checked state
 	const checked = (lab?.template?.jumpservers?.length ?? 0) > 0;
 
@@ -35,14 +48,6 @@ export default function VirtualMachine() {
 	var disabled: boolean = false;
 	if (lab && lab.template && lab.template.virtualNetworks.length === 0) {
 		disabled = true;
-	}
-
-	if (lab && lab.template && lab.template.virtualNetworks.length === 0 && tooltipMessage !== noVirtualNetworksMessage) {
-		setTooltipMessage(noVirtualNetworksMessage);
-	}
-
-	if (lab && lab.template && lab.template.virtualNetworks.length > 0 && tooltipMessage) {
-		setTooltipMessage("");
 	}
 
 	return lab?.template ? (
