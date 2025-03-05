@@ -45,7 +45,7 @@ export default function VirtualMachine() {
 	const checked = (lab?.template?.jumpservers?.length ?? 0) > 0;
 
 	// Define the disabled state
-	var disabled: boolean = false;
+	let disabled: boolean = false;
 	if (lab && lab.template && lab.template.virtualNetworks.length === 0) {
 		disabled = true;
 	}
