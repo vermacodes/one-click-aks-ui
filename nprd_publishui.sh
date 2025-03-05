@@ -25,5 +25,5 @@ cd dist && az storage blob upload-batch -d '$web' --account-name ${sa} -s "." --
 
 # if published to default storage account. Purge the endpoint.
 if [[ "$sa" == "actlabsapp" ]]; then
-  az cdn endpoint purge --subscription ACT-CSS-Readiness-NPRD -g actlabs-app -n actlabs-app --profile-name actlabs-app --content-paths "/*"
+  az cdn endpoint purge --subscription ACT-CSS-Readiness-NPRD -g actlabs-app -n actlabs --profile-name actlabs --content-paths "/*"
 fi
