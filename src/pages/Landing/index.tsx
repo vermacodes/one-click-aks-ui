@@ -31,7 +31,7 @@ export default function Landing() {
 				<div className="grid grid-cols-3 gap-4 text-slate-100" ref={optionsRef}>
 					<div className="flex flex-col justify-between gap-10 rounded bg-fuchsia-600 bg-gradient-to-r from-blue-600 to-purple-600 p-4 dark:bg-fuchsia-600">
 						<div className="flex flex-col gap-6">
-							<h4 className="text-xl">Setup Server</h4>
+							<h2 className="text-xl">Setup Server</h2>
 							<h1 className="text-3xl">🚀 Deploy Server on Docker or Azure</h1>
 							<p className="text-lg">
 								Register your subscription and let actlabs automatically manage a sever for you on Azure in your
@@ -50,7 +50,7 @@ export default function Landing() {
 					</div>
 					<div className="flex flex-col justify-between gap-10 rounded bg-gradient-to-r from-sky-600 to-emerald-600 p-4 dark:bg-fuchsia-600">
 						<div className="flex flex-col gap-6">
-							<h4 className="text-xl">Public Labs</h4>
+							<h2 className="text-xl">Public Labs</h2>
 							<h1 className="text-3xl">🏃 Start with public labs created by Ninjas</h1>
 							<p className="text-lg">
 								There are many labs built by AKS SMEs which cover common scenarios and emerging issues. You can use them
@@ -68,7 +68,7 @@ export default function Landing() {
 					</div>
 					<div className="flex flex-col justify-between gap-10 rounded bg-gradient-to-r from-rose-500 to-pink-600 p-4 dark:bg-fuchsia-600">
 						<div className="flex flex-col gap-6">
-							<h4 className="text-xl">Build Your Own</h4>
+							<h2 className="text-xl">Build Your Own</h2>
 							<h1 className="text-3xl">⚒️ Build your own Awesome Labs</h1>
 							<p className="text-lg">
 								None of the public labs work? You are quite unique. Build your own lab using builder and make it

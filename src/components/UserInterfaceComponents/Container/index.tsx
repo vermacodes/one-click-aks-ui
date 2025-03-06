@@ -45,7 +45,7 @@ export default function Container({
           {title && <p className="text-lg">{title}</p>}
           {collapsible && (
             <div className={`${!open && "rotate-180"} transition-transform duration-100`}>
-              <Button variant="secondary-icon" onClick={() => setOpen(!open)}>
+              <Button variant="secondary-icon" onClick={() => setOpen(!open)} aria-label="Toggle Container">
                 <FaChevronUp />
               </Button>
             </div>
