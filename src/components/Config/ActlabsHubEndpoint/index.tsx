@@ -64,6 +64,7 @@ export default function ActlabsHubEndpoint({}: Props) {
 									setEdit(false);
 									window.location.reload();
 								}}
+								aria-label="Save Edit"
 							>
 								<FaCheck />
 							</Button>
@@ -72,6 +73,7 @@ export default function ActlabsHubEndpoint({}: Props) {
 								onClick={() => {
 									setEdit(false);
 								}}
+				                aria-label="Cancel Edit"
 							>
 								<FaTimes />
 							</Button>
@@ -84,6 +86,7 @@ export default function ActlabsHubEndpoint({}: Props) {
 							onClick={() => {
 								setEdit(true);
 							}}
+							aria-label="Edit"
 						>
 							<FaEdit />
 						</Button>

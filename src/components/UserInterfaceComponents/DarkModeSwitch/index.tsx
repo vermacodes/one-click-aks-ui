@@ -35,6 +35,8 @@ export default function DarkModeSwitch({
             type="checkbox"
             id={id}
             className="sr-only"
+            // role="presentation"
+            aria-label="Dark Mode Switch"
             onChange={() => handleOnChange()}
             {...rest}
           />

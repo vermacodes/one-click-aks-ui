@@ -8,7 +8,7 @@ export default function TerraformInit({}: Props) {
 	return (
 		<Container title="Initialize Terraform" collapsible={true}>
 			<div className="flex items-center justify-end py-2">
-				<InitButton variant="secondary-text">
+				<InitButton variant="secondary-text" ariaLabel="Terraform Init">
 					<SiTerraform /> Terraform Init
 				</InitButton>
 			</div>
