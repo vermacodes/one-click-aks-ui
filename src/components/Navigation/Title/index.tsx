@@ -18,9 +18,7 @@ export default function Title() {
 				<h1 className="flex flex-row items-center pl-8">
 					<img src="/actlabs_logo_rocket.svg" className="mr-2 h-8 w-8"></img>
 					<span className="text-2xl font-bold hover:text-sky-500">ACT Labs</span>
-					{env != "Prod" && (
-						<span className="ml-2 rounded-sm bg-sky-500 px-1 text-sm font-semibold hover:text-white">{env}</span>
-					)}
+					{env != "Prod" && <span className="ml-2 rounded-sm bg-sky-500 px-1 text-sm font-semibold">{env}</span>}
 				</h1>
 			</Link>
 			<Button className="md pr-4 text-2xl md:invisible" onClick={() => setNavbarOpen(false)}>
