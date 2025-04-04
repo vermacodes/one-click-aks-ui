@@ -15,9 +15,9 @@ export default function ActlabsHubEndpoint() {
 	}
 
 	if (
-		localStorage.getItem("actlabsHubBaseUrl") ===
-			"https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/" ||
-		localStorage.getItem("actlabsHubBaseUrl") === "http://localhost:8883/"
+		localStorage.getItem("actlabsHubBaseUrl")?.includes("actlabs-hub-capp.purplegrass") ||
+		localStorage.getItem("actlabsHubBaseUrl")?.includes("localhost") ||
+		localStorage.getItem("actlabsHubBaseUrl")?.includes("actlabs-hub-capp.salmonmeadow")
 	) {
 		return <></>;
 	}
