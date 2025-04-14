@@ -3,21 +3,22 @@ import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function ActlabsHubEndpoint() {
 	// set default values in local storage
+	let actlabsHubBaseUrl = localStorage.getItem("actlabsHubBaseUrl");
 	if (
-		localStorage.getItem("actlabsHubBaseUrl") === null ||
-		localStorage.getItem("actlabsHubBaseUrl") ===
-			"https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io"
+		actlabsHubBaseUrl === null ||
+		actlabsHubBaseUrl === "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io"
 	) {
 		localStorage.setItem(
 			"actlabsHubBaseUrl",
 			"https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/"
 		);
+		actlabsHubBaseUrl = localStorage.getItem("actlabsHubBaseUrl");
 	}
 
 	if (
-		localStorage.getItem("actlabsHubBaseUrl") ===
-			"https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/" ||
-		localStorage.getItem("actlabsHubBaseUrl") === "http://localhost:8883/"
+		actlabsHubBaseUrl?.includes("actlabs-hub-capp.purplegrass") ||
+		actlabsHubBaseUrl?.includes("localhost") ||
+		actlabsHubBaseUrl?.includes("actlabs-hub-capp.salmonmeadow")
 	) {
 		return <></>;
 	}
