@@ -31,6 +31,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
               })
             }
             label={"Self-Hosted (Docker)"}
+            aria-label={"Self-Hosted (Docker)"}
             key={"docker-key"}
           />
           <Checkbox
@@ -44,6 +45,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
               })
             }
             label={"Managed Server (Azure) 🆕"}
+            aria-label={"Managed Server (Azure) 🆕"}
             key={"managed-server-key"}
           />
         </div>

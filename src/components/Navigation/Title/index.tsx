@@ -15,8 +15,8 @@ export default function Title() {
 	return (
 		<div className={`flex items-center justify-between pb-2 pt-6 transition duration-1000`}>
 			<Link to={"/"}>
-				<h1 className="flex flex-row items-center pl-8">
-					<img src="/actlabs_logo_rocket.svg" className="mr-2 h-8 w-8"></img>
+        <h1 className="flex flex-row items-center pl-8">
+					<img src="/actlabs_logo_rocket.svg" className="mr-2 h-8 w-8" alt="ACTLabs logo showing a rocket flying away from the moon."></img>
 					<span className="text-2xl font-bold hover:text-sky-500">ACT Labs</span>
 					{env != "Prod" && <span className="ml-2 rounded-sm bg-sky-500 px-1 text-sm font-semibold">{env}</span>}
 				</h1>
