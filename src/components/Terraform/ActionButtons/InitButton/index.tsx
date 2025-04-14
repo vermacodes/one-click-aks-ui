@@ -9,9 +9,10 @@ import Button from "../../../UserInterfaceComponents/Button";
 type Props = {
   variant: ButtonVariant;
   children: React.ReactNode;
+  ariaLabel: string;
 };
 
-export default function InitButton({ variant, children }: Props) {
+export default function InitButton({ variant, children, ariaLabel }: Props) {
   const { actionStatus } = useWebSocketContext();
   const { data: lab } = useLab();
   const { selectedDeployment } = useSelectedDeployment();
@@ -29,6 +30,7 @@ export default function InitButton({ variant, children }: Props) {
         })
       }
       disabled={actionStatus.inProgress}
+      aria-label={ariaLabel}
     >
       {children}
     </Button>

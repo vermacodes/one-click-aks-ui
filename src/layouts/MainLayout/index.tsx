@@ -20,7 +20,7 @@ import Settings from "../../pages/Settings";
 export default function MainLayout() {
 	const { navbarOpen, setNavbarOpen } = useGlobalStateContext();
 	return (
-		<div className="flex h-screen overflow-hidden">
+		<main className="flex h-screen overflow-hidden">
 			{navbarOpen && (
 				<div
 					className={`left-0 top-0 h-screen w-screen min-w-fit overflow-y-auto overflow-x-hidden ${defaultScrollbarStyle} md:w-1/6`}
@@ -46,6 +46,6 @@ export default function MainLayout() {
 				</Routes>
 			</div>
 			<CookiesConsent />
-		</div>
+		</main>
 	);
 }

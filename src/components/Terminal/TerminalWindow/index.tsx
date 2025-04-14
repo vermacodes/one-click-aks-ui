@@ -29,13 +29,14 @@ export default function TerminalWindow({ autoScroll, handleAutoScrollChange, set
 						disabled={false}
 						checked={autoScroll}
 						handleOnChange={handleAutoScrollChange}
+						aria-label="Auto Scroll"
 					/>
 				</div>
-				<Button variant="text" disabled={actionStatus.inProgress} onClick={() => setLogs({ logs: "" })}>
+				<Button variant="text" disabled={actionStatus.inProgress} onClick={() => setLogs({ logs: "" })} aria-label="Clear logs">
 					<FaTrashAlt /> Clear Logs
 				</Button>
 				<div className="px-2">
-					<Button variant="text" onClick={() => setFullScreen(true)}>
+					<Button variant="text" onClick={() => setFullScreen(true)} aria-label="Maximize Terminal">
 						<FaExpand /> Maximize
 					</Button>
 				</div>

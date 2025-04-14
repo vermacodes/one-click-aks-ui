@@ -31,7 +31,7 @@ export default function CodeBlock({ codeString, copyEnabled = false }: Props) {
       </div>
       {copyEnabled && (
         <div>
-          <button className="flex items-center gap-1" onClick={() => handleCommandCopy()}>
+          <button className="flex items-center gap-1" onClick={() => handleCommandCopy()} aria-label="Copy to clipboard">
             {copy ? <FaCheck /> : <MdContentCopy className="hover:text-sky-500" />}
           </button>
         </div>

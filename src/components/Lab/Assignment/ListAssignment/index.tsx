@@ -152,6 +152,7 @@ export default function ListAssignment({}: Props) {
 								}
 								checked={selectedAssignments.length === assignments?.length && selectedAssignments.length !== 0}
 								disabled={assignments?.length === 0}
+								aria-label="Select all assignments"
 							/>
 						</th>
 						<th className="space-x-2 px-4 py-2 text-left">Lab Name</th>
@@ -184,6 +185,7 @@ export default function ListAssignment({}: Props) {
 													: () => setSelectedAssignments([...selectedAssignments, assignment])
 											}
 											checked={selectedAssignments.includes(assignment)}
+											aria-label={"Select assignment " + assignment.assignmentId}
 										/>
 									</td>
 									<td className="space-x-2 px-4 py-2 hover:text-sky-500 hover:underline">
