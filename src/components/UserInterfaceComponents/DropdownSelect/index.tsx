@@ -149,7 +149,7 @@ const DropdownMenu = <T,>({
 			onMouseEnter={() => setDidMouseEnter(true)}
 			role="listbox" // Indicate that this is a listbox
 			onKeyDown={handleKeyDown} // Handle keyboard navigation
-			tabIndex={0} // Make the menu focusable
+			tabIndex={-1} // Make the menu not focusable
 		>
 			{search && search}
 			{items.map((item, index) => (

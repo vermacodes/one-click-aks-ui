@@ -67,7 +67,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
 						<DestroyTime deployment={selectedDeploymentState} />
 						<div className="mx-2 h-6 border-r border-gray-300"></div>
 						<BreakBlobLease deployment={selectedDeploymentState} buttonVariant="secondary-text" />
-						<Link to={"/deployments"}>
+						<Link to={"/deployments"} tabIndex={-1}>
 							<Button
 								variant="secondary-text"
 								tooltipMessage="View and manage all deployments"
