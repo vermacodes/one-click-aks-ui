@@ -16,7 +16,7 @@ const variantStyles: VariantStyles = {
 	success:
 		"ring-1 ring-green-500 bg-green-500 py-1 px-3 text-white disabled:ring-slate-400 disabled:bg-slate-400 hover:ring-green-700 hover:bg-green-700 disabled:hover:ring-slate-400 disabled:hover:bg-slate-400 dark:disabled:ring-slate-700 dark:disabled:bg-slate-700 dark:disabled:text-slate-500 ",
 	"primary-outline":
-		"ring-1 ring-sky-500 py-1 px-3 text-sky-500 disabled:ring-slate-400 disabled:text-slate-400 hover:ring-sky-700 hover:bg-sky-700  hover:text-slate-100 disabled:hover:ring-slate-400 disabled:hover:bg-inherit disabled:hover:text-slate-400 dark:disabled:ring-slate-700 dark:disabled:text-slate-500 ",
+		"ring-1 ring-sky-700 py-1 px-3 text-sky-700 disabled:ring-slate-400 disabled:text-slate-400 hover:ring-sky-700 hover:bg-sky-700  hover:text-slate-100 disabled:hover:ring-slate-400 disabled:hover:bg-inherit disabled:hover:text-slate-400 dark:disabled:ring-slate-700 dark:disabled:text-slate-500 ",
 	"secondary-outline":
 		"ring-1 ring-slate-500 py-1 px-3 text-slate-500 disabled:ring-slate-400 disabled:text-slate-400 hover:ring-slate-700 hover:bg-slate-700  hover:text-slate-100 disabled:hover:ring-slate-400 disabled:hover:bg-inherit disabled:hover:text-slate-400 dark:disabled:ring-slate-700 dark:disabled:text-slate-500 ",
 	"danger-outline":
