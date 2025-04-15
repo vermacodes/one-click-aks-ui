@@ -41,7 +41,7 @@ const variantStyles: VariantStyles = {
 };
 
 function getClassName(variant: ButtonVariant, hidden?: boolean) {
-	let className = "text-bold flex items-center gap-2 rounded outline-none whitespace-nowrap";
+	let className = "text-bold flex items-center focus-visible:outline-2 gap-2 rounded whitespace-nowrap";
 	if (hidden) className += " hidden";
 	className += " " + variantStyles[variant];
 	return className;
@@ -70,7 +70,7 @@ export default function Button({
 
 	return (
 		<Tooltip message={tooltipMessage} delay={tooltipDelay} direction={tooltipDirection} align={tooltipAlign}>
-			<button className={className} {...rest}>
+			<button className={className} {...rest} tabIndex={0} type="button">
 				{children}
 			</button>
 		</Tooltip>

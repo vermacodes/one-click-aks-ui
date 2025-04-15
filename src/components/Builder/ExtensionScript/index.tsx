@@ -121,6 +121,9 @@ export default function ExtensionScript() {
 				theme="myCustomTheme"
 				defaultValue="// some comment"
 				onChange={(value) => handleExtendScriptChange(value)}
+				options={{
+					tabIndex: -1,
+				}}
 			/>
 		</Container>
 	);

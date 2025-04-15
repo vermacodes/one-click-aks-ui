@@ -216,16 +216,19 @@ export default function Pages() {
 					</li>
 				)}
 				<li>
-					<a target="_blank" href="https://aka.ms/actlabs-docs">
-						<button className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-							<span>
-								<FaBook />
-							</span>
-							<span>Documentation</span>
-							<span>
-								<BsArrowUpRight />
-							</span>
-						</button>
+					<a
+						target="_blank"
+						className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
+						type="button"
+						href="https://aka.ms/actlabs-docs"
+					>
+						<span>
+							<FaBook />
+						</span>
+						<span>Documentation</span>
+						<span>
+							<BsArrowUpRight />
+						</span>
 					</a>
 				</li>
 			</ul>

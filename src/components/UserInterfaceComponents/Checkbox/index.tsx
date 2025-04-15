@@ -25,13 +25,23 @@ export default function Checkbox({
 
 	return (
 		<Tooltip message={tooltipMessage} delay={tooltipDelay} direction={tooltipDirection} align={tooltipAlign}>
-			<div className="flex items-center gap-x-2">
+			<div
+				className="flex items-center gap-x-2 p-1 focus-visible:outline-2"
+				tabIndex={0}
+				onKeyDown={(e) => {
+					if (e.key === "Enter" || e.key === " ") {
+						e.preventDefault(); // Prevent default scrolling behavior for Space
+						handleOnChange();
+					}
+				}}
+				role="checkbox"
+			>
 				<label
 					htmlFor={id}
 					className={`flex h-4 w-8 items-center rounded-full transition-all duration-100 hover:cursor-pointer ${
 						checked ? "bg-green-500" : "bg-slate-500"
 					} ${disabled && "bg-slate-300 hover:cursor-not-allowed dark:bg-slate-700"}
-      `}
+          `}
 				>
 					<input
 						type="checkbox"

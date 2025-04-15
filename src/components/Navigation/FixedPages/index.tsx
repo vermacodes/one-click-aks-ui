@@ -33,18 +33,19 @@ export default function FixedPages() {
 				/> */}
 				<li>
 					<a
+						className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
+						type="button"
+						aria-label="Help & Feedback"
 						target="_blank"
 						href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
 					>
-						<button className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-							<span>
-								<FaComments />
-							</span>
-							<span>Help & Feedback</span>
-							<span>
-								<BsArrowUpRight />
-							</span>
-						</button>
+						<span>
+							<FaComments />
+						</span>
+						<span>Help & Feedback</span>
+						<span>
+							<BsArrowUpRight />
+						</span>
 					</a>
 				</li>
 				<li>
