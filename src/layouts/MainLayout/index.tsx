@@ -21,6 +21,12 @@ export default function MainLayout() {
 	const { navbarOpen, setNavbarOpen } = useGlobalStateContext();
 	return (
 		<main className="flex h-screen overflow-hidden">
+			<a
+				href="#main"
+				className="absolute -left-full z-50 transform bg-black p-4 text-white opacity-0 focus:left-1/2 focus:-translate-x-1/2 focus:opacity-100"
+			>
+				Skip to main content
+			</a>
 			{navbarOpen && (
 				<div
 					className={`left-0 top-0 h-screen w-screen min-w-fit overflow-y-auto overflow-x-hidden ${defaultScrollbarStyle} md:w-1/6`}
@@ -28,7 +34,7 @@ export default function MainLayout() {
 					<Navbar />
 				</div>
 			)}
-			<div className={`flex-1 overflow-auto bg-slate-200 dark:bg-slate-800 ${defaultScrollbarStyle} md:px-4`}>
+			<div id="main" className={`flex-1 overflow-auto bg-slate-200 dark:bg-slate-800 ${defaultScrollbarStyle} md:px-4`}>
 				<Routes>
 					<Route path="/" element={<Landing />} />
 					<Route path="/builder" element={<LabBuilder />} />

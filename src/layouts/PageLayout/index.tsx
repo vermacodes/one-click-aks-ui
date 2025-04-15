@@ -14,10 +14,14 @@ type Props = {
 export default function PageLayout({ heading, children }: Props) {
 	const { darkMode, setDarkMode, navbarOpen, setNavbarOpen } = useGlobalStateContext();
 	const outerDivRef = useRef<null | HTMLDivElement>(null);
+	const pageHeading = useRef<null | HTMLHeadingElement>(null);
 
 	useEffect(() => {
 		if (outerDivRef.current !== null) {
 			outerDivRef.current.scrollIntoView();
+		}
+		if (pageHeading.current !== null) {
+			pageHeading.current.focus(); // Focus the page heading
 		}
 	}, [heading]);
 
@@ -38,7 +42,9 @@ export default function PageLayout({ heading, children }: Props) {
 						>
 							<FaBars className="text-slate-500" />
 						</Button>
-						<h1 className="text-xl md:text-4xl">{heading}</h1>
+						<h1 className="text-xl md:text-4xl" tabIndex={-1} ref={pageHeading}>
+							{heading}
+						</h1>
 					</div>
 					<div className="flex gap-4">
 						{/* <a href="https://teams.microsoft.com/l/chat/0/0?users=ashisverma@microsoft.com" target="_blank">

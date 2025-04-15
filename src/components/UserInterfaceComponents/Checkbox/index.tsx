@@ -29,7 +29,7 @@ export default function Checkbox({
 				className="flex items-center gap-x-2 p-1 focus-visible:outline-2"
 				tabIndex={0}
 				onKeyDown={(e) => {
-					if (e.key === "Enter" || e.key === " ") {
+					if ((e.key === "Enter" || e.key === " ") && !disabled) {
 						e.preventDefault(); // Prevent default scrolling behavior for Space
 						handleOnChange();
 					}
