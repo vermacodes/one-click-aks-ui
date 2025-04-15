@@ -42,6 +42,7 @@ export default function Checkbox({
 						checked ? "bg-green-500" : "bg-slate-500"
 					} ${disabled && "bg-slate-300 hover:cursor-not-allowed dark:bg-slate-700"}
           `}
+					tabIndex={-1}
 				>
 					<input
 						type="checkbox"
@@ -50,15 +51,20 @@ export default function Checkbox({
 						onChange={() => handleOnChange()}
 						checked={checked}
 						disabled={disabled}
+						tabIndex={-1}
 						{...otherProps}
 					/>
 					<div
 						className={`h-4 w-4 rounded-full bg-white transition-all duration-100 ${checked && "ml-4"} ${
 							disabled && "dark:bg-slate-600"
 						}`}
+						tabIndex={-1}
 					></div>
 				</label>
-				<span className={`text-md ${disabled && "text-slate-500 dark:text-slate-500"} transition-all duration-100`}>
+				<span
+					className={`text-md ${disabled && "text-slate-500 dark:text-slate-500"} transition-all duration-100`}
+					tabIndex={-1}
+				>
 					{label}
 				</span>
 			</div>
