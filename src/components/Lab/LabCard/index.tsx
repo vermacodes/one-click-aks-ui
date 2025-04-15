@@ -42,7 +42,7 @@ export default function LabCard({ lab, fullPage = false, showVersions = false }:
 						{(lab.type === "challengelab" || lab.type === "challenge") && <ChallengeProfiles lab={lab} />}
 					</>
 				)}
-				<p className="text-xs text-slate-200 dark:text-slate-800">{lab.id}</p>
+				<p className="text-xs text-slate-500 dark:text-slate-400">{lab.id}</p>
 			</div>
 		);
 	}

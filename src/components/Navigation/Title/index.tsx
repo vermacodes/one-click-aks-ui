@@ -13,7 +13,7 @@ export default function Title() {
 		env = "Dev";
 	}
 	return (
-		<div className={`flex items-center justify-between pb-2 pt-6 transition duration-1000`}>
+		<div className={`flex items-center justify-between pb-2 pt-6`}>
 			<Link to={"/"}>
 				<h1 className="flex flex-row items-center pl-8">
 					<img
@@ -22,7 +22,9 @@ export default function Title() {
 						alt="ACTLabs logo showing a rocket flying away from the moon."
 					></img>
 					<span className="text-2xl font-bold hover:text-sky-500">ACT Labs</span>
-					{env != "Prod" && <span className="ml-2 rounded-sm bg-sky-500 px-1 text-sm font-semibold">{env}</span>}
+					{env != "Prod" && (
+						<span className="ml-2 rounded-sm bg-sky-400 px-1 text-sm font-semibold dark:bg-sky-700 ">{env}</span>
+					)}
 				</h1>
 			</Link>
 			<Button className="md pr-4 text-2xl md:invisible" onClick={() => setNavbarOpen(false)}>

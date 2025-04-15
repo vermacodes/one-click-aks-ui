@@ -47,8 +47,8 @@ export default function SelectedDeployment({ sticky = true }: Props) {
 				onClick={() => navigate(`/deployments`)}
 			>
 				<div className="flex items-center gap-x-2">
-					<SiTerraform className="text-xl" />
-					<h1 className="text-xl text-sky-500">{selectedDeploymentState.deploymentWorkspace}</h1>
+					<SiTerraform className="text-xl" aria-label="Terraform Icon" />
+					<h1 className="text-xl text-sky-700 dark:text-sky-400">{selectedDeploymentState.deploymentWorkspace}</h1>
 				</div>
 				<div className="flex flex-wrap items-center justify-end gap-2">
 					<DeploymentStatus deployment={selectedDeploymentState} />

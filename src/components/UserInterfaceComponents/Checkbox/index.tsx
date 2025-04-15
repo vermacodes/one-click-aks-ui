@@ -62,7 +62,7 @@ export default function Checkbox({
 					></div>
 				</label>
 				{/* Accessible label for the checkbox */}
-				<span className={`text-md ${disabled && "text-slate-500 dark:text-slate-500"} transition-all duration-100`}>
+				<span className={`text-md ${disabled && "text-slate-600 dark:text-slate-400"} transition-all duration-100`}>
 					{label}
 				</span>
 			</div>
