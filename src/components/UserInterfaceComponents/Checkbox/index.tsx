@@ -35,6 +35,8 @@ export default function Checkbox({
 					}
 				}}
 				role="checkbox"
+				aria-checked={checked}
+				aria-label="Checkbox"
 			>
 				<label
 					htmlFor={id}

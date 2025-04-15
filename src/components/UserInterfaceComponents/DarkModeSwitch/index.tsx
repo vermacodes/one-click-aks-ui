@@ -30,6 +30,8 @@ export default function DarkModeSwitch({
 					}
 				}}
 				aria-label="Dark Mode Switch"
+				role="switch"
+				aria-checked={rest.checked}
 			>
 				<label
 					htmlFor={id}
