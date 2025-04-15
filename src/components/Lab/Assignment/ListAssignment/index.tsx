@@ -144,7 +144,7 @@ export default function ListAssignment({}: Props) {
 						<th>
 							<Checkbox
 								id={"selectAll"}
-								label=""
+								label="Select All"
 								handleOnChange={
 									selectedAssignments.length === assignments?.length
 										? () => setSelectedAssignments([])
@@ -178,7 +178,7 @@ export default function ListAssignment({}: Props) {
 									<td>
 										<Checkbox
 											id={assignment.assignmentId}
-											label=""
+											label="Select Assignment"
 											handleOnChange={
 												selectedAssignments.includes(assignment)
 													? () => setSelectedAssignments(selectedAssignments.filter((i) => i !== assignment))

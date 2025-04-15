@@ -20,19 +20,7 @@ export default function DarkModeSwitch({
 }: CheckboxProps) {
 	return (
 		<Tooltip message={tooltipMessage} delay={tooltipDelay}>
-			<div
-				className="flex items-center"
-				tabIndex={0}
-				onKeyDown={(e) => {
-					if (e.key === "Enter" || e.key === " ") {
-						e.preventDefault(); // Prevent default scrolling behavior for Space
-						handleOnChange();
-					}
-				}}
-				aria-label="Dark Mode Switch"
-				role="switch"
-				aria-checked={rest.checked}
-			>
+			<div className="flex items-center rounded p-1 focus-within:outline focus-within:outline-2">
 				<label
 					htmlFor={id}
 					className={`flex h-5 w-10 items-center rounded-full outline outline-1 outline-slate-500 transition-all duration-100 hover:cursor-pointer ${
@@ -48,7 +36,16 @@ export default function DarkModeSwitch({
 						// role="presentation"
 						onChange={() => handleOnChange()}
 						{...rest}
-						tabIndex={-1}
+						tabIndex={0}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" || e.key === " ") {
+								e.preventDefault(); // Prevent default scrolling behavior for Space
+								handleOnChange();
+							}
+						}}
+						aria-label="Dark Mode Switch"
+						role="switch"
+						aria-checked={rest.checked}
 					/>
 					<div
 						className={`flex h-5 w-5 items-center justify-center rounded-full bg-white text-slate-700 transition-all duration-100 dark:text-slate-300 ${
