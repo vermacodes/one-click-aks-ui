@@ -62,7 +62,7 @@ type LabHeaderProps = {
 function LabHeader({ lab, showVersions }: LabHeaderProps) {
 	return (
 		<div className="flex items-center justify-between">
-			<h1 className="whitespace-pre-line text-3xl">{lab.name}</h1>
+			<h3 className="whitespace-pre-line text-3xl">{lab.name}</h3>
 			{showVersions && <LabVersionsButton lab={lab} />}
 		</div>
 	);

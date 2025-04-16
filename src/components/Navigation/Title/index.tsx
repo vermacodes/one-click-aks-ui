@@ -13,7 +13,7 @@ export default function Title() {
 		env = "Dev";
 	}
 	return (
-		<div className={`flex items-center justify-between pb-2 pt-6`}>
+		<div className={`flex items-center justify-between pb-2 pt-6`} role="banner" aria-label="Header">
 			<Link to={"/"}>
 				<h1 className="flex flex-row items-center pl-8">
 					<img

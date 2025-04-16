@@ -42,9 +42,9 @@ export default function PageLayout({ heading, children }: Props) {
 						>
 							<FaBars className="text-slate-500" />
 						</Button>
-						<h1 className="text-xl md:text-4xl" tabIndex={-1} ref={pageHeading}>
+						<h2 className="text-xl md:text-4xl" tabIndex={-1} ref={pageHeading}>
 							{heading}
-						</h1>
+						</h2>
 					</div>
 					<div className="flex gap-4">
 						{/* <a href="https://teams.microsoft.com/l/chat/0/0?users=ashisverma@microsoft.com" target="_blank">
