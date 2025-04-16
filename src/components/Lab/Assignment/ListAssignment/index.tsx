@@ -188,7 +188,7 @@ export default function ListAssignment({}: Props) {
 											aria-label={"Select assignment " + assignment.assignmentId}
 										/>
 									</td>
-									<td className="space-x-2 px-4 py-2 hover:text-sky-500 hover:underline">
+									<td className="space-x-2 px-4 py-2 text-sky-700 underline dark:text-sky-400">
 										<Link to={`/lab/readinesslab/${assignment.labId}`}>{assignment.labName}</Link>
 									</td>
 									<td className="space-x-2 px-4 py-2">{getProfileByUserPrincipal(assignment.userId)}</td>
