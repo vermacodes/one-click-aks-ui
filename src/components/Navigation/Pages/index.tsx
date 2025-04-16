@@ -6,6 +6,8 @@ import {
 	FaChalkboardTeacher,
 	FaChessKing,
 	FaClipboard,
+	FaCog,
+	FaComments,
 	FaFlask,
 	FaList,
 	FaPuzzlePiece,
@@ -18,6 +20,7 @@ import {
 	FaUsers,
 } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
+import LoginButton from "../../Authentication/LoginButton";
 import NavItem from "../NavItem";
 import NavParent from "../NavParent";
 
@@ -27,7 +30,7 @@ export default function Pages() {
 
 	return (
 		<div
-			className={`h-9/10 flex w-full flex-col overflow-y-scroll border-b border-t border-slate-300 px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
+			className={`flex w-full flex-col overflow-y-scroll border-t border-slate-300 px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
 		>
 			<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-2 text-sm lg:text-xl">
 				<NavItem
@@ -230,6 +233,32 @@ export default function Pages() {
 							<BsArrowUpRight />
 						</span>
 					</a>
+				</li>
+				<NavItem
+					icon={<FaCog />}
+					label="Settings"
+					to={"/settings"}
+					toolTipMessage="Manage actlabs configurations and Your server."
+				/>
+				<li>
+					<a
+						className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
+						type="button"
+						aria-label="Help & Feedback"
+						target="_blank"
+						href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
+					>
+						<span>
+							<FaComments />
+						</span>
+						<span>Help & Feedback</span>
+						<span>
+							<BsArrowUpRight />
+						</span>
+					</a>
+				</li>
+				<li>
+					<LoginButton />
 				</li>
 			</ul>
 		</div>

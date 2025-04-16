@@ -1,4 +1,4 @@
-import { FaAngleLeft } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGlobalStateContext } from "../../Context/GlobalStateContext";
 import Button from "../../UserInterfaceComponents/Button";
@@ -18,7 +18,12 @@ export default function Title() {
 			role="banner"
 			aria-label="Header"
 		>
-			<Link to={"/"} className="flex flex-col items-center px-4">
+			{navbarOpen && (
+				<Button className="mr-2 rounded-full p-4 text-xl outline-1 hover:outline" onClick={() => setNavbarOpen(false)}>
+					<FaBars />
+				</Button>
+			)}
+			<Link to={"/"} className="flex flex-col items-center pr-4">
 				<h1 className="flex flex-row items-center">
 					<img
 						src="/actlabs_logo_rocket.svg"
@@ -33,11 +38,6 @@ export default function Title() {
 					</span>
 				)}
 			</Link>
-			{navbarOpen && (
-				<Button className="mr-2 rounded-full p-4 text-xl outline-1 hover:outline" onClick={() => setNavbarOpen(false)}>
-					<FaAngleLeft />
-				</Button>
-			)}
 		</div>
 	);
 }
