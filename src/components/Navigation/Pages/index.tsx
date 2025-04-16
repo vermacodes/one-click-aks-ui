@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BsArrowUpRight } from "react-icons/bs";
 import {
 	FaBook,
 	FaBookReader,
@@ -30,7 +29,7 @@ export default function Pages() {
 
 	return (
 		<div
-			className={`flex w-full flex-col overflow-y-scroll border-t border-slate-300 px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
+			className={`flex w-full flex-col overflow-hidden border-t border-slate-300 px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
 		>
 			<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-2 text-sm lg:text-xl">
 				<NavItem
@@ -218,45 +217,29 @@ export default function Pages() {
 						</div>
 					</li>
 				)}
-				<li>
-					<a
-						target="_blank"
-						className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
-						type="button"
-						href="https://aka.ms/actlabs-docs"
-					>
-						<span>
-							<FaBook />
-						</span>
-						<span>Documentation</span>
-						<span>
-							<BsArrowUpRight />
-						</span>
-					</a>
-				</li>
+				<NavItem
+					icon={<FaBook />}
+					label="Documentation"
+					to={"https://aka.ms/actlabs-docs"}
+					externalLink={true}
+					toolTipMessage="Documentation for ACT Labs. Click to open in a new tab."
+					toolTipDirection="bottom"
+				/>
 				<NavItem
 					icon={<FaCog />}
 					label="Settings"
 					to={"/settings"}
 					toolTipMessage="Manage actlabs configurations and Your server."
 				/>
-				<li>
-					<a
-						className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
-						type="button"
-						aria-label="Help & Feedback"
-						target="_blank"
-						href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
-					>
-						<span>
-							<FaComments />
-						</span>
-						<span>Help & Feedback</span>
-						<span>
-							<BsArrowUpRight />
-						</span>
-					</a>
-				</li>
+				<NavItem
+					icon={<FaComments />}
+					label="Help & Feedback"
+					to={
+						"https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
+					}
+					externalLink={true}
+					toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
+				/>
 				<li>
 					<LoginButton />
 				</li>
