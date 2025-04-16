@@ -34,7 +34,7 @@ export default function Title() {
 				)}
 			</Link>
 			{navbarOpen && (
-				<Button className="mr-2 rounded-full p-4 text-xl hover:outline" onClick={() => setNavbarOpen(false)}>
+				<Button className="mr-2 rounded-full p-4 text-xl outline-1 hover:outline" onClick={() => setNavbarOpen(false)}>
 					<FaAngleLeft />
 				</Button>
 			)}

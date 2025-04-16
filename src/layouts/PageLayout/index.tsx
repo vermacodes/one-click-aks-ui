@@ -36,7 +36,10 @@ export default function PageLayout({ heading, children }: Props) {
 				>
 					<div className="flex items-center">
 						{!navbarOpen && (
-							<Button className="mr-2 rounded-full p-4 text-xl hover:outline" onClick={() => setNavbarOpen(true)}>
+							<Button
+								className="mx-2 rounded-full p-4 text-xl outline-1 hover:outline"
+								onClick={() => setNavbarOpen(true)}
+							>
 								<FaBars />
 							</Button>
 						)}
