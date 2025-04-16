@@ -30,7 +30,7 @@ export default function MainLayout() {
 			</a>
 			{navbarOpen && (
 				<div
-					className={`left-0 top-0 h-screen w-screen min-w-fit overflow-y-auto overflow-x-hidden ${defaultScrollbarStyle} md:w-1/6`}
+					className={`left-0 top-0 h-screen w-screen min-w-fit overflow-x-hidden overflow-y-hidden md:w-1/6`}
 					role="sidebar"
 				>
 					<Title />
