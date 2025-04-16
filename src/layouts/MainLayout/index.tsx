@@ -33,7 +33,9 @@ export default function MainLayout() {
 					className={`left-0 top-0 h-screen w-screen min-w-fit overflow-x-hidden overflow-y-hidden md:w-1/6`}
 					role="sidebar"
 				>
-					<Title />
+					<div className="bg-slate-200 py-2 dark:bg-slate-800">
+						<Title />
+					</div>
 					<Navbar />
 				</div>
 			)}
