@@ -19,7 +19,6 @@ import {
 	FaUsers,
 } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
-import LoginButton from "../../Authentication/LoginButton";
 import NavItem from "../NavItem";
 import NavParent from "../NavParent";
 
@@ -29,7 +28,7 @@ export default function Pages() {
 
 	return (
 		<div
-			className={`flex w-full flex-col overflow-hidden border-t border-slate-300 px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
+			className={`flex w-full flex-col overflow-hidden px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
 		>
 			<ul className="md:text-l flex w-full flex-col justify-start gap-1 py-2 text-sm lg:text-xl">
 				<NavItem
@@ -240,9 +239,9 @@ export default function Pages() {
 					externalLink={true}
 					toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
 				/>
-				<li>
+				{/* <li>
 					<LoginButton />
-				</li>
+				</li> */}
 			</ul>
 		</div>
 	);

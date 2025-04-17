@@ -192,3 +192,6 @@ export function getDefaultServerHosting(): ServerHosting {
 
 export const defaultScrollbarStyle =
 	"scrollbar-thin scrollbar-track-slate-400 scrollbar-thumb-slate-600 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400";
+
+export const defaultScrollbarOnContainerStyle =
+	"scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-800 dark:scrollbar-thumb-slate-500";

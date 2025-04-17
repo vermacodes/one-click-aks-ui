@@ -1,6 +1,6 @@
 import { BsArrowUpRight } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
-import Tooltip from "../../UserInterfaceComponents/Tooltip";
+import Tooltip from "../../../components/UserInterfaceComponents/Tooltip";
 
 type NavItemProps = {
 	icon?: React.ReactNode;
