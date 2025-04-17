@@ -14,10 +14,14 @@ type Props = {
 export default function PageLayout({ heading, children }: Props) {
 	const { darkMode, setDarkMode, navbarOpen, setNavbarOpen } = useGlobalStateContext();
 	const outerDivRef = useRef<null | HTMLDivElement>(null);
+	const pageHeading = useRef<null | HTMLHeadingElement>(null);
 
 	useEffect(() => {
 		if (outerDivRef.current !== null) {
 			outerDivRef.current.scrollIntoView();
+		}
+		if (pageHeading.current !== null) {
+			pageHeading.current.focus(); // Focus the page heading
 		}
 	}, [heading]);
 
@@ -27,18 +31,21 @@ export default function PageLayout({ heading, children }: Props) {
 			{heading !== undefined && (
 				<div
 					className={`${
-						heading !== "" ? "mb-4 border-b-2 border-slate-500 py-4 " : "mt-6 "
-					} flex items-center justify-between `}
+						heading !== "" ? "mb-4 border-b-2 border-slate-500 " : "mt-6 "
+					} flex items-center justify-between text-wrap`}
 				>
 					<div className="flex items-center">
-						<Button
-							variant="secondary-icon"
-							className="mr-2 p-4 text-2xl md:mr-0 md:hidden md:p-0"
-							onClick={() => setNavbarOpen(!navbarOpen)}
-						>
-							<FaBars className="text-slate-500" />
-						</Button>
-						<h1 className="text-xl md:text-4xl">{heading}</h1>
+						{!navbarOpen && (
+							<Button
+								className="-ml-4 rounded-full p-4 text-xl outline-1 hover:outline"
+								onClick={() => setNavbarOpen(true)}
+							>
+								<FaBars />
+							</Button>
+						)}
+						<h2 className="py-4 text-xl md:text-4xl" tabIndex={-1} ref={pageHeading}>
+							{heading}
+						</h2>
 					</div>
 					<div className="flex gap-4">
 						{/* <a href="https://teams.microsoft.com/l/chat/0/0?users=ashisverma@microsoft.com" target="_blank">

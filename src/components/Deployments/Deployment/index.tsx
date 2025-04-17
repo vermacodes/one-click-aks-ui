@@ -27,7 +27,7 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
 		>
 			<div className="flex justify-between gap-2 text-sm">
 				<div className="flex flex-wrap items-center gap-x-2 gap-y-2">
-					<h1 className="text-xl text-sky-500">{deployment.deploymentWorkspace}</h1>
+					<h1 className="text-xl text-sky-700 dark:text-sky-400">{deployment.deploymentWorkspace}</h1>
 				</div>
 				<div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-2">
 					<DeploymentStatus deployment={deployment} />

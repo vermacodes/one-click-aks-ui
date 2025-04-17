@@ -56,7 +56,7 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
 				linkOnPaste: true,
 			}),
 			Heading.configure({
-				levels: [2],
+				levels: [4],
 				HTMLAttributes: {
 					class: "font-bold text-xl",
 				},
@@ -120,8 +120,8 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
 				</span>
 				<div className="flex space-x-1">
 					<Button
-						variant={editor.isActive("heading", { level: 2 }) ? "secondary" : "secondary-outline"}
-						onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+						variant={editor.isActive("heading", { level: 4 }) ? "secondary" : "secondary-outline"}
+						onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
 						tooltipMessage="Heading"
 						tooltipDelay={200}
 						tooltipDirection="top"

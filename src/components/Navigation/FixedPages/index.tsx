@@ -8,8 +8,8 @@ export default function FixedPages() {
 	const { selectedDeployment } = useSelectedDeployment();
 
 	return (
-		<div className="h-fit w-full flex-col p-4">
-			<ul className="md:text-l flex w-full flex-col justify-start gap-y-1 text-sm lg:text-xl">
+		<div className="h-full w-full flex-col p-4">
+			<ul className="md:text-l flex min-h-fit w-full flex-col justify-start gap-y-1 text-sm lg:text-xl">
 				{/* {selectedDeployment && (
 					<NavItem
 						to="/deployments"
@@ -33,18 +33,19 @@ export default function FixedPages() {
 				/> */}
 				<li>
 					<a
+						className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
+						type="button"
+						aria-label="Help & Feedback"
 						target="_blank"
 						href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
 					>
-						<button className="flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
-							<span>
-								<FaComments />
-							</span>
-							<span>Help & Feedback</span>
-							<span>
-								<BsArrowUpRight />
-							</span>
-						</button>
+						<span>
+							<FaComments />
+						</span>
+						<span>Help & Feedback</span>
+						<span>
+							<BsArrowUpRight />
+						</span>
 					</a>
 				</li>
 				<li>

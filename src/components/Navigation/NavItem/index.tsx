@@ -1,3 +1,4 @@
+import { BsArrowUpRight } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 
@@ -6,6 +7,7 @@ type NavItemProps = {
 	label: string;
 	children?: React.ReactNode;
 	to: string;
+	externalLink?: boolean;
 	toolTipMessage?: string;
 	toolTipDelay?: number;
 	toolTipDirection?: "top" | "bottom" | "left" | "right";
@@ -17,6 +19,7 @@ export default function NavItem({
 	label,
 	children,
 	to,
+	externalLink = false,
 	toolTipMessage,
 	toolTipDelay = 500,
 	toolTipDirection = "top",
@@ -60,20 +63,25 @@ export default function NavItem({
 
 	return (
 		<li>
-			<Link to={to}>
-				<Tooltip message={toolTipMessage} delay={toolTipDelay} direction={toolTipDirection}>
-					<button
-						className={`flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base ${activeClass}`}
-					>
-						<div className={`ml-${depth * 4}`}>
-							<div className="flex items-center gap-2 text-base">
-								{icon && <span>{icon}</span>}
-								<span>{children || label}</span>
-							</div>
+			<Tooltip message={toolTipMessage} delay={toolTipDelay} direction={toolTipDirection}>
+				<Link
+					to={to}
+					target={`${externalLink ? "_blank" : "_self"}`}
+					className={`flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base ${activeClass}`}
+				>
+					<div className={`ml-${depth * 4}`}>
+						<div className="flex items-center gap-2 text-base">
+							{icon && <span>{icon}</span>}
+							<span>{children || label}</span>
+							{externalLink && (
+								<span>
+									<BsArrowUpRight />
+								</span>
+							)}
 						</div>
-					</button>
-				</Tooltip>
-			</Link>
+					</div>
+				</Link>
+			</Tooltip>
 		</li>
 	);
 }

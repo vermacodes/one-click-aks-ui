@@ -48,6 +48,20 @@ export default function DropdownSelect<T>({
 						setMenuOpen(!isMenuOpen);
 						e.stopPropagation();
 					}}
+					onKeyDown={(e) => {
+						if (disabled) {
+							return;
+						}
+						if (e.key === "Enter" || e.key === " ") {
+							// Toggle the dropdown on Enter or Space key
+							setMenuOpen(!isMenuOpen);
+							e.preventDefault();
+						}
+					}}
+					tabIndex={disabled ? -1 : 0} // Make the div focusable unless disabled
+					role="button" // Indicate that this div acts as a button
+					aria-expanded={isMenuOpen} // Indicate whether the dropdown is open
+					aria-haspopup="listbox" // Indicate that it opens a listbox
 				>
 					<div>{heading}</div>
 					<p>
@@ -87,8 +101,9 @@ const DropdownMenu = <T,>({
 	closeMenuOnSelect,
 }: ItemProps<T> & DropdownMenuProps) => {
 	const [didMouseEnter, setDidMouseEnter] = useState(false);
+	const [focusedIndex, setFocusedIndex] = useState<number | null>(null); // Track the focused item
 
-	//if no mouse enter in 5 seconds, close the menu
+	// Close the menu if no mouse enters in 5 seconds
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
 			if (!didMouseEnter) {
@@ -101,11 +116,40 @@ const DropdownMenu = <T,>({
 		return () => clearTimeout(timeoutId);
 	}, [didMouseEnter]);
 
+	// Handle keyboard navigation
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === "ArrowDown") {
+			// Move focus to the next item
+			setFocusedIndex((prev) => (prev === null || prev === items.length - 1 ? 0 : prev + 1));
+			e.preventDefault();
+		} else if (e.key === "ArrowUp") {
+			// Move focus to the previous item
+			setFocusedIndex((prev) => (prev === null || prev === 0 ? items.length - 1 : prev - 1));
+			e.preventDefault();
+		} else if (e.key === "Enter" || e.key === " ") {
+			// Select the focused item
+			if (focusedIndex !== null) {
+				onItemClick(items[focusedIndex]);
+				if (closeMenuOnSelect) {
+					setMenuOpen(false);
+				}
+			}
+			e.preventDefault();
+		} else if (e.key === "Escape") {
+			// Close the menu
+			setMenuOpen(false);
+			e.preventDefault();
+		}
+	};
+
 	return (
 		<div
-			className={`absolute right-0 z-10 mt-1 ${height} w-full origin-top-right items-center gap-y-2 overflow-y-auto  overflow-x-hidden rounded border border-slate-500 bg-slate-100 p-2  dark:bg-slate-800 ${defaultScrollbarStyle}`}
+			className={`absolute right-0 z-10 mt-1 ${height} w-full origin-top-right items-center gap-y-2 overflow-y-auto overflow-x-hidden rounded border border-slate-500 bg-slate-100 p-2 dark:bg-slate-800 ${defaultScrollbarStyle}`}
 			onMouseLeave={() => setMenuOpen(false)}
 			onMouseEnter={() => setDidMouseEnter(true)}
+			role="listbox" // Indicate that this is a listbox
+			onKeyDown={handleKeyDown} // Handle keyboard navigation
+			tabIndex={-1} // Make the menu not focusable
 		>
 			{search && search}
 			{items.map((item, index) => (
@@ -118,6 +162,14 @@ const DropdownMenu = <T,>({
 						onItemClick(item);
 						e.stopPropagation();
 					}}
+					tabIndex={0} // Include each item in the natural tab order
+					role="option" // Indicate that this is an option in the listbox
+					aria-selected={focusedIndex === index} // Indicate if the item is focused
+					className={`cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 ${
+						focusedIndex === index ? "bg-slate-300 dark:bg-slate-600" : ""
+					}`}
+					onMouseEnter={() => setFocusedIndex(index)} // Update focus on mouse hover
+					onFocus={() => setFocusedIndex(index)} // Update focus when tabbing to the item
 				>
 					{renderItem(item)}
 				</div>
