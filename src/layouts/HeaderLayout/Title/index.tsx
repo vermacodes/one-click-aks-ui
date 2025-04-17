@@ -31,7 +31,7 @@ export default function Title() {
 						className="mr-2 h-2 w-2 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
 						alt="ACTLabs logo showing a rocket flying away from the moon."
 					></img>
-					<span className="text-sm font-bold hover:text-sky-500 sm:text-base lg:text-2xl">ACT Labs</span>
+					<span className="text-sm font-semibold hover:text-sky-500 sm:text-base lg:text-2xl">ACT Labs</span>
 				</h1>
 				{env != "Prod" && (
 					<span className="rounded-sm bg-sky-400 px-1 text-center text-[8px] font-semibold dark:bg-sky-700 sm:text-xs md:w-full ">
