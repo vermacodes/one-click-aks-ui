@@ -21,6 +21,7 @@ export default function Title() {
 			<Button
 				className="rounded-full p-3 text-base outline-1 hover:outline md:text-xl"
 				onClick={() => setNavbarOpen(!navbarOpen)}
+				aria-label="Toggle Navigation"
 			>
 				<FaBars />
 			</Button>
