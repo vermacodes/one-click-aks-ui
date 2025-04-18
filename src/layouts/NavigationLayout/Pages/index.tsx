@@ -29,9 +29,9 @@ export default function Pages() {
 
   return (
     <div
-      className={`flex w-full flex-col overflow-hidden px-4 pt-2 scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
+      className={`flex w-full flex-col overflow-hidden scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
     >
-      <ul className="md:text-l flex w-full flex-col justify-start gap-1 py-2 text-sm lg:text-xl">
+      <ul className="md:text-l flex w-full flex-col justify-start gap-1 text-sm lg:text-xl">
         <NavItem
           icon={<FaTools />}
           label="Lab Builder"
