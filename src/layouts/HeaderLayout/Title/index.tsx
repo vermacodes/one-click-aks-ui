@@ -4,7 +4,7 @@ import { useGlobalStateContext } from "../../../components/Context/GlobalStateCo
 import Button from "../../../components/UserInterfaceComponents/Button";
 
 export default function Title() {
-  const { navbarOpen, setNavbarOpen } = useGlobalStateContext();
+  const { navbarOpen, setNavbarOpen, viewportWidth } = useGlobalStateContext();
   let env = "Prod";
   // if the URL is localhost, set env to local
   if (window.location.href.includes("localhost")) {
@@ -25,10 +25,7 @@ export default function Title() {
       >
         <FaBars />
       </Button>
-      <Link
-        to={"/"}
-        className="flex items-center gap-2 pr-4 md:flex-col md:gap-0"
-      >
+      <Link to={"/"} className="flex flex-col items-center gap-2 pr-4 md:gap-0">
         <h1 className="flex flex-row items-center">
           <img
             src="/actlabs_logo_rocket.svg"
@@ -39,7 +36,7 @@ export default function Title() {
             ACT Labs
           </span>
         </h1>
-        {env != "Prod" && (
+        {env != "Prod" && viewportWidth >= 768 && (
           <span className="rounded-sm bg-sky-400 px-1 text-center text-[8px] font-semibold dark:bg-sky-700 md:w-full lg:text-xs ">
             {env}
           </span>
