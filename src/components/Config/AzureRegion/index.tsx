@@ -67,13 +67,19 @@ export default function AzureRegion() {
     "Brazil Southeast",
   ];
 
-  const { data: preference, isLoading: loadingPreference, isFetching: fetchingPreference } = usePreference();
+  const {
+    data: preference,
+    isLoading: loadingPreference,
+    isFetching: fetchingPreference,
+  } = usePreference();
 
-  const { mutate: setPreference, isLoading: settingPreference } = useSetPreference();
+  const { mutate: setPreference, isLoading: settingPreference } =
+    useSetPreference();
   const { data: lab } = useLab();
   const { mutate: setLogs } = useSetLogs();
 
-  const { data: storageAccount, isFetching: fetchingStorageAccount } = useGetStorageAccount();
+  const { data: storageAccount, isFetching: fetchingStorageAccount } =
+    useGetStorageAccount();
 
   /**
    * Handles the click event.
@@ -107,6 +113,7 @@ export default function AzureRegion() {
     return (
       <div className="relative">
         <input
+          aria-label="Azure Region Search"
           type="text"
           placeholder="Search..."
           value={searchTerm}
@@ -146,7 +153,10 @@ export default function AzureRegion() {
    */
   const renderItem = (item: string) => {
     // Determine the classes to apply based on whether the current version matches the key
-    const classes = item === preference?.azureRegion ? "bg-green-300 hover:text-slate-900 dark:text-slate-900" : "";
+    const classes =
+      item === preference?.azureRegion
+        ? "bg-green-300 hover:text-slate-900 dark:text-slate-900"
+        : "";
 
     return (
       <div
@@ -163,22 +173,29 @@ export default function AzureRegion() {
     <Container title="Azure Region" collapsible={true}>
       <div
         className={`gap-x-reverse flex items-center justify-end gap-x-2 py-2 ${
-          (fetchingStorageAccount || storageAccount === undefined || storageAccount.name === "") && " text-slate-400"
+          (fetchingStorageAccount ||
+            storageAccount === undefined ||
+            storageAccount.name === "") &&
+          " text-slate-400"
         }`}
       >
         <DropdownSelect
           heading={heading()}
-          disabled={loadingPreference || fetchingPreference || settingPreference}
+          disabled={
+            loadingPreference || fetchingPreference || settingPreference
+          }
           search={renderSearchInput()}
           renderItem={renderItem}
-          items={azureRegions.filter((item) => item.toLowerCase().includes(searchTerm.toLowerCase()))}
+          items={azureRegions.filter((item) =>
+            item.toLowerCase().includes(searchTerm.toLowerCase())
+          )}
           onItemClick={handleOnClick}
           height="h-60"
         />
       </div>
       <p className="text-xs">
-        Azure region where your labs will be created. We've not tested all regions, if you see issues please let us
-        know.
+        Azure region where your labs will be created. We've not tested all
+        regions, if you see issues please let us know.
       </p>
     </Container>
   );
