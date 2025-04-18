@@ -50,6 +50,7 @@ export default function Deployments() {
 					<CreateNewDeployment variant="primary">
 						<FaPlus /> Add Deployment
 					</CreateNewDeployment>
+					<Button variant="secondary">Test Button</Button>
 				</div>
 			</div>
 			{deployments &&

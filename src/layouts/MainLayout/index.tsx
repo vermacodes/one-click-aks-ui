@@ -19,49 +19,57 @@ import HeaderLayout from "../HeaderLayout/Header";
 import Navbar from "../NavigationLayout/Navbar";
 
 export default function MainLayout() {
-	const { navbarOpen, setNavbarOpen } = useGlobalStateContext();
-	return (
-		<div className="flex h-screen w-screen flex-col overflow-hidden">
-			<a
-				href="#main"
-				className="absolute -left-full z-50 transform bg-black p-4 text-white opacity-0 focus:left-1/2 focus:-translate-x-1/2 focus:opacity-100"
-			>
-				Skip to main content
-			</a>
-			<HeaderLayout />
-			<div className="flex h-[90%] w-full overflow-hidden bg-slate-200 dark:bg-slate-800 lg:h-[90%]">
-				{navbarOpen && (
-					// <div
-					// 	className={`left-0 top-0 m-4 h-full w-fit min-w-fit overflow-x-hidden overflow-y-hidden rounded-md bg-slate-100 dark:bg-slate-900 md:w-1/6`}
-					// >
-					// 	<Navbar />
-					// </div>
-					<Navbar />
-				)}
-				<main
-					id="main"
-					role="main"
-					aria-label="Main content"
-					className={`flex-1 overflow-auto bg-slate-200 dark:bg-slate-800 ${defaultScrollbarStyle} px-4`}
-				>
-					<Routes>
-						<Route path="/" element={<Landing />} />
-						<Route path="/builder" element={<LabBuilder />} />
-						<Route path="/deployments" element={<Deployments />} />
-						<Route path="/lab/:type/:id" element={<LabPage />} />
-						<Route path="/lab/save" element={<SaveLabPage />} />
-						<Route path="/lab/versions/:type/:id" element={<LabVersionsPage />} />
-						<Route path="/labs/:type" element={<LabsGridPage />} />
-						<Route path="/assignments" element={<Assignments />} />
-						<Route path="/my/assignments" element={<MyAssignments />} />
-						<Route path="/settings" element={<Settings />} />
-						<Route path="/rbac" element={<AccessControl />} />
-						<Route path="/managed-servers" element={<ManagedServers />} />
-						<Route path="/feedback" element={<Feedback />} />
-					</Routes>
-				</main>
-				<CookiesConsent />
-			</div>
-		</div>
-	);
+  const { navbarOpen, viewportWidth } = useGlobalStateContext();
+
+  return (
+    <div className="flex h-screen flex-col overflow-hidden">
+      <a
+        href="#main"
+        className="absolute -left-full z-50 transform bg-black p-4 text-white opacity-0 focus:left-1/2 focus:-translate-x-1/2 focus:opacity-100"
+      >
+        Skip to main content
+      </a>
+      <HeaderLayout />
+      <div className="flex h-[90%] overflow-hidden bg-slate-200 dark:bg-slate-800 lg:h-[90%]">
+        {navbarOpen && (
+          // <div
+          // 	className={`left-0 top-0 m-4 h-full w-fit min-w-fit overflow-x-hidden overflow-y-hidden rounded-md bg-slate-100 dark:bg-slate-900 md:w-1/6`}
+          // >
+          // 	<Navbar />
+          // </div>
+          <Navbar />
+        )}
+
+        {/** if screen width is less that 768 px and navbar is open, don't show main content*/}
+        {(!navbarOpen || viewportWidth >= 768) && (
+          <main
+            id="main"
+            role="main"
+            aria-label="Main content"
+            className={`flex-1 overflow-auto overflow-x-hidden bg-slate-200 dark:bg-slate-800 ${defaultScrollbarStyle} px-4`}
+          >
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/builder" element={<LabBuilder />} />
+              <Route path="/deployments" element={<Deployments />} />
+              <Route path="/lab/:type/:id" element={<LabPage />} />
+              <Route path="/lab/save" element={<SaveLabPage />} />
+              <Route
+                path="/lab/versions/:type/:id"
+                element={<LabVersionsPage />}
+              />
+              <Route path="/labs/:type" element={<LabsGridPage />} />
+              <Route path="/assignments" element={<Assignments />} />
+              <Route path="/my/assignments" element={<MyAssignments />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/rbac" element={<AccessControl />} />
+              <Route path="/managed-servers" element={<ManagedServers />} />
+              <Route path="/feedback" element={<Feedback />} />
+            </Routes>
+          </main>
+        )}
+        <CookiesConsent />
+      </div>
+    </div>
+  );
 }
