@@ -1,4 +1,3 @@
-import { useContext, useEffect, useState } from "react";
 import { useSetLogs } from "../../../../../../hooks/useLogs";
 import { useGlobalStateContext } from "../../../../../Context/GlobalStateContext";
 import { useWebSocketContext } from "../../../../../Context/WebSocketContext";
@@ -41,15 +40,21 @@ export default function DefaultNodeOSSKU({ index }: Props) {
   }
 
   const renderItem = (osSku: string) => {
-    return (
-      <div
-        className={`${osSku === currentNodeOSSKU &&
-          "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-          } w-full cursor-pointer items-center justify-between rounded p-2 hover:bg-sky-500 hover:text-slate-100`}
-      >
-        {osSku}
-      </div>
-    );
+    const isActive = osSku === currentNodeOSSKU;
+
+    const baseClasses =
+      "w-full cursor-pointer items-center justify-between rounded p-2 mt-2";
+    const activeClasses =
+      "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
+    const hoverClasses =
+      "hover:bg-sky-700 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-900";
+    const inactiveClasses = "text-slate-700 dark:text-slate-300";
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+
+    return <div className={containerClasses}>{osSku}</div>;
   };
 
   /**

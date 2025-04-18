@@ -50,22 +50,32 @@ export default function Version({ index }: Props) {
     const key = Object.keys(patchVersion)[0];
 
     // Determine the classes to apply based on whether the current version matches the key
-    const classes =
-      key === currentVersion
-        ? "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-        : "";
+    const isActive = key === currentVersion;
+    const baseClasses =
+      "group mt-2 w-full cursor-pointer items-center justify-between gap-2 rounded p-2";
+    const activeClasses =
+      "bg-green-700 text-white dark:bg-green-400 dark:text-slate-900";
+    const hoverClasses =
+      "hover:bg-sky-700 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-900";
+    const inactiveClasses = "text-slate-700 dark:text-slate-300";
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+
+    const upgradesClasses = isActive
+      ? "space-x-2 text-xs bg-green-700 text-white dark:bg-green-400 dark:text-slate-900"
+      : "space-x-2 text-xs text-slate-700 dark:text-slate-300 group-hover:bg-sky-700 group-hover:text-white dark:group-hover:bg-sky-500 dark:group-hover:text-slate-900";
 
     return (
-      <div
-        className={`${classes} mt-2 w-full cursor-pointer items-center justify-between gap-2 rounded p-2 hover:bg-sky-500 hover:text-slate-100`}
-      >
+      <div className={containerClasses}>
         <div className="flex justify-between">
           <div key={key}>{key}</div>
         </div>
-        <div className="space-x-2 text-xs text-slate-800 dark:text-slate-200">
-          Upgrades :
+        <div className={upgradesClasses}>
+          Upgrades:
           {patchVersion[key].upgrades?.map((upgrade) => (
-            <span key={upgrade}> {upgrade}</span>
+            <span key={upgrade}>{upgrade}</span>
           ))}
         </div>
       </div>

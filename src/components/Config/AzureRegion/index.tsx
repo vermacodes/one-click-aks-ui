@@ -117,7 +117,7 @@ export default function AzureRegion() {
           onChange={setSearchTerm}
           aria-label="Azure Region Search"
           placeHolderText="Search for a region closer to you"
-          customClasses="py-1 ring-1 ring-slate-500 hover:ring-sky-500 focus:ring-sky-500 border-0"
+          customClasses="py-1 ring-1 ring-slate-500 hover:ring-sky-700 dark:hover:ring-sky-500 focus:ring-sky-700 dark:focus:ring-sky-500 border-0"
         />
       </div>
     );
@@ -152,18 +152,21 @@ export default function AzureRegion() {
    */
   const renderItem = (item: string) => {
     // Determine the classes to apply based on whether the current version matches the key
-    const classes =
-      item === preference?.azureRegion
-        ? "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-        : "";
+    const isActive = item === preference?.azureRegion;
 
-    return (
-      <div
-        className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 text-slate-900 hover:bg-sky-500 dark:text-slate-100`}
-      >
-        {item}
-      </div>
-    );
+    const baseClasses =
+      "mt-1 w-full cursor-pointer items-center justify-between rounded p-1";
+    const activeClasses =
+      "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
+    const hoverClasses =
+      "hover:bg-sky-700 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-900";
+    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+
+    return <div className={containerClasses}>{item}</div>;
   };
 
   //const renderItem = (item: string) => <p>{item}</p>;

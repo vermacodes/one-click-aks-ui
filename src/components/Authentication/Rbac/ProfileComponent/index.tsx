@@ -49,21 +49,25 @@ export default function ProfileComponent({ profile }: Props) {
   }
 
   return (
-    <div className="flex flex-col justify-between gap-2 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900  dark:outline-slate-600 dark:hover:outline-sky-500 md:flex-row md:items-center">
+    <div className="flex flex-col justify-between gap-2 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-700 dark:bg-slate-900  dark:outline-slate-600 dark:hover:outline-sky-500 md:flex-row md:items-center">
       <ProfileDisplay profile={profile} />
       <div className="flex flex-wrap justify-end gap-2">
         {profile.roles.map((role) => (
           <div
             key={role}
-            className="flex items-center justify-between gap-4 rounded bg-slate-200 py-1 px-4 dark:bg-slate-800"
+            className="flex items-center justify-between gap-4 rounded bg-slate-200 px-4 py-1 dark:bg-slate-800"
           >
             <div className="text-lg">{role}</div>
-            <button onClick={() => handleRemoveRole(profile.userPrincipal, role)}>❌</button>
+            <button
+              onClick={() => handleRemoveRole(profile.userPrincipal, role)}
+            >
+              ❌
+            </button>
           </div>
         ))}
         <div className={`${!addRoleFlag && "hidden"} `}>
           <select
-            className="h-full appearance-none rounded border border-slate-500 bg-slate-100 px-3 py-1 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-700"
+            className="h-full appearance-none rounded border border-slate-500 bg-slate-100 px-3 py-1 focus:border-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-700 hover:bg-slate-200 dark:bg-slate-900 dark:focus:border-sky-500 dark:focus:ring-sky-500 dark:hover:bg-slate-700"
             onChange={(event) => setSelectedRole(event.target.value)}
           >
             <option value="user">User</option>

@@ -56,7 +56,7 @@ export default function DefaultNodepoolVmSize({ index }: Props) {
     <div className="flex items-center gap-2 whitespace-nowrap">
       <label htmlFor="vmSize">VM Size</label>
       <input
-        className="rounded bg-inherit px-2 py-1 ring-1 ring-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        className="rounded bg-inherit px-2 py-1 ring-1 ring-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-700 dark:focus:ring-sky-500"
         id="vmSize"
         disabled={disabled}
         value={vmSize}

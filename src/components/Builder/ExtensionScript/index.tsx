@@ -142,25 +142,6 @@ export default function ExtensionScript() {
           </Button>
         </div>
       ) : null}
-      {/* {!compareBase64Strings(_extendScript, lab.extendScript) ? (
-        <div className="sticky bottom-0 z-10 -mt-14 flex w-1/2 translate-x-1/2 items-center justify-center gap-4 rounded-t-lg bg-sky-500 bg-opacity-20 p-1 text-slate-100">
-          Unsaved Changes
-          <Button
-            variant="danger"
-            onClick={() => handleExtendScriptChange(atob(lab.extendScript))}
-            disabled={compareBase64Strings(_extendScript, lab.extendScript)}
-          >
-            <FaTimes /> Discard
-          </Button>
-          <Button
-            variant="success"
-            onClick={handleExtendScriptSave}
-            disabled={compareBase64Strings(_extendScript, lab.extendScript)}
-          >
-            <FaCheck /> Save
-          </Button>
-        </div>
-      ) : null} */}
     </Container>
   );
 }
