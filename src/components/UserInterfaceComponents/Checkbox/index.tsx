@@ -30,7 +30,7 @@ export default function Checkbox({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <div className="flex items-center gap-x-2 rounded p-1 focus-within:outline focus-within:outline-2">
+      <div className="flex items-center gap-x-2 rounded px-1 focus-within:outline focus-within:outline-2">
         {/* Hidden input for form submission */}
         <input
           type="checkbox"
