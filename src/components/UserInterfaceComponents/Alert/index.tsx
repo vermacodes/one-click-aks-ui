@@ -14,7 +14,7 @@ export default function Alert({ variant = "info", children }: Props) {
 				setColor("border-green-500 bg-green-500");
 				break;
 			case "warning":
-				setColor("border-amber-500 bg-amber-500");
+				setColor("border-amber-400 bg-amber-400");
 				break;
 			case "danger":
 				setColor("border-rose-500 bg-rose-500");

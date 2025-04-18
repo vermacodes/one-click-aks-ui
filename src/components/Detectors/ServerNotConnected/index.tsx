@@ -27,7 +27,7 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="warning">
 				<strong>⚠️ Server Not Connected:</strong> Your self-hosted server is not available. Check your{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+				<Link to="/settings" className="cursor-pointer text-sky-700 underline">
 					Settings
 				</Link>{" "}
 				to make sure server is deployed and <a className="underline">endpoint</a> is correct.
@@ -40,7 +40,7 @@ export default function ServerNotConnected() {
 			<Alert variant="warning">
 				<strong>⚠️ Server Not Deployed:</strong> ACT Labs{" "}
 				<a className="underline">requires user to deploy the server.</a> Goto{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+				<Link to="/settings" className="cursor-pointer text-sky-700 underline">
 					Settings
 				</Link>{" "}
 				to register and deploy managed server or self-host on docker.
@@ -64,7 +64,7 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="warning">
 				<strong>⚠️ Managed Server Not Deployed:</strong> You have destroyed server manually. Please deploy again from{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+				<Link to="/settings" className="cursor-pointer text-sky-700 underline">
 					Settings
 				</Link>{" "}
 				page.
@@ -89,7 +89,7 @@ export default function ServerNotConnected() {
 			<Alert variant="warning">
 				<strong>Managed Server Destroyed:</strong> Managed server was destroyed due to inactivity and auto-deploy is
 				disabled. Deploy again from{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+				<Link to="/settings" className="cursor-pointer text-sky-700 underline">
 					Settings
 				</Link>
 				.
@@ -120,7 +120,7 @@ export default function ServerNotConnected() {
 		return (
 			<Alert variant="danger">
 				<strong>⚠️ Managed Server Deployment Failed:</strong> Managed server deployment failed. Deploy manually from{" "}
-				<Link to="/settings" className="cursor-pointer text-sky-600 underline">
+				<Link to="/settings" className="cursor-pointer text-sky-700 underline">
 					Settings
 				</Link>
 				.
