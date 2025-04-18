@@ -27,7 +27,7 @@ export default function PageLayout({ heading, children }: Props) {
           className={`${
             heading !== ""
               ? "mb-4 mt-[1px] border-b-2 border-slate-500 "
-              : "mt-6 "
+              : "mt-[1px]"
           } flex items-center justify-between text-wrap`}
         >
           <div className="flex items-center">
