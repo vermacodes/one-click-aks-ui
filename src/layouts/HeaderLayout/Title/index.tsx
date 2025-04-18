@@ -19,7 +19,7 @@ export default function Title() {
       aria-label="Header"
     >
       <Button
-        className="rounded-full p-3 text-base outline-1 hover:outline md:text-xl"
+        className="rounded-full p-1 text-sm outline-1 hover:outline md:p-3 md:text-xl"
         onClick={() => setNavbarOpen(!navbarOpen)}
         aria-label="Toggle Navigation"
       >
@@ -29,7 +29,7 @@ export default function Title() {
         <h1 className="flex flex-row items-center">
           <img
             src="/actlabs_logo_rocket.svg"
-            className="mr-2 h-2 w-2 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
+            className="mr-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
             alt="ACTLabs logo showing a rocket flying away from the moon."
           ></img>
           <span className="text-nowrap text-sm font-semibold hover:text-sky-500 lg:text-xl xl:text-2xl">
