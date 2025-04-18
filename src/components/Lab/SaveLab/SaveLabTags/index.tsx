@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Lab } from "../../../../dataStructures";
 import { labTagSchema } from "../../../../zodSchemas";
-import Button from "../../../UserInterfaceComponents/Button";
 import Container from "../../../UserInterfaceComponents/Container";
 
 type Props = {
@@ -59,7 +58,7 @@ export default function SaveLabTags({ lab, setLab }: Props) {
             type="text"
             value={tag}
             placeholder="Add tag"
-            className="px w-full border-none bg-inherit p-2 py-2 outline-none"
+            className="px w-full border-none bg-inherit p-2 py-2 outline-none placeholder:text-slate-800 dark:placeholder:text-slate-200"
             onChange={handleInputChange}
           />
         </form>
@@ -90,16 +89,16 @@ function Tags({ lab, setLab }: TagsPros) {
         lab.tags.map((tag) => (
           <div
             key={tag}
-            className="-p-1 flex items-center justify-between gap-x-2 rounded border border-slate-700 bg-slate-700 px-2 text-lg text-slate-100"
+            className="-p-1 flex items-center justify-between gap-x-2 rounded border border-slate-600 bg-slate-600 px-2 text-lg text-slate-100 dark:border-slate-400 dark:bg-slate-400 dark:text-slate-900"
           >
             {tag}
-            <Button
-              variant="danger-icon"
+            <button
+              className="text-rose-400 hover:text-rose-500 dark:text-rose-600 dark:hover:text-rose-500"
               onClick={() => deleteTag(tag)}
               aria-label="Delete tag"
             >
               <FaTimes />
-            </Button>
+            </button>
           </div>
         ))}
     </div>

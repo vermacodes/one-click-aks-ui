@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
 import { useLab } from "../../../hooks/useLab";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { usePreference, useSetPreference } from "../../../hooks/usePreference";
 import { useGetStorageAccount } from "../../../hooks/useStorageAccount";
 import Container from "../../UserInterfaceComponents/Container";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
+import FilterTextBox from "../../UserInterfaceComponents/FilterTextBox";
 
 export default function AzureRegion() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -112,20 +112,13 @@ export default function AzureRegion() {
   const renderSearchInput = () => {
     return (
       <div className="relative">
-        <input
-          aria-label="Azure Region Search"
-          type="text"
-          placeholder="Search..."
+        <FilterTextBox
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full rounded px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
+          onChange={setSearchTerm}
+          aria-label="Azure Region Search"
+          placeHolderText="Search for a region closer to you"
+          customClasses="py-1 ring-1 ring-slate-500 hover:ring-sky-500 focus:ring-sky-500 border-0"
         />
-        {searchTerm && (
-          <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
-            onClick={() => setSearchTerm("")}
-          />
-        )}
       </div>
     );
   };
