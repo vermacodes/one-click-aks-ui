@@ -140,9 +140,15 @@ export default function AzureRegion() {
    */
   const heading = () => {
     if (loadingPreference || fetchingPreference || settingPreference) {
-      return <p>Please wait...</p>;
+      return (
+        <p className="text-slate-900 dark:text-slate-100">Please wait...</p>
+      );
     }
-    return <p>{preference ? preference.azureRegion : "Add a region."}</p>;
+    return (
+      <p className="text-slate-900 dark:text-slate-100">
+        {preference ? preference.azureRegion : "Add a region."}
+      </p>
+    );
   };
 
   /**
@@ -160,7 +166,7 @@ export default function AzureRegion() {
 
     return (
       <div
-        className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 hover:bg-sky-500 hover:text-slate-100`}
+        className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 text-slate-900 hover:bg-sky-500 dark:text-slate-100`}
       >
         {item}
       </div>
