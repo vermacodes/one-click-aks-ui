@@ -8,7 +8,7 @@ import Title from "../Title";
 export default function HeaderLayout() {
   const { darkMode, setDarkMode, viewportWidth } = useGlobalStateContext();
   return (
-    <div className="flex h-[10%] w-full items-center justify-between bg-slate-200 pl-2 dark:bg-slate-800">
+    <div className="flex h-[10%] w-full items-center justify-between bg-inherit pl-2">
       <Title />
       <div className="flex gap-4 pr-4">
         {/* <a href="https://teams.microsoft.com/l/chat/0/0?users=ashisverma@microsoft.com" target="_blank">

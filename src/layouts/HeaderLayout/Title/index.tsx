@@ -14,12 +14,12 @@ export default function Title() {
   }
   return (
     <div
-      className={`flex items-center justify-between gap-4 bg-slate-200 dark:bg-slate-800`}
+      className={`flex items-center justify-between gap-4`}
       role="banner"
       aria-label="Header"
     >
       <Button
-        className="rounded-full p-1 text-sm outline-1 hover:outline md:p-3 md:text-xl"
+        className="rounded-full p-1 text-sm hover:outline-1 md:p-3 md:text-xl"
         onClick={() => setNavbarOpen(!navbarOpen)}
         aria-label="Toggle Navigation"
       >
@@ -32,12 +32,12 @@ export default function Title() {
             className="mr-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
             alt="ACTLabs logo showing a rocket flying away from the moon."
           ></img>
-          <span className="text-nowrap text-sm font-semibold hover:text-sky-700 dark:hover:text-sky-500 lg:text-xl xl:text-2xl">
+          <span className="text-sm font-semibold text-nowrap hover:text-sky-700 lg:text-xl xl:text-2xl dark:hover:text-sky-400">
             ACT Labs
           </span>
         </h1>
         {env != "Prod" && viewportWidth >= 768 && (
-          <span className="rounded-xs bg-sky-700 px-1 text-center text-[8px] font-semibold text-slate-100 dark:bg-sky-700 md:w-full lg:text-xs">
+          <span className="rounded-xs bg-sky-700 px-1 text-center text-[8px] font-semibold text-slate-50 md:w-full lg:text-xs dark:bg-sky-400 dark:text-slate-950">
             {env}
           </span>
         )}

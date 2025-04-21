@@ -2,6 +2,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import Tooltip from "../../../components/UserInterfaceComponents/Tooltip";
+import { getUIStateColors } from "../../../defaults";
 
 type NavItemProps = {
   icon?: React.ReactNode;
@@ -74,8 +75,8 @@ export default function NavItem({
   }
 
   const activeClass = isActivePath(to, location.pathname)
-    ? "bg-sky-200 dark:bg-sky-800"
-    : "hover:bg-slate-200 dark:hover:bg-slate-800";
+    ? getUIStateColors("selected")
+    : getUIStateColors("hover");
 
   return (
     <li>

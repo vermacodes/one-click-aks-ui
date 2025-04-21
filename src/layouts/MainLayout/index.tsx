@@ -22,23 +22,16 @@ export default function MainLayout() {
   const { navbarOpen, viewportWidth } = useGlobalStateContext();
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-screen flex-col overflow-hidden bg-slate-100 text-slate-950 dark:bg-slate-900 dark:text-slate-50">
       <a
         href="#main"
-        className="absolute -left-full z-50 transform bg-black p-4 text-white opacity-0 focus:left-1/2 focus:-translate-x-1/2 focus:opacity-100"
+        className="absolute -left-full z-50 transform p-4 opacity-0 focus:left-1/2 focus:-translate-x-1/2 focus:opacity-100"
       >
         Skip to main content
       </a>
       <HeaderLayout />
-      <div className="flex h-[90%] overflow-hidden bg-slate-200 dark:bg-slate-800 lg:h-[90%]">
-        {navbarOpen && (
-          // <div
-          // 	className={`left-0 top-0 m-4 h-full w-fit min-w-fit overflow-x-hidden overflow-y-hidden rounded-md bg-slate-100 dark:bg-slate-900 md:w-1/6`}
-          // >
-          // 	<Navbar />
-          // </div>
-          <Navbar />
-        )}
+      <div className="flex h-[90%] overflow-hidden lg:h-[90%]">
+        {navbarOpen && <Navbar />}
 
         {/** if screen width is less that 768 px and navbar is open, don't show main content*/}
         {(!navbarOpen || viewportWidth >= 768) && (
@@ -46,7 +39,7 @@ export default function MainLayout() {
             id="main"
             role="main"
             aria-label="Main content"
-            className={`flex-1 overflow-auto overflow-x-hidden bg-slate-200 dark:bg-slate-800 ${defaultScrollbarStyle} px-4`}
+            className={`flex-1 overflow-auto overflow-x-hidden ${defaultScrollbarStyle} px-4`}
           >
             <Routes>
               <Route path="/" element={<Landing />} />
