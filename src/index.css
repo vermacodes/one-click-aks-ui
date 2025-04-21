@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* @config '../tailwind.config.cjs'; */
+@config '../tailwind.config.cjs';
 
 @utility animation-delay-2000 {
   animation-delay: 2s;
