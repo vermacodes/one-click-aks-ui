@@ -68,12 +68,22 @@ export default function DeploymentLifespan({
   }
 
   const renderItem = (lifespan: number) => {
+    const isActive = lifespan === deployment.deploymentLifespan;
+
+    const baseClasses =
+      "w-full cursor-pointer items-center justify-between rounded px-2 py-1 mt-1";
+    const activeClasses =
+      "bg-emerald-600 text-white dark:bg-emerald-400 dark:text-slate-900";
+    const hoverClasses =
+      "hover:bg-sky-600 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-100";
+    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+
     return (
-      <div
-        className={`${lifespan === deployment.deploymentLifespan &&
-          "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-          } w-full cursor-pointer items-center justify-between rounded p-2 hover:bg-sky-500 hover:text-slate-100`}
-      >
+      <div className={containerClasses}>
         {secondsToHoursOrMinutes(lifespan)}
       </div>
     );

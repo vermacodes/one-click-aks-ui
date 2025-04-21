@@ -186,12 +186,13 @@ function Modal({
       >
         <div className="w-100 flex justify-between pb-2 ">
           <h1 className="text-3xl">New Deployment</h1>
-          <button
+          <Button
+            variant="secondary-icon"
             onClick={() => handleModalClose()}
-            className="hover:text-sky-500"
+            aria-label="Close Modal"
           >
             <MdClose className="text-3xl" />
-          </button>
+          </Button>
         </div>
         <div className="flex flex-col gap-y-2 pt-4">
           <div className="flex gap-x-2">

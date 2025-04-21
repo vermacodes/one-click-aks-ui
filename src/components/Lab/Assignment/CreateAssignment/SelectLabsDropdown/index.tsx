@@ -93,18 +93,24 @@ export default function SelectLabsDropdown({
    */
   const renderLab = (lab: Lab) => {
     const isSelected = selectedLabs.includes(lab);
+
+    const baseClasses = "relative rounded cursor-pointer p-2 mt-1";
+    const activeClasses =
+      "bg-green-700 text-white hover:bg-green-700 dark:bg-green-400 dark:hover:bg-green-400 dark:text-slate-900";
+    const hoverClasses =
+      "hover:bg-sky-700  dark:hover:bg-sky-500 hover:text-slate-100 dark:hover:text-slate-900";
+    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+
+    const containerClasses = isSelected
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+
     return (
       <div
-        className={`relative ${
-          isSelected
-            ? "bg-green-500 bg-opacity-25 hover:bg-green-500 hover:bg-opacity-40 "
-            : "hover:bg-sky-500 hover:bg-opacity-25 "
-        } rounded `}
-        aria-label="lab.name"
+        className={containerClasses}
+        aria-label={typeof lab === "string" ? lab : lab.name}
       >
-        <p className="mt-1 cursor-pointer rounded p-2 hover:bg-opacity-40">
-          {typeof lab === "string" ? lab : lab.name}
-        </p>
+        <p>{typeof lab === "string" ? lab : lab.name}</p>
         {isSelected && (
           <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />
         )}

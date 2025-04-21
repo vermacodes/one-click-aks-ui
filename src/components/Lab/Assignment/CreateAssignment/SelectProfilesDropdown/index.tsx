@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Profile } from "../../../../../dataStructures";
-import { useGetAllProfilesRedacted, useGetMyProfile } from "../../../../../hooks/useProfile";
+import {
+  useGetAllProfilesRedacted,
+  useGetMyProfile,
+} from "../../../../../hooks/useProfile";
 import ProfileDisplay from "../../../../Authentication/ProfileDisplay";
 import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../../../UserInterfaceComponents/FilterTextBox";
@@ -12,11 +15,21 @@ type Props = {
   noShowProfiles?: Profile[]; // Profiles that should not be shown in the dropdown.
 };
 
-export default function SelectProfilesDropdown({ selectedProfiles, setSelectedProfiles, noShowProfiles }: Props) {
+export default function SelectProfilesDropdown({
+  selectedProfiles,
+  setSelectedProfiles,
+  noShowProfiles,
+}: Props) {
   //const [uniqueProfiles, setUniqueProfiles] = useState<string[]>([]);
   const [uniqueProfiles, setUniqueProfiles] = useState<Profile[]>([]);
   const [profileSearchTerm, setProfileSearchTerm] = useState<string>("");
-  const { data: profiles, isLoading: profilesLoading, isFetching: profilesFetching } = useGetAllProfilesRedacted();
+  const [isRenderUserHovered, setIsRenderUserHovered] = useState(false); // State to track hover
+
+  const {
+    data: profiles,
+    isLoading: profilesLoading,
+    isFetching: profilesFetching,
+  } = useGetAllProfilesRedacted();
   const { data: myProfile } = useGetMyProfile();
 
   /**
@@ -94,18 +107,34 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
    */
   const renderUser = (profile: Profile) => {
     const isSelected = selectedProfiles.includes(profile);
+
+    const baseClasses = "relative rounded cursor-pointer p-2 mt-1";
+    const activeClasses =
+      "bg-green-700 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-500 dark:text-slate-900";
+    const hoverClasses =
+      "hover:bg-sky-700 dark:hover:bg-sky-500 hover:text-slate-100 dark:hover:text-slate-900";
+    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+
+    const containerClasses = isSelected
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+
     return (
       <div
-        className={`relative ${
-          isSelected
-            ? "bg-green-500 bg-opacity-25 hover:bg-green-500 hover:bg-opacity-40 "
-            : "hover:bg-sky-500 hover:bg-opacity-25 "
-        } rounded `}
+        className={containerClasses}
+        aria-label={profile.displayName}
+        onMouseEnter={() => setIsRenderUserHovered(true)} // Set hover state to true
+        onMouseLeave={() => setIsRenderUserHovered(false)} // Set hover state to false
       >
-        <div className="mt-1 cursor-pointer rounded p-2 hover:bg-opacity-40">
-          <ProfileDisplay profile={profile} />
+        <div className="flex items-center">
+          <ProfileDisplay
+            profile={profile}
+            invertTextColors={isSelected || isRenderUserHovered}
+          />
         </div>
-        {isSelected && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />}
+        {isSelected && (
+          <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />
+        )}
       </div>
     );
   };
@@ -113,14 +142,22 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
   return (
     <div className="flex w-full">
       <DropdownSelect
-        heading={selectedProfiles.length > 0 ? selectedProfiles.length + " users selected." : "Select Users"}
+        heading={
+          selectedProfiles.length > 0
+            ? selectedProfiles.length + " users selected."
+            : "Select Users"
+        }
         disabled={profilesLoading || profilesFetching}
         items={[
           ...selectedProfiles,
           ...uniqueProfiles
             .filter((profile) => !selectedProfiles.includes(profile))
             .filter((profile) => !noShowProfiles?.includes(profile))
-            .filter((profile) => JSON.stringify(profile).toLowerCase().includes(profileSearchTerm.toLowerCase())),
+            .filter((profile) =>
+              JSON.stringify(profile)
+                .toLowerCase()
+                .includes(profileSearchTerm.toLowerCase())
+            ),
         ]}
         renderItem={renderUser}
         onItemClick={onUserClick}
