@@ -41,7 +41,7 @@ export default function Deployments() {
       <div className="flex items-center justify-between">
         <BackButton />
 
-        <div className={`mb-3 flex justify-end gap-x-2 rounded`}>
+        <div className={`mb-3 flex justify-end gap-x-2 rounded-sm`}>
           <Link to="/builder">
             <Button variant="secondary-outline">
               <FaTools /> Lab Builder

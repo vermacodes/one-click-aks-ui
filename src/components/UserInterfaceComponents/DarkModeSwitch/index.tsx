@@ -20,7 +20,7 @@ export default function DarkModeSwitch({
 }: CheckboxProps) {
 	return (
 		<Tooltip message={tooltipMessage} delay={tooltipDelay}>
-			<div className="flex items-center rounded p-1 focus-within:outline focus-within:outline-2">
+			<div className="flex items-center rounded-sm p-1 focus-within:outline focus-within:outline-2">
 				<label
 					htmlFor={id}
 					className={`flex h-5 w-10 items-center rounded-full outline outline-1 outline-slate-500 transition-all duration-100 hover:cursor-pointer ${

@@ -81,7 +81,7 @@ export default function CreateMyAssignmentContainer() {
         </div>
       </div>
       {myProfile?.roles.includes("mentor") && (
-        <div className="w-fit rounded border border-sky-700 bg-sky-700 bg-opacity-10 px-2 py-1 text-xs dark:border-sky-500 dark:bg-sky-500 dark:bg-opacity-10 ">
+        <div className="w-fit rounded-sm border border-sky-700 bg-sky-700 bg-opacity-10 px-2 py-1 text-xs dark:border-sky-500 dark:bg-sky-500 dark:bg-opacity-10 ">
           ✨ To create assignments for other users, please use the{" "}
           <Link
             to={"/assignments"}

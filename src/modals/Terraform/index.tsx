@@ -11,7 +11,7 @@ export default function Terraform() {
   return (
     <>
       <button
-        className="justify-star flex h-full w-full items-center gap-2 rounded py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
+        className="justify-star flex h-full w-full items-center gap-2 rounded-sm py-3 px-4 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800"
         onClick={() => setShowModal(true)}
       >
         <span>
@@ -38,7 +38,7 @@ function Modal({ showModal, setShowModal }: ModalProps) {
         setShowModal(false);
       }}
     >
-      <div className=" my-20 w-3/4 gap-y-2 divide-y divide-slate-300 overflow-y-auto rounded bg-slate-100 p-5 overflow-x-hidden scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600">
+      <div className=" my-20 w-3/4 gap-y-2 divide-y divide-slate-300 overflow-y-auto rounded-sm bg-slate-100 p-5 overflow-x-hidden scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600">
         <div className="w-100 flex justify-between pb-2 ">
           <h1 className="text-3xl">Terraform Settings</h1>
           <button

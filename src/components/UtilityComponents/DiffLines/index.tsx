@@ -17,7 +17,7 @@ export default function DiffLines({ versionA, versionB, heading }: Props) {
   // If there are no differences, don't render the component
   if (differences.length <= 1) {
     return (
-      <div className="flex h-fit max-w-full flex-col justify-between gap-y-6 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
+      <div className="flex h-fit max-w-full flex-col justify-between gap-y-6 rounded-sm bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
         <h2 className="text-2xl">{heading}</h2>
         <div className="w-full">No differences.</div>
       </div>
@@ -25,7 +25,7 @@ export default function DiffLines({ versionA, versionB, heading }: Props) {
   }
 
   return (
-    <div className="flex h-fit max-w-full flex-col justify-between gap-y-6 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
+    <div className="flex h-fit max-w-full flex-col justify-between gap-y-6 rounded-sm bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
       <h2 className="text-2xl">{heading}</h2>
       <div className="w-full">
         {differences.map((part, index) => (

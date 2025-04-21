@@ -42,11 +42,11 @@ export default function ServerEndpoint({
         <div
           className={`${
             edit &&
-            "ring ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500 "
+            "ring-3 ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500 "
           }
           ${`${
             editable ? "cursor-pointer " : "cursor-default "
-          }`} flex h-fit w-full items-center justify-between rounded border border-slate-500 px-2 py-1`}
+          }`} flex h-fit w-full items-center justify-between rounded-sm border border-slate-500 px-2 py-1`}
           onDoubleClick={() => {
             editable && setEdit(true);
           }}
@@ -64,7 +64,7 @@ export default function ServerEndpoint({
           >
             <input
               id="endpoint"
-              className={`w-full items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1 outline-none`}
+              className={`w-full items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1 outline-hidden`}
               value={baseUrl}
               onChange={(event) => setBaseUrl(event.target.value)}
             />

@@ -35,7 +35,7 @@ export default function ManagedServerInactiveLife({ managedServer }: Props) {
     const isActive = lifespan === managedServer.inactivityDurationInSeconds;
 
     const baseClasses =
-      "mt-2 w-full cursor-pointer items-center justify-between rounded p-2";
+      "mt-2 w-full cursor-pointer items-center justify-between rounded-sm p-2";
     const activeClasses =
       "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
     const hoverClasses =

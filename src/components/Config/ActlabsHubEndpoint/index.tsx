@@ -48,7 +48,7 @@ export default function ActlabsHubEndpoint({}: Props) {
         <div
           className={`${
             edit &&
-            "ring ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500 "
+            "ring-3 ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500 "
           }
           flex h-fit w-full cursor-pointer items-center justify-between rounded border border-slate-500 px-2 py-1`}
           onDoubleClick={() => {
@@ -66,7 +66,7 @@ export default function ActlabsHubEndpoint({}: Props) {
             onSubmit={(e) => handleSubmit(e)}
           >
             <input
-              className={`h-full w-full bg-inherit outline-none`}
+              className={`h-full w-full bg-inherit outline-hidden`}
               value={baseUrl}
               onChange={(event) => setBaseUrl(event.target.value)}
               aria-label="Actlabs Hub Base URL"

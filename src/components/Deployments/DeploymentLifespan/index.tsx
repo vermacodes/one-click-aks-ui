@@ -71,7 +71,7 @@ export default function DeploymentLifespan({
     const isActive = lifespan === deployment.deploymentLifespan;
 
     const baseClasses =
-      "w-full cursor-pointer items-center justify-between rounded px-2 py-1 mt-1";
+      "w-full cursor-pointer items-center justify-between rounded-sm px-2 py-1 mt-1";
     const activeClasses =
       "bg-emerald-600 text-white dark:bg-emerald-400 dark:text-slate-900";
     const hoverClasses =

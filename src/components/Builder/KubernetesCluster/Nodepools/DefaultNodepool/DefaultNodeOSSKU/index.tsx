@@ -43,7 +43,7 @@ export default function DefaultNodeOSSKU({ index }: Props) {
     const isActive = osSku === currentNodeOSSKU;
 
     const baseClasses =
-      "w-full cursor-pointer items-center justify-between rounded p-2 mt-2";
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
     const activeClasses =
       "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
     const hoverClasses =

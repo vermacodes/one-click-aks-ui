@@ -8,7 +8,7 @@ export default function AzureSubscription() {
     <Container title="Azure Subscription" collapsible={true}>
       <div className="flex w-full flex-col gap-2 gap-x-2 py-2">
         {/* <AzureSubscription /> */}
-        <div className="w-full rounded border border-slate-500 p-2">
+        <div className="w-full rounded-sm border border-slate-500 p-2">
           <pre className="whitespace-pre-wrap break-words text-sm">
             {JSON.stringify(defaultAccount, null, 4)}
           </pre>

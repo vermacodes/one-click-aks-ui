@@ -104,16 +104,25 @@ export default function LabVersionsTable({
           .map((lab, index) => (
             <tr
               key={lab.versionId}
-              className={`${
-                lab.isCurrentVersion &&
-                "bg-green-500 bg-opacity-20 font-bold hover:bg-green-500 hover:bg-opacity-30 "
-              }
-                  ${
-                    selectedLab.versionId === lab.versionId &&
-                    "cursor-auto bg-sky-700 bg-opacity-20 font-bold hover:bg-opacity-30 dark:bg-sky-500 dark:hover:bg-sky-500 "
-                  }
-                      cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800
-                  `}
+              className={` cursor-pointer bg-slate-700 bg-opacity-20 hover:bg-opacity-30 dark:bg-slate-500 
+                ${
+                  lab.isCurrentVersion &&
+                  `
+                   bg-green-700 bg-opacity-20 font-bold 
+                  hover:bg-green-700 hover:bg-opacity-30
+                  dark:bg-green-500 dark:bg-opacity-20 
+                  dark:hover:bg-green-500 dark:hover:bg-opacity-30
+                  `
+                }
+                ${
+                  selectedLab.versionId === lab.versionId &&
+                  `
+                    cursor-auto bg-sky-700 bg-opacity-20 font-bold 
+                    hover:bg-opacity-30 
+                  dark:bg-sky-500 dark:hover:bg-sky-500
+                  `
+                }
+              `}
               onClick={() => setSelectedLab(lab)}
             >
               <td className="px-4 py-2">

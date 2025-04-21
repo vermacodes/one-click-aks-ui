@@ -26,7 +26,7 @@ export default function CookiesConsent() {
   return (
     <>
       {showCookiesConsent && (
-        <div className="fixed bottom-0 left-1/2 mb-4 flex -translate-x-1/2 flex-col gap-8 rounded bg-slate-900 p-5  text-slate-100 dark:bg-slate-100 dark:text-slate-900">
+        <div className="fixed bottom-0 left-1/2 mb-4 flex -translate-x-1/2 flex-col gap-8 rounded-sm bg-slate-900 p-5  text-slate-100 dark:bg-slate-100 dark:text-slate-900">
           <div className="flex items-center">
             <p className="flex items-center justify-center text-7xl">🍪</p>
             <p className="text-xl">

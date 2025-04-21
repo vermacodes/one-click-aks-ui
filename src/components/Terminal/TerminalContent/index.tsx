@@ -24,7 +24,7 @@ export default function TerminalContent({ autoScroll, updateLogs }: Props) {
 
 	return (
 		<div
-			className={`${defaultScrollbarStyle} h-screen max-h-screen overflow-y-auto rounded border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow-slate-300 hover:border-sky-500`}
+			className={`${defaultScrollbarStyle} h-screen max-h-screen overflow-y-auto rounded-sm border border-slate-900 bg-[#020617] p-4 text-sm text-slate-100 shadow-slate-300 hover:border-sky-500`}
 			ref={logContainerRef}
 			tabIndex={0}
 			aria-label="Terminal Log"

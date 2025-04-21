@@ -112,7 +112,7 @@ export default function SaveLabModal({ lab, showModal, setShowModal }: Props) {
 			}}
 		>
 			<div
-				className={`${defaultScrollbarStyle} my-10 h-[90%] w-2/3 space-y-4 overflow-y-auto overflow-x-hidden rounded bg-slate-100 p-5 dark:divide-slate-700 dark:bg-slate-900 `}
+				className={`${defaultScrollbarStyle} my-10 h-[90%] w-2/3 space-y-4 overflow-y-auto overflow-x-hidden rounded-sm bg-slate-100 p-5 dark:divide-slate-700 dark:bg-slate-900 `}
 				onClick={(e) => {
 					e.stopPropagation();
 				}}

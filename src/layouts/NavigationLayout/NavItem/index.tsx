@@ -87,7 +87,7 @@ export default function NavItem({
         <Link
           to={to}
           target={`${externalLink ? "_blank" : "_self"}`}
-          className={`flex h-full w-full items-center justify-start gap-2 rounded px-4 py-3 text-left text-base ${activeClass}`}
+          className={`flex h-full w-full items-center justify-start gap-2 rounded-sm px-4 py-3 text-left text-base ${activeClass}`}
           onClick={handleLinkClick}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {

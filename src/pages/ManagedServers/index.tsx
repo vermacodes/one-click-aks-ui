@@ -63,7 +63,7 @@ export default function ManagedServers({}: Props) {
 								return bTime - aTime;
 							})
 							.map((server) => (
-								<tr key={server.userPrincipalId} className="hover:bg-slate-100 hover:dark:bg-slate-800">
+								<tr key={server.userPrincipalId} className="hover:bg-slate-100 dark:hover:bg-slate-800">
 									<td className="w-64 min-w-fit space-x-2 px-4 py-2">
 										{getProfileByUserPrincipal(server.userPrincipalName)}
 									</td>

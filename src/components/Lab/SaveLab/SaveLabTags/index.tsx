@@ -50,7 +50,7 @@ export default function SaveLabTags({ lab, setLab }: Props) {
       title="Tags"
       additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
     >
-      <div className="flex items-center gap-x-2 rounded border border-slate-500 bg-inherit focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 hover:bg-slate-200 dark:hover:bg-slate-700">
+      <div className="flex items-center gap-x-2 rounded-sm border border-slate-500 bg-inherit focus:border-sky-500 focus:outline-hidden focus:ring-2 focus:ring-sky-500 hover:bg-slate-200 dark:hover:bg-slate-700">
         <Tags lab={lab} setLab={setLab} />
         <form className="w-full" onSubmit={handleFormSubmit}>
           <input
@@ -58,13 +58,13 @@ export default function SaveLabTags({ lab, setLab }: Props) {
             type="text"
             value={tag}
             placeholder="Add tag"
-            className="px w-full border-none bg-inherit p-2 py-2 outline-none placeholder:text-slate-800 dark:placeholder:text-slate-200"
+            className="px w-full border-none bg-inherit p-2 py-2 outline-hidden placeholder:text-slate-800 dark:placeholder:text-slate-200"
             onChange={handleInputChange}
           />
         </form>
       </div>
       {isModified && tagError && (
-        <div className="rounded border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
           <p className="error-message">{tagError}</p>
         </div>
       )}
@@ -84,12 +84,12 @@ function Tags({ lab, setLab }: TagsPros) {
   }
 
   return (
-    <div className="flex flex-auto space-x-1 rounded px-2">
+    <div className="flex flex-auto space-x-1 rounded-sm px-2">
       {lab.tags &&
         lab.tags.map((tag) => (
           <div
             key={tag}
-            className="-p-1 flex items-center justify-between gap-x-2 rounded border border-slate-600 bg-slate-600 px-2 text-lg text-slate-100 dark:border-slate-400 dark:bg-slate-400 dark:text-slate-900"
+            className="-p-1 flex items-center justify-between gap-x-2 rounded-sm border border-slate-600 bg-slate-600 px-2 text-lg text-slate-100 dark:border-slate-400 dark:bg-slate-400 dark:text-slate-900"
           >
             {tag}
             <button

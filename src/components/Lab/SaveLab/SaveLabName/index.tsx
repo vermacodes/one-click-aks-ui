@@ -48,7 +48,7 @@ export default function SaveLabName({ lab, setLab }: Props) {
     >
       <div className="flex flex-col ">
         <input
-          className="h-10 rounded border border-slate-500 bg-slate-100 p-2 placeholder:text-slate-800 hover:bg-slate-200 dark:bg-slate-800 dark:placeholder:text-slate-200 dark:hover:bg-slate-700"
+          className="h-10 rounded-sm border border-slate-500 bg-slate-100 p-2 placeholder:text-slate-800 hover:bg-slate-200 dark:bg-slate-800 dark:placeholder:text-slate-200 dark:hover:bg-slate-700"
           id="labName"
           type="text"
           placeholder="Lab name"
@@ -57,7 +57,7 @@ export default function SaveLabName({ lab, setLab }: Props) {
         />
       </div>
       {isModified && labNameError && (
-        <div className="rounded border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
           <p className="error-message">{labNameError}</p>
         </div>
       )}

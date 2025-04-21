@@ -179,7 +179,7 @@ function Modal({
       }}
     >
       <div
-        className="my-20 h-[35%] max-h-80 w-1/3 space-y-2 divide-y divide-slate-300 overflow-y-auto overflow-x-hidden rounded bg-slate-100 p-5 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="my-20 h-[35%] max-h-80 w-1/3 space-y-2 divide-y divide-slate-300 overflow-y-auto overflow-x-hidden rounded-sm bg-slate-100 p-5 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -203,7 +203,7 @@ function Modal({
                 isNewWorkspaceNameModified && errorMessage
                   ? "border-rose-500 focus:ring-rose-500"
                   : "focus:ring-slate-500"
-              } block h-10 w-full rounded border border-slate-500 bg-inherit px-2 text-inherit placeholder:text-slate-800 focus:outline-none focus:ring-1 dark:placeholder:text-slate-200`}
+              } block h-10 w-full rounded border border-slate-500 bg-inherit px-2 text-inherit placeholder:text-slate-800 focus:outline-hidden focus:ring-1 dark:placeholder:text-slate-200`}
               placeholder="Name your new deployment."
               value={newWorkSpaceName}
               onChange={handleWorkspaceNameTextField}
@@ -223,7 +223,7 @@ function Modal({
             </Button>
           </div>
           {isNewWorkspaceNameModified && errorMessage && (
-            <div className="rounded border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+            <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
               <p className="error-message">{errorMessage}</p>
             </div>
           )}

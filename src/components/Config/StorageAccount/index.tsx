@@ -17,7 +17,7 @@ export default function StorageAccount({}: Props) {
           ) : (
             <>
               {storageAccount && storageAccount.name !== "" ? (
-                <p className="h-10 w-full items-center rounded border border-slate-500 p-2">{storageAccount.name}</p>
+                <p className="h-10 w-full items-center rounded-sm border border-slate-500 p-2">{storageAccount.name}</p>
               ) : (
                 <Button variant="primary" onClick={() => configureStorageAccount()} disabled={configureStorageAccountLoading}>
                   {configureStorageAccountLoading ? "Working..." : "Configure"}

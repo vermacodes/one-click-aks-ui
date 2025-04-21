@@ -13,7 +13,7 @@ export default function ConfirmationModal({ title, onClose, onConfirm, children 
 	return (
 		<ModalBackdrop key={"confirmDeleteModal"} onClick={(e) => e.stopPropagation()}>
 			<div
-				className="h-fit max-h-[80vh] w-full max-w-[90vw] divide-y divide-slate-300 overflow-y-auto rounded bg-slate-100 p-5 scrollbar-thin scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600 sm:w-2/3 md:my-20 md:w-3/5"
+				className="h-fit max-h-[80vh] w-full max-w-[90vw] divide-y divide-slate-300 overflow-y-auto rounded-sm bg-slate-100 p-5 scrollbar-thin scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600 sm:w-2/3 md:my-20 md:w-3/5"
 				onClick={(e) => {
 					e.stopPropagation();
 				}}

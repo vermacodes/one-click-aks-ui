@@ -108,7 +108,7 @@ export default function SelectProfilesDropdown({
   const renderUser = (profile: Profile) => {
     const isSelected = selectedProfiles.includes(profile);
 
-    const baseClasses = "relative rounded cursor-pointer p-2 mt-1";
+    const baseClasses = "relative rounded-sm cursor-pointer p-2 mt-1";
     const activeClasses =
       "bg-green-700 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-500 dark:text-slate-900";
     const hoverClasses =

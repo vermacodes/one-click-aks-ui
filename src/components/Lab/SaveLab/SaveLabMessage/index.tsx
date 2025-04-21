@@ -74,13 +74,13 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
       }),
       Code.configure({
         HTMLAttributes: {
-          class: "px-2 bg-slate-300 rounded dark:bg-slate-600",
+          class: "px-2 bg-slate-300 rounded-sm dark:bg-slate-600",
         },
       }),
       CodeBlock.configure({
         HTMLAttributes: {
           class:
-            "p-2 my-2 bg-slate-300 rounded dark:bg-slate-600 w-full break-words whitespace-pre-wrap",
+            "p-2 my-2 bg-slate-300 rounded-sm dark:bg-slate-600 w-full break-words whitespace-pre-wrap",
         },
       }),
     ],
@@ -88,7 +88,7 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
     editorProps: {
       attributes: {
         class:
-          "min-h-[160px] h-fit rounded p-2 border border-slate-500 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700",
+          "min-h-[160px] h-fit rounded-sm p-2 border border-slate-500 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700",
       },
     },
     onUpdate: ({ editor }) => {
@@ -239,7 +239,7 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
         <EditorContent editor={editor} />
       </div>
       {isModified && labMessageError && (
-        <div className="rounded border border-rose-500 bg-rose-500 bg-opacity-50 p-2">
+        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-50 p-2">
           <p className="error-message">{labMessageError}</p>
         </div>
       )}

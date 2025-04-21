@@ -37,7 +37,7 @@ export default function Title() {
           </span>
         </h1>
         {env != "Prod" && viewportWidth >= 768 && (
-          <span className="rounded-sm bg-sky-700 px-1 text-center text-[8px] font-semibold text-slate-100 dark:bg-sky-700 md:w-full lg:text-xs">
+          <span className="rounded-xs bg-sky-700 px-1 text-center text-[8px] font-semibold text-slate-100 dark:bg-sky-700 md:w-full lg:text-xs">
             {env}
           </span>
         )}

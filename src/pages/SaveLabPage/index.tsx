@@ -191,7 +191,7 @@ export default function SaveLabPage() {
 	return (
 		<PageLayout heading={`${lab.id === "" ? "Save New Lab" : "Save Lab - " + lab.name}`}>
 			<div
-				className={`${defaultScrollbarStyle} mb-4 space-y-4 overflow-y-auto overflow-x-hidden rounded bg-slate-100 p-5 dark:divide-slate-700 dark:bg-slate-900 `}
+				className={`${defaultScrollbarStyle} mb-4 space-y-4 overflow-y-auto overflow-x-hidden rounded-sm bg-slate-100 p-5 dark:divide-slate-700 dark:bg-slate-900 `}
 			>
 				{/* <div className="w-100 mb-5 flex justify-between border-b-2 border-b-slate-500 pb-2">
 				<h1 className="text-3xl">Save Lab</h1>

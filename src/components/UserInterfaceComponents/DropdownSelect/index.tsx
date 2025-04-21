@@ -160,7 +160,7 @@ const DropdownMenu = <T,>({
 
   return (
     <div
-      className={`absolute right-0 z-10 mt-1 ${height} w-full origin-top-right items-center gap-y-2 overflow-y-auto overflow-x-hidden rounded border border-slate-500 bg-slate-100 p-2 dark:bg-slate-800 ${defaultScrollbarStyle}`}
+      className={`absolute right-0 z-10 mt-1 ${height} w-full origin-top-right items-center gap-y-2 overflow-y-auto overflow-x-hidden rounded-sm border border-slate-500 bg-slate-100 p-2 dark:bg-slate-800 ${defaultScrollbarStyle}`}
       onMouseLeave={() => setMenuOpen(false)}
       onMouseEnter={() => setDidMouseEnter(true)}
       onKeyDown={handleKeyDown} // Handle keyboard navigation

@@ -21,7 +21,7 @@ export default function FilterTextBox({
         placeholder={placeHolderText}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${customClasses} h-full w-full rounded border bg-slate-50 py-1 pl-10 text-lg text-slate-900 shadow ring-1 ring-slate-500 placeholder:text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-700 hover:border-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-300 dark:focus:ring-sky-500 dark:hover:border-sky-500`}
+        className={`${customClasses} h-full w-full rounded-sm border bg-slate-50 py-1 pl-10 text-lg text-slate-900 shadow-sm ring-1 ring-slate-500 placeholder:text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-sky-700 hover:border-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-300 dark:focus:ring-sky-500 dark:hover:border-sky-500`}
       />
       <FaFilter className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-700 dark:text-gray-300" />
     </div>

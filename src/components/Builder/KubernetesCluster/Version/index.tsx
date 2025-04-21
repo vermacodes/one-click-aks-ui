@@ -52,7 +52,7 @@ export default function Version({ index }: Props) {
     // Determine the classes to apply based on whether the current version matches the key
     const isActive = key === currentVersion;
     const baseClasses =
-      "group mt-2 w-full cursor-pointer items-center justify-between gap-2 rounded p-2";
+      "group mt-2 w-full cursor-pointer items-center justify-between gap-2 rounded-sm p-2";
     const activeClasses =
       "bg-green-700 text-white dark:bg-green-400 dark:text-slate-900";
     const hoverClasses =

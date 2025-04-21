@@ -19,7 +19,7 @@ export default function ManagedServerStatus({}: Props) {
 			}
 			delay={500}
 		>
-			<div className="flex w-36 gap-4 rounded border border-slate-500 px-2 py-1">
+			<div className="flex w-36 gap-4 rounded-sm border border-slate-500 px-2 py-1">
 				<div className="flex items-center gap-2">
 					{managedServer.status === "Running" && <FaCheckCircle className="text-green-500" />}
 					{managedServer.status.includes("Destroyed") && <FaExclamationCircle className="text-amber-500" />}

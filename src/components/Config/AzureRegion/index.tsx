@@ -155,7 +155,7 @@ export default function AzureRegion() {
     const isActive = item === preference?.azureRegion;
 
     const baseClasses =
-      "mt-1 w-full cursor-pointer items-center justify-between rounded p-1";
+      "mt-1 w-full cursor-pointer items-center justify-between rounded-sm p-1";
     const activeClasses =
       "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
     const hoverClasses =

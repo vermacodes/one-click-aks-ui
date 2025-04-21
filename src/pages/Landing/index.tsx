@@ -20,7 +20,7 @@ export default function Landing() {
 
           </div> */}
           <div className="relative">
-            <div className="bg-hidden inline-block animate-gradient-x bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
+            <div className="bg-hidden inline-block animate-gradient-x bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
               <h1 className="pb-20 text-9xl font-bold">
                 Head start your lab repros
               </h1>
@@ -32,7 +32,7 @@ export default function Landing() {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 text-slate-100" ref={optionsRef}>
-          <div className="flex flex-col justify-between gap-10 rounded bg-fuchsia-600 bg-gradient-to-r from-blue-600 to-purple-600 p-4 dark:bg-fuchsia-600">
+          <div className="flex flex-col justify-between gap-10 rounded-sm bg-fuchsia-600 bg-linear-to-r from-blue-600 to-purple-600 p-4 dark:bg-fuchsia-600">
             <div className="flex flex-col gap-6">
               <h2 className="text-xl">Setup Server</h2>
               <h1 className="text-3xl">🚀 Deploy Server on Docker or Azure</h1>
@@ -52,7 +52,7 @@ export default function Landing() {
               </a>
             </div>
           </div>
-          <div className="flex flex-col justify-between gap-10 rounded bg-gradient-to-r from-sky-600 to-emerald-600 p-4 dark:bg-fuchsia-600">
+          <div className="flex flex-col justify-between gap-10 rounded-sm bg-linear-to-r from-sky-600 to-emerald-600 p-4 dark:bg-fuchsia-600">
             <div className="flex flex-col gap-6">
               <h2 className="text-xl">Public Labs</h2>
               <h1 className="text-3xl">
@@ -73,7 +73,7 @@ export default function Landing() {
               </a>
             </div>
           </div>
-          <div className="flex flex-col justify-between gap-10 rounded bg-gradient-to-r from-rose-500 to-pink-600 p-4 dark:bg-fuchsia-600">
+          <div className="flex flex-col justify-between gap-10 rounded-sm bg-linear-to-r from-rose-500 to-pink-600 p-4 dark:bg-fuchsia-600">
             <div className="flex flex-col gap-6">
               <h2 className="text-xl">Build Your Own</h2>
               <h1 className="text-3xl">⚒️ Build your own Awesome Labs</h1>
@@ -95,11 +95,11 @@ export default function Landing() {
         </div>
         {/* <div className="flex flex-col gap-10">
           <h1 className="text-3xl">Already setup? Here is the command to quick start or upgrade server →</h1>
-          <div className="flex flex-col gap-4 rounded bg-gradient-to-r from-blue-600 to-purple-600 p-4 pb-10">
+          <div className="flex flex-col gap-4 rounded-sm bg-linear-to-r from-blue-600 to-purple-600 p-4 pb-10">
             <h2 className="text-2xl text-slate-50">WebApp</h2>
             <DeployWebAppCommand />
           </div>
-          <div className="flex flex-col gap-4 rounded bg-gradient-to-r from-blue-600 to-purple-600 p-4 pb-10">
+          <div className="flex flex-col gap-4 rounded-sm bg-linear-to-r from-blue-600 to-purple-600 p-4 pb-10">
             <h2 className="text-2xl text-slate-50">Docker</h2>
             <StartCommand />
           </div>

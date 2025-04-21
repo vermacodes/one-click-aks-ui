@@ -60,7 +60,7 @@ export default function SelectLabsDropdown({
           placeholder="Search..."
           value={labsSearchTerm}
           onChange={(e) => setLabsSearchTerm(e.target.value)}
-          className="w-full rounded px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
+          className="w-full rounded-sm px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
         /> */}
         {labsSearchTerm && (
           <FaTimes
@@ -94,7 +94,7 @@ export default function SelectLabsDropdown({
   const renderLab = (lab: Lab) => {
     const isSelected = selectedLabs.includes(lab);
 
-    const baseClasses = "relative rounded cursor-pointer p-2 mt-1";
+    const baseClasses = "relative rounded-sm cursor-pointer p-2 mt-1";
     const activeClasses =
       "bg-green-700 text-white hover:bg-green-700 dark:bg-green-400 dark:hover:bg-green-400 dark:text-slate-900";
     const hoverClasses =

@@ -11,7 +11,7 @@ export default function DefaultSubscription({ onClick }: Props) {
   return (
     <ModalBackdrop onClick={onClick}>
       <div
-        className="my-20 h-fit w-1/3 divide-y divide-slate-300 overflow-y-auto rounded bg-slate-100 p-5 overflow-x-hidden scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="my-20 h-fit w-1/3 divide-y divide-slate-300 overflow-y-auto rounded-sm bg-slate-100 p-5 overflow-x-hidden scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
         onClick={(e) => {
           e.stopPropagation();
         }}

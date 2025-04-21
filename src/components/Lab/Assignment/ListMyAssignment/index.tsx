@@ -176,7 +176,7 @@ export default function ListAssignment({}: Props) {
               .map((assignment) => (
                 <tr
                   key={assignment.assignmentId + assignment.userId}
-                  className="hover:bg-slate-100 hover:dark:bg-slate-800"
+                  className="hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
                   <td>
                     <Checkbox

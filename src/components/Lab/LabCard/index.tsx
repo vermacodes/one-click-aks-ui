@@ -26,7 +26,7 @@ export default function LabCard({
       return <></>;
     }
     return (
-      <div className="flex h-fit w-full flex-col justify-between gap-4 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-700 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
+      <div className="flex h-fit w-full flex-col justify-between gap-4 rounded-sm bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-700 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
         <LabHeader lab={lab} showVersions={showVersions} />
         <LabCredits lab={lab} />
         <LabDescription lab={lab} fullPage={fullPage} />
@@ -109,7 +109,7 @@ function LabTags({ tags }: LabTagsProps) {
         tags.map((tag) => (
           <span
             key={tag}
-            className="rounded border px-3 py-1  text-xs selection:border-slate-300 dark:border-slate-700 "
+            className="rounded-sm border px-3 py-1  text-xs selection:border-slate-300 dark:border-slate-700 "
           >
             {tag}
           </span>

@@ -11,7 +11,7 @@ export default function LoginButton({ showName = true }: Props) {
 
 	return graphResponse ? (
 		<div>
-			<a className="justify-star flex h-full w-full items-center gap-2 rounded px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
+			<a className="justify-star flex h-full w-full items-center gap-2 rounded-sm px-4 py-3 text-left text-base hover:bg-slate-200 dark:hover:bg-slate-800">
 				<Tooltip message={graphResponse.displayName} delay={500} direction="bottom" align="end">
 					<span>
 						{profilePhoto === "" ? (

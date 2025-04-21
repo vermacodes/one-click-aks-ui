@@ -23,7 +23,7 @@ export default function TerraformWorkspaces({}: WorkspaceProps) {
             is not yet initialized. This will populate once terraform is
             initialized.
           </p>
-          <p className="w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
+          <p className="w-full rounded-sm border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
             Terraform workspaces are managed by{" "}
             <Link
               to={"/deployments"}
