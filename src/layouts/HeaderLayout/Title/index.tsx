@@ -2,6 +2,8 @@ import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import Button from "../../../components/UserInterfaceComponents/Button";
+import { getUIStateColors } from "../../../defaults";
+import { cn } from "../../../utils/cn";
 
 export default function Title() {
   const { navbarOpen, setNavbarOpen, viewportWidth } = useGlobalStateContext();
@@ -32,12 +34,17 @@ export default function Title() {
             className="mr-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
             alt="ACTLabs logo showing a rocket flying away from the moon."
           ></img>
-          <span className="text-sm font-semibold text-nowrap hover:text-sky-700 lg:text-xl xl:text-2xl dark:hover:text-sky-400">
+          <span className="text-sm font-semibold text-nowrap lg:text-xl xl:text-2xl">
             ACT Labs
           </span>
         </h1>
         {env != "Prod" && viewportWidth >= 768 && (
-          <span className="rounded-xs bg-sky-700 px-1 text-center text-[8px] font-semibold text-slate-50 md:w-full lg:text-xs dark:bg-sky-400 dark:text-slate-950">
+          <span
+            className={cn(
+              "rounded-xs px-1 text-center text-[8px] font-semibold md:w-full lg:text-xs",
+              getUIStateColors("selected"),
+            )}
+          >
             {env}
           </span>
         )}
