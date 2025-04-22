@@ -20,9 +20,17 @@ export default function CookiesConsent() {
   }, []);
 
   function onClickHandler() {
-    localStorage.setItem("cookies_consent", "true");
-    window.clarity("consent");
-    setShowCookiesConsent(false);
+    try {
+      localStorage.setItem("cookies_consent", "true");
+      if (window.clarity) {
+        window.clarity("consent");
+      } else {
+        console.warn("Clarity is not defined on the window object.");
+      }
+      setShowCookiesConsent(false);
+    } catch (error) {
+      console.error("An error occurred while handling cookies consent:", error);
+    }
   }
 
   return (
