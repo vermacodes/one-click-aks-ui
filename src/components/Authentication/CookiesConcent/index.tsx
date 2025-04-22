@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { getUIStateColors } from "../../../defaults";
+import { cn } from "../../../utils/cn";
 import Button from "../../UserInterfaceComponents/Button";
 
 declare global {
@@ -27,7 +29,12 @@ export default function CookiesConsent() {
     <>
       {showCookiesConsent && (
         // setting background color to highlight
-        <div className="fixed bottom-0 left-1/2 mb-4 flex -translate-x-1/2 flex-col gap-8 rounded-sm bg-slate-950 p-5 text-slate-50 dark:bg-slate-50 dark:text-slate-950">
+        <div
+          className={cn(
+            "fixed bottom-0 left-1/2 mb-4 flex -translate-x-1/2 flex-col gap-8 rounded-sm p-5",
+            getUIStateColors({ inverted: true }),
+          )}
+        >
           <div className="flex items-center">
             <p className="flex items-center justify-center text-7xl">🍪</p>
             <p className="text-xl">
