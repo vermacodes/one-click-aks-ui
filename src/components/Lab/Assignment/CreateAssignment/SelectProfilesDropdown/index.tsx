@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Profile } from "../../../../../dataStructures";
+import { getUIStateColors } from "../../../../../defaults";
 import {
   useGetAllProfilesRedacted,
   useGetMyProfile,
@@ -78,7 +79,7 @@ export default function SelectProfilesDropdown({
         />
         {profileSearchTerm && (
           <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer"
             onClick={() => setProfileSearchTerm("")}
           />
         )}
@@ -95,7 +96,7 @@ export default function SelectProfilesDropdown({
     setSelectedProfiles((selectedProfiles) =>
       selectedProfiles.includes(profile)
         ? selectedProfiles.filter((i) => i !== profile)
-        : [...selectedProfiles, profile]
+        : [...selectedProfiles, profile],
     );
   };
 
@@ -106,18 +107,22 @@ export default function SelectProfilesDropdown({
    * @returns JSX.Element - The rendered profile.
    */
   const renderUser = (profile: Profile) => {
-    const isSelected = selectedProfiles.includes(profile);
+    const isActive = selectedProfiles.includes(profile);
 
-    const baseClasses = "relative rounded-sm cursor-pointer p-2 mt-1";
-    const activeClasses =
-      "bg-green-700 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-500 dark:text-slate-900";
-    const hoverClasses =
-      "hover:bg-sky-700 dark:hover:bg-sky-500 hover:text-slate-100 dark:hover:text-slate-900";
-    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+    const baseClasses =
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
 
-    const containerClasses = isSelected
+    const containerClasses = isActive
       ? `${baseClasses} ${activeClasses}`
-      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+      : `${baseClasses} ${hoverClasses}`;
 
     return (
       <div
@@ -129,11 +134,11 @@ export default function SelectProfilesDropdown({
         <div className="flex items-center">
           <ProfileDisplay
             profile={profile}
-            invertTextColors={isSelected || isRenderUserHovered}
+            invertTextColors={isActive || isRenderUserHovered}
           />
         </div>
-        {isSelected && (
-          <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />
+        {isActive && (
+          <FaTimes className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer" />
         )}
       </div>
     );
@@ -156,7 +161,7 @@ export default function SelectProfilesDropdown({
             .filter((profile) =>
               JSON.stringify(profile)
                 .toLowerCase()
-                .includes(profileSearchTerm.toLowerCase())
+                .includes(profileSearchTerm.toLowerCase()),
             ),
         ]}
         renderItem={renderUser}
