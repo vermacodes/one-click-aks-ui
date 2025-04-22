@@ -36,7 +36,7 @@ const variantStyles: VariantStyles = {
     disabled:hover:ring-slate-500 disabled:hover:bg-slate-500 disabled:cursor-not-allowed
     dark:disabled:ring-slate-700 dark:disabled:bg-slate-700
   `,
-  "primary-outline": `
+  "primary-text": `
     ring-1 ring-sky-800 py-1 px-3 text-sky-800
     dark:ring-sky-400 dark:text-sky-400
     hover:ring-sky-700 hover:bg-sky-700 hover:text-slate-100

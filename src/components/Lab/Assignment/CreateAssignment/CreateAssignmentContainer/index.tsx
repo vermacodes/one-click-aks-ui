@@ -3,7 +3,10 @@ import { FaCheck } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { BulkAssignment, Lab, Profile } from "../../../../../dataStructures";
-import { useCreateAssignments, useCreateMyAssignments } from "../../../../../hooks/useAssignment";
+import {
+  useCreateAssignments,
+  useCreateMyAssignments,
+} from "../../../../../hooks/useAssignment";
 import { useGetMyProfile } from "../../../../../hooks/useProfile";
 import Button from "../../../../UserInterfaceComponents/Button";
 import Container from "../../../../UserInterfaceComponents/Container";
@@ -46,7 +49,7 @@ export default function CreateAssignmentContainer() {
           },
           autoClose: 5000,
         },
-      }
+      },
     );
     response.finally(() => {
       // invalidate all lab id queries.
@@ -58,8 +61,14 @@ export default function CreateAssignmentContainer() {
       selectedProfiles.forEach((user) => {
         queryClient.invalidateQueries(["get-assignments-by-user-id", user]);
         queryClient.invalidateQueries(["get-assignments-by-user-id", user]);
-        queryClient.invalidateQueries(["get-readiness-labs-redacted-by-user-id", user]);
-        queryClient.invalidateQueries(["get-readiness-labs-redacted-by-user-id", "my"]);
+        queryClient.invalidateQueries([
+          "get-readiness-labs-redacted-by-user-id",
+          user,
+        ]);
+        queryClient.invalidateQueries([
+          "get-readiness-labs-redacted-by-user-id",
+          "my",
+        ]);
         queryClient.invalidateQueries("get-my-assignments");
       });
 
@@ -70,11 +79,17 @@ export default function CreateAssignmentContainer() {
 
   return (
     <Container title="Create Assignment" collapsible={true}>
-      <div className="mb-4 flex w-full flex-col justify-between gap-4 bg-slate-50 dark:bg-slate-900 md:flex-row">
-        <SelectLabsDropdown selectedLabs={selectedLabs} setSelectedLabs={setSelectedLabs} />
-        <SelectProfilesDropdown selectedProfiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles} />
+      <div className="mb-4 flex w-full flex-col justify-between gap-4 bg-slate-50 md:flex-row dark:bg-slate-900">
+        <SelectLabsDropdown
+          selectedLabs={selectedLabs}
+          setSelectedLabs={setSelectedLabs}
+        />
+        <SelectProfilesDropdown
+          selectedProfiles={selectedProfiles}
+          setSelectedProfiles={setSelectedProfiles}
+        />
         <div className="flex">
-          <Button variant="primary-outline" onClick={onAssignClick}>
+          <Button variant="primary-text" onClick={onAssignClick}>
             <FaCheck /> Assign
           </Button>
         </div>

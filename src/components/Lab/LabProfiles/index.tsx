@@ -76,10 +76,7 @@ export default function LabProfiles({ lab, profileType }: Props) {
         </div>
         {meOwner && lab.type !== "assignment" && lab.type !== "challenge" && (
           <Tooltip message={"Add or Remove " + title} delay={1000}>
-            <Button
-              variant="primary-outline"
-              onClick={() => setShowModal(true)}
-            >
+            <Button variant="primary-text" onClick={() => setShowModal(true)}>
               <MdManageAccounts /> Manage Access
             </Button>
           </Tooltip>
@@ -141,12 +138,12 @@ function Modal({
       }}
     >
       <div
-        className="my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-y-auto overflow-x-hidden rounded-sm bg-slate-100 p-5 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-x-hidden overflow-y-auto rounded-sm bg-slate-100 p-5 dark:divide-slate-700 dark:bg-slate-900"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="w-100 flex justify-between pb-2 ">
+        <div className="flex w-100 justify-between pb-2">
           <h1 className="text-3xl">{"Add " + title}</h1>
           <Button onClick={() => setShowModal(false)} variant="secondary-icon">
             <MdClose className="text-3xl" />

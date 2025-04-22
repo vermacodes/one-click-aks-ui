@@ -77,7 +77,7 @@ export default function CreateMyAssignmentContainer() {
           setSelectedLabs={setSelectedLabs}
         />
         <div className="flex">
-          <Button variant="primary-outline" onClick={onAssignClick}>
+          <Button variant="primary-text" onClick={onAssignClick}>
             <FaCheck /> Assign
           </Button>
         </div>

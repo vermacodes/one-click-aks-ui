@@ -15,7 +15,11 @@ type Props = {
   newLab?: boolean;
 };
 
-export default function ResetLabState({ buttonVariant, children, newLab = false }: Props) {
+export default function ResetLabState({
+  buttonVariant,
+  children,
+  newLab = false,
+}: Props) {
   const [showModal, setShowModal] = useState(false);
 
   const { mutate: setLogs } = useSetLogs();
@@ -55,7 +59,7 @@ export default function ResetLabState({ buttonVariant, children, newLab = false 
       },
       {
         toastId: "reset-lab",
-      }
+      },
     );
 
     response.then(() => {
@@ -65,7 +69,11 @@ export default function ResetLabState({ buttonVariant, children, newLab = false 
 
   return (
     <>
-      <Button variant={buttonVariant ? buttonVariant : "secondary-text"} onClick={() => onClickHandler()}>
+      <Button
+        variant={buttonVariant ? buttonVariant : "primary-text"}
+        onClick={() => onClickHandler()}
+        className="h-8"
+      >
         {children ? (
           children
         ) : (
@@ -81,8 +89,8 @@ export default function ResetLabState({ buttonVariant, children, newLab = false 
           title={newLab ? "Confirm Adding New Lab" : "Confirm Lab Reset"}
         >
           <p className="text-xl">
-            <strong>Are you sure?</strong> This will irreversibly reset all changes you made to lab in memory including
-            the extension script.
+            <strong>Are you sure?</strong> This will irreversibly reset all
+            changes you made to lab in memory including the extension script.
           </p>
         </ConfirmationModal>
       )}
