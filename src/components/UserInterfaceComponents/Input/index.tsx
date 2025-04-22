@@ -7,6 +7,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   tooltipDelay?: number;
   tooltipDirection?: "top" | "bottom" | "left" | "right";
   tooltipAlign?: "start" | "center" | "end";
+  fullWidth?: boolean;
 };
 
 export default function Input({
@@ -14,6 +15,7 @@ export default function Input({
   tooltipDelay,
   tooltipDirection,
   tooltipAlign,
+  fullWidth = false,
   ...rest
 }: Props) {
   // take out className from rest and ignore it
@@ -25,6 +27,7 @@ export default function Input({
       delay={tooltipDelay}
       direction={tooltipDirection}
       align={tooltipAlign}
+      fullWidth={fullWidth}
     >
       <input
         {...otherRest}

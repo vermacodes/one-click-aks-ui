@@ -53,11 +53,10 @@ export default function DefaultNodeOSSKU({ index }: Props) {
     const hoverClasses = getUIStateColors({
       hover: true,
     });
-    const inactiveClasses = "text-slate-700 dark:text-slate-300";
 
     const containerClasses = isActive
       ? `${baseClasses} ${activeClasses}`
-      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+      : `${baseClasses} ${hoverClasses}`;
 
     return <div className={containerClasses}>{osSku}</div>;
   };

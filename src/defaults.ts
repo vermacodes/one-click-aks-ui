@@ -267,8 +267,8 @@ export function getUIStateColors({
         "hover:bg-slate-950/80 dark:hover:bg-slate-50/80 text-slate-50 dark:text-slate-950",
     },
     danger: {
-      base: "bg-rose-700 text-slate-50 dark:bg-rose-400 dark:text-slate-950",
-      baseHover: "hover:bg-rose-800 dark:hover:bg-rose-300",
+      base: "bg-rose-700 text-slate-50 dark:bg-rose-300 dark:text-slate-950",
+      baseHover: "hover:bg-rose-800 dark:hover:bg-rose-200",
       selected:
         "bg-rose-200 dark:bg-rose-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-rose-200/80 dark:hover:bg-rose-800/80",

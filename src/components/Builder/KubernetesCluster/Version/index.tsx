@@ -1,4 +1,5 @@
 import { PatchVersions } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
 import { useKubernetesVersions } from "../../../../hooks/useKubernetesVersions";
 import { useSetLogs } from "../../../../hooks/useLogs";
 import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
@@ -52,20 +53,23 @@ export default function Version({ index }: Props) {
     // Determine the classes to apply based on whether the current version matches the key
     const isActive = key === currentVersion;
     const baseClasses =
-      "group mt-2 w-full cursor-pointer items-center justify-between gap-2 rounded-sm p-2";
-    const activeClasses =
-      "bg-green-700 text-white dark:bg-green-400 dark:text-slate-900";
-    const hoverClasses =
-      "hover:bg-sky-700 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-900";
-    const inactiveClasses = "text-slate-700 dark:text-slate-300";
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
 
     const containerClasses = isActive
       ? `${baseClasses} ${activeClasses}`
-      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+      : `${baseClasses} ${hoverClasses}`;
 
     const upgradesClasses = isActive
-      ? "space-x-2 text-xs bg-green-700 text-white dark:bg-green-400 dark:text-slate-900"
-      : "space-x-2 text-xs text-slate-700 dark:text-slate-300 group-hover:bg-sky-700 group-hover:text-white dark:group-hover:bg-sky-500 dark:group-hover:text-slate-900";
+      ? "space-x-2 text-xs"
+      : "space-x-2 text-xs";
 
     return (
       <div className={containerClasses}>

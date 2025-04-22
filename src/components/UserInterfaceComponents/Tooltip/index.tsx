@@ -1,55 +1,71 @@
 import { useEffect, useState } from "react";
+import { cn } from "../../../utils/cn"; // Adjust the import path as needed
 
 type Props = {
-	message?: string;
-	children: React.ReactNode;
-	delay?: number; // in milliseconds
-	direction?: "top" | "bottom" | "left" | "right";
-	align?: "start" | "center" | "end";
+  message?: string;
+  children: React.ReactNode;
+  delay?: number; // in milliseconds
+  direction?: "top" | "bottom" | "left" | "right";
+  align?: "start" | "center" | "end";
+  fullWidth?: boolean; // New prop to make w-full conditional
 };
 
-export default function Tooltip({ message, children, delay = 100, direction = "bottom", align = "center" }: Props) {
-	const [visible, setVisible] = useState(false);
-	const [mouseOn, setMouseOn] = useState(false);
+export default function Tooltip({
+  message,
+  children,
+  delay = 100,
+  direction = "bottom",
+  align = "center",
+  fullWidth = false, // Default to false
+}: Props) {
+  const [visible, setVisible] = useState(false);
+  const [mouseOn, setMouseOn] = useState(false);
 
-	let timer: NodeJS.Timeout;
+  let timer: NodeJS.Timeout;
 
-	useEffect(() => {
-		if (mouseOn) {
-			timer = setTimeout(() => setVisible(true), delay);
-		}
+  useEffect(() => {
+    if (mouseOn) {
+      timer = setTimeout(() => setVisible(true), delay);
+    }
 
-		return () => {
-			clearTimeout(timer);
-			setVisible(false);
-		};
-	}, [mouseOn]);
+    return () => {
+      clearTimeout(timer);
+      setVisible(false);
+    };
+  }, [mouseOn]);
 
-	return (
-		<div
-			className="relative flex"
-			onMouseEnter={() => setMouseOn(true)}
-			onMouseLeave={() => setMouseOn(false)}
-			onFocus={() => setMouseOn(true)} // Show tooltip when the child is focused
-			onBlur={() => setMouseOn(false)} // Hide tooltip when the child loses focus
-		>
-			{children}
-			{message && visible && (
-				<div
-					className={`absolute
-          z-10 w-48 min-w-fit transform whitespace-pre-wrap rounded bg-slate-800 p-2 text-xs text-slate-100
-          transition-all  dark:bg-slate-100 dark:text-slate-900 
-          ${direction === "top" ? "bottom-full -translate-y-2" : ""}
-          ${direction === "bottom" ? "top-full translate-y-2" : ""}
-          ${direction === "left" ? "right-full -translate-x-2" : ""}
-          ${direction === "right" ? "left-full translate-x-2" : ""}
-          ${align === "center" ? "left-1/2 -translate-x-1/2" : ""}
-          ${align === "end" ? "right-0" : ""}
-        `}
-				>
-					{message}
-				</div>
-			)}
-		</div>
-	);
+  return (
+    <div
+      className={cn(
+        "relative flex",
+        fullWidth && "w-full", // Conditionally apply w-full
+      )}
+      onMouseEnter={() => setMouseOn(true)}
+      onMouseLeave={() => setMouseOn(false)}
+      onFocus={() => setMouseOn(true)} // Show tooltip when the child is focused
+      onBlur={() => setMouseOn(false)} // Hide tooltip when the child loses focus
+    >
+      {children}
+      {message && visible && (
+        <div
+          className={cn(
+            "absolute z-10 min-w-fit transform rounded bg-slate-800 p-2 text-xs whitespace-pre-wrap text-slate-100 transition-all dark:bg-slate-100 dark:text-slate-900",
+            {
+              "bottom-full -translate-y-2": direction === "top",
+              "top-full translate-y-2": direction === "bottom",
+              "right-full -translate-x-2": direction === "left",
+              "left-full translate-x-2": direction === "right",
+              "left-1/2 -translate-x-1/2": align === "center",
+              "right-0": align === "end",
+            },
+            {
+              "w-full": fullWidth, // Apply w-full if fullWidth is true
+            },
+          )}
+        >
+          {message}
+        </div>
+      )}
+    </div>
+  );
 }

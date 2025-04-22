@@ -57,13 +57,13 @@ export default function ActlabsHubEndpoint({}: Props) {
           }}
         >
           <p
-            className={`${edit && "hidden"} items-center bg-inherit px-1`}
+            className={`${edit && "hidden"} items-center px-1`}
             onClick={() => setEdit(true)}
           >
             {baseUrl}
           </p>
           <form
-            className={`${!edit && "hidden"} h-full w-full bg-inherit px-1`}
+            className={`${!edit && "hidden"} h-full w-full px-1`}
             onSubmit={(e) => handleSubmit(e)}
           >
             <Input

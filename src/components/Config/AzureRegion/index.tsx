@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getUIStateColors } from "../../../defaults";
 import { useLab } from "../../../hooks/useLab";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { usePreference, useSetPreference } from "../../../hooks/usePreference";
@@ -156,16 +157,19 @@ export default function AzureRegion() {
     const isActive = item === preference?.azureRegion;
 
     const baseClasses =
-      "mt-1 w-full cursor-pointer items-center justify-between rounded-sm p-1";
-    const activeClasses =
-      "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
-    const hoverClasses =
-      "hover:bg-sky-700 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-900";
-    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
 
     const containerClasses = isActive
       ? `${baseClasses} ${activeClasses}`
-      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+      : `${baseClasses} ${hoverClasses}`;
 
     return <div className={containerClasses}>{item}</div>;
   };

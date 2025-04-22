@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
 import { ServerHosting } from "../../../../dataStructures";
 import Button from "../../../UserInterfaceComponents/Button";
+import Input from "../../../UserInterfaceComponents/Input";
 import Tooltip from "../../../UserInterfaceComponents/Tooltip";
 
 type Props = {
@@ -42,10 +43,9 @@ export default function ServerEndpoint({
         <div
           className={`${
             edit &&
-            "ring-3 ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500 "
-          }
-          ${`${
-            editable ? "cursor-pointer " : "cursor-default "
+            "ring-3 ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500"
+          } ${`${
+            editable ? "cursor-pointer" : "cursor-default"
           }`} flex h-fit w-full items-center justify-between rounded-sm border border-slate-500 px-2 py-1`}
           onDoubleClick={() => {
             editable && setEdit(true);
@@ -54,17 +54,17 @@ export default function ServerEndpoint({
           <p
             className={`${
               edit && "hidden"
-            } items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1`}
+            } items-center overflow-hidden px-1 break-words whitespace-pre-wrap`}
           >
             {baseUrl}
           </p>
           <form
-            className={`${!edit && "hidden"} h-full w-full bg-inherit`}
+            className={`${!edit && "hidden"} h-full w-full`}
             onSubmit={(e) => handleSubmit(e)}
           >
-            <input
+            <Input
               id="endpoint"
-              className={`w-full items-center overflow-hidden whitespace-pre-wrap break-words bg-inherit px-1 outline-hidden`}
+              className={`w-full items-center overflow-hidden px-1 break-words whitespace-pre-wrap outline-hidden`}
               value={baseUrl}
               onChange={(event) => setBaseUrl(event.target.value)}
             />
