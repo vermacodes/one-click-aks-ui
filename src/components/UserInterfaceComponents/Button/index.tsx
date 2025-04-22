@@ -36,16 +36,6 @@ const variantStyles: VariantStyles = {
     disabled:hover:ring-slate-500 disabled:hover:bg-slate-500 disabled:cursor-not-allowed
     dark:disabled:ring-slate-700 dark:disabled:bg-slate-700
   `,
-  "primary-text": `
-    ring-1 ring-sky-800 py-1 px-3 text-sky-800
-    dark:ring-sky-400 dark:text-sky-400
-    hover:ring-sky-700 hover:bg-sky-700 hover:text-slate-100
-    dark:hover:bg-sky-700 dark:hover:ring-sky-700 dark:hover:text-slate-100
-    disabled:ring-slate-500 disabled:text-slate-500 disabled:cursor-not-allowed
-    disabled:hover:ring-slate-500 disabled:hover:bg-inherit disabled:hover:text-slate-500
-    dark:disabled:ring-slate-500 dark:disabled:text-slate-500
-    dark:disabled:hover:ring-slate-500 dark:disabled:hover:bg-inherit dark:disabled:hover:text-slate-500
-  `,
   "secondary-outline": `
     ring-1 ring-slate-700 py-1 px-3 text-slate-700
     dark:ring-slate-300 dark:text-slate-300

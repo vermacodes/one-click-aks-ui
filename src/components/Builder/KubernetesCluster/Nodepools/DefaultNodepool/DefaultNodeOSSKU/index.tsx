@@ -1,3 +1,4 @@
+import { getUIStateColors } from "../../../../../../defaults";
 import { useSetLogs } from "../../../../../../hooks/useLogs";
 import { useGlobalStateContext } from "../../../../../Context/GlobalStateContext";
 import { useWebSocketContext } from "../../../../../Context/WebSocketContext";
@@ -44,10 +45,14 @@ export default function DefaultNodeOSSKU({ index }: Props) {
 
     const baseClasses =
       "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
-    const activeClasses =
-      "bg-emerald-700 text-white dark:bg-emerald-400 dark:text-slate-900";
-    const hoverClasses =
-      "hover:bg-sky-700 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-900";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
     const inactiveClasses = "text-slate-700 dark:text-slate-300";
 
     const containerClasses = isActive
@@ -64,7 +69,7 @@ export default function DefaultNodeOSSKU({ index }: Props) {
    * @returns JSX.Element - The rendered item
    */
   return (
-    <div className="flex items-center gap-2 whitespace-nowrap">
+    <div className="-p-2 flex w-64 items-center gap-2 whitespace-nowrap">
       <label htmlFor="nodeOSSKU">Node OS SKU</label>
       <DropdownSelect
         heading={currentNodeOSSKU == null ? "Ubuntu" : currentNodeOSSKU}

@@ -3,6 +3,7 @@ import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
 import Footnote from "../../UserInterfaceComponents/Footnote";
+import Input from "../../UserInterfaceComponents/Input";
 
 type Props = {};
 
@@ -65,8 +66,8 @@ export default function ActlabsHubEndpoint({}: Props) {
             className={`${!edit && "hidden"} h-full w-full bg-inherit px-1`}
             onSubmit={(e) => handleSubmit(e)}
           >
-            <input
-              className={`h-full w-full bg-inherit outline-hidden`}
+            <Input
+              className={`h-full w-full border-none outline-hidden`}
               value={baseUrl}
               onChange={(event) => setBaseUrl(event.target.value)}
               aria-label="Actlabs Hub Base URL"

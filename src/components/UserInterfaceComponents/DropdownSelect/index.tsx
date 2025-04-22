@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { defaultScrollbarStyle } from "../../../defaults";
+import { defaultScrollbarStyle, getUIStateColors } from "../../../defaults";
 import Tooltip from "../Tooltip";
 
 type ItemProps<T> = {
@@ -47,7 +47,7 @@ export default function DropdownSelect<T>({
       >
         <div
           className={`${
-            disabled && "cursor-not-allowed text-slate-500 "
+            disabled && "cursor-not-allowed text-slate-500"
           } flex w-full cursor-pointer items-center justify-between gap-4 rounded border border-slate-500 px-2 py-1`}
           onClick={(e) => {
             if (disabled) {
@@ -133,13 +133,13 @@ const DropdownMenu = <T,>({
     if (e.key === "ArrowDown") {
       // Move focus to the next item
       setFocusedIndex((prev) =>
-        prev === null || prev === items.length - 1 ? 0 : prev + 1
+        prev === null || prev === items.length - 1 ? 0 : prev + 1,
       );
       e.preventDefault();
     } else if (e.key === "ArrowUp") {
       // Move focus to the previous item
       setFocusedIndex((prev) =>
-        prev === null || prev === 0 ? items.length - 1 : prev - 1
+        prev === null || prev === 0 ? items.length - 1 : prev - 1,
       );
       e.preventDefault();
     } else if (e.key === "Enter" || e.key === " ") {
@@ -160,7 +160,7 @@ const DropdownMenu = <T,>({
 
   return (
     <div
-      className={`absolute right-0 z-10 mt-1 ${height} w-full origin-top-right items-center gap-y-2 overflow-y-auto overflow-x-hidden rounded-sm border border-slate-500 bg-slate-100 p-2 dark:bg-slate-800 ${defaultScrollbarStyle}`}
+      className={`absolute right-0 z-10 mt-1 px-2 ${height} w-full origin-top-right items-center gap-y-2 overflow-x-hidden overflow-y-auto rounded-sm border border-slate-500 ${defaultScrollbarStyle} ${getUIStateColors({})}`}
       onMouseLeave={() => setMenuOpen(false)}
       onMouseEnter={() => setDidMouseEnter(true)}
       onKeyDown={handleKeyDown} // Handle keyboard navigation
@@ -185,9 +185,6 @@ const DropdownMenu = <T,>({
             tabIndex={0} // Include each item in the natural tab order
             role="option" // Indicate that this is an option in the listbox
             aria-selected={focusedIndex === index} // Indicate if the item is focused
-            className={`cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 ${
-              focusedIndex === index ? "bg-slate-300 dark:bg-slate-600" : ""
-            }`}
             onMouseEnter={() => setFocusedIndex(index)} // Update focus on mouse hover
             onFocus={() => setFocusedIndex(index)} // Update focus when tabbing to the item
           >

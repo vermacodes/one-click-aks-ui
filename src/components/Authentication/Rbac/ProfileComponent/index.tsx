@@ -74,7 +74,13 @@ export default function ProfileComponent({ profile }: Props) {
         ))}
         <div className={`${!addRoleFlag && "hidden"} `}>
           <select
-            className="h-full appearance-none rounded-sm border border-slate-500 bg-slate-100 px-3 hover:bg-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-700 focus:outline-hidden dark:bg-slate-900 dark:hover:bg-slate-700 dark:focus:border-sky-500 dark:focus:ring-sky-500"
+            className={cn(
+              "h-full appearance-none rounded-sm px-3",
+              getUIStateColors({
+                hover: true,
+                selected: true,
+              }),
+            )}
             onChange={(event) => setSelectedRole(event.target.value)}
           >
             <option value="user">User</option>
