@@ -12,6 +12,7 @@ import {
   TfvarKubernetesClusterType,
   TfvarServiceMeshType,
 } from "./dataStructures";
+import { cn } from "./utils/cn";
 
 const defaultFirewall: TfvarFirewallType = {
   skuName: "AZFW_VNet",
@@ -196,21 +197,142 @@ export const defaultScrollbarStyle =
 export const defaultScrollbarOnContainerStyle =
   "scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-800 dark:scrollbar-thumb-slate-500";
 
-export function getUIStateColors(
-  state: "hover" | "selected" | "default" | "disabled",
-): string {
-  let styles = "";
-  if (state === "hover") {
-    styles = "hover:bg-slate-200 dark:hover:bg-slate-800";
+/**
+ * Returns the appropriate UI state colors based on the provided state.
+ *
+ * @param options - An object containing the following optional properties:
+ *   - colors: The color scheme to use. Defaults to "default".
+ *   - disabled: Whether the element is disabled. Defaults to `false`.
+ *   - hover: Whether the hover state is active. Defaults to `false`.
+ *   - selected: Whether the selected state is active. Defaults to `false`.
+ *   - inverted: Whether the inverted state is active. Defaults to `false`.
+ * @returns A string containing the Tailwind CSS classes for the specified state.
+ */
+export function getUIStateColors({
+  colors = "default",
+  disabled = false,
+  hover = false,
+  selected = false,
+  inverted = false,
+}: {
+  colors?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "danger"
+    | "warning"
+    | "success";
+  disabled?: boolean;
+  hover?: boolean;
+  selected?: boolean;
+  inverted?: boolean;
+} = {}): string {
+  // Define static class mappings for each color scheme
+  const colorClasses = {
+    default: {
+      base: "bg-slate-50 dark:bg-slate-950 text-slate-950 dark:text-slate-50",
+      baseHover: "hover:bg-slate-200 dark:hover:bg-slate-800",
+      selected:
+        "bg-slate-200 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
+      selectedHover: "hover:bg-slate-200/80 dark:hover:bg-slate-800/80",
+      disabled:
+        "bg-slate-200/50 dark:bg-slate-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+      inverted:
+        "bg-slate-950 dark:bg-slate-50 text-slate-50 dark:text-slate-950",
+      invertedHover:
+        "hover:bg-slate-950/80 dark:hover:bg-slate-50/80 text-slate-50 dark:text-slate-950",
+    },
+    primary: {
+      base: "bg-sky-700 text-slate-50 dark:bg-sky-400 dark:text-slate-950",
+      baseHover: "hover:bg-sky-800 dark:hover:bg-sky-300",
+      selected: "bg-sky-200 dark:bg-sky-800 text-slate-950 dark:text-slate-50",
+      selectedHover: "hover:bg-sky-200/80 dark:hover:bg-sky-800/80",
+      disabled:
+        "bg-sky-200/50 dark:bg-sky-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+      inverted: "bg-sky-950 dark:bg-sky-50 text-sky-50 dark:text-sky-950",
+      invertedHover:
+        "hover:bg-sky-950/80 dark:hover:bg-sky-50/80 text-sky-50 dark:text-sky-950",
+    },
+    secondary: {
+      base: "bg-slate-700 text-slate-50 dark:bg-slate-400 dark:text-slate-950",
+      baseHover: "hover:bg-slate-800 dark:hover:bg-slate-300",
+      selected:
+        "bg-slate-200 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
+      selectedHover: "hover:bg-slate-200/80 dark:hover:bg-slate-800/80",
+      disabled:
+        "bg-slate-200/50 dark:bg-slate-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+      inverted:
+        "bg-slate-950 dark:bg-slate-50 text-slate-50 dark:text-slate-950",
+      invertedHover:
+        "hover:bg-slate-950/80 dark:hover:bg-slate-50/80 text-slate-50 dark:text-slate-950",
+    },
+    danger: {
+      base: "bg-rose-700 text-slate-50 dark:bg-rose-400 dark:text-slate-950",
+      baseHover: "hover:bg-rose-800 dark:hover:bg-rose-300",
+      selected:
+        "bg-rose-200 dark:bg-rose-800 text-slate-950 dark:text-slate-50",
+      selectedHover: "hover:bg-rose-200/80 dark:hover:bg-rose-800/80",
+      disabled:
+        "bg-rose-200/50 dark:bg-rose-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+      inverted: "bg-rose-950 dark:bg-rose-50 text-rose-50 dark:text-rose-950",
+      invertedHover:
+        "hover:bg-rose-950/80 dark:hover:bg-rose-50/80 text-rose-50 dark:text-rose-950",
+    },
+    warning: {
+      base: "bg-amber-700 text-slate-50 dark:bg-amber-400 dark:text-slate-950",
+      baseHover: "hover:bg-amber-800 dark:hover:bg-amber-300",
+      selected:
+        "bg-amber-200 dark:bg-amber-800 text-slate-950 dark:text-slate-50",
+      selectedHover: "hover:bg-amber-200/80 dark:hover:bg-amber-800/80",
+      disabled:
+        "bg-amber-200/50 dark:bg-amber-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+      inverted:
+        "bg-amber-950 dark:bg-amber-50 text-amber-50 dark:text-amber-950",
+      invertedHover:
+        "hover:bg-amber-950/80 dark:hover:bg-amber-50/80 text-amber-50 dark:text-amber-950",
+    },
+    success: {
+      base: "bg-green-700 text-slate-50 dark:bg-green-400 dark:text-slate-950",
+      baseHover: "hover:bg-green-800 dark:hover:bg-green-300",
+      selected:
+        "bg-green-200 dark:bg-green-800 text-slate-950 dark:text-slate-50",
+      selectedHover: "hover:bg-green-200/80 dark:hover:bg-green-800/80",
+      disabled:
+        "bg-green-200/50 dark:bg-green-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+      inverted:
+        "bg-green-950 dark:bg-green-50 text-green-50 dark:text-green-950",
+      invertedHover:
+        "hover:bg-green-950/80 dark:hover:bg-green-50/80 text-green-50 dark:text-green-950",
+    },
+  };
+
+  // Get the classes for the specified color scheme
+  const colorScheme = colorClasses[colors] || colorClasses.default;
+
+  let styles = colorScheme.base;
+
+  // Apply styles based on the state
+  if (selected && !disabled) {
+    styles = cn(styles, colorScheme.selected);
   }
-  if (state === "selected") {
-    styles = "bg-sky-200 dark:bg-sky-800";
+  if (hover && !disabled) {
+    styles = cn(styles, colorScheme.baseHover);
   }
-  if (state === "default") {
-    styles = "bg-slate-50 dark:bg-slate-900";
+
+  if (selected && hover && !disabled) {
+    styles = cn(styles, colorScheme.selectedHover);
   }
-  if (state === "disabled") {
-    styles = "bg-slate-200 dark:bg-slate-800 cursor-not-allowed";
+
+  if (inverted) {
+    styles = cn(styles, colorScheme.inverted);
+  }
+
+  if (inverted && hover && !disabled) {
+    styles = cn(styles, colorScheme.invertedHover);
+  }
+
+  if (disabled) {
+    styles = cn(styles, colorScheme.disabled);
   }
 
   return styles;

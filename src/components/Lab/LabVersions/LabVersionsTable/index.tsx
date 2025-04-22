@@ -110,8 +110,8 @@ export default function LabVersionsTable({
               <tr
                 key={lab.versionId}
                 className={cn(
-                  getUIStateColors("hover"),
-                  lab.isCurrentVersion && getUIStateColors("selected"),
+                  getUIStateColors({ hover: true }),
+                  lab.isCurrentVersion && getUIStateColors({ selected: true }),
                 )}
                 onClick={() => setSelectedLab(lab)}
               >

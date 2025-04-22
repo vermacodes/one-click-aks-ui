@@ -42,7 +42,7 @@ export default function Title() {
           <span
             className={cn(
               "rounded-xs px-1 text-center text-[8px] font-semibold md:w-full lg:text-xs",
-              getUIStateColors("selected"),
+              getUIStateColors({ selected: true }),
             )}
           >
             {env}

@@ -60,8 +60,7 @@ export default function ProfileComponent({ profile }: Props) {
             key={role}
             className={cn(
               "-py-1 flex items-center justify-between gap-4 rounded-sm px-4",
-              getUIStateColors("hover"),
-              getUIStateColors("selected"),
+              getUIStateColors({ hover: true, selected: true }),
             )}
           >
             <div>{role}</div>

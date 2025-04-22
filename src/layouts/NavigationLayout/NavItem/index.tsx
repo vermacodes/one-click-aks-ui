@@ -75,8 +75,8 @@ export default function NavItem({
   }
 
   const activeClass = isActivePath(to, location.pathname)
-    ? getUIStateColors("selected")
-    : getUIStateColors("hover");
+    ? getUIStateColors({ selected: true, hover: true, colors: "primary" })
+    : getUIStateColors({ hover: true });
 
   return (
     <li>
