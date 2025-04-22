@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { FaCompress, FaTrashAlt } from "react-icons/fa";
+import { getUIStateColors } from "../../../defaults";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
+import { cn } from "../../../utils/cn";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 import DeploymentStatus from "../../Deployments/DeploymentStatus";
 import Button from "../../UserInterfaceComponents/Button";
@@ -25,14 +27,19 @@ export default function TerminalFullScreen({
   const { selectedDeployment } = useSelectedDeployment();
 
   return (
-    <div className="max-w-ful -gap-x-2 dark:bg-opacity-80 fixed inset-0 z-20 flex max-h-full justify-center bg-slate-800 dark:bg-slate-100">
+    <div className="max-w-ful -gap-x-2 fixed inset-0 z-20 flex max-h-full justify-center">
       <div
-        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 w-screen gap-y-2 bg-slate-100 p-0 dark:divide-slate-700 dark:bg-slate-900"
+        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 w-screen gap-y-2 p-0 dark:divide-slate-700"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="space-2 bg-opacity-90 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 bg-slate-800 p-2 text-slate-50">
+        <div
+          className={cn(
+            "space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 p-2",
+            getUIStateColors({ colors: "dark" }),
+          )}
+        >
           <div className="pr-2">
             {selectedDeployment && (
               <DeploymentStatus deployment={selectedDeployment} />
