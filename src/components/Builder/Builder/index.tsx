@@ -50,7 +50,7 @@ export default function Builder() {
           Destroy
         </DestroyButton>
         <SaveLabButton />
-        <ResetLabState />
+        <ResetLabState buttonVariant="secondary-text" />
         <ExportLabInBuilder variant="secondary-text">
           Download
         </ExportLabInBuilder>
