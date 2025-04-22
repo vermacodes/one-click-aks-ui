@@ -43,11 +43,11 @@ export default function Deployments() {
 
         <div className={`mb-3 flex justify-end gap-x-2 rounded-sm`}>
           <Link to="/builder">
-            <Button variant="secondary-outline">
+            <Button variant="secondary-text">
               <FaTools /> Lab Builder
             </Button>
           </Link>
-          <CreateNewDeployment variant="primary">
+          <CreateNewDeployment variant="primary-text">
             <FaPlus /> Add Deployment
           </CreateNewDeployment>
         </div>

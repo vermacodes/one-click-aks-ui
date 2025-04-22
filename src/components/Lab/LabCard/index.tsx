@@ -32,12 +32,6 @@ export default function LabCard({
         <LabCredits lab={lab} />
         <LabDescription lab={lab} fullPage={fullPage} />
         <LabTags tags={lab.tags} />
-        {/* {!fullPage && (
-          <Button variant="primary-outline">
-            <FaUpRightFromSquare />
-            Open
-          </Button>
-        )} */}
         {fullPage && (
           <>
             <LabActionButtons lab={lab} />

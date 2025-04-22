@@ -2,6 +2,7 @@ import { Lab } from "../../../../dataStructures";
 import { useGetMyProfile } from "../../../../hooks/useProfile";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../UserInterfaceComponents/Container";
+import Footnote from "../../../UserInterfaceComponents/Footnote";
 
 type Props = {
   lab: Lab;
@@ -29,14 +30,6 @@ export default function SaveLabRbacEnforcedProtectedLab({
       additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
     >
       <div className="flex flex-col">
-        <span className="mb-2 text-sm italic text-slate-700 dark:text-slate-300">
-          By default, all mentors are able to view and edit Readiness Labs and
-          Mock cases. You can however choose to enable Role-Based Access Control
-          (RBAC) for this lab. Mentors will see the lab but won't be able to
-          read the description or access documents or scripts. To give mentors
-          full access, they need to be assigned the "Mentor" role and granted
-          lab access.
-        </span>
         <Checkbox
           checked={lab.rbacEnforcedProtectedLab}
           disabled={
@@ -64,6 +57,16 @@ export default function SaveLabRbacEnforcedProtectedLab({
           }
         />
       </div>
+      <Footnote>
+        <span>
+          By default, all mentors are able to view and edit Readiness Labs and
+          Mock cases. You can however choose to enable Role-Based Access Control
+          (RBAC) for this lab. Mentors will see the lab but won't be able to
+          read the description or access documents or scripts. To give mentors
+          full access, they need to be assigned the "Mentor" role and granted
+          lab access.
+        </span>
+      </Footnote>
     </Container>
   );
 }

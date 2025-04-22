@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
+import Footnote from "../../UserInterfaceComponents/Footnote";
 
 type Props = {};
 
 export default function ActlabsHubEndpoint({}: Props) {
   const [baseUrl, setBaseUrl] = useState<string>(
-    "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io"
+    "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io",
   );
   const [edit, setEdit] = useState<boolean>(false);
 
@@ -17,10 +18,10 @@ export default function ActlabsHubEndpoint({}: Props) {
     if (
       baseUrlFromLocalStorage != undefined &&
       (baseUrlFromLocalStorage.includes(
-        "https://actlabs-auth.azurewebsites.net"
+        "https://actlabs-auth.azurewebsites.net",
       ) ||
         baseUrlFromLocalStorage.includes(
-          "https://actlabs-hub.eastus.azurecontainer.io"
+          "https://actlabs-hub.eastus.azurecontainer.io",
         ))
     ) {
       localStorage.setItem("actlabsHubBaseUrl", baseUrl);
@@ -48,9 +49,8 @@ export default function ActlabsHubEndpoint({}: Props) {
         <div
           className={`${
             edit &&
-            "ring-3 ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500 "
-          }
-          flex h-fit w-full cursor-pointer items-center justify-between rounded border border-slate-500 px-2 py-1`}
+            "ring-3 ring-sky-700 ring-offset-0 ring-offset-slate-50 dark:ring-sky-500"
+          } flex h-fit w-full cursor-pointer items-center justify-between rounded border border-slate-500 px-2 py-1`}
           onDoubleClick={() => {
             setEdit(true);
           }}
@@ -109,12 +109,12 @@ export default function ActlabsHubEndpoint({}: Props) {
             </Button>
           )}
         </div>
-        <div className="flex w-full flex-col gap-2">
-          <p className="text-xs">
+        <Footnote>
+          <p>
             You probably don't want to edit this unless you know what you are
             doing. But, if you know, you know. Go ahead.
           </p>
-        </div>
+        </Footnote>
       </div>
     </Container>
   );

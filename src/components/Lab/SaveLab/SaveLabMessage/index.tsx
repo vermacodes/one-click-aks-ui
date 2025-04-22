@@ -21,6 +21,7 @@ import { decodeIfEncoded } from "../../../../utils/helpers";
 import { labMessageSchema } from "../../../../zodSchemas";
 import Button from "../../../UserInterfaceComponents/Button";
 import Container from "../../../UserInterfaceComponents/Container";
+import Footnote from "../../../UserInterfaceComponents/Footnote";
 
 type Props = {
   lab: Lab;
@@ -130,11 +131,6 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
       additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
     >
       <div className="flex flex-col space-y-2">
-        <span className="mb-2 text-sm italic text-slate-700 dark:text-slate-300">
-          End users of readiness labs and challenges will see this message
-          instead of the description. Use this to provide additional context or
-          instructions. You can use the toolbar below to format the message.
-        </span>
         <div className="flex space-x-1">
           <Button
             variant={
@@ -239,10 +235,17 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
         <EditorContent editor={editor} />
       </div>
       {isModified && labMessageError && (
-        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-50 p-2">
+        <div className="bg-opacity-50 rounded-sm border border-rose-500 bg-rose-500 p-2">
           <p className="error-message">{labMessageError}</p>
         </div>
       )}
+      <Footnote>
+        <span>
+          End users of readiness labs and challenges will see this message
+          instead of the description. Use this to provide additional context or
+          instructions. You can use the toolbar below to format the message.
+        </span>
+      </Footnote>
     </Container>
   );
 }

@@ -6,6 +6,7 @@ import { useGetStorageAccount } from "../../../hooks/useStorageAccount";
 import Container from "../../UserInterfaceComponents/Container";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../UserInterfaceComponents/FilterTextBox";
+import Footnote from "../../UserInterfaceComponents/Footnote";
 
 export default function AzureRegion() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -178,7 +179,7 @@ export default function AzureRegion() {
           (fetchingStorageAccount ||
             storageAccount === undefined ||
             storageAccount.name === "") &&
-          " text-slate-400"
+          "text-slate-400"
         }`}
       >
         <DropdownSelect
@@ -189,16 +190,18 @@ export default function AzureRegion() {
           search={renderSearchInput()}
           renderItem={renderItem}
           items={azureRegions.filter((item) =>
-            item.toLowerCase().includes(searchTerm.toLowerCase())
+            item.toLowerCase().includes(searchTerm.toLowerCase()),
           )}
           onItemClick={handleOnClick}
           height="h-60"
         />
       </div>
-      <p className="text-xs">
-        Azure region where your labs will be created. We've not tested all
-        regions, if you see issues please let us know.
-      </p>
+      <Footnote>
+        <p>
+          Azure region where your labs will be created. We've not tested all
+          regions, if you see issues please let us know.
+        </p>
+      </Footnote>
     </Container>
   );
 }

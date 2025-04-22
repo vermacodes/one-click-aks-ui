@@ -4,6 +4,7 @@ import { cn } from "../../../utils/cn";
 import { useWebSocketContext } from "../../Context/WebSocketContext";
 import DestroyButton from "../../Terraform/ActionButtons/DestroyButton";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
+import Container from "../../UserInterfaceComponents/Container";
 import AutoDestroySwitch from "../AutoDestroySwitch";
 import BreakBlobLease from "../BreakBlobLease";
 import DeploymentLifespan from "../DeploymentLifespan";
@@ -20,14 +21,7 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
   const { actionStatus } = useWebSocketContext();
 
   return (
-    <div
-      className={`${
-        deployment.deploymentWorkspace ===
-        selectedDeployment?.deploymentWorkspace
-          ? "outline outline-green-500 dark:outline-green-500"
-          : ""
-      } mb-3 rounded bg-slate-50 p-3 outline-1 outline-sky-700 hover:outline dark:bg-slate-900 dark:outline-sky-500`}
-    >
+    <Container>
       <div className="flex justify-between gap-2 text-sm">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
           <h2 className={cn("text-xl", defaultUIPrimaryTextColor)}>
@@ -44,10 +38,13 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
           />
           <DeploymentLifespan deployment={deployment} />
           <DestroyTime deployment={deployment} />
-          <SelectDeployment deployment={deployment} variant="primary-outline" />
-          <BreakBlobLease deployment={deployment} />
+          <SelectDeployment deployment={deployment} variant="primary-text" />
+          <BreakBlobLease
+            deployment={deployment}
+            buttonVariant="secondary-text"
+          />
           <DestroyButton
-            variant="danger-outline"
+            variant="danger-text"
             lab={deployment.deploymentLab}
             disabled={
               selectedDeployment === undefined ||
@@ -59,7 +56,7 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
           </DestroyButton>
 
           <DestroyButton
-            variant="danger-outline"
+            variant="danger-text"
             lab={deployment.deploymentLab}
             deleteWorkspace={true}
             deployment={deployment}
@@ -81,6 +78,6 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
           <SelectedWorkspaceResources />
         </div>
       ) : null}
-    </div>
+    </Container>
   );
 }
