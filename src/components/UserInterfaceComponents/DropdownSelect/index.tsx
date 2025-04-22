@@ -165,7 +165,7 @@ const DropdownMenu = <T,>({
       onMouseEnter={() => setDidMouseEnter(true)}
       onKeyDown={handleKeyDown} // Handle keyboard navigation
     >
-      {search && search}
+      <div className="mt-2">{search && search}</div>
       <div
         tabIndex={-1} // Make the menu not focusable
         aria-label="Dropdown Menu" // Provide an accessible label
