@@ -91,44 +91,6 @@ export default function SaveLabPage() {
     }
   }
 
-  // function onConfirmCreateLab() {
-  // 	setShowConfirmationModal(false);
-  // 	const createLabPromise = supportingDocument
-  // 		? createLabWithSupportingDocument([labState, supportingDocument])
-  // 		: createLab(labState);
-
-  // 	const response = toast.promise(createLabPromise, {
-  // 		pending: "Saving lab...",
-  // 		success: "Lab saved.",
-  // 		error: {
-  // 			render(data: any) {
-  // 				return `Lab creation failed: ${data.data.response.data.error}`;
-  // 			},
-  // 			autoClose: false,
-  // 		},
-  // 	});
-
-  // 	response
-  // 		.then((response) => {
-  // 			// if the response is an axios error, then return
-  // 			// as the toast.promise will handle the error
-  // 			if (isAxiosError(response)) {
-  // 				return;
-  // 			}
-
-  // 			// remove extension script of lab in memory from session storage
-  // 			// its of no use to keep that in session storage
-  // 			// as the lab is saved and the extension script is saved in the lab
-  // 			lab && sessionStorage.removeItem(`${lab.id}-extendScript"`);
-
-  // 			// update lab in memory.
-  // 			setLab(response.data);
-  // 		})
-  // 		.finally(() => {
-  // 			returnToBuilder();
-  // 		});
-  // }
-
   async function onConfirmCreateLab() {
     setShowConfirmationModal(false);
 
