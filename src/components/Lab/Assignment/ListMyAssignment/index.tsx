@@ -141,6 +141,9 @@ export default function ListAssignment({}: Props) {
             onConfirm={handleDeleteSelected}
             onClose={() => setConfirmationModalOpen(false)}
             title="Confirm Delete All Assignments"
+            closeLabel="Close delete all assignments modal"
+            confirmLabel="Confirm deletion of all assignments"
+            cancelLabel="Cancel assignment deletion"
           >
             <p className="text-xl text-slate-400">
               Are you sure you want to delete all the selected assignments? This

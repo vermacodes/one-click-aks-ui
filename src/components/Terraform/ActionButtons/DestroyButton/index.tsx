@@ -62,6 +62,9 @@ export default function DestroyButton({
               deleteDeployment: deleteWorkspace || false,
             });
           }}
+          closeLabel="Close Terraform Destroy Modal"
+          confirmLabel="Confirm terraform destroy"
+          cancelLabel="Cancel terraform destroy"
         >
           <p className="text-2xl">
             Are you sure you want to destroy resources{" "}

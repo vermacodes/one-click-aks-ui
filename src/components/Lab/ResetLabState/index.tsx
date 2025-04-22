@@ -87,6 +87,9 @@ export default function ResetLabState({
           onClose={() => setShowModal(false)}
           onConfirm={handleResetLabState}
           title={newLab ? "Confirm Adding New Lab" : "Confirm Lab Reset"}
+          closeLabel={newLab ? "Close Add New Lab Modal" : "Close Lab Reset Modal"}
+          confirmLabel={newLab ? "Confirm Adding New Lab" : "Confirm Lab Reset"}
+          cancelLabel={newLab ? "Cancel Adding New Lab" : "Cancel Lab Reset"}
         >
           <p className="text-xl">
             <strong>Are you sure?</strong> This will irreversibly reset all

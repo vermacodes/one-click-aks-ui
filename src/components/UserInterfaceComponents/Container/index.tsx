@@ -58,7 +58,7 @@ export default function Container({
               <Button
                 variant="secondary-icon"
                 onClick={() => setOpen(!open)}
-                aria-label="Toggle Container"
+                aria-label={`${open ? "Collapse" : "Expand"} ${title ? `"${title}"` : "container"}`}
               >
                 <FaChevronUp />
               </Button>

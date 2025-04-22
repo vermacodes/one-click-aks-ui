@@ -73,6 +73,9 @@ export default function DeleteLabButton({ variant, children, lab }: Props) {
           title="Confirm Delete"
           onClose={() => setShowModal(false)}
           onConfirm={onConfirmDelete}
+          closeLabel="Close delete lab modal"
+          confirmLabel="Confirm lab deletion"
+          cancelLabel="Cancel lab deletion"
         >
           <p className="text-2xl">
             <strong>Are you sure?</strong> This will delete all versions.

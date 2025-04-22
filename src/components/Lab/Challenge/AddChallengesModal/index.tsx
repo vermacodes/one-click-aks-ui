@@ -233,6 +233,9 @@ export default function AddChallengesModal({
       onConfirm={onConfirm}
       onClose={() => setConfirmationModal(false)}
       title="Please confirm Challenges"
+      closeLabel="Close peer challenge request modal"
+      confirmLabel="Confirm peer challenge request submission"
+      cancelLabel="Cancel peer challenge request submission"
     >
       <p>
         <span>{`You are about to challenge `}</span>
