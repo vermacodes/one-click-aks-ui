@@ -1,4 +1,5 @@
 import { FaUserNinja } from "react-icons/fa";
+import { getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn";
 import { useAuth } from "../../Context/AuthContext";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
@@ -15,9 +16,7 @@ export default function LoginButton({ showName = true }: Props) {
       <a
         className={cn(
           "justify-star flex h-full w-full items-center gap-2 rounded-sm px-4 py-3 text-left text-base",
-          {
-            "hover:bg-slate-100 dark:hover:bg-slate-800": showName,
-          },
+          showName && getUIStateColors({ hover: true }), // Evaluate the function first
         )}
       >
         <Tooltip
