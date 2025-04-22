@@ -34,7 +34,7 @@ export default function Alert({ variant = "info", children }: Props) {
   }, [variant]);
 
   return (
-    <div className={`${color} bg-opacity-20 top-0 mt-2 rounded-sm border p-2`}>
+    <div className={`${color} bg-opacity-20 top-0 mb-4 rounded-sm border p-2`}>
       {children}
     </div>
   );
