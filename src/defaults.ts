@@ -217,3 +217,4 @@ export function getUIStateColors(
 }
 
 export const defaultUIPrimaryTextColor = "text-sky-700 dark:text-sky-400";
+export const defaultLinkTextStyle = "text-sky-700 underline dark:text-sky-400";

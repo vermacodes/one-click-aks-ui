@@ -2,6 +2,8 @@ import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { DeploymentType } from "../../../dataStructures";
+import { defaultUIPrimaryTextColor } from "../../../defaults";
+import { cn } from "../../../utils/cn";
 import { useWebSocketContext } from "../../Context/WebSocketContext";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 
@@ -30,7 +32,9 @@ export default function DeploymentStatus({ deployment }: Props) {
     }
     return (
       <div className={`flex items-center gap-2`}>
-        <TbFidgetSpinner className="animate-spin text-xl text-sky-700 dark:text-sky-500" />
+        <TbFidgetSpinner
+          className={cn("animate-spin text-xl", defaultUIPrimaryTextColor)}
+        />
         {deployment.deploymentStatus}
       </div>
     );

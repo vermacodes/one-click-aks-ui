@@ -29,10 +29,10 @@ type Props = {
 export default function SelectedChallengeProfile({ challenge, lab }: Props) {
   const [labId, setLabId] = useState("");
   const [challengerProfile, setChallengerProfile] = useState<Profile>(
-    {} as Profile
+    {} as Profile,
   );
   const [createdByProfile, setCreatedByProfile] = useState<Profile | undefined>(
-    undefined
+    undefined,
   );
   const [meOwner, setMeOwner] = useState<boolean>(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] =
@@ -40,7 +40,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
   const [showConfirmCompleteModal, setShowConfirmCompleteModal] =
     useState<boolean>(false);
   const [challengeToBeDeleted, setChallengeToBeDeleted] = useState<Profile>(
-    {} as Profile
+    {} as Profile,
   );
 
   const { mutateAsync: deleteChallenge } = useDeleteChallenge();
@@ -133,7 +133,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
             return `Failed to delete challenge. ${data.data.response.data.error}`;
           },
         },
-      }
+      },
     );
 
     response.then(() => {
@@ -162,7 +162,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
     if (challenge.status === "created") {
       return (
         <div className="flex items-center gap-2">
-          <span className="text-sky-700 dark:text-sky-500">
+          <span className="text-sky-700 dark:text-sky-400">
             <FaCheckCircle />{" "}
           </span>
           Created
@@ -178,7 +178,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
       return (
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <span className="text-sky-700 dark:text-sky-500">
+            <span className="text-sky-700 dark:text-sky-400">
               <FaCheckCircle />{" "}
             </span>
             Created
@@ -188,7 +188,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-purple-700 dark:text-purple-500">
+            <span className="text-purple-700 dark:text-purple-400">
               <FaCheckCircle />{" "}
             </span>
             Accepted
@@ -205,7 +205,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
       return (
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <span className="text-purple-700 dark:text-purple-500">
+            <span className="text-purple-700 dark:text-purple-400">
               <FaCheckCircle />{" "}
             </span>
             Accepted
@@ -215,7 +215,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-green-700 dark:text-green-500">
+            <span className="text-green-700 dark:text-green-400">
               <FaCheckCircle />{" "}
             </span>
             Completed
@@ -232,13 +232,13 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
       return (
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <span className="text-purple-700 dark:text-purple-500">
+            <span className="text-purple-700 dark:text-purple-400">
               <FaCheckCircle />{" "}
             </span>
             Accepted
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-rose-700 dark:text-rose-500">
+            <span className="text-rose-700 dark:text-rose-400">
               <FaTimesCircle />{" "}
             </span>
             Taking a Break

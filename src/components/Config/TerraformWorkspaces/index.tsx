@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { defaultLinkTextStyle } from "../../../defaults";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
 import Workspaces from "../../Terraform/Workspaces";
 import Container from "../../UserInterfaceComponents/Container";
@@ -23,12 +24,9 @@ export default function TerraformWorkspaces({}: WorkspaceProps) {
             is not yet initialized. This will populate once terraform is
             initialized.
           </p>
-          <p className="w-full rounded-sm border border-yellow-600 bg-yellow-600 bg-opacity-10 px-3 py-1 text-xs md:w-fit">
+          <p className="bg-opacity-10 w-full rounded-sm border border-yellow-600 bg-yellow-600 px-3 py-1 text-xs md:w-fit">
             Terraform workspaces are managed by{" "}
-            <Link
-              to={"/deployments"}
-              className="text-sky-700 underline dark:text-sky-500"
-            >
+            <Link to={"/deployments"} className={defaultLinkTextStyle}>
               deployments
             </Link>
             .

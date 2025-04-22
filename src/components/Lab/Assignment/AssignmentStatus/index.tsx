@@ -9,14 +9,14 @@ export default function AssignmentStatus({ assignment }: Props) {
   if (assignment.status === "Created") {
     return (
       <span className="flex items-center gap-2">
-        <FaCheckCircle className="text-sky-700 dark:text-sky-500" /> Created
+        <FaCheckCircle className="text-sky-700 dark:text-sky-400" /> Created
       </span>
     );
   }
   if (assignment.status === "InProgress") {
     return (
       <span className="flex items-center gap-2">
-        <FaCheckCircle className="text-purple-700 dark:text-purple-500" /> In
+        <FaCheckCircle className="text-purple-700 dark:text-purple-400" /> In
         Progress
       </span>
     );
@@ -24,7 +24,7 @@ export default function AssignmentStatus({ assignment }: Props) {
   if (assignment.status === "Completed") {
     return (
       <span className="flex items-center gap-2">
-        <FaCheckCircle className="text-green-700 dark:text-green-500" />{" "}
+        <FaCheckCircle className="text-green-700 dark:text-green-400" />{" "}
         Completed
       </span>
     );
@@ -32,7 +32,7 @@ export default function AssignmentStatus({ assignment }: Props) {
 
   return (
     <span className="flex items-center gap-2">
-      <FaExclamationCircle className="text-yellow-700 dark:text-yellow-500" />{" "}
+      <FaExclamationCircle className="text-yellow-700 dark:text-yellow-400" />{" "}
       Unknown
     </span>
   );

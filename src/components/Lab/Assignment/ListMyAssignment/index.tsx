@@ -4,11 +4,13 @@ import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Assignment } from "../../../../dataStructures";
+import { defaultLinkTextStyle, getUIStateColors } from "../../../../defaults";
 import {
   useDeleteMyAssignment,
   useGetAllReadinessLabsRedacted,
   useGetMyAssignments,
 } from "../../../../hooks/useAssignment";
+import { cn } from "../../../../utils/cn";
 import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 import Container from "../../../UserInterfaceComponents/Container";
@@ -20,7 +22,7 @@ type Props = {};
 
 export default function ListAssignment({}: Props) {
   const [selectedAssignments, setSelectedAssignments] = useState<Assignment[]>(
-    []
+    [],
   );
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [confirmationModalOpen, setConfirmationModalOpen] =
@@ -34,7 +36,10 @@ export default function ListAssignment({}: Props) {
   useEffect(() => {
     if (myAssignments) {
       const myAssignmentsMap = new Map(
-        myAssignments.map((assignment) => [assignment.assignmentId, assignment])
+        myAssignments.map((assignment) => [
+          assignment.assignmentId,
+          assignment,
+        ]),
       );
       setAssignments(Array.from(myAssignmentsMap.values()));
     }
@@ -43,7 +48,7 @@ export default function ListAssignment({}: Props) {
   function handleDeleteSelected() {
     setConfirmationModalOpen(false);
     let assignmentIds = selectedAssignments.map(
-      (assignment) => assignment.assignmentId
+      (assignment) => assignment.assignmentId,
     );
 
     const response = toast.promise(deleteMyAssignments(assignmentIds), {
@@ -60,7 +65,7 @@ export default function ListAssignment({}: Props) {
       .then(() => {
         // remove selected assignments from assignments state.
         let newAssignments = assignments.filter(
-          (assignment) => !assignmentIds.includes(assignment.assignmentId)
+          (assignment) => !assignmentIds.includes(assignment.assignmentId),
         );
         setAssignments(newAssignments);
 
@@ -144,7 +149,7 @@ export default function ListAssignment({}: Props) {
           </ConfirmationModal>
         )}
       </div>
-      <table className="h-full w-full table-auto border-separate space-x-2 overflow-auto bg-slate-50 py-2 dark:bg-slate-900">
+      <table className="h-full w-full table-auto border-separate space-x-2 overflow-auto">
         <thead>
           <tr key={"tableHead"}>
             <th>
@@ -176,7 +181,7 @@ export default function ListAssignment({}: Props) {
               .map((assignment) => (
                 <tr
                   key={assignment.assignmentId + assignment.userId}
-                  className="hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className={getUIStateColors("hover")}
                 >
                   <td>
                     <Checkbox
@@ -187,8 +192,8 @@ export default function ListAssignment({}: Props) {
                           ? () =>
                               setSelectedAssignments(
                                 selectedAssignments.filter(
-                                  (i) => i !== assignment
-                                )
+                                  (i) => i !== assignment,
+                                ),
                               )
                           : () =>
                               setSelectedAssignments([
@@ -200,7 +205,9 @@ export default function ListAssignment({}: Props) {
                     />
                   </td>
 
-                  <td className="space-x-2 px-4 py-2 text-sky-700 underline dark:text-sky-400">
+                  <td
+                    className={cn("space-x-2 px-4 py-2", defaultLinkTextStyle)}
+                  >
                     <Link to={`/lab/readinesslab/${assignment.labId}`}>
                       {getLabName(assignment.labId)}
                     </Link>

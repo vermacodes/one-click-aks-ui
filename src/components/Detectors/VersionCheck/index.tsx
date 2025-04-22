@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { defaultLinkTextStyle } from "../../../defaults";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import Alert from "../../UserInterfaceComponents/Alert";
 
@@ -31,10 +32,7 @@ export default function VersionCheck() {
   return (
     <Alert variant="warning">
       <strong>⚠️ New Version Released:</strong> Goto{" "}
-      <Link
-        to="/settings"
-        className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-      >
+      <Link to="/settings" className={defaultLinkTextStyle}>
         Settings
       </Link>
       , and follow steps to deploy server again.

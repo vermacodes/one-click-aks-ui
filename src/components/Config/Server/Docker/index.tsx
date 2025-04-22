@@ -1,6 +1,7 @@
 import { FaRedo, FaStopCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ServerHosting } from "../../../../dataStructures";
+import { defaultLinkTextStyle } from "../../../../defaults";
 import CodeBlock from "../../../UserInterfaceComponents/CodeBlock";
 import Container from "../../../UserInterfaceComponents/Container";
 import ResetActionStatus from "../ResetActionStatus";
@@ -44,10 +45,7 @@ export default function Docker({ serverHosting, setServerHosting }: Props) {
         </li>
         <li className="py-1">
           If you run into issues{" "}
-          <Link
-            to={"/feedback"}
-            className="text-sky-700 underline dark:text-sky-500"
-          >
+          <Link to={"/feedback"} className={defaultLinkTextStyle}>
             let us know
           </Link>
           .

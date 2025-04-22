@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { ServerHosting } from "../../../dataStructures";
-import { getDefaultServerHosting } from "../../../defaults";
+import {
+  defaultLinkTextStyle,
+  getDefaultServerHosting,
+} from "../../../defaults";
 import { useManagedServer } from "../../../hooks/useManagedServer";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function ServerNotConnected() {
   const [severHosting, setServerHosting] = useState<ServerHosting>(
-    getDefaultServerHosting()
+    getDefaultServerHosting(),
   );
   const { data: serverStatus, isError } = useServerStatus();
   const { data: managedServer } = useManagedServer();
@@ -33,10 +36,7 @@ export default function ServerNotConnected() {
       <Alert variant="warning">
         <strong>⚠️ Server Not Connected:</strong> Your self-hosted server is not
         available. Check your{" "}
-        <Link
-          to="/settings"
-          className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-        >
+        <Link to="/settings" className={defaultLinkTextStyle}>
           Settings
         </Link>{" "}
         to make sure server is deployed and{" "}
@@ -50,10 +50,7 @@ export default function ServerNotConnected() {
       <Alert variant="warning">
         <strong>⚠️ Server Not Deployed:</strong> ACT Labs{" "}
         <a className="underline">requires user to deploy the server.</a> Goto{" "}
-        <Link
-          to="/settings"
-          className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-        >
+        <Link to="/settings" className={defaultLinkTextStyle}>
           Settings
         </Link>{" "}
         to register and deploy managed server or self-host on docker.
@@ -78,10 +75,7 @@ export default function ServerNotConnected() {
       <Alert variant="warning">
         <strong>⚠️ Managed Server Not Deployed:</strong> You have destroyed
         server manually. Please deploy again from{" "}
-        <Link
-          to="/settings"
-          className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-        >
+        <Link to="/settings" className={defaultLinkTextStyle}>
           Settings
         </Link>{" "}
         page.
@@ -112,10 +106,7 @@ export default function ServerNotConnected() {
       <Alert variant="warning">
         <strong>Managed Server Destroyed:</strong> Managed server was destroyed
         due to inactivity and auto-deploy is disabled. Deploy again from{" "}
-        <Link
-          to="/settings"
-          className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-        >
+        <Link to="/settings" className={defaultLinkTextStyle}>
           Settings
         </Link>
         .
@@ -149,10 +140,7 @@ export default function ServerNotConnected() {
       <Alert variant="danger">
         <strong>⚠️ Managed Server Deployment Failed:</strong> Managed server
         deployment failed. Deploy manually from{" "}
-        <Link
-          to="/settings"
-          className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-        >
+        <Link to="/settings" className={defaultLinkTextStyle}>
           Settings
         </Link>
         .

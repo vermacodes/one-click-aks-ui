@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { defaultLinkTextStyle } from "../../../defaults";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
 import Alert from "../../UserInterfaceComponents/Alert";
@@ -8,7 +9,7 @@ import Alert from "../../UserInterfaceComponents/Alert";
 export default function SelectedTerraformWorkspaceNotFound() {
   const [showError, setShowError] = useState(() => {
     const savedShowError = sessionStorage.getItem(
-      "show-terraform-workspace-fetch-error"
+      "show-terraform-workspace-fetch-error",
     );
     return savedShowError ? JSON.parse(savedShowError) : false;
   });
@@ -36,7 +37,7 @@ export default function SelectedTerraformWorkspaceNotFound() {
   useEffect(() => {
     sessionStorage.setItem(
       "show-terraform-workspace-fetch-error",
-      JSON.stringify(showError)
+      JSON.stringify(showError),
     );
   }, [showError]);
 
@@ -49,10 +50,7 @@ export default function SelectedTerraformWorkspaceNotFound() {
       <Alert variant="danger">
         <strong>🛑 Terraform Error:</strong> Unable to fetch terraform
         workspaces. Try 'Reset Server Cache' from{" "}
-        <Link
-          to={"/settings"}
-          className="text-sky-700 underline dark:text-sky-500"
-        >
+        <Link to={"/settings"} className={defaultLinkTextStyle}>
           settings
         </Link>{" "}
         or redeploy server.

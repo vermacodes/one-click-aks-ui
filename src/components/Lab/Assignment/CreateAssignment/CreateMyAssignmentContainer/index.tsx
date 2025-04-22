@@ -4,11 +4,13 @@ import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BulkAssignment, Lab } from "../../../../../dataStructures";
+import { defaultLinkTextStyle } from "../../../../../defaults";
 import {
   useCreateAssignments,
   useCreateMyAssignments,
 } from "../../../../../hooks/useAssignment";
 import { useGetMyProfile } from "../../../../../hooks/useProfile";
+import { cn } from "../../../../../utils/cn";
 import Button from "../../../../UserInterfaceComponents/Button";
 import Container from "../../../../UserInterfaceComponents/Container";
 import SelectLabsDropdown from "../SelectLabsDropdown";
@@ -48,7 +50,7 @@ export default function CreateMyAssignmentContainer() {
           },
           autoClose: 5000,
         },
-      }
+      },
     );
     response.finally(() => {
       // invalidate all lab id queries.
@@ -69,7 +71,7 @@ export default function CreateMyAssignmentContainer() {
 
   return (
     <Container title="Create Self-Assignments" collapsible={true}>
-      <div className="mb-4 flex w-full flex-col justify-between gap-4 bg-slate-50 dark:bg-slate-900 md:flex-row">
+      <div className="mb-4 flex w-full flex-col justify-between gap-4 bg-slate-50 md:flex-row dark:bg-slate-900">
         <SelectLabsDropdown
           selectedLabs={selectedLabs}
           setSelectedLabs={setSelectedLabs}
@@ -81,12 +83,9 @@ export default function CreateMyAssignmentContainer() {
         </div>
       </div>
       {myProfile?.roles.includes("mentor") && (
-        <div className="w-fit rounded-sm border border-sky-700 bg-sky-700 bg-opacity-10 px-2 py-1 text-xs dark:border-sky-500 dark:bg-sky-500 dark:bg-opacity-10 ">
+        <div className={cn("w-fit text-xs")}>
           ✨ To create assignments for other users, please use the{" "}
-          <Link
-            to={"/assignments"}
-            className="text-sky-700 underline dark:text-sky-500"
-          >
+          <Link to={"/assignments"} className={defaultLinkTextStyle}>
             All Assignments
           </Link>{" "}
           page.

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { ServerHosting } from "../../../dataStructures";
-import { getDefaultServerHosting } from "../../../defaults";
+import {
+  defaultLinkTextStyle,
+  getDefaultServerHosting,
+} from "../../../defaults";
 import { useManagedServer } from "../../../hooks/useManagedServer";
 import Alert from "../../UserInterfaceComponents/Alert";
 
@@ -35,7 +38,7 @@ export default function NewSubscriptionsNotSupported() {
             unregister the server and register it again under the new
             subscription. If you need assistance,{" "}
             <a
-              className="text-sky-800 underline dark:text-sky-400"
+              className={defaultLinkTextStyle}
               href="https://app.msftactlabs.com/feedback"
             >
               click here

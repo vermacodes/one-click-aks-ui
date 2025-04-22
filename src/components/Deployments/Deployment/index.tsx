@@ -1,4 +1,6 @@
 import { DeploymentType } from "../../../dataStructures";
+import { defaultUIPrimaryTextColor } from "../../../defaults";
+import { cn } from "../../../utils/cn";
 import { useWebSocketContext } from "../../Context/WebSocketContext";
 import DestroyButton from "../../Terraform/ActionButtons/DestroyButton";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
@@ -28,9 +30,9 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
     >
       <div className="flex justify-between gap-2 text-sm">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
-          <h1 className="text-xl text-sky-700 dark:text-sky-400">
+          <h2 className={cn("text-xl", defaultUIPrimaryTextColor)}>
             {deployment.deploymentWorkspace}
-          </h1>
+          </h2>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-2">
           <DeploymentStatus deployment={deployment} />

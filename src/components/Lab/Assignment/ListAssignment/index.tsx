@@ -4,13 +4,17 @@ import { useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Assignment } from "../../../../dataStructures";
-import { defaultScrollbarStyle } from "../../../../defaults";
+import {
+  defaultLinkTextStyle,
+  defaultScrollbarStyle,
+} from "../../../../defaults";
 import {
   useDeleteAssignment,
   useGetAllReadinessLabsRedacted,
   useGetAssignments,
 } from "../../../../hooks/useAssignment";
 import { useGetAllProfilesRedacted } from "../../../../hooks/useProfile";
+import { cn } from "../../../../utils/cn";
 import ProfileDisplay from "../../../Authentication/ProfileDisplay";
 import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
@@ -25,7 +29,7 @@ type Props = {};
 
 export default function ListAssignment({}: Props) {
   const [selectedAssignments, setSelectedAssignments] = useState<Assignment[]>(
-    []
+    [],
   );
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [filterText, setFilterText] = useState<string>("");
@@ -51,7 +55,7 @@ export default function ListAssignment({}: Props) {
     if (allAssignments && profiles && labs) {
       const updatedAssignments = allAssignments.map((assignment) => {
         const profile = profiles.find(
-          (profile) => profile.userPrincipal === assignment.userId
+          (profile) => profile.userPrincipal === assignment.userId,
         );
         const lab = labs.find((lab) => lab.id === assignment.labId);
         return {
@@ -65,7 +69,7 @@ export default function ListAssignment({}: Props) {
         updatedAssignments.map((assignment) => [
           assignment.assignmentId,
           assignment,
-        ])
+        ]),
       );
       setAssignments(Array.from(assignmentsMap.values()));
     }
@@ -74,7 +78,7 @@ export default function ListAssignment({}: Props) {
   function handleDeleteSelected() {
     setConfirmationModalOpen(false);
     let assignmentIds = selectedAssignments.map(
-      (assignment) => assignment.assignmentId
+      (assignment) => assignment.assignmentId,
     );
 
     const response = toast.promise(deleteAssignments(assignmentIds), {
@@ -91,7 +95,7 @@ export default function ListAssignment({}: Props) {
       .then(() => {
         // remove selected assignments from assignments state.
         let newAssignments = assignments.filter(
-          (assignment) => !assignmentIds.includes(assignment.assignmentId)
+          (assignment) => !assignmentIds.includes(assignment.assignmentId),
         );
         setAssignments(newAssignments);
 
@@ -124,10 +128,10 @@ export default function ListAssignment({}: Props) {
   }
 
   function getProfileByUserPrincipal(
-    userPrincipal: string
+    userPrincipal: string,
   ): ReactNode | string {
     const profile = profiles?.find(
-      (profile) => profile.userPrincipal === userPrincipal
+      (profile) => profile.userPrincipal === userPrincipal,
     );
     if (!profile) {
       return userPrincipal;
@@ -203,8 +207,8 @@ export default function ListAssignment({}: Props) {
                   value
                     .toString()
                     .toLowerCase()
-                    .includes(filterText.toLowerCase())
-                )
+                    .includes(filterText.toLowerCase()),
+                ),
               )
               .map((assignment) => (
                 <tr
@@ -220,8 +224,8 @@ export default function ListAssignment({}: Props) {
                           ? () =>
                               setSelectedAssignments(
                                 selectedAssignments.filter(
-                                  (i) => i !== assignment
-                                )
+                                  (i) => i !== assignment,
+                                ),
                               )
                           : () =>
                               setSelectedAssignments([
@@ -235,7 +239,9 @@ export default function ListAssignment({}: Props) {
                       }
                     />
                   </td>
-                  <td className="space-x-2 px-4 py-2 text-sky-700 underline dark:text-sky-400">
+                  <td
+                    className={cn("space-x-2 px-4 py-2", defaultLinkTextStyle)}
+                  >
                     <Link to={`/lab/readinesslab/${assignment.labId}`}>
                       {assignment.labName}
                     </Link>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { defaultLinkTextStyle } from "../../../defaults";
 import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function ActlabsHubEndpoint() {
@@ -11,7 +12,7 @@ export default function ActlabsHubEndpoint() {
   ) {
     localStorage.setItem(
       "actlabsHubBaseUrl",
-      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/"
+      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/",
     );
     actlabsHubBaseUrl = localStorage.getItem("actlabsHubBaseUrl");
   }
@@ -27,10 +28,7 @@ export default function ActlabsHubEndpoint() {
   return (
     <Alert variant="warning">
       <strong>⚠️ ActLabs Hub Base URL Incorrect:</strong> Goto{" "}
-      <Link
-        to="/settings"
-        className="cursor-pointer text-sky-800 underline dark:text-sky-400"
-      >
+      <Link to="/settings" className={defaultLinkTextStyle}>
         Settings
       </Link>
       , and change it to
