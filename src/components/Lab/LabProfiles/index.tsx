@@ -138,7 +138,7 @@ function Modal({
       }}
     >
       <div
-        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-x-hidden overflow-y-auto rounded-sm bg-slate-100 p-5 dark:divide-slate-700 dark:bg-slate-900"
+        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-x-hidden overflow-y-auto rounded-sm p-5 dark:divide-slate-700"
         onClick={(e) => {
           e.stopPropagation();
         }}

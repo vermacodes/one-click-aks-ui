@@ -109,7 +109,7 @@ export default function SelectLabsDropdown({
         aria-label={typeof lab === "string" ? lab : lab.name}
       >
         <p>{typeof lab === "string" ? lab : lab.name}</p>
-        {isSelected && (
+        {isActive && (
           <FaTimes className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer" />
         )}
       </div>

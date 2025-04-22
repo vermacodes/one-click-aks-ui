@@ -126,7 +126,7 @@ export default function ButtonContainer({
       {/* This button is used to measure the width of the buttons */}
       <button
         ref={hiddenButtonRef}
-        className="absolute -left-full bg-blue-500 px-4 py-2"
+        className="absolute -left-full px-4 py-2"
         tabIndex={-1}
         aria-hidden="true"
         role="presentation"
