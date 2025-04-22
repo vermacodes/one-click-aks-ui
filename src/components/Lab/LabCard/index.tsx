@@ -5,6 +5,7 @@ import { Lab, Profile } from "../../../dataStructures";
 import { useGetAllProfilesRedacted } from "../../../hooks/useProfile";
 import { decodeIfEncoded } from "../../../utils/helpers";
 import ProfileDisplay from "../../Authentication/ProfileDisplay";
+import Container from "../../UserInterfaceComponents/Container";
 import ChallengeProfiles from "../Challenge/ChallengeProfiles";
 import LabActionButtons from "../LabActionButtons/LabActionButtons";
 import LabProfiles from "../LabProfiles";
@@ -26,7 +27,7 @@ export default function LabCard({
       return <></>;
     }
     return (
-      <div className="flex h-fit w-full flex-col justify-between gap-4 rounded-sm bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-700 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
+      <Container additionalContainerBodyClasses="flex h-fit w-full flex-col justify-between gap-4">
         <LabHeader lab={lab} showVersions={showVersions} />
         <LabCredits lab={lab} />
         <LabDescription lab={lab} fullPage={fullPage} />
@@ -51,7 +52,7 @@ export default function LabCard({
           </>
         )}
         <p className="text-xs text-slate-500 dark:text-slate-400">{lab.id}</p>
-      </div>
+      </Container>
     );
   }
 
@@ -74,7 +75,7 @@ type LabHeaderProps = {
 function LabHeader({ lab, showVersions }: LabHeaderProps) {
   return (
     <div className="flex items-center justify-between">
-      <h3 className="whitespace-pre-line text-3xl">{lab.name}</h3>
+      <h3 className="text-3xl whitespace-pre-line">{lab.name}</h3>
       {showVersions && <LabVersionsButton lab={lab} />}
     </div>
   );
@@ -90,7 +91,7 @@ function LabDescription({ lab, fullPage = false }: LabDescriptionProps) {
     <div
       className={`${
         !fullPage && "max-h-[180px]"
-      } overflow-y-auto overflow-x-hidden px-1 scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-900 dark:scrollbar-thumb-slate-700`}
+      } scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-900 dark:scrollbar-thumb-slate-700 overflow-x-hidden overflow-y-auto px-1`}
       tabIndex={0}
     >
       {ReactHtmlParser(decodeIfEncoded(lab.description))}
@@ -104,12 +105,12 @@ type LabTagsProps = {
 
 function LabTags({ tags }: LabTagsProps) {
   return (
-    <div className="flex flex-wrap gap-x-1 gap-y-1  pb-4 dark:border-slate-700">
+    <div className="flex flex-wrap gap-x-1 gap-y-1 pb-4 dark:border-slate-700">
       {tags &&
         tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-sm border px-3 py-1  text-xs selection:border-slate-300 dark:border-slate-700 "
+            className="rounded-sm border px-3 py-1 text-xs selection:border-slate-300 dark:border-slate-700"
           >
             {tag}
           </span>
@@ -132,11 +133,11 @@ function LabCredits({ lab }: LabCreditsProps) {
     if (profiles) {
       setCreatedBy(
         profiles.find((profile) => profile.userPrincipal === lab.createdBy) ||
-          ({} as Profile)
+          ({} as Profile),
       );
       setUpdatedBy(
         profiles.find((profile) => profile.userPrincipal === lab.updatedBy) ||
-          ({} as Profile)
+          ({} as Profile),
       );
     }
   }, [profiles, lab]);
