@@ -24,7 +24,9 @@ export default function DeploymentStatus({ deployment }: Props) {
           message={`Can not accurately determine the deployment status. If you see no logs flowing, try repeating the last action manually or re-deploy your server.`}
         >
           <div className={`flex items-center gap-2`}>
-            <FaCircleExclamation className="text-amber-500" />
+            <FaCircleExclamation
+              className={"text-amber-700 dark:text-amber-400"}
+            />
             Deployment Status Unknown
           </div>
         </Tooltip>
@@ -44,11 +46,11 @@ export default function DeploymentStatus({ deployment }: Props) {
     <div className={`flex items-center gap-2`}>
       {deployment.deploymentStatus === "Deployment Failed" ||
       deployment.deploymentStatus === "Destroy Failed" ? (
-        <p className="text-rose-500">
+        <p className="text-rose-700 dark:text-rose-400">
           <FaExclamationCircle />
         </p>
       ) : (
-        <p className="text-green-500">
+        <p className="text-green-700 dark:text-green-400">
           <FaCheckCircle />
         </p>
       )}
