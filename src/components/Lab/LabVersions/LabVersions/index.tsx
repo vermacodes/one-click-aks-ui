@@ -42,7 +42,7 @@ export default function LabVersions({ lab }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-4">
       <div className="flex items-center text-lg">
         <Button variant="text" onClick={() => navigate(-1)}>
           <MdArrowBack /> Back
@@ -61,8 +61,8 @@ export default function LabVersions({ lab }: Props) {
       <div
         className={`${
           versionA?.versionId !== versionB.versionId
-            ? "grid-cols-2 "
-            : "grid-cols-1 "
+            ? "grid-cols-2"
+            : "grid-cols-1"
         } grid gap-4`}
       >
         <LabCard lab={versionA} fullPage={true} />
