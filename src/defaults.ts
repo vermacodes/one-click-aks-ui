@@ -221,7 +221,8 @@ export function getUIStateColors({
     | "secondary"
     | "danger"
     | "warning"
-    | "success";
+    | "success"
+    | "dark";
   disabled?: boolean;
   hover?: boolean;
   selected?: boolean;
@@ -303,6 +304,20 @@ export function getUIStateColors({
         "bg-green-950 dark:bg-green-50 text-green-50 dark:text-green-950",
       invertedHover:
         "hover:bg-green-950/80 dark:hover:bg-green-50/80 text-green-50 dark:text-green-950",
+    },
+    dark: {
+      base: "bg-slate-950 dark:bg-slate-950 text-slate-50 dark:text-slate-50",
+      baseHover: "hover:bg-slate-950/80 dark:hover:bg-slate-950/80",
+      selected:
+        "bg-slate-800 dark:bg-slate-800 text-slate-50 dark:text-slate-50",
+      selectedHover:
+        "hover:bg-slate-800/80 dark:hover:bg-slate-800/80 text-slate-50 dark:text-slate-50",
+      disabled:
+        "bg-slate-800/50 dark:bg-slate-800/50 cursor-not-allowed text-slate-50 dark:text-slate-50",
+      inverted:
+        "bg-slate-50 dark:bg-slate-50 text-slate-950 dark:text-slate-950",
+      invertedHover:
+        "hover:bg-slate-50/80 dark:hover:bg-slate-50/80 text-slate-950 dark:text-slate-950",
     },
   };
 
