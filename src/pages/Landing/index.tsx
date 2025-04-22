@@ -20,7 +20,7 @@ export default function Landing() {
 
           </div> */}
           <div className="relative">
-            <div className="bg-hidden inline-block animate-gradient-x bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
+            <div className="bg-hidden animate-gradient-x inline-block bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
               <h1 className="pb-20 text-9xl font-bold">
                 Head start your lab repros
               </h1>
@@ -31,7 +31,10 @@ export default function Landing() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 text-slate-100" ref={optionsRef}>
+        <div
+          className="grid grid-cols-1 gap-4 text-slate-100 xl:grid-cols-3"
+          ref={optionsRef}
+        >
           <div className="flex flex-col justify-between gap-10 rounded-sm bg-fuchsia-600 bg-linear-to-r from-blue-600 to-purple-600 p-4 dark:bg-fuchsia-600">
             <div className="flex flex-col gap-6">
               <h2 className="text-xl">Setup Server</h2>
@@ -46,7 +49,7 @@ export default function Landing() {
               <a
                 href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started"
                 target={"_blank"}
-                className="w-fit whitespace-nowrap rounded-full bg-slate-200 px-8 py-2 text-2xl text-blue-700 hover:bg-slate-300"
+                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300"
               >
                 Get Started
               </a>
@@ -67,7 +70,7 @@ export default function Landing() {
             <div>
               <a
                 href="labs/publiclab"
-                className="w-fit whitespace-nowrap rounded-full bg-slate-200 px-8 py-2 text-2xl text-blue-700 hover:bg-slate-300"
+                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300"
               >
                 Check Out
               </a>
@@ -86,24 +89,13 @@ export default function Landing() {
             <div>
               <a
                 href="builder"
-                className="w-fit whitespace-nowrap rounded-full bg-slate-200 px-8 py-2 text-2xl text-blue-700 hover:bg-slate-300"
+                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300"
               >
                 Get to Work
               </a>
             </div>
           </div>
         </div>
-        {/* <div className="flex flex-col gap-10">
-          <h1 className="text-3xl">Already setup? Here is the command to quick start or upgrade server →</h1>
-          <div className="flex flex-col gap-4 rounded-sm bg-linear-to-r from-blue-600 to-purple-600 p-4 pb-10">
-            <h2 className="text-2xl text-slate-50">WebApp</h2>
-            <DeployWebAppCommand />
-          </div>
-          <div className="flex flex-col gap-4 rounded-sm bg-linear-to-r from-blue-600 to-purple-600 p-4 pb-10">
-            <h2 className="text-2xl text-slate-50">Docker</h2>
-            <StartCommand />
-          </div>
-        </div> */}
       </div>
     </PageLayout>
   );
