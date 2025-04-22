@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Profile, ProfileMutation } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
 import { useAddRole, useRemoveRole } from "../../../../hooks/useProfile";
+import { cn } from "../../../../utils/cn";
 import Button from "../../../UserInterfaceComponents/Button";
+import Container from "../../../UserInterfaceComponents/Container";
 import ProfileDisplay from "../../ProfileDisplay";
 
 type Props = {
@@ -49,25 +52,30 @@ export default function ProfileComponent({ profile }: Props) {
   }
 
   return (
-    <div className="flex flex-col justify-between gap-2 rounded-sm bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-700 dark:bg-slate-900  dark:outline-slate-600 dark:hover:outline-sky-500 md:flex-row md:items-center">
+    <Container>
       <ProfileDisplay profile={profile} />
       <div className="flex flex-wrap justify-end gap-2">
         {profile.roles.map((role) => (
           <div
             key={role}
-            className="flex items-center justify-between gap-4 rounded-sm bg-slate-200 px-4 py-1 dark:bg-slate-800"
+            className={cn(
+              "-py-1 flex items-center justify-between gap-4 rounded-sm px-4",
+              getUIStateColors("hover"),
+              getUIStateColors("selected"),
+            )}
           >
-            <div className="text-lg">{role}</div>
-            <button
+            <div>{role}</div>
+            <Button
+              variant="secondary-icon"
               onClick={() => handleRemoveRole(profile.userPrincipal, role)}
             >
               ❌
-            </button>
+            </Button>
           </div>
         ))}
         <div className={`${!addRoleFlag && "hidden"} `}>
           <select
-            className="h-full appearance-none rounded-sm border border-slate-500 bg-slate-100 px-3 py-1 focus:border-sky-700 focus:outline-hidden focus:ring-2 focus:ring-sky-700 hover:bg-slate-200 dark:bg-slate-900 dark:focus:border-sky-500 dark:focus:ring-sky-500 dark:hover:bg-slate-700"
+            className="h-full appearance-none rounded-sm border border-slate-500 bg-slate-100 px-3 hover:bg-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-700 focus:outline-hidden dark:bg-slate-900 dark:hover:bg-slate-700 dark:focus:border-sky-500 dark:focus:ring-sky-500"
             onChange={(event) => setSelectedRole(event.target.value)}
           >
             <option value="user">User</option>
@@ -77,7 +85,7 @@ export default function ProfileComponent({ profile }: Props) {
           </select>
         </div>
         <Button
-          variant="success-outline"
+          variant="primary-icon"
           hidden={!addRoleFlag}
           onClick={() => {
             handleAddRole(profile.userPrincipal, selectedRole);
@@ -87,12 +95,12 @@ export default function ProfileComponent({ profile }: Props) {
           ✔️
         </Button>
         <Button
-          variant={addRoleFlag ? "danger-outline" : "success-outline"}
+          variant={addRoleFlag ? "danger-icon" : "primary-icon"}
           onClick={() => setAddRoleFlag(!addRoleFlag)}
         >
           {addRoleFlag ? "❌" : "➕"}
         </Button>
       </div>
-    </div>
+    </Container>
   );
 }

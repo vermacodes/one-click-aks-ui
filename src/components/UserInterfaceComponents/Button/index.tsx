@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
 import { ButtonVariant } from "../../../dataStructures";
+import { cn } from "../../../utils/cn";
 import Tooltip from "../Tooltip";
 
 type VariantStyles = {
@@ -127,30 +128,35 @@ const variantStyles: VariantStyles = {
   `,
   "primary-icon": `
     rounded-full py-2 px-2 text-sky-700
-    hover:bg-sky-500 hover:bg-opacity-30
+    hover:bg-sky-500/30
     disabled:text-slate-400 disabled:hover:bg-transparent
     dark:text-sky-400 dark:hover:bg-sky-400 dark:hover:bg-opacity-30 dark:disabled:text-slate-500
   `,
   "secondary-icon": `
     rounded-full py-2 px-2 text-slate-700
-    hover:bg-slate-500 hover:bg-opacity-30
+    hover:bg-slate-500/30
     disabled:text-slate-400 disabled:hover:bg-transparent
     dark:text-slate-400 dark:hover:bg-slate-400 dark:hover:bg-opacity-30 dark:disabled:text-slate-500
   `,
   "danger-icon": `
     rounded-full py-2 px-2 text-rose-700
-    hover:bg-rose-500 hover:bg-opacity-30
+    hover:bg-rose-500/30
     disabled:text-slate-400 disabled:hover:bg-transparent
     dark:text-rose-500 dark:hover:bg-rose-500 dark:hover:bg-opacity-30 dark:disabled:text-slate-500
   `,
 };
 
-function getClassName(variant: ButtonVariant, hidden?: boolean) {
-  let className =
-    "h-full text-bold flex items-center focus-visible:outline-2 gap-2 rounded-sm whitespace-nowrap";
-  if (hidden) className += " hidden";
-  className += " " + variantStyles[variant];
-  return className;
+function getClassName(
+  variant: ButtonVariant,
+  hidden?: boolean,
+  rest?: ButtonHTMLAttributes<HTMLButtonElement>,
+) {
+  return cn(
+    "h-full cursor-pointer text-bold flex items-center focus-visible:outline-2 gap-2 rounded-sm whitespace-nowrap",
+    { hidden: hidden },
+    variantStyles[variant],
+    rest?.className,
+  );
 }
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -172,7 +178,11 @@ export default function Button({
   children,
   ...rest
 }: Props) {
-  const className = getClassName(variant, hidden);
+  // Extract className from rest and ignore it
+  const { className: restClassName, ...otherRest } = rest;
+
+  // Generate the final className
+  const className = getClassName(variant, hidden, rest);
 
   return (
     <Tooltip
@@ -181,7 +191,7 @@ export default function Button({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <button className={className} {...rest} tabIndex={0} type="button">
+      <button className={className} {...otherRest} tabIndex={0} type="button">
         {children}
       </button>
     </Tooltip>
