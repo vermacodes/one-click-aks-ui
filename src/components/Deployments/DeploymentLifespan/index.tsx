@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { DeploymentType } from "../../../dataStructures";
+import { getUIStateColors } from "../../../defaults";
 import { usePatchDeployment } from "../../../hooks/useDeployments";
 import { calculateNewEpochTimeForDeployment } from "../../../utils/helpers";
 import { useWebSocketContext } from "../../Context/WebSocketContext";
@@ -63,7 +64,7 @@ export default function DeploymentLifespan({
       },
       {
         toastId: "deployment-lifespan",
-      }
+      },
     );
   }
 
@@ -71,16 +72,19 @@ export default function DeploymentLifespan({
     const isActive = lifespan === deployment.deploymentLifespan;
 
     const baseClasses =
-      "w-full cursor-pointer items-center justify-between rounded-sm px-2 py-1 mt-1";
-    const activeClasses =
-      "bg-emerald-600 text-white dark:bg-emerald-400 dark:text-slate-900";
-    const hoverClasses =
-      "hover:bg-sky-600 hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-100";
-    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
 
     const containerClasses = isActive
       ? `${baseClasses} ${activeClasses}`
-      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+      : `${baseClasses} ${hoverClasses}`;
 
     return (
       <div className={containerClasses}>

@@ -184,7 +184,6 @@ export default function ListAssignment({}: Props) {
                   className={getUIStateColors({
                     hover: true,
                   })}
-                  // className="bg-sky-200 text-slate-950 hover:bg-sky-200/50 dark:bg-sky-800 dark:text-slate-50 dark:hover:bg-sky-800/50"
                 >
                   <td>
                     <Checkbox

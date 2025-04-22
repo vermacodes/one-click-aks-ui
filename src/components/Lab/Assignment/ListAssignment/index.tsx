@@ -7,6 +7,7 @@ import { Assignment } from "../../../../dataStructures";
 import {
   defaultLinkTextStyle,
   defaultScrollbarStyle,
+  getUIStateColors,
 } from "../../../../defaults";
 import {
   useDeleteAssignment,
@@ -172,7 +173,7 @@ export default function ListAssignment({}: Props) {
           </ConfirmationModal>
         )}
       </div>
-      <table className="h-full w-full table-auto border-separate space-x-2 overflow-auto bg-slate-50 py-2 dark:bg-slate-900">
+      <table className="h-full w-full table-auto border-separate space-x-2 overflow-auto py-2">
         <thead>
           <tr key={"tableHead"}>
             <th>
@@ -213,7 +214,9 @@ export default function ListAssignment({}: Props) {
               .map((assignment) => (
                 <tr
                   key={assignment.assignmentId + assignment.userId}
-                  className="hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className={getUIStateColors({
+                    hover: true,
+                  })}
                 >
                   <td>
                     <Checkbox

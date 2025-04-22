@@ -73,12 +73,12 @@ export default function ButtonContainer({
         ) {
           setButtons(
             Object.fromEntries(
-              Object.entries(sortedButtons).slice(0, maxButtons)
-            )
+              Object.entries(sortedButtons).slice(0, maxButtons),
+            ),
           );
 
           setOverflowButtons(
-            Object.fromEntries(Object.entries(sortedButtons).slice(maxButtons))
+            Object.fromEntries(Object.entries(sortedButtons).slice(maxButtons)),
           );
         }
       }
@@ -112,7 +112,7 @@ export default function ButtonContainer({
             </Button>
             {showDropdown && (
               <div
-                className="space-2 absolute right-0 z-20 mt-2 flex w-fit flex-col gap-2 whitespace-nowrap rounded-sm border border-slate-500 bg-slate-50 px-8 pb-6 pt-2 shadow-lg dark:bg-slate-900"
+                className="space-2 absolute right-0 z-20 mt-2 flex w-fit flex-col gap-2 rounded-sm border border-slate-500 px-8 pt-2 pb-6 whitespace-nowrap shadow-lg"
                 onMouseLeave={() => setShowDropdown(false)}
                 onMouseEnter={handleMouseEnterDropdown}
               >
@@ -126,7 +126,7 @@ export default function ButtonContainer({
       {/* This button is used to measure the width of the buttons */}
       <button
         ref={hiddenButtonRef}
-        className="absolute -left-full  bg-blue-500 px-4 py-2"
+        className="absolute -left-full bg-blue-500 px-4 py-2"
         tabIndex={-1}
         aria-hidden="true"
         role="presentation"

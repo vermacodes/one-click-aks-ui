@@ -129,20 +129,20 @@ export default function AddChallengesModal({
       (profile) =>
         !selectedProfiles.some(
           (selectedProfile) =>
-            selectedProfile.userPrincipal === profile.userPrincipal
-        )
+            selectedProfile.userPrincipal === profile.userPrincipal,
+        ),
     );
 
     // find the challenge for the removed profile
     const challenge = newChallenges.find(
-      (challenge) => challenge.userId === removedProfile?.userPrincipal
+      (challenge) => challenge.userId === removedProfile?.userPrincipal,
     );
 
     // remove the challenge from newChallenges
     if (challenge) {
       setNewChallenges((prevChallenges) => [
         ...prevChallenges.filter(
-          (prevChallenge) => prevChallenge.userId !== challenge.userId
+          (prevChallenge) => prevChallenge.userId !== challenge.userId,
         ),
       ]);
     }
@@ -165,8 +165,8 @@ export default function AddChallengesModal({
     const addedProfile = selectedProfiles.find(
       (profile) =>
         !prevSelectedProfilesRef.current.some(
-          (prevProfile) => prevProfile.userPrincipal === profile.userPrincipal
-        )
+          (prevProfile) => prevProfile.userPrincipal === profile.userPrincipal,
+        ),
     );
 
     // create a new challenge for the added profile
@@ -255,12 +255,12 @@ export default function AddChallengesModal({
       }}
     >
       <div
-        className="my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-y-auto overflow-x-hidden rounded-sm bg-slate-100 p-5 scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-x-hidden overflow-y-auto rounded-sm p-5 dark:divide-slate-700"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="w-100 flex justify-between pb-2 ">
+        <div className="flex w-100 justify-between pb-2">
           <h1 className="text-3xl">{"Add " + title}</h1>
           <Button onClick={() => setShowModal(false)} variant="secondary-icon">
             <MdClose className="text-3xl" />

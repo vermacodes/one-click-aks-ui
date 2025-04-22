@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Lab } from "../../../../../dataStructures";
+import { getUIStateColors } from "../../../../../defaults";
 import { useGetAllReadinessLabsRedacted } from "../../../../../hooks/useAssignment";
 import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../../../UserInterfaceComponents/FilterTextBox";
@@ -55,16 +56,9 @@ export default function SelectLabsDropdown({
           value={labsSearchTerm}
           onChange={(value: string) => setLabsSearchTerm(value)}
         />
-        {/* <input
-          type="text"
-          placeholder="Search..."
-          value={labsSearchTerm}
-          onChange={(e) => setLabsSearchTerm(e.target.value)}
-          className="w-full rounded-sm px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
-        /> */}
         {labsSearchTerm && (
           <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer"
             onClick={() => setLabsSearchTerm("")}
           />
         )}
@@ -81,7 +75,7 @@ export default function SelectLabsDropdown({
     setSelectedLabs((selectedLabs) =>
       selectedLabs.includes(lab)
         ? selectedLabs.filter((i) => i !== lab)
-        : [...selectedLabs, lab]
+        : [...selectedLabs, lab],
     );
   };
 
@@ -92,18 +86,22 @@ export default function SelectLabsDropdown({
    * @returns JSX.Element - The rendered lab in the dropdown.
    */
   const renderLab = (lab: Lab) => {
-    const isSelected = selectedLabs.includes(lab);
+    const isActive = selectedLabs.includes(lab);
 
-    const baseClasses = "relative rounded-sm cursor-pointer p-2 mt-1";
-    const activeClasses =
-      "bg-green-700 text-white hover:bg-green-700 dark:bg-green-400 dark:hover:bg-green-400 dark:text-slate-900";
-    const hoverClasses =
-      "hover:bg-sky-700  dark:hover:bg-sky-500 hover:text-slate-100 dark:hover:text-slate-900";
-    const inactiveClasses = "text-slate-900 dark:text-slate-100";
+    const baseClasses =
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
 
-    const containerClasses = isSelected
+    const containerClasses = isActive
       ? `${baseClasses} ${activeClasses}`
-      : `${baseClasses} ${inactiveClasses} ${hoverClasses}`;
+      : `${baseClasses} ${hoverClasses}`;
 
     return (
       <div
@@ -112,7 +110,7 @@ export default function SelectLabsDropdown({
       >
         <p>{typeof lab === "string" ? lab : lab.name}</p>
         {isSelected && (
-          <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />
+          <FaTimes className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer" />
         )}
       </div>
     );
@@ -132,7 +130,7 @@ export default function SelectLabsDropdown({
           ...uniqueLabs
             .filter((lab) => !selectedLabs.includes(lab))
             .filter((lab) =>
-              lab.name.toLowerCase().includes(labsSearchTerm.toLowerCase())
+              lab.name.toLowerCase().includes(labsSearchTerm.toLowerCase()),
             )
             .sort((a, b) => a.name.localeCompare(b.name)),
         ]}
