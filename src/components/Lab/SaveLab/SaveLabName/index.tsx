@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
 import { Lab } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
+import { cn } from "../../../../utils/cn";
 import { labNameSchema } from "../../../../zodSchemas";
 import Container from "../../../UserInterfaceComponents/Container";
+import Input from "../../../UserInterfaceComponents/Input";
 
 type Props = {
   lab: Lab;
@@ -46,9 +49,11 @@ export default function SaveLabName({ lab, setLab }: Props) {
       title="Name"
       additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
     >
-      <div className="flex flex-col ">
-        <input
-          className="h-10 rounded-sm border border-slate-500 bg-slate-100 p-2 placeholder:text-slate-800 hover:bg-slate-200 dark:bg-slate-800 dark:placeholder:text-slate-200 dark:hover:bg-slate-700"
+      <div className="flex flex-col">
+        <Input
+          className={cn(
+            isModified && labNameError && "border-rose-500 outline-rose-500",
+          )}
           id="labName"
           type="text"
           placeholder="Lab name"
@@ -57,7 +62,12 @@ export default function SaveLabName({ lab, setLab }: Props) {
         />
       </div>
       {isModified && labNameError && (
-        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+        <div
+          className={cn(
+            "mt-2 rounded-sm p-2",
+            getUIStateColors({ colors: "danger", selected: true }),
+          )}
+        >
           <p className="error-message">{labNameError}</p>
         </div>
       )}
