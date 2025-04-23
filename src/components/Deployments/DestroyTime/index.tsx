@@ -13,7 +13,7 @@ export default function DestroyTime({ deployment }: DestroyTimeProps) {
       delay={1000}
     >
       <div
-        className={`flex w-52 min-w-fit items-center justify-between rounded border border-slate-500 px-2 py-1`}
+        className={`flex w-52 min-w-fit items-center justify-between rounded-sm border border-slate-500 px-2 py-1`}
       >
         {getDeploymentDestroyTime(deployment)}
       </div>

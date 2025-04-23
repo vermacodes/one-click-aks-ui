@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaStar } from "react-icons/fa";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { Lab } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
 import { useCreateLab } from "../../../../hooks/useBlobs";
+import { cn } from "../../../../utils/cn";
 import Button from "../../../UserInterfaceComponents/Button";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
+import Container from "../../../UserInterfaceComponents/Container";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
 
 type Props = {
@@ -79,92 +82,94 @@ export default function LabVersionsTable({
       queryClient.invalidateQueries("sharedLabs");
       queryClient.invalidateQueries("publicLabs");
       queryClient.invalidateQueries(
-        `versions-${parentLab.type}-${parentLab.id}-${classification}`
+        `versions-${parentLab.type}-${parentLab.id}-${classification}`,
       );
     });
   }
 
   return (
-    <table className="h-fit w-full max-w-full table-auto border-separate justify-between gap-y-6 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
-      <thead>
-        <tr>
-          <th className="py-2 px-4">Compare</th>
-          <th className="py-2 px-4"></th>
-          <th className="py-2 px-4">Updated On</th>
-          <th className="py-2 px-4">Updated By</th>
-          <th className="py-2 px-4"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {labs
-          ?.sort(
-            (a, b) =>
-              new Date(b.versionId).getTime() - new Date(a.versionId).getTime()
-          )
-          .map((lab, index) => (
-            <tr
-              key={lab.versionId}
-              className={`${
-                lab.isCurrentVersion &&
-                "bg-green-500 bg-opacity-20 font-bold hover:bg-green-500 hover:bg-opacity-30 "
-              }
-                  ${
-                    selectedLab.versionId === lab.versionId &&
-                    "cursor-auto bg-sky-500 bg-opacity-20 font-bold hover:bg-sky-500 hover:bg-opacity-30 "
-                  }
-                      cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800
-                  `}
-              onClick={() => setSelectedLab(lab)}
-            >
-              <td className="py-2 px-4">
-                <Checkbox
-                  label={
-                    versionA.versionId === lab.versionId
-                      ? "A"
-                      : versionB.versionId === lab.versionId
-                      ? "B"
-                      : ""
-                  }
-                  id={lab.versionId}
-                  handleOnChange={() => handleCompareSelection(lab)}
-                  checked={
-                    versionA.versionId === lab.versionId ||
-                    versionB.versionId === lab.versionId
-                  }
-                />
-              </td>
-              <td className="py-2 px-4">{index + 1}</td>
-              <td className="py-2 px-4">{formatDate(lab.versionId)}</td>
-              <td className="py-2 px-4">
-                {lab.updatedBy !== "" ? lab.updatedBy : lab.createdBy}
-              </td>
-              <td>
-                {!lab.isCurrentVersion &&
+    <Container>
+      <table className="h-full w-full max-w-full table-auto border-separate justify-between gap-y-6 rounded">
+        <thead>
+          <tr>
+            <th className="px-4 py-2">Compare</th>
+            <th className="px-4 py-2"></th>
+            <th className="px-4 py-2">Updated On</th>
+            <th className="px-4 py-2">Updated By</th>
+            <th className="px-4 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {labs
+            ?.sort(
+              (a, b) =>
+                new Date(b.versionId).getTime() -
+                new Date(a.versionId).getTime(),
+            )
+            .map((lab, index) => (
+              <tr
+                key={lab.versionId}
+                className={cn(
+                  getUIStateColors({ hover: true }),
+                  lab.isCurrentVersion && getUIStateColors({ selected: true }),
+                )}
+                onClick={() => setSelectedLab(lab)}
+              >
+                <td className="px-4 py-2">
+                  <Checkbox
+                    label={
+                      versionA.versionId === lab.versionId
+                        ? "A"
+                        : versionB.versionId === lab.versionId
+                          ? "B"
+                          : ""
+                    }
+                    id={lab.versionId}
+                    handleOnChange={() => handleCompareSelection(lab)}
+                    checked={
+                      versionA.versionId === lab.versionId ||
+                      versionB.versionId === lab.versionId
+                    }
+                  />
+                </td>
+                <td className="px-4 py-2">{index + 1}</td>
+                <td className="px-4 py-2">{formatDate(lab.versionId)}</td>
+                <td className="px-4 py-2">
+                  {lab.updatedBy !== "" ? lab.updatedBy : lab.createdBy}
+                </td>
+                <td>
+                  {!lab.isCurrentVersion &&
                   labs.length > 1 &&
-                  lab.versionId !== "" && (
+                  lab.versionId !== "" ? (
                     <Button
-                      variant="text"
+                      variant="primary-text"
                       onClick={() => setShowConfirmationModal(true)}
                     >
                       <FaCheck /> Set Current
                     </Button>
+                  ) : (
+                    <p className="flex items-center gap-x-2 pl-2">
+                      <FaStar />
+                      Current Version
+                    </p>
                   )}
-              </td>
-              {showConfirmationModal && (
-                <ConfirmationModal
-                  title="Confirm Update"
-                  onClose={() => setShowConfirmationModal(false)}
-                  onConfirm={() => onConfirmCreateLab(lab)}
-                >
-                  <p className="text-xl">
-                    Are you sure? This will create a new version for all users
-                    to see.
-                  </p>
-                </ConfirmationModal>
-              )}
-            </tr>
-          ))}
-      </tbody>
-    </table>
+                </td>
+                {showConfirmationModal && (
+                  <ConfirmationModal
+                    title="Confirm Update"
+                    onClose={() => setShowConfirmationModal(false)}
+                    onConfirm={() => onConfirmCreateLab(lab)}
+                  >
+                    <p className="text-xl">
+                      Are you sure? This will create a new version for all users
+                      to see.
+                    </p>
+                  </ConfirmationModal>
+                )}
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </Container>
   );
 }

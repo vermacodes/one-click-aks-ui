@@ -12,7 +12,7 @@ export default function ManagedServerDomain({}: Props) {
 
 	return (
 		<Tooltip message="Your server's domain. Its accessible on https" delay={500}>
-			<div className="flex gap-4 rounded border border-slate-500 px-2 py-1">
+			<div className="flex gap-4 rounded-sm border border-slate-500 px-2 py-1">
 				<span>{managedServer.endpoint !== "" ? managedServer.endpoint : "Deploy server to see endpoint here.."}</span>
 			</div>
 		</Tooltip>

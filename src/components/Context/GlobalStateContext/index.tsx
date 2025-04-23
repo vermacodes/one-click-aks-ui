@@ -9,6 +9,10 @@ interface GlobalStateContextContextData {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   navbarOpen: boolean;
   setNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  viewportWidth: number;
+  setViewportWidth: React.Dispatch<React.SetStateAction<number>>;
+  navbarExpandedParent: string;
+  setNavbarExpandedParent: React.Dispatch<React.SetStateAction<string>>;
   lab: Lab;
   setLab: React.Dispatch<React.SetStateAction<Lab>>;
   syncLab: boolean;
@@ -26,6 +30,8 @@ type Props = {
 export function GlobalStateContextProvider({ children }: Props) {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [navbarOpen, setNavbarOpen] = useState<boolean>(true);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [navbarExpandedParent, setNavbarExpandedParent] = useState<string>("");
   const [lab, setLab] = useState<Lab>(getDefaultLab());
   const [syncLab, setSyncLab] = useState<boolean>(true);
   const { mutate: setLabServerState } = useSetLab();
@@ -75,6 +81,28 @@ export function GlobalStateContextProvider({ children }: Props) {
   }, [navbarOpen]);
 
   /**
+   * This useEffect hook is triggered when the window is resized.
+   * It updates the `viewportWidth` state with the new window width.
+   */
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  /**
+   * This useEffect hook is triggered when `navbarExpandedParent` changes.
+   * It updates the `navbarExpandedParent` value in local storage to reflect the new state.
+   */
+  useEffect(() => {
+    localStorage.setItem("navbarExpandedParent", navbarExpandedParent);
+  }, [navbarExpandedParent]);
+
+  /**
    * This useEffect hook is triggered when `labFromServer` changes.
    * If `labFromServer` is defined and `syncLab` is true, it updates the local `lab` state with the server state
    * and sets `syncLab` to false to prevent unnecessary updates in the future.
@@ -104,6 +132,10 @@ export function GlobalStateContextProvider({ children }: Props) {
         setDarkMode,
         navbarOpen,
         setNavbarOpen,
+        viewportWidth,
+        setViewportWidth,
+        navbarExpandedParent,
+        setNavbarExpandedParent,
         lab,
         setLab,
         syncLab,

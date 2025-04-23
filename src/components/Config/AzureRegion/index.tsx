@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
+import { getUIStateColors } from "../../../defaults";
 import { useLab } from "../../../hooks/useLab";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { usePreference, useSetPreference } from "../../../hooks/usePreference";
 import { useGetStorageAccount } from "../../../hooks/useStorageAccount";
 import Container from "../../UserInterfaceComponents/Container";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
+import FilterTextBox from "../../UserInterfaceComponents/FilterTextBox";
+import Footnote from "../../UserInterfaceComponents/Footnote";
 
 export default function AzureRegion() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -67,13 +69,19 @@ export default function AzureRegion() {
     "Brazil Southeast",
   ];
 
-  const { data: preference, isLoading: loadingPreference, isFetching: fetchingPreference } = usePreference();
+  const {
+    data: preference,
+    isLoading: loadingPreference,
+    isFetching: fetchingPreference,
+  } = usePreference();
 
-  const { mutate: setPreference, isLoading: settingPreference } = useSetPreference();
+  const { mutate: setPreference, isLoading: settingPreference } =
+    useSetPreference();
   const { data: lab } = useLab();
   const { mutate: setLogs } = useSetLogs();
 
-  const { data: storageAccount, isFetching: fetchingStorageAccount } = useGetStorageAccount();
+  const { data: storageAccount, isFetching: fetchingStorageAccount } =
+    useGetStorageAccount();
 
   /**
    * Handles the click event.
@@ -106,19 +114,13 @@ export default function AzureRegion() {
   const renderSearchInput = () => {
     return (
       <div className="relative">
-        <input
-          type="text"
-          placeholder="Search..."
+        <FilterTextBox
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full rounded px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
+          onChange={setSearchTerm}
+          aria-label="Azure Region Search"
+          placeHolderText="Search for a region closer to you"
+          customClasses="py-1 ring-1 ring-slate-500 hover:ring-sky-700 dark:hover:ring-sky-500 focus:ring-sky-700 dark:focus:ring-sky-500 border-0"
         />
-        {searchTerm && (
-          <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
-            onClick={() => setSearchTerm("")}
-          />
-        )}
       </div>
     );
   };
@@ -133,9 +135,15 @@ export default function AzureRegion() {
    */
   const heading = () => {
     if (loadingPreference || fetchingPreference || settingPreference) {
-      return <p>Please wait...</p>;
+      return (
+        <p className="text-slate-900 dark:text-slate-100">Please wait...</p>
+      );
     }
-    return <p>{preference ? preference.azureRegion : "Add a region."}</p>;
+    return (
+      <p className="text-slate-900 dark:text-slate-100">
+        {preference ? preference.azureRegion : "Add a region."}
+      </p>
+    );
   };
 
   /**
@@ -146,15 +154,24 @@ export default function AzureRegion() {
    */
   const renderItem = (item: string) => {
     // Determine the classes to apply based on whether the current version matches the key
-    const classes = item === preference?.azureRegion ? "bg-green-300 hover:text-slate-900 dark:text-slate-900" : "";
+    const isActive = item === preference?.azureRegion;
 
-    return (
-      <div
-        className={`${classes} mt-1 w-full cursor-pointer items-center justify-between rounded p-1 hover:bg-sky-500 hover:text-slate-100`}
-      >
-        {item}
-      </div>
-    );
+    const baseClasses =
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${hoverClasses}`;
+
+    return <div className={containerClasses}>{item}</div>;
   };
 
   //const renderItem = (item: string) => <p>{item}</p>;
@@ -163,23 +180,32 @@ export default function AzureRegion() {
     <Container title="Azure Region" collapsible={true}>
       <div
         className={`gap-x-reverse flex items-center justify-end gap-x-2 py-2 ${
-          (fetchingStorageAccount || storageAccount === undefined || storageAccount.name === "") && " text-slate-400"
+          (fetchingStorageAccount ||
+            storageAccount === undefined ||
+            storageAccount.name === "") &&
+          "text-slate-400"
         }`}
       >
         <DropdownSelect
           heading={heading()}
-          disabled={loadingPreference || fetchingPreference || settingPreference}
+          disabled={
+            loadingPreference || fetchingPreference || settingPreference
+          }
           search={renderSearchInput()}
           renderItem={renderItem}
-          items={azureRegions.filter((item) => item.toLowerCase().includes(searchTerm.toLowerCase()))}
+          items={azureRegions.filter((item) =>
+            item.toLowerCase().includes(searchTerm.toLowerCase()),
+          )}
           onItemClick={handleOnClick}
           height="h-60"
         />
       </div>
-      <p className="text-xs">
-        Azure region where your labs will be created. We've not tested all regions, if you see issues please let us
-        know.
-      </p>
+      <Footnote>
+        <p>
+          Azure region where your labs will be created. We've not tested all
+          regions, if you see issues please let us know.
+        </p>
+      </Footnote>
     </Container>
   );
 }

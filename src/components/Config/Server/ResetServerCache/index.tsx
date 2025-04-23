@@ -61,6 +61,9 @@ export default function ResetServerCache({
 					title="Confirm Reset Server Cache"
 					onClose={() => setShowModal(false)}
 					onConfirm={handleResetServerCache}
+					closeLabel="Close cache reset modal"
+					confirmLabel="Confirm cache reset"
+					cancelLabel="Cancel cache reset"
 				>
 					<p className="text-lg">Are you sure you want to reset cache?</p>
 					<p className="text-xs">

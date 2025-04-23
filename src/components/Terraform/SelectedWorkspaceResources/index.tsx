@@ -11,8 +11,8 @@ export default function SelectedWorkspaceResources({}: Props) {
 	const { isFetching: fetchingWorkspaces, isLoading: gettingWorkspaces } = useTerraformWorkspace();
 
 	return (
-		<div className="w-full justify-between gap-y-4 rounded border border-slate-500 py-2">
-			<div className={`h-48 overflow-x-hidden rounded px-2 ${defaultScrollbarStyle}`}>
+		<div className="w-full justify-between gap-y-4 rounded-sm border border-slate-500 py-2">
+			<div className={`h-48 overflow-x-hidden rounded-sm px-2 ${defaultScrollbarStyle}`}>
 				{fetchingResources || gettingWorkspaces || fetchingWorkspaces ? (
 					<pre className="text-slate-500">Please wait...</pre>
 				) : (

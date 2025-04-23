@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { DeploymentType } from "../../../dataStructures";
+import { getUIStateColors } from "../../../defaults";
 import { usePatchDeployment } from "../../../hooks/useDeployments";
 import { calculateNewEpochTimeForDeployment } from "../../../utils/helpers";
 import { useWebSocketContext } from "../../Context/WebSocketContext";
@@ -63,17 +64,30 @@ export default function DeploymentLifespan({
       },
       {
         toastId: "deployment-lifespan",
-      }
+      },
     );
   }
 
   const renderItem = (lifespan: number) => {
+    const isActive = lifespan === deployment.deploymentLifespan;
+
+    const baseClasses =
+      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${hoverClasses}`;
+
     return (
-      <div
-        className={`${lifespan === deployment.deploymentLifespan &&
-          "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-          } w-full cursor-pointer items-center justify-between rounded p-2 hover:bg-sky-500 hover:text-slate-100`}
-      >
+      <div className={containerClasses}>
         {secondsToHoursOrMinutes(lifespan)}
       </div>
     );
