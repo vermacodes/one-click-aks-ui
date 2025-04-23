@@ -66,18 +66,17 @@ export default function Container({
           )}
         </div>
       )}
-      <div
-        key={title}
-        className={cn(
-          "max-h-fit",
-          {
-            "hidden max-h-0 overflow-hidden": !open,
-          },
-          additionalContainerBodyClasses && additionalContainerBodyClasses,
-        )}
-      >
-        {children}
-      </div>
+      {open && (
+        <div
+          key={title}
+          className={cn(
+            "max-h-fit",
+            additionalContainerBodyClasses && additionalContainerBodyClasses,
+          )}
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 }
