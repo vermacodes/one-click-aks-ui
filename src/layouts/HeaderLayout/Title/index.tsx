@@ -21,7 +21,8 @@ export default function Title() {
       aria-label="Header"
     >
       <Button
-        className="rounded-full p-1 text-sm hover:outline-1 md:p-3 md:text-xl"
+        variant="secondary-icon"
+        className="rounded-full p-1 text-sm md:p-3 md:text-xl"
         onClick={() => setNavbarOpen(!navbarOpen)}
         aria-label="Toggle Navigation"
       >
