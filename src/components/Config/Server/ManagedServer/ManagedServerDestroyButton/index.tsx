@@ -22,7 +22,7 @@ export default function ManagedServerDestroyButton({}: Props) {
 
 	return (
 		<>
-			<Button variant="danger-text" disabled={lock || actionStatus.inProgress} onClick={() => setConfirmDestroy(true)}>
+			<Button variant="danger-text" disabled={lock || actionStatus.inProgress} onClick={() => setConfirmDestroy(true)} aria-label="Destroy Managed Server">
 				<FaTrash /> Destroy
 			</Button>
 			{confirmDestroy && (
@@ -33,6 +33,9 @@ export default function ManagedServerDestroyButton({}: Props) {
 						handleDestroy();
 					}}
 					onClose={() => setConfirmDestroy(false)}
+					closeLabel="Close Destroy Managed Server Modal"
+					confirmLabel="Destroy Managed Server"
+					cancelLabel="Cancel Destroy Managed Server"
 				>
 					<p className="text-xl">Are you sure you want to destroy the managed server?</p>
 					<ul className="ml-4 list-disc space-y-2">

@@ -181,7 +181,7 @@ export default function Button({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <button className={className} {...otherRest} tabIndex={0} type="button">
+      <button className={className} {...otherRest} tabIndex={0} type="button" aria-label={rest["aria-label"]}>
         {children}
       </button>
     </Tooltip>

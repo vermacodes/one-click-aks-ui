@@ -7,9 +7,10 @@ import Button from "../Button";
 type Props = {
   codeString: string;
   copyEnabled?: boolean;
+  ariaLabel?: string | "Copy to clipboard";
 };
 
-export default function CodeBlock({ codeString, copyEnabled = false }: Props) {
+export default function CodeBlock({ codeString, copyEnabled = false, ariaLabel }: Props) {
   const [copy, setCopy] = useState<boolean>(false);
 
   function handleCommandCopy() {
@@ -37,7 +38,7 @@ export default function CodeBlock({ codeString, copyEnabled = false }: Props) {
           <Button
             variant="primary-icon"
             onClick={() => handleCommandCopy()}
-            aria-label="Copy to clipboard"
+            aria-label={ariaLabel}
           >
             {copy ? <FaCheck /> : <MdContentCopy />}
           </Button>

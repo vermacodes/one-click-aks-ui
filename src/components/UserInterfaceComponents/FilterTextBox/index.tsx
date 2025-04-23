@@ -20,6 +20,7 @@ export default function FilterTextBox({
       <input
         type="text"
         aria-label="Search"
+        role="listbox"
         placeholder={placeHolderText}
         value={value}
         onChange={(e) => onChange(e.target.value)}
