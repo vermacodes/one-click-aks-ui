@@ -4,6 +4,7 @@ import { Lab } from "../../../../dataStructures";
 import { getUIStateColors } from "../../../../defaults";
 import { cn } from "../../../../utils/cn";
 import { labTagSchema } from "../../../../zodSchemas";
+import Alert from "../../../UserInterfaceComponents/Alert";
 import Container from "../../../UserInterfaceComponents/Container";
 import Input from "../../../UserInterfaceComponents/Input";
 
@@ -71,14 +72,16 @@ export default function SaveLabTags({ lab, setLab }: Props) {
         </form>
       </div>
       {isModified && tagError && (
-        <div
-          className={cn(
-            "mt-2 rounded-sm p-2",
-            getUIStateColors({ colors: "danger", selected: true }),
-          )}
+        <Alert
+          variant="danger"
+          className="mt-2 rounded-sm p-2"
+          role="alert"
+          aria-live="polite"
+          aria-atomic="true"
+          id="labTagsError"
         >
           <p className="error-message">{tagError}</p>
-        </div>
+        </Alert>
       )}
     </Container>
   );

@@ -52,15 +52,17 @@ export default function Deployments() {
           </CreateNewDeployment>
         </div>
       </div>
-      {deployments &&
-        deployments.length > 0 &&
-        deployments.map((deployment: DeploymentType) => (
-          <Deployment
-            deployment={deployment}
-            selectedDeployment={selectedDeployment}
-            key={deployment.deploymentId}
-          />
-        ))}
+      <div className="flex flex-col gap-4">
+        {deployments &&
+          deployments.length > 0 &&
+          deployments.map((deployment: DeploymentType) => (
+            <Deployment
+              deployment={deployment}
+              selectedDeployment={selectedDeployment}
+              key={deployment.deploymentId}
+            />
+          ))}
+      </div>
       <Terminal />
     </PageLayout>
   );

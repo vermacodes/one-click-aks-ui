@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { cn } from "../../../utils/cn"; // Adjust the import path as needed
 
-type Props = {
+type Props = React.HTMLAttributes<HTMLDivElement> & {
   variant?: "success" | "warning" | "danger" | "info";
   children: React.ReactNode;
 };
 
-export default function Alert({ variant = "info", children }: Props) {
-  const [color, setColor] = useState<string>("sky");
+export default function Alert({ variant = "info", children, ...rest }: Props) {
+  const [color, setColor] = useState<string>("");
 
   useEffect(() => {
     switch (variant) {
@@ -34,7 +35,14 @@ export default function Alert({ variant = "info", children }: Props) {
   }, [variant]);
 
   return (
-    <div className={`${color} bg-opacity-20 top-0 mb-4 rounded-sm border p-2`}>
+    <div
+      {...rest} // Spread all additional props onto the div
+      className={cn(
+        color,
+        "bg-opacity-20 top-0 mb-4 rounded-sm border p-2",
+        rest.className, // Include any custom className passed via props
+      )}
+    >
       {children}
     </div>
   );

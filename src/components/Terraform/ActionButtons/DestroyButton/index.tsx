@@ -1,12 +1,12 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 import { FaTrash } from "react-icons/fa";
+import { v4 as uuid } from "uuid";
 import { ButtonVariant, DeploymentType, Lab } from "../../../../dataStructures";
-import Button from "../../../UserInterfaceComponents/Button";
-import { useWebSocketContext } from "../../../Context/WebSocketContext";
-import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
-import { useTerraformOperation } from "../../../../hooks/useTerraformOperation";
 import { useSelectedDeployment } from "../../../../hooks/useSelectedDeployment";
+import { useTerraformOperation } from "../../../../hooks/useTerraformOperation";
+import { useWebSocketContext } from "../../../Context/WebSocketContext";
+import Button from "../../../UserInterfaceComponents/Button";
+import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
 
 type Props = {
   variant: ButtonVariant;
@@ -67,7 +67,7 @@ export default function DestroyButton({
           cancelLabel="Cancel terraform destroy"
         >
           <p className="text-2xl">
-            Are you sure you want to destroy resources{" "}
+            Are you sure you want to destroy resources
             {deleteWorkspace ? " and delete " : " of "} this deployment? This is
             not reversible.
           </p>

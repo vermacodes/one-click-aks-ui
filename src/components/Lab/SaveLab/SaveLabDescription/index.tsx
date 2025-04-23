@@ -17,10 +17,10 @@ import {
   FaUnlink,
 } from "react-icons/fa";
 import { Lab } from "../../../../dataStructures";
-import { getUIStateColors } from "../../../../defaults";
 import { cn } from "../../../../utils/cn";
 import { decodeIfEncoded } from "../../../../utils/helpers";
 import { labDescriptionSchema } from "../../../../zodSchemas";
+import Alert from "../../../UserInterfaceComponents/Alert";
 import Button from "../../../UserInterfaceComponents/Button";
 import Container from "../../../UserInterfaceComponents/Container";
 
@@ -244,14 +244,17 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
         />
       </div>
       {isModified && labDescriptionError && (
-        <div
-          className={cn(
-            "mt-2 rounded-sm p-2",
-            getUIStateColors({ colors: "danger", selected: true }),
-          )}
+        <Alert
+          variant="danger"
+          className="mt-2 rounded-sm p-2"
+          role="alert"
+          aria-live="polite"
+          aria-atomic="true"
+          id="labDescriptionError"
+          aria-label="Lab description error message"
         >
           <p className="error-message">{labDescriptionError}</p>
-        </div>
+        </Alert>
       )}
     </Container>
   );
