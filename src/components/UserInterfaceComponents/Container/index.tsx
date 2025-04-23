@@ -34,7 +34,7 @@ export default function Container({
         "flex w-full flex-col justify-between gap-4 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 dark:bg-slate-950 dark:outline-slate-600",
         { "sticky top-0 z-20": sticky },
         {
-          "hover:shadow-lg hover:outline hover:outline-sky-700 dark:bg-slate-950 dark:outline-slate-600 dark:hover:outline-sky-500":
+          "hover:shadow-lg hover:outline hover:outline-sky-700 dark:outline-slate-600 dark:hover:outline-sky-500":
             hoverEffect,
         },
         additionalClasses && additionalClasses,
