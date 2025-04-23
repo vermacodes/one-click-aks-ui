@@ -56,9 +56,12 @@ export default function Container({
               })}
             >
               <Button
+                id="togglebutton"
                 variant="secondary-icon"
                 onClick={() => setOpen(!open)}
-                aria-label={`${open ? "Collapse" : "Expand"} ${title ? `"${title}"` : "container"}`}
+                aria-expanded={open} // Indicates the expanded/collapsed state
+                aria-label="Toggle container" // Accessible label for the button
+                aria-controls={title ? `container-${title}` : undefined} // Links the button to the container
               >
                 <FaChevronUp />
               </Button>
