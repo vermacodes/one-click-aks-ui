@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn"; // Adjust the import path as needed
 
 type Props = {
@@ -49,7 +50,7 @@ export default function Tooltip({
       {message && visible && (
         <div
           className={cn(
-            "absolute z-10 min-w-fit transform rounded bg-slate-800 p-2 text-xs whitespace-pre-wrap text-slate-100 transition-all dark:bg-slate-100 dark:text-slate-900",
+            "absolute z-10 min-w-fit transform rounded p-2 text-xs whitespace-pre-wrap transition-all",
             {
               "bottom-full -translate-y-2": direction === "top",
               "top-full translate-y-2": direction === "bottom",
@@ -61,6 +62,7 @@ export default function Tooltip({
             {
               "w-full": fullWidth, // Apply w-full if fullWidth is true
             },
+            getUIStateColors({ inverted: true }),
           )}
         >
           {message}
