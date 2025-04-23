@@ -52,7 +52,9 @@ export default function SaveLabName({ lab, setLab }: Props) {
       <div className="flex flex-col">
         <Input
           className={cn(
-            isModified && labNameError && "border-rose-500 outline-rose-500",
+            isModified &&
+              labNameError &&
+              "border-rose-500 outline-rose-500 dark:border-rose-500 dark:outline-rose-500",
           )}
           id="labName"
           type="text"
