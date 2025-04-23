@@ -57,10 +57,10 @@ const variantStyles: VariantStyles = {
     dark:disabled:hover:ring-slate-500 dark:disabled:hover:bg-inherit dark:disabled:hover:text-slate-500
   `,
   "success-outline": `
-    ring-1 ring-emerald-800 py-1 px-3 text-emerald-800
-    dark:ring-emerald-400 dark:text-emerald-400
-    hover:ring-emerald-700 hover:bg-emerald-700 hover:text-emerald-100
-    dark:hover:bg-emerald-700 dark:hover:ring-emerald-700 dark:hover:text-emerald-100
+    ring-1 ring-green-800 py-1 px-3 text-green-800
+    dark:ring-green-400 dark:text-green-400
+    hover:ring-green-700 hover:bg-green-700 hover:text-green-100
+    dark:hover:bg-green-700 dark:hover:ring-green-700 dark:hover:text-green-100
     disabled:ring-slate-500 disabled:text-slate-500 disabled:cursor-not-allowed
     disabled:hover:ring-slate-500 disabled:hover:bg-inherit disabled:hover:text-slate-500
     dark:disabled:ring-slate-500 dark:disabled:text-slate-500
@@ -97,10 +97,10 @@ const variantStyles: VariantStyles = {
     dark:disabled:hover:ring-slate-500 dark:disabled:hover:bg-inherit dark:disabled:hover:text-slate-500
   `,
   "success-text": `
-    ring-0 py-1 px-3 text-emerald-800
-    dark:ring-emerald-400 dark:text-emerald-400
-    hover:ring-1 hover:ring-emerald-700 hover:bg-emerald-700 hover:text-slate-100
-    dark:hover:bg-emerald-700 dark:hover:ring-emerald-700 dark:hover:text-slate-100
+    ring-0 py-1 px-3 text-green-800
+    dark:ring-green-400 dark:text-green-400
+    hover:ring-1 hover:ring-green-700 hover:bg-green-700 hover:text-slate-100
+    dark:hover:bg-green-700 dark:hover:ring-green-700 dark:hover:text-slate-100
     disabled:ring-slate-500 disabled:text-slate-500 disabled:cursor-not-allowed
     disabled:hover:ring-0 disabled:hover:ring-slate-500 disabled:hover:bg-inherit disabled:hover:text-slate-500
     dark:disabled:ring-slate-500 dark:disabled:text-slate-500

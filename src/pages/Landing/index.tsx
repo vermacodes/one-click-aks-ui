@@ -14,13 +14,13 @@ export default function Landing() {
         <div className="flex items-center justify-center">
           {/* <div className="relative w-full">
             <div className="absolute -top-48 left-24 h-[70vh] w-[70vh] animate-blob rounded-full bg-purple-600 opacity-30 mix-blend-multiply blur-xl filter dark:mix-blend-color"></div>
-            <div className="animation-delay-2000 absolute top-48 left-24 h-[70vh] w-[70vh] animate-blob rounded-full bg-emerald-600 opacity-30 mix-blend-multiply blur-xl filter dark:mix-blend-color"></div>
+            <div className="animation-delay-2000 absolute top-48 left-24 h-[70vh] w-[70vh] animate-blob rounded-full bg-green-600 opacity-30 mix-blend-multiply blur-xl filter dark:mix-blend-color"></div>
             <div className="animation-delay-4000 absolute top-24 right-24 h-[70vh] w-[70vh] animate-blob rounded-full bg-sky-600 opacity-30 mix-blend-multiply blur-xl filter dark:mix-blend-color"></div>
             <div className="animation-delay-2000 absolute -top-48 right-24 h-[70vh] w-[70vh] animate-blob rounded-full bg-yellow-600 opacity-30 mix-blend-multiply blur-xl filter dark:mix-blend-color"></div>
 
           </div> */}
           <div className="relative">
-            <div className="bg-hidden animate-gradient-x inline-block bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
+            <div className="bg-hidden animate-gradient-x inline-block bg-linear-to-r from-indigo-500 from-10% via-sky-500 via-30% to-green-500 to-90% bg-clip-text text-transparent">
               <h1 className="pb-20 text-9xl font-bold">
                 Head start your lab repros
               </h1>
@@ -55,7 +55,7 @@ export default function Landing() {
               </a>
             </div>
           </div>
-          <div className="flex flex-col justify-between gap-10 rounded-sm bg-linear-to-r from-sky-600 to-emerald-600 p-4 dark:bg-fuchsia-600">
+          <div className="flex flex-col justify-between gap-10 rounded-sm bg-linear-to-r from-sky-600 to-green-600 p-4 dark:bg-fuchsia-600">
             <div className="flex flex-col gap-6">
               <h2 className="text-xl">Public Labs</h2>
               <h1 className="text-3xl">
