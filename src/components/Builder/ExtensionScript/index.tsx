@@ -10,7 +10,7 @@ import Container from "../../UserInterfaceComponents/Container";
 export default function ExtensionScript() {
   const { lab, setLab } = useGlobalStateContext();
   const [_extendScript, setExtendScript] = useState<string>(
-    sessionStorage.getItem(`${lab.id}-extendScript"`) || ""
+    sessionStorage.getItem(`${lab.id}-extendScript`) || "",
   );
   const [themeDefined, setThemeDefined] = useState(false);
 
@@ -34,12 +34,12 @@ export default function ExtensionScript() {
   useEffect(() => {
     if (lab !== undefined) {
       const extendScriptFromSessionStorage =
-        sessionStorage.getItem(`${lab.id}-extendScript"`) || "";
+        sessionStorage.getItem(`${lab.id}-extendScript`) || "";
       if (extendScriptFromSessionStorage === "") {
         setExtendScript(lab.extendScript);
         sessionStorage.setItem(
-          `${lab.id}-extendScript"`,
-          lab.extendScript || ""
+          `${lab.id}-extendScript`,
+          lab.extendScript || "",
         );
         return;
       }
@@ -48,7 +48,7 @@ export default function ExtensionScript() {
   }, [lab]);
 
   function handleExtendScriptSave() {
-    sessionStorage.removeItem(`${lab.id}-extendScript"`);
+    sessionStorage.removeItem(`${lab.id}-extendScript`);
     setLab({ ...lab, extendScript: _extendScript });
   }
 
@@ -57,7 +57,7 @@ export default function ExtensionScript() {
 
     value = value.replace(/\r\n/g, "\n"); // Replace Windows line endings with Unix line endings
 
-    sessionStorage.setItem(`${lab.id}-extendScript"`, btoa(value));
+    sessionStorage.setItem(`${lab.id}-extendScript`, btoa(value));
     setExtendScript(btoa(value));
   }
 
@@ -97,7 +97,7 @@ export default function ExtensionScript() {
             window.open(
               "https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280600/Extension-Script",
               "_blank",
-              "noopener,noreferrer"
+              "noopener,noreferrer",
             )
           }
         >
@@ -119,7 +119,7 @@ export default function ExtensionScript() {
       />
       {!compareBase64Strings(_extendScript, lab.extendScript) ? (
         <div
-          className="-mb-18 sticky bottom-0 z-10 -mt-2 flex w-1/2 translate-x-1/2 items-center justify-center gap-4 rounded-t-lg p-1 text-slate-100"
+          className="sticky bottom-0 z-10 -mt-2 -mb-18 flex w-1/2 translate-x-1/2 items-center justify-center gap-4 rounded-t-lg p-1 text-slate-100"
           hidden={compareBase64Strings(_extendScript, lab.extendScript)}
         >
           <Button
