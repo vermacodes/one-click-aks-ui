@@ -57,7 +57,9 @@ export default function LabCard({
   return fullPage ? (
     renderBody()
   ) : (
-    <Link to={"/lab/" + lab.type + "/" + lab.id}>{renderBody()}</Link>
+    <Link className="max-h-fit" to={"/lab/" + lab.type + "/" + lab.id}>
+      {renderBody()}
+    </Link>
   );
 }
 
