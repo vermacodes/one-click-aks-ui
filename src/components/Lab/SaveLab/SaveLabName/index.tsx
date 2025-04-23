@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Lab } from "../../../../dataStructures";
-import { getUIStateColors } from "../../../../defaults";
 import { cn } from "../../../../utils/cn";
 import { labNameSchema } from "../../../../zodSchemas";
+import Alert from "../../../UserInterfaceComponents/Alert";
 import Container from "../../../UserInterfaceComponents/Container";
 import Input from "../../../UserInterfaceComponents/Input";
 
@@ -64,14 +64,16 @@ export default function SaveLabName({ lab, setLab }: Props) {
         />
       </div>
       {isModified && labNameError && (
-        <div
-          className={cn(
-            "mt-2 rounded-sm p-2",
-            getUIStateColors({ colors: "danger", selected: true }),
-          )}
+        <Alert
+          variant="danger"
+          className="mt-2 rounded-sm p-2"
+          role="alert"
+          aria-live="polite"
+          aria-atomic="true"
+          id="labNameError"
         >
           <p className="error-message">{labNameError}</p>
-        </div>
+        </Alert>
       )}
     </Container>
   );

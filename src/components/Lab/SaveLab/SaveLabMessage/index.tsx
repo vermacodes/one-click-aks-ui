@@ -19,6 +19,7 @@ import {
 import { Lab } from "../../../../dataStructures";
 import { decodeIfEncoded } from "../../../../utils/helpers";
 import { labMessageSchema } from "../../../../zodSchemas";
+import Alert from "../../../UserInterfaceComponents/Alert";
 import Button from "../../../UserInterfaceComponents/Button";
 import Container from "../../../UserInterfaceComponents/Container";
 import Footnote from "../../../UserInterfaceComponents/Footnote";
@@ -235,9 +236,16 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
         <EditorContent editor={editor} />
       </div>
       {isModified && labMessageError && (
-        <div className="bg-opacity-50 rounded-sm border border-rose-500 bg-rose-500 p-2">
+        <Alert
+          variant="danger"
+          className="mt-2 rounded-sm p-2"
+          role="alert"
+          aria-live="polite"
+          aria-atomic="true"
+          id="labMessageError"
+        >
           <p className="error-message">{labMessageError}</p>
-        </div>
+        </Alert>
       )}
       <Footnote>
         <span>
