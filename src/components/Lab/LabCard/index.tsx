@@ -88,7 +88,7 @@ function LabDescription({ lab, fullPage = false }: LabDescriptionProps) {
       className={`${
         !fullPage && "max-h-[180px]"
       } scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-900 dark:scrollbar-thumb-slate-700 overflow-x-hidden overflow-y-auto px-1`}
-      tabIndex={0}
+      tabIndex={fullPage ? -1 : 0}
     >
       {ReactHtmlParser(decodeIfEncoded(lab.description))}
     </div>
