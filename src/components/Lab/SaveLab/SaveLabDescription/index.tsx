@@ -234,7 +234,14 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
             <FaUnlink />
           </Button>
         </div>
-        <EditorContent editor={editor} />
+        <EditorContent
+          editor={editor}
+          className={cn(
+            isModified &&
+              labDescriptionError &&
+              "border-rose-500 outline-rose-500 dark:border-rose-500 dark:outline-rose-500",
+          )}
+        />
       </div>
       {isModified && labDescriptionError && (
         <div
