@@ -17,6 +17,8 @@ import {
   FaUnlink,
 } from "react-icons/fa";
 import { Lab } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
+import { cn } from "../../../../utils/cn";
 import { decodeIfEncoded } from "../../../../utils/helpers";
 import { labDescriptionSchema } from "../../../../zodSchemas";
 import Button from "../../../UserInterfaceComponents/Button";
@@ -235,7 +237,12 @@ export default function SaveLabDescription({ lab, setLab }: Props) {
         <EditorContent editor={editor} />
       </div>
       {isModified && labDescriptionError && (
-        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-50 p-2">
+        <div
+          className={cn(
+            "mt-2 rounded-sm p-2",
+            getUIStateColors({ colors: "danger", selected: true }),
+          )}
+        >
           <p className="error-message">{labDescriptionError}</p>
         </div>
       )}
