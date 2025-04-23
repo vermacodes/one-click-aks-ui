@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Lab } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
+import { cn } from "../../../../utils/cn";
 import { labTagSchema } from "../../../../zodSchemas";
 import Container from "../../../UserInterfaceComponents/Container";
+import Input from "../../../UserInterfaceComponents/Input";
 
 type Props = {
   lab: Lab;
@@ -50,21 +53,30 @@ export default function SaveLabTags({ lab, setLab }: Props) {
       title="Tags"
       additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
     >
-      <div className="flex items-center gap-x-2 rounded-sm border border-slate-500 bg-inherit focus:border-sky-500 focus:outline-hidden focus:ring-2 focus:ring-sky-500 hover:bg-slate-200 dark:hover:bg-slate-700">
-        <Tags lab={lab} setLab={setLab} />
+      <Tags lab={lab} setLab={setLab} />
+      <div className="flex flex-col">
         <form className="w-full" onSubmit={handleFormSubmit}>
-          <input
+          <Input
+            className={cn(
+              isModified &&
+                tagError &&
+                "border-rose-500 outline-rose-500 dark:border-rose-500 dark:outline-rose-500",
+            )}
             id="tags"
             type="text"
             value={tag}
             placeholder="Add tag"
-            className="px w-full border-none bg-inherit p-2 py-2 outline-hidden placeholder:text-slate-800 dark:placeholder:text-slate-200"
             onChange={handleInputChange}
           />
         </form>
       </div>
       {isModified && tagError && (
-        <div className="rounded-sm border border-rose-500 bg-rose-500 bg-opacity-20 p-2">
+        <div
+          className={cn(
+            "mt-2 rounded-sm p-2",
+            getUIStateColors({ colors: "danger", selected: true }),
+          )}
+        >
           <p className="error-message">{tagError}</p>
         </div>
       )}
@@ -84,20 +96,21 @@ function Tags({ lab, setLab }: TagsPros) {
   }
 
   return (
-    <div className="flex flex-auto space-x-1 rounded-sm px-2">
+    <div className="mb-4 flex flex-auto space-x-1 rounded-sm">
       {lab.tags &&
         lab.tags.map((tag) => (
           <div
             key={tag}
-            className="-p-1 flex items-center justify-between gap-x-2 rounded-sm border border-slate-600 bg-slate-600 px-2 text-lg text-slate-100 dark:border-slate-400 dark:bg-slate-400 dark:text-slate-900"
+            className={cn(
+              "flex items-center justify-between gap-x-2",
+              "rounded-sm",
+              "px-2 text-lg",
+              getUIStateColors({ inverted: true }),
+            )}
           >
             {tag}
-            <button
-              className="text-rose-400 hover:text-rose-500 dark:text-rose-600 dark:hover:text-rose-500"
-              onClick={() => deleteTag(tag)}
-              aria-label="Delete tag"
-            >
-              <FaTimes />
+            <button onClick={() => deleteTag(tag)} aria-label="Delete tag">
+              <FaTimes className="text-rose-500 dark:text-rose-700" />
             </button>
           </div>
         ))}

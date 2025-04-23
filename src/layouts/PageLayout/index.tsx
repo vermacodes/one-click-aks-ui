@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Detectors from "../../components/Detectors/Detectors";
+import { cn } from "../../utils/cn";
 
 type Props = {
   heading?: string;
@@ -24,15 +25,14 @@ export default function PageLayout({ heading, children }: Props) {
       <Detectors />
       {heading !== undefined && (
         <div
-          className={`${
-            heading !== ""
-              ? "mb-4 mt-[1px] border-b-2 border-slate-500 "
-              : "mt-[1px]"
-          } flex items-center justify-between text-wrap`}
+          className={cn(
+            "mt-1 flex items-center justify-between text-wrap",
+            heading !== "" && "mb-4 border-b-2 border-slate-500",
+          )}
         >
           <div className="flex items-center">
             <h2
-              className="pb-4 text-xl md:text-4xl"
+              className="mt-2 mb-0.5 pb-4 text-xl md:text-4xl"
               tabIndex={-1}
               ref={pageHeading}
             >
