@@ -1,4 +1,5 @@
 import { FaFilter } from "react-icons/fa";
+import { cn } from "../../../utils/cn";
 import Container from "../Container";
 
 type Props = {
@@ -22,7 +23,11 @@ export default function FilterTextBox({
         placeholder={placeHolderText}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${customClasses} h-full w-full rounded-sm py-1 pl-10 ring-1 ring-slate-500 focus:ring-2 focus:ring-sky-700 focus:outline-hidden lg:text-lg dark:focus:ring-sky-500`}
+        className={cn(
+          "h-full w-full rounded-sm py-1 pl-10 ring-1 ring-slate-500 focus:ring-2 focus:ring-sky-700 focus:outline-hidden lg:text-lg dark:focus:ring-sky-500",
+          "placeholder-slate-600 dark:placeholder-slate-400",
+          customClasses,
+        )}
       />
       <FaFilter className="absolute top-1/2 left-3 -translate-y-1/2 transform" />
     </Container>

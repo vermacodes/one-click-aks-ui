@@ -132,10 +132,7 @@ export default function SelectProfilesDropdown({
         onMouseLeave={() => setIsRenderUserHovered(false)} // Set hover state to false
       >
         <div className="flex items-center">
-          <ProfileDisplay
-            profile={profile}
-            invertTextColors={isActive || isRenderUserHovered}
-          />
+          <ProfileDisplay profile={profile} />
         </div>
         {isActive && (
           <FaTimes className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer" />
