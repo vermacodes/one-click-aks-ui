@@ -369,4 +369,10 @@ export function getUIStateColors({
 }
 
 export const defaultUIPrimaryTextColor = "text-sky-700 dark:text-sky-400";
+export const defaultUISecondaryTextColor = "text-slate-700 dark:text-slate-400";
+export const defaultUIErrorTextColor = "text-rose-700 dark:text-rose-400";
+export const defaultUIWarningTextColor = "text-amber-700 dark:text-amber-400";
+export const defaultUISuccessTextColor = "text-green-700 dark:text-green-400";
+export const defaultUITextColor = "text-slate-950 dark:text-slate-50";
+export const defaultUIInvertedTextColor = "text-slate-50 dark:text-slate-950";
 export const defaultLinkTextStyle = "text-sky-700 underline dark:text-sky-400";

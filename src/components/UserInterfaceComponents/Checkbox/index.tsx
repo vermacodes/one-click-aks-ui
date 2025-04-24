@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from "react";
-import { getUIStateColors } from "../../../defaults";
+import { defaultUITextColor, getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn"; // Ensure the correct import path for the cn utility
 import Tooltip from "../Tooltip";
 
@@ -83,9 +83,7 @@ export default function Checkbox({
         <span
           className={cn(
             "text-md transition-all duration-100",
-            getUIStateColors({
-              disabled: disabled,
-            }),
+            defaultUITextColor,
           )}
         >
           {label}
