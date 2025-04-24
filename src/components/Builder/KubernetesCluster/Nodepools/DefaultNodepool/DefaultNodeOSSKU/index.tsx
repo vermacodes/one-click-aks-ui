@@ -44,7 +44,7 @@ export default function DefaultNodeOSSKU({ index }: Props) {
     const isActive = osSku === currentNodeOSSKU;
 
     const baseClasses =
-      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+      "relative w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
     const activeClasses = getUIStateColors({
       selected: true,
       hover: true,

@@ -222,7 +222,8 @@ export function getUIStateColors({
     | "danger"
     | "warning"
     | "success"
-    | "dark";
+    | "dark"
+    | "light";
   disabled?: boolean;
   hover?: boolean;
   selected?: boolean;
@@ -237,7 +238,7 @@ export function getUIStateColors({
         "bg-slate-200 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-slate-200/80 dark:hover:bg-slate-800/80",
       disabled:
-        "bg-slate-200/50 dark:bg-slate-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+        "bg-slate-50/80 dark:bg-slate-950/80 cursor-not-allowed text-slate-700 dark:text-slate-300",
       inverted:
         "bg-slate-950 dark:bg-slate-50 text-slate-50 dark:text-slate-950",
       invertedHover:
@@ -249,7 +250,7 @@ export function getUIStateColors({
       selected: "bg-sky-200 dark:bg-sky-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-sky-200/80 dark:hover:bg-sky-800/80",
       disabled:
-        "bg-sky-200/50 dark:bg-sky-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+        "bg-sky-700/80 dark:bg-sky-400/80 cursor-not-allowed text-slate-300 dark:text-slate-700",
       inverted: "bg-sky-950 dark:bg-sky-50 text-sky-50 dark:text-sky-950",
       invertedHover:
         "hover:bg-sky-950/80 dark:hover:bg-sky-50/80 text-sky-50 dark:text-sky-950",
@@ -261,20 +262,20 @@ export function getUIStateColors({
         "bg-slate-200 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-slate-200/80 dark:hover:bg-slate-800/80",
       disabled:
-        "bg-slate-200/50 dark:bg-slate-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+        "bg-slate-700/80 dark:bg-slate-400/80 cursor-not-allowed text-slate-300 dark:text-slate-700",
       inverted:
         "bg-slate-950 dark:bg-slate-50 text-slate-50 dark:text-slate-950",
       invertedHover:
         "hover:bg-slate-950/80 dark:hover:bg-slate-50/80 text-slate-50 dark:text-slate-950",
     },
     danger: {
-      base: "bg-rose-700 text-slate-50 dark:bg-rose-300 dark:text-slate-950",
+      base: "bg-rose-700 text-slate-50 dark:bg-rose-400 dark:text-slate-950",
       baseHover: "hover:bg-rose-800 dark:hover:bg-rose-200",
       selected:
         "bg-rose-200 dark:bg-rose-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-rose-200/80 dark:hover:bg-rose-800/80",
       disabled:
-        "bg-rose-200/50 dark:bg-rose-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+        "bg-rose-700/80 dark:bg-rose-400/80 cursor-not-allowed text-slate-300 dark:text-slate-700",
       inverted: "bg-rose-950 dark:bg-rose-50 text-rose-50 dark:text-rose-950",
       invertedHover:
         "hover:bg-rose-950/80 dark:hover:bg-rose-50/80 text-rose-50 dark:text-rose-950",
@@ -286,7 +287,7 @@ export function getUIStateColors({
         "bg-amber-200 dark:bg-amber-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-amber-200/80 dark:hover:bg-amber-800/80",
       disabled:
-        "bg-amber-200/50 dark:bg-amber-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+        "bg-amber-700/80 dark:bg-amber-400/80 cursor-not-allowed text-slate-300 dark:text-slate-700",
       inverted:
         "bg-amber-950 dark:bg-amber-50 text-amber-50 dark:text-amber-950",
       invertedHover:
@@ -299,7 +300,7 @@ export function getUIStateColors({
         "bg-green-200 dark:bg-green-800 text-slate-950 dark:text-slate-50",
       selectedHover: "hover:bg-green-200/80 dark:hover:bg-green-800/80",
       disabled:
-        "bg-green-200/50 dark:bg-green-800/50 cursor-not-allowed text-slate-950 dark:text-slate-50",
+        "bg-green-700/80 dark:bg-green-400/80 cursor-not-allowed text-slate-300 dark:text-slate-700",
       inverted:
         "bg-green-950 dark:bg-green-50 text-green-50 dark:text-green-950",
       invertedHover:
@@ -313,11 +314,25 @@ export function getUIStateColors({
       selectedHover:
         "hover:bg-slate-800/80 dark:hover:bg-slate-800/80 text-slate-50 dark:text-slate-50",
       disabled:
-        "bg-slate-800/50 dark:bg-slate-800/50 cursor-not-allowed text-slate-50 dark:text-slate-50",
+        "bg-slate-950/80 dark:bg-slate-950/80 cursor-not-allowed text-slate-300 dark:text-slate-300",
       inverted:
         "bg-slate-50 dark:bg-slate-50 text-slate-950 dark:text-slate-950",
       invertedHover:
         "hover:bg-slate-50/80 dark:hover:bg-slate-50/80 text-slate-950 dark:text-slate-950",
+    },
+    light: {
+      base: "bg-slate-50 dark:bg-slate-50 text-slate-950 dark:text-slate-950",
+      baseHover: "hover:bg-slate-50/80 dark:hover:bg-slate-50/80",
+      selected:
+        "bg-slate-200 dark:bg-slate-200 text-slate-950 dark:text-slate-950",
+      selectedHover:
+        "hover:bg-slate-200/80 dark:hover:bg-slate-200/80 text-slate-950 dark:text-slate-950",
+      disabled:
+        "bg-slate-50/80 dark:bg-slate-50/80 cursor-not-allowed text-slate-700 dark:text-slate-700",
+      inverted:
+        "bg-slate-950 dark:bg-slate-950 text-slate-50 dark:text-slate-50",
+      invertedHover:
+        "hover:bg-slate-950/80 dark:hover:bg-slate-950/80 text-slate-50 dark:text-slate-50",
     },
   };
 

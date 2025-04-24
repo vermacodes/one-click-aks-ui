@@ -1,4 +1,6 @@
 import { InputHTMLAttributes } from "react";
+import { getUIStateColors } from "../../../defaults";
+import { cn } from "../../../utils/cn"; // Ensure the correct import path for the cn utility
 import Tooltip from "../Tooltip";
 
 type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -55,24 +57,36 @@ export default function Checkbox({
         {/* Visual representation of the checkbox */}
         <label
           htmlFor={id}
-          className={`flex h-4 min-h-4 w-8 min-w-8 items-center rounded-full transition-all duration-100 hover:cursor-pointer ${
-            checked ? "bg-green-500" : "bg-slate-500"
-          } ${
-            disabled &&
-            "bg-slate-300 hover:cursor-not-allowed dark:bg-slate-700"
-          } `}
+          className={cn(
+            "flex h-4 min-h-4 w-8 min-w-8 items-center rounded-full transition-all duration-100",
+            getUIStateColors({
+              colors: `${checked ? "success" : "secondary"}`,
+              disabled: disabled,
+            }),
+            {
+              "cursor-pointer": !disabled,
+            },
+          )}
         >
           <div
-            className={`h-4 w-4 rounded-full bg-white transition-all duration-100 ${
-              checked && "ml-4"
-            } ${disabled && "dark:bg-slate-600"}`}
+            className={cn(
+              "h-4 w-4 rounded-full transition-all duration-100",
+              checked && "ml-4",
+              getUIStateColors({
+                colors: "light",
+                disabled: disabled,
+              }),
+            )}
           ></div>
         </label>
         {/* Accessible label for the checkbox */}
         <span
-          className={`text-md ${
-            disabled && "text-slate-600 dark:text-slate-400"
-          } transition-all duration-100`}
+          className={cn(
+            "text-md transition-all duration-100",
+            getUIStateColors({
+              disabled: disabled,
+            }),
+          )}
         >
           {label}
         </span>
