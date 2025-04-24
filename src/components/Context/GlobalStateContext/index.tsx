@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Lab } from "../../../dataStructures";
 import { getDefaultLab } from "../../../defaults";
 import { useLab, useSetLab } from "../../../hooks/useLab";
@@ -36,6 +36,8 @@ export function GlobalStateContextProvider({ children }: Props) {
   const [syncLab, setSyncLab] = useState<boolean>(true);
   const { mutate: setLabServerState } = useSetLab();
   const { data: labFromServer } = useLab();
+
+  const previousWidthRef = useRef(window.innerWidth);
 
   /**
    * This useEffect hook is triggered once when the component mounts.
@@ -83,12 +85,34 @@ export function GlobalStateContextProvider({ children }: Props) {
   /**
    * This useEffect hook is triggered when the window is resized.
    * It updates the `viewportWidth` state with the new window width.
+   * It also closes the navbar if the screen width is below 1280px
+   * and opens the navbar if the screen width is above 1280px.
    */
   useEffect(() => {
     function handleResize() {
-      setViewportWidth(window.innerWidth);
+      const currentWidth = window.innerWidth;
+
+      // Close the navbar if the screen crosses below 1280px
+      if (currentWidth < 1280 && previousWidthRef.current >= 1280) {
+        setNavbarOpen(false);
+      }
+
+      // Open the navbar if the screen crosses above 1280px
+      if (currentWidth >= 1280 && previousWidthRef.current < 1280) {
+        setNavbarOpen(true);
+      }
+
+      // Update the ref with the current width
+      previousWidthRef.current = currentWidth;
+
+      // Update the viewport width state
+      setViewportWidth(currentWidth);
     }
+
+    // Attach the resize event listener
     window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -151,7 +175,7 @@ export function useGlobalStateContext() {
   const context = useContext(GlobalStateContextContext);
   if (!context) {
     throw new Error(
-      "useGlobalStateContext must be used within an GlobalStateContextProvider"
+      "useGlobalStateContext must be used within an GlobalStateContextProvider",
     );
   }
   return context;

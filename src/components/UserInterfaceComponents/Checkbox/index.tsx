@@ -30,7 +30,7 @@ export default function Checkbox({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <div className="flex items-center gap-x-2 rounded-sm px-1 focus-within:outline focus-within:outline-2">
+      <div className="flex items-center gap-x-2 rounded-sm px-1 focus-within:outline-2">
         {/* Hidden input for form submission */}
         <input
           type="checkbox"
@@ -55,13 +55,12 @@ export default function Checkbox({
         {/* Visual representation of the checkbox */}
         <label
           htmlFor={id}
-          className={`flex h-4 w-8 items-center rounded-full transition-all duration-100 hover:cursor-pointer ${
+          className={`flex h-4 min-h-4 w-8 min-w-8 items-center rounded-full transition-all duration-100 hover:cursor-pointer ${
             checked ? "bg-green-500" : "bg-slate-500"
           } ${
             disabled &&
             "bg-slate-300 hover:cursor-not-allowed dark:bg-slate-700"
-          }
-        `}
+          } `}
         >
           <div
             className={`h-4 w-4 rounded-full bg-white transition-all duration-100 ${

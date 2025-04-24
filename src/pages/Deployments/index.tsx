@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FaPlus, FaTools } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CreateNewDeployment from "../../components/Deployments/CreateNewDeployment";
 import Deployment from "../../components/Deployments/Deployment";
 import Terminal from "../../components/Terminal/Terminal";
@@ -19,6 +19,7 @@ export default function Deployments() {
   const { data: workspaces } = useTerraformWorkspace();
   const { data: serverStatus } = useServerStatus();
   const { selectedDeployment } = useSelectedDeployment();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "ACT Labs | Deployments";
@@ -38,15 +39,22 @@ export default function Deployments() {
 
   return (
     <PageLayout heading="Deployments">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-center justify-between sm:flex-row">
         <BackButton />
 
-        <div className={`mb-3 flex justify-end gap-x-2 rounded-sm`}>
-          <Link to="/builder">
-            <Button variant="secondary-text">
-              <FaTools /> Lab Builder
-            </Button>
-          </Link>
+        <div
+          className={`mb-3 flex flex-col justify-end gap-x-2 rounded-sm sm:flex-row`}
+        >
+          <Button
+            variant="secondary-text"
+            onClick={() => {
+              if (workspaces.length > 0) {
+                navigate("/builder");
+              }
+            }}
+          >
+            <FaTools /> Lab Builder
+          </Button>
           <CreateNewDeployment variant="primary-text">
             <FaPlus /> Add Deployment
           </CreateNewDeployment>
