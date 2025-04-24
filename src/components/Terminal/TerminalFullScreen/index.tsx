@@ -52,6 +52,7 @@ export default function TerminalFullScreen({
               disabled={false}
               checked={autoScroll}
               handleOnChange={handleAutoScrollChange}
+              invertLabelColor={true}
             />
           </div>
           <Button
