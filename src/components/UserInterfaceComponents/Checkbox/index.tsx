@@ -1,6 +1,5 @@
 import { InputHTMLAttributes } from "react";
 import {
-  defaultUIInvertedTextColor,
   defaultUISecondaryTextColor,
   defaultUITextColor,
   getUIStateColors,
@@ -31,7 +30,7 @@ export default function Checkbox({
 
   ...rest
 }: CheckboxProps) {
-  const { checked = false, disabled = false, ...otherProps } = rest;
+  const { checked = false, disabled = false, className, ...otherProps } = rest;
 
   return (
     <Tooltip
@@ -92,8 +91,8 @@ export default function Checkbox({
           className={cn(
             "text-md transition-all duration-100",
             defaultUITextColor,
-            invertLabelColor && defaultUIInvertedTextColor,
             disabled && defaultUISecondaryTextColor,
+            className,
           )}
         >
           {label}

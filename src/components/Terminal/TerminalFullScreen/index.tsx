@@ -52,21 +52,21 @@ export default function TerminalFullScreen({
               disabled={false}
               checked={autoScroll}
               handleOnChange={handleAutoScrollChange}
-              invertLabelColor={true}
+              className="text-slate-50 dark:text-slate-50"
             />
           </div>
           <Button
             variant="text"
             disabled={actionStatus.inProgress}
             onClick={() => setLogs({ logs: "" })}
-            className="text-slate-50"
+            className="text-slate-50 hover:text-sky-400"
           >
             <FaTrashAlt /> Clear Logs
           </Button>
           <Button
             variant="text"
             onClick={() => setFullScreen(false)}
-            className="text-slate-50"
+            className="text-slate-50 hover:text-sky-400"
           >
             <FaCompress /> Minimize
           </Button>
