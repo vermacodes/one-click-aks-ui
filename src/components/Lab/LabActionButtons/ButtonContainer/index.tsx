@@ -7,6 +7,8 @@ import {
 } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import { ButtonContainerObj } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
+import { cn } from "../../../../utils/cn";
 import Button from "../../../UserInterfaceComponents/Button";
 
 type Props = {
@@ -112,7 +114,10 @@ export default function ButtonContainer({
             </Button>
             {showDropdown && (
               <div
-                className="space-2 absolute right-0 z-20 mt-2 flex w-fit flex-col gap-2 rounded-sm border border-slate-500 px-8 pt-2 pb-6 whitespace-nowrap shadow-lg"
+                className={cn(
+                  "space-2 absolute right-0 z-20 mt-2 flex w-fit flex-col gap-2 rounded-sm border border-slate-500 px-8 pt-2 pb-6 whitespace-nowrap shadow-lg",
+                  getUIStateColors({ colors: "default" }),
+                )}
                 onMouseLeave={() => setShowDropdown(false)}
                 onMouseEnter={handleMouseEnterDropdown}
               >
