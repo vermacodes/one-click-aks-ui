@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Lab } from "../../../dataStructures";
 import { getDefaultLab } from "../../../defaults";
 import { useLab, useSetLab } from "../../../hooks/useLab";
@@ -36,6 +36,8 @@ export function GlobalStateContextProvider({ children }: Props) {
   const [syncLab, setSyncLab] = useState<boolean>(true);
   const { mutate: setLabServerState } = useSetLab();
   const { data: labFromServer } = useLab();
+
+  const previousWidthRef = useRef(window.innerWidth);
 
   /**
    * This useEffect hook is triggered once when the component mounts.
@@ -91,24 +93,30 @@ export function GlobalStateContextProvider({ children }: Props) {
       const currentWidth = window.innerWidth;
 
       // Close the navbar if the screen crosses below 1280px
-      if (currentWidth < 1280 && viewportWidth >= 1280) {
+      if (currentWidth < 1280 && previousWidthRef.current >= 1280) {
         setNavbarOpen(false);
       }
 
       // Open the navbar if the screen crosses above 1280px
-      if (currentWidth >= 1280 && viewportWidth < 1280) {
+      if (currentWidth >= 1280 && previousWidthRef.current < 1280) {
         setNavbarOpen(true);
       }
 
-      // Update the viewport width
+      // Update the ref with the current width
+      previousWidthRef.current = currentWidth;
+
+      // Update the viewport width state
       setViewportWidth(currentWidth);
     }
 
+    // Attach the resize event listener
     window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [viewportWidth]);
+  }, []);
 
   /**
    * This useEffect hook is triggered when `navbarExpandedParent` changes.
