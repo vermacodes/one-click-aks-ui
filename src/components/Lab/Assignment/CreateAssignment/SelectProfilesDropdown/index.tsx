@@ -110,7 +110,7 @@ export default function SelectProfilesDropdown({
     const isActive = selectedProfiles.includes(profile);
 
     const baseClasses =
-      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+      "relative w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
     const activeClasses = getUIStateColors({
       selected: true,
       hover: true,

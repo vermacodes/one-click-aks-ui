@@ -53,7 +53,7 @@ export default function Version({ index }: Props) {
     // Determine the classes to apply based on whether the current version matches the key
     const isActive = key === currentVersion;
     const baseClasses =
-      "w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+      "relative w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
     const activeClasses = getUIStateColors({
       selected: true,
       hover: true,
