@@ -57,7 +57,7 @@ export default function ActlabsHubEndpoint({}: Props) {
           }}
         >
           <p
-            className={`${edit && "hidden"} items-center px-1`}
+            className={`${edit && "hidden"} items-center px-1 break-all`}
             onClick={() => setEdit(true)}
           >
             {baseUrl}

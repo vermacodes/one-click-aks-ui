@@ -54,7 +54,7 @@ export default function DefaultNodepoolVmSize({ index }: Props) {
     !lab?.template?.kubernetesClusters[index]?.defaultNodePool?.vmSize;
 
   return (
-    <div className="flex items-center gap-2 whitespace-nowrap">
+    <div className="flex flex-col items-center gap-2 whitespace-nowrap sm:flex-row">
       <label htmlFor="vmSize">VM Size</label>
       <Input
         id="vmSize"

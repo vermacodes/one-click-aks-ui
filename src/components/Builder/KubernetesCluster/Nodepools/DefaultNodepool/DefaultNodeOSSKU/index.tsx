@@ -68,7 +68,7 @@ export default function DefaultNodeOSSKU({ index }: Props) {
    * @returns JSX.Element - The rendered item
    */
   return (
-    <div className="-m-2 flex w-64 items-center gap-2 whitespace-nowrap">
+    <div className="-m-2 flex w-64 flex-col items-center gap-2 whitespace-nowrap sm:flex-row">
       <label htmlFor="nodeOSSKU">Node OS SKU</label>
       <DropdownSelect
         heading={currentNodeOSSKU == null ? "Ubuntu" : currentNodeOSSKU}

@@ -8,7 +8,7 @@ export default function NumberInput({ label, ...rest }: Props) {
   const { disabled } = rest;
   return (
     <div>
-      <form className="flex items-center gap-2 text-nowrap">
+      <form className="flex flex-col items-center gap-2 text-nowrap sm:flex-row">
         <label
           htmlFor="numberInput"
           className={`${disabled && "cursor-not-allowed text-slate-500"}`}

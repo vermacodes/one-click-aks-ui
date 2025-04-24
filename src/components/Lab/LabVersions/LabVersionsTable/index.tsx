@@ -88,8 +88,8 @@ export default function LabVersionsTable({
   }
 
   return (
-    <Container>
-      <table className="h-full w-full max-w-full table-auto border-separate justify-between gap-y-6 rounded">
+    <Container additionalContainerBodyClasses="overflow-auto">
+      <table className="h-full w-full max-w-full table-auto border-separate justify-between gap-y-6 overflow-auto rounded">
         <thead>
           <tr>
             <th className="px-4 py-2">Compare</th>

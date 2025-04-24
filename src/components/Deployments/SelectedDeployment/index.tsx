@@ -50,7 +50,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
   return (
     <Container sticky={sticky} additionalClasses="mb-4 py-2 text-base">
       <div
-        className="flex justify-between gap-2 text-sm hover:cursor-pointer"
+        className="flex flex-col justify-between gap-2 text-sm hover:cursor-pointer sm:flex-row"
         key={selectedDeploymentState.deploymentId}
         onClick={() => navigate(`/deployments`)}
       >
@@ -66,7 +66,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
             className="flex flex-wrap items-center justify-end gap-2 hover:cursor-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-2 h-6 border-r border-gray-300"></div>
+            <div className="mx-2 hidden h-6 border-r border-gray-300 sm:visible"></div>
             <AutoDestroySwitch
               deployment={selectedDeploymentState}
               disabled={actionStatus.inProgress}
@@ -75,7 +75,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
             />
             <DeploymentLifespan deployment={selectedDeploymentState} />
             <DestroyTime deployment={selectedDeploymentState} />
-            <div className="mx-2 h-6 border-r border-gray-300"></div>
+            <div className="mx-2 hidden h-6 border-r border-gray-300 sm:visible"></div>
             <BreakBlobLease
               deployment={selectedDeploymentState}
               buttonVariant="secondary-text"
