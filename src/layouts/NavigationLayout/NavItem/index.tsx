@@ -32,7 +32,7 @@ export default function NavItem({
   const { navbarOpen, setNavbarOpen, viewportWidth } = useGlobalStateContext();
 
   const handleLinkClick = () => {
-    if (navbarOpen && viewportWidth < 768) {
+    if (navbarOpen && viewportWidth < 1280) {
       setNavbarOpen(false);
     }
   };

@@ -33,7 +33,7 @@ export default function MainLayout() {
       <div className="flex h-[90%] overflow-hidden lg:h-[90%]">
         {navbarOpen && <Navbar />}
 
-        {/** if screen width is less that 768 px and navbar is open, don't show main content*/}
+        {/** if screen width is less that 768px and navbar is open, don't show main content*/}
         {(!navbarOpen || viewportWidth >= 768) && (
           <main
             id="main"
