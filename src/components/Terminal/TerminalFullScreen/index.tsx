@@ -36,8 +36,8 @@ export default function TerminalFullScreen({
       >
         <div
           className={cn(
-            "space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 p-2",
-            getUIStateColors({ colors: "dark" }),
+            "space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 border-b p-2",
+            getUIStateColors({}),
           )}
         >
           <div className="pr-2">
@@ -52,22 +52,16 @@ export default function TerminalFullScreen({
               disabled={false}
               checked={autoScroll}
               handleOnChange={handleAutoScrollChange}
-              className="text-slate-50 dark:text-slate-50"
             />
           </div>
           <Button
             variant="text"
             disabled={actionStatus.inProgress}
             onClick={() => setLogs({ logs: "" })}
-            className="text-slate-50 hover:text-sky-400"
           >
             <FaTrashAlt /> Clear Logs
           </Button>
-          <Button
-            variant="text"
-            onClick={() => setFullScreen(false)}
-            className="text-slate-50 hover:text-sky-400"
-          >
+          <Button variant="text" onClick={() => setFullScreen(false)}>
             <FaCompress /> Minimize
           </Button>
         </div>

@@ -26,7 +26,7 @@ export default function TerminalContent({ autoScroll, updateLogs }: Props) {
   return (
     <div
       className={cn(
-        "h-screen max-h-screen overflow-y-auto rounded-sm border-1 border-slate-500 p-4 text-sm text-slate-100 shadow-slate-300 hover:border-sky-500",
+        "h-screen max-h-screen overflow-y-auto rounded-sm p-4 text-sm text-slate-100",
         defaultScrollbarStyle,
         getUIStateColors({ colors: "dark" }),
       )}
