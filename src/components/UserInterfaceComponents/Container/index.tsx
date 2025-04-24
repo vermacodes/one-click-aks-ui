@@ -28,8 +28,13 @@ export default function Container({
   ...rest
 }: Props) {
   const [open, setOpen] = useState<boolean>(!collapsed);
+
+  // Function to replace the spaces in the title with underscores
+  const formattedTitle = title?.replace(/\s+/g, "_");
+
   return (
     <div
+      id={`container-${formattedTitle}`}
       className={cn(
         "flex w-full flex-col justify-between gap-4 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 dark:bg-slate-950 dark:outline-slate-600",
         { "sticky top-0 z-20": sticky },
@@ -61,7 +66,9 @@ export default function Container({
                 onClick={() => setOpen(!open)}
                 aria-expanded={open} // Indicates the expanded/collapsed state
                 aria-label="Toggle container" // Accessible label for the button
-                aria-controls={title ? `container-${title}` : undefined} // Links the button to the container
+                aria-controls={
+                  title ? `container-${formattedTitle}` : undefined
+                } // Links the button to the container
               >
                 <FaChevronUp />
               </Button>
