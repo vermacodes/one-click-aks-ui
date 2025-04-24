@@ -66,7 +66,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
             className="flex flex-wrap items-center justify-end gap-2 hover:cursor-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-2 hidden h-6 border-r border-gray-300 sm:visible"></div>
+            <div className="mx-2 hidden h-6 border-r border-gray-300 sm:block"></div>
             <AutoDestroySwitch
               deployment={selectedDeploymentState}
               disabled={actionStatus.inProgress}
@@ -75,7 +75,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
             />
             <DeploymentLifespan deployment={selectedDeploymentState} />
             <DestroyTime deployment={selectedDeploymentState} />
-            <div className="mx-2 hidden h-6 border-r border-gray-300 sm:visible"></div>
+            <div className="mx-2 hidden h-6 border-r border-gray-300 sm:block"></div>
             <BreakBlobLease
               deployment={selectedDeploymentState}
               buttonVariant="secondary-text"
