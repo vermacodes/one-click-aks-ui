@@ -1,5 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import {
+  defaultUIInvertedTextColor,
   defaultUISecondaryTextColor,
   defaultUITextColor,
   getUIStateColors,
@@ -15,6 +16,7 @@ type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   tooltipDirection?: "top" | "bottom" | "left" | "right";
   tooltipAlign?: "start" | "center" | "end";
   handleOnChange(args: void): void;
+  invertLabelColor?: boolean;
 };
 
 export default function Checkbox({
@@ -25,6 +27,8 @@ export default function Checkbox({
   tooltipDirection,
   tooltipAlign,
   handleOnChange,
+  invertLabelColor = false,
+
   ...rest
 }: CheckboxProps) {
   const { checked = false, disabled = false, ...otherProps } = rest;
@@ -88,6 +92,7 @@ export default function Checkbox({
           className={cn(
             "text-md transition-all duration-100",
             defaultUITextColor,
+            invertLabelColor && defaultUIInvertedTextColor,
             disabled && defaultUISecondaryTextColor,
           )}
         >
