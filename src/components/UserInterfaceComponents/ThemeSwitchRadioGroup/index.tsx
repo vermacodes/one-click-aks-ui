@@ -29,9 +29,7 @@ export default function ThemeSwitchRadioGroup({
   }
 
   const handleThemeChange = (theme: Theme) => {
-    console.log("Theme changed to:", theme);
     setTheme(theme);
-    // Add logic to apply the selected theme
   };
 
   // if the theme is system, set darkMode to true if the system is in dark mode
@@ -91,7 +89,6 @@ export default function ThemeSwitchRadioGroup({
               handleThemeChange("system");
             }
           }}
-          onChange={() => handleThemeChange("system")}
         >
           <FaComputer />
         </div>
@@ -114,7 +111,6 @@ export default function ThemeSwitchRadioGroup({
             }
           }}
           aria-checked={theme === "light"}
-          onChange={() => handleThemeChange("light")}
           tabIndex={0}
           aria-label="Light Theme"
         >
@@ -139,7 +135,6 @@ export default function ThemeSwitchRadioGroup({
             }
           }}
           aria-checked={theme === "dark"}
-          onChange={() => handleThemeChange("dark")}
           tabIndex={0}
           aria-label="Dark Theme"
         >

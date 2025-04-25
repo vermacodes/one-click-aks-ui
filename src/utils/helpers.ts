@@ -61,7 +61,6 @@ export function setDefaultValuesInLocalStorage() {
   // }
 
   if (localStorage.getItem("theme") === null) {
-    console.log("Setting default theme to system");
     localStorage.setItem("theme", "system");
   }
 
