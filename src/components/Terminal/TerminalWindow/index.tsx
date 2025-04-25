@@ -28,7 +28,7 @@ export default function TerminalWindow({
       className="mt-4 mb-4 flex w-full flex-col overflow-auto pt-1 sm:max-h-[80vh]"
       //style={{ maxHeight: "80vh" }}
     >
-      <div className="space-2 mb-1 flex flex-col items-center justify-end gap-x-2 gap-y-2 divide-slate-500 sm:flex-row sm:divide-x">
+      <div className="mb-1 flex flex-col items-center justify-end gap-2 divide-slate-500 sm:flex-row sm:divide-x">
         <div className="pr-4">
           {selectedDeployment && (
             <DeploymentStatus deployment={selectedDeployment} />
@@ -49,18 +49,17 @@ export default function TerminalWindow({
           disabled={actionStatus.inProgress}
           onClick={() => setLogs({ logs: "" })}
           aria-label="Clear logs"
+          className="mr-2"
         >
           <FaTrashAlt /> Clear Logs
         </Button>
-        <div className="px-2">
-          <Button
-            variant="text"
-            onClick={() => setFullScreen(true)}
-            aria-label="Maximize Terminal"
-          >
-            <FaExpand /> Maximize
-          </Button>
-        </div>
+        <Button
+          variant="text"
+          onClick={() => setFullScreen(true)}
+          aria-label="Maximize Terminal"
+        >
+          <FaExpand /> Maximize
+        </Button>
       </div>
       {children}
     </div>

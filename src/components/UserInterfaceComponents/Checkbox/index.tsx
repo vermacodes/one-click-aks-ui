@@ -1,6 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { FaCircle } from "react-icons/fa";
 import {
+  defaultUIInvertedTextColor,
   defaultUISecondaryTextColor,
   defaultUITextColor,
   getUIStateColors,
@@ -28,7 +29,6 @@ export default function Checkbox({
   tooltipAlign,
   handleOnChange,
   invertLabelColor = false,
-
   ...rest
 }: CheckboxProps) {
   const { checked = false, disabled = false, className, ...otherProps } = rest;
@@ -40,33 +40,25 @@ export default function Checkbox({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <div className="flex items-center gap-x-2 rounded-sm px-1 focus-within:outline-2">
-        {/* Hidden input for form submission */}
-        <input
-          type="checkbox"
+      <div className="flex items-center gap-x-2 rounded-sm px-1">
+        {/* Accessible button for the checkbox */}
+        <button
           id={id}
-          className="sr-only"
-          onChange={() => handleOnChange()}
-          checked={checked}
-          disabled={disabled}
-          {...otherProps}
-          tabIndex={0}
+          role="checkbox"
+          aria-checked={checked}
+          aria-disabled={disabled}
+          onClick={() => {
+            if (!disabled) handleOnChange();
+          }}
           onKeyDown={(e) => {
             if ((e.key === "Enter" || e.key === " ") && !disabled) {
               e.preventDefault(); // Prevent default scrolling behavior for Space
               handleOnChange();
             }
           }}
-          role="checkbox"
-          aria-checked={checked}
-          aria-disabled={disabled} // Indicate if the checkbox is disabled
-          aria-label={label} // Provide an accessible label
-        />
-        {/* Visual representation of the checkbox */}
-        <label
-          htmlFor={id}
+          disabled={disabled}
           className={cn(
-            "flex h-4 min-h-4 w-8 min-w-8 items-center rounded-full transition-all duration-100",
+            "flex h-5 w-10 items-center rounded-full outline-offset-2 transition-all duration-100 focus:outline-2",
             getUIStateColors({
               colors: `${checked ? "success" : "secondary"}`,
               disabled: disabled,
@@ -74,57 +66,26 @@ export default function Checkbox({
             {
               "cursor-pointer": !disabled,
             },
-            "contrast-more:h-5 contrast-more:min-h-5 contrast-more:w-10 contrast-more:min-w-10 contrast-more:border",
+            "contrast-more:bg-current contrast-more:outline-2 contrast-more:outline-offset-0 contrast-more:focus:outline-3",
           )}
         >
-          {/* <div
-            className={cn(
-              "h-4 w-4 rounded-full transition-all duration-100",
-              checked && "ml-4",
-              getUIStateColors({
-                colors: "light",
-                disabled: disabled,
-              }),
-            )}
-          ></div> */}
           <FaCircle
             className={cn(
-              "h-4 w-4 rounded-full transition-all duration-100",
-              checked && "ml-4",
-              // getUIStateColors({
-              //   colors: "light",
-              //   disabled: disabled,
-              // }),
-              defaultUITextColor,
-              "contrast-more:ml-0.5 contrast-more:h-3 contrast-more:w-3",
-              checked
-                ? "contrast-more:ml-6 contrast-more:border-green-400 contrast-more:fill-green-400"
-                : "contrast-more:bg-slate-300",
+              "ml-1 h-3 w-3 rounded-full transition-all duration-100",
+              defaultUIInvertedTextColor,
+              checked && "ml-6",
+              disabled && defaultUISecondaryTextColor,
+              "contrast-more:fill-current contrast-more:text-current",
+              "dark:contrast-more:fill-current dark:contrast-more:text-current",
             )}
-            role="text"
           />
-          {/* <FaCircle
-            className={cn(
-              "h-4 w-4 rounded-full transition-all duration-100",
-              checked && "ml-4",
-              defaultUITextColor,
-              "contrast-more:ml-0.5 contrast-more:h-3 contrast-more:w-3",
-              checked
-                ? "contrast-more:ml-6 contrast-more:border-green-400"
-                : "contrast-more:bg-slate-300",
-            )}
-            style={{
-              fill: "currentColor", // Use currentColor to adapt to High Contrast mode
-            }}
-          /> */}
-        </label>
+        </button>
         {/* Accessible label for the checkbox */}
         <span
           className={cn(
             "text-md transition-all duration-100",
             defaultUITextColor,
             disabled && defaultUISecondaryTextColor,
-            className,
           )}
         >
           {label}
