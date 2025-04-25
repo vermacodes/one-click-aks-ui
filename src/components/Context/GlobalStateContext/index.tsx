@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { Lab } from "../../../dataStructures";
+import { Lab, Theme } from "../../../dataStructures";
 import { getDefaultLab } from "../../../defaults";
 import { useLab, useSetLab } from "../../../hooks/useLab";
-import { setDefaultValuesInLocalStorage } from "../../../utils/helpers";
+import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
 
 interface GlobalStateContextContextData {
+  theme: Theme;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
   darkMode: boolean;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   navbarOpen: boolean;
@@ -28,10 +30,24 @@ type Props = {
 };
 
 export function GlobalStateContextProvider({ children }: Props) {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [navbarOpen, setNavbarOpen] = useState<boolean>(true);
+  const [theme, setTheme] = useLocalStorageState<Theme>("theme", "system");
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const isSystemDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    return theme === "dark"
+      ? true
+      : theme === "light"
+        ? false
+        : isSystemDarkMode;
+  });
+  const [navbarOpen, setNavbarOpen] = useLocalStorageState<boolean>(
+    "navbarOpen",
+    true,
+  );
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [navbarExpandedParent, setNavbarExpandedParent] = useState<string>("");
+  const [navbarExpandedParent, setNavbarExpandedParent] =
+    useLocalStorageState<string>("navbarExpandedParent", "");
   const [lab, setLab] = useState<Lab>(getDefaultLab());
   const [syncLab, setSyncLab] = useState<boolean>(true);
   const { mutate: setLabServerState } = useSetLab();
@@ -40,53 +56,19 @@ export function GlobalStateContextProvider({ children }: Props) {
   const previousWidthRef = useRef(window.innerWidth);
 
   /**
-   * This useEffect hook is triggered once when the component mounts.
-   * It sets default values in local storage for `darkMode` and `navbarOpen`.
-   * If these values are already set in local storage, it updates the local state accordingly.
+   * Update `darkMode` when `theme` changes.
    */
   useEffect(() => {
-    setDefaultValuesInLocalStorage();
-
-    var darkModeFromLocalStorage = localStorage.getItem("darkMode");
-    if (darkModeFromLocalStorage === null) {
-      localStorage.setItem("darkMode", "false");
-    } else {
-      if (darkModeFromLocalStorage === "true") {
-        setDarkMode(true);
-      }
-    }
-
-    var navbarOpenFromLocalStorage = localStorage.getItem("navbarOpen");
-    if (navbarOpenFromLocalStorage === null) {
-      localStorage.setItem("navbarOpen", "true");
-    } else {
-      if (navbarOpenFromLocalStorage === "false") {
-        setNavbarOpen(false);
-      }
-    }
-  }, []);
+    const isSystemDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    setDarkMode(
+      theme === "dark" ? true : theme === "light" ? false : isSystemDarkMode,
+    );
+  }, [theme]);
 
   /**
-   * This useEffect hook is triggered when `darkMode` changes.
-   * It updates the `darkMode` value in local storage to reflect the new state.
-   */
-  useEffect(() => {
-    localStorage.setItem("darkMode", darkMode.toString());
-  }, [darkMode]);
-
-  /**
-   * This useEffect hook is triggered when `navbarOpen` changes.
-   * It updates the `navbarOpen` value in local storage to reflect the new state.
-   */
-  useEffect(() => {
-    localStorage.setItem("navbarOpen", navbarOpen.toString());
-  }, [navbarOpen]);
-
-  /**
-   * This useEffect hook is triggered when the window is resized.
-   * It updates the `viewportWidth` state with the new window width.
-   * It also closes the navbar if the screen width is below 1280px
-   * and opens the navbar if the screen width is above 1280px.
+   * Handle window resize events to update `viewportWidth` and toggle `navbarOpen`.
    */
   useEffect(() => {
     function handleResize() {
@@ -119,17 +101,7 @@ export function GlobalStateContextProvider({ children }: Props) {
   }, []);
 
   /**
-   * This useEffect hook is triggered when `navbarExpandedParent` changes.
-   * It updates the `navbarExpandedParent` value in local storage to reflect the new state.
-   */
-  useEffect(() => {
-    localStorage.setItem("navbarExpandedParent", navbarExpandedParent);
-  }, [navbarExpandedParent]);
-
-  /**
-   * This useEffect hook is triggered when `labFromServer` changes.
-   * If `labFromServer` is defined and `syncLab` is true, it updates the local `lab` state with the server state
-   * and sets `syncLab` to false to prevent unnecessary updates in the future.
+   * Sync `lab` state with the server when `labFromServer` changes.
    */
   useEffect(() => {
     if (labFromServer !== undefined && syncLab) {
@@ -139,9 +111,7 @@ export function GlobalStateContextProvider({ children }: Props) {
   }, [labFromServer]);
 
   /**
-   * This useEffect hook is triggered when `lab` changes.
-   * If `lab` is defined and `syncLab` is false, it updates the server state with the local `lab` state.
-   * This ensures that any changes to the local `lab` state are persisted to the server state.
+   * Update the server state when `lab` changes.
    */
   useEffect(() => {
     if (lab !== undefined && !syncLab) {
@@ -152,6 +122,8 @@ export function GlobalStateContextProvider({ children }: Props) {
   return (
     <GlobalStateContextContext.Provider
       value={{
+        theme,
+        setTheme,
         darkMode,
         setDarkMode,
         navbarOpen,

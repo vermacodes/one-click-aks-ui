@@ -107,9 +107,7 @@ export default function SaveLabPage() {
             error: "Failed to upload supporting document.",
           },
         );
-        console.log("upsertResponse", upsertResponse);
         documentId = upsertResponse.supportingDocumentId;
-        console.log("documentId", documentId);
 
         // Update the labState with the supportingDocumentId
         labState.supportingDocumentId = documentId;

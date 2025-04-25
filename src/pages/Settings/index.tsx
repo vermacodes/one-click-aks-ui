@@ -5,6 +5,7 @@ import AzureSubscriptionSetting from "../../components/Config/AzureSubscription"
 import ServerConfig from "../../components/Config/Server/ServerConfig";
 import TerraformInit from "../../components/Config/TerraformInit";
 import TerraformWorkspaces from "../../components/Config/TerraformWorkspaces";
+import Theme from "../../components/Config/Theme";
 import PageLayout from "../../layouts/PageLayout";
 
 export default function Settings() {
@@ -27,6 +28,7 @@ export default function Settings() {
 
         <TerraformInit />
         <TerraformWorkspaces />
+        <Theme />
         {/* <Container collapsible={true}>
 					<div className="flex flex-col md:flex-row">
 						<ResetActionStatus />
