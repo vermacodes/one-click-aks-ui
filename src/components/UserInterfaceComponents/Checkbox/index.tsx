@@ -1,6 +1,7 @@
 import { InputHTMLAttributes } from "react";
 import { FaCircle } from "react-icons/fa";
 import {
+  defaultUIDisabledTextColor,
   defaultUIInvertedTextColor,
   defaultUISecondaryTextColor,
   defaultUITextColor,
@@ -74,7 +75,7 @@ export default function Checkbox({
               "ml-1 h-3 w-3 rounded-full transition-all duration-100",
               defaultUIInvertedTextColor,
               checked && "ml-6",
-              disabled && defaultUISecondaryTextColor,
+              disabled && defaultUIDisabledTextColor,
               "contrast-more:fill-current contrast-more:text-current",
               "dark:contrast-more:fill-current dark:contrast-more:text-current",
             )}
