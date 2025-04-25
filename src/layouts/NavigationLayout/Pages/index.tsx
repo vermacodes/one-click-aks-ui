@@ -29,7 +29,7 @@ export default function Pages() {
 
   return (
     <div
-      className={`flex w-full flex-col overflow-hidden scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:border-slate-700 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400`}
+      className={`scrollbar-thin scrollbar-track-slate-300 scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-400 flex w-full flex-col overflow-hidden p-1 dark:border-slate-700`}
     >
       <ul className="md:text-l flex w-full flex-col justify-start gap-1 px-[2px] py-[2px] text-sm lg:text-xl">
         <NavItem
