@@ -29,6 +29,7 @@ export default function TerminalContent({ autoScroll, updateLogs }: Props) {
         "h-screen max-h-screen overflow-y-auto rounded-sm p-4 text-sm text-slate-100",
         defaultScrollbarStyle,
         getUIStateColors({ colors: "dark" }),
+        "contrast-more:border",
       )}
       ref={logContainerRef}
       tabIndex={0}

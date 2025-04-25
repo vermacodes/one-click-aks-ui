@@ -1,4 +1,5 @@
 import { InputHTMLAttributes } from "react";
+import { FaCircle } from "react-icons/fa";
 import {
   defaultUISecondaryTextColor,
   defaultUITextColor,
@@ -73,9 +74,10 @@ export default function Checkbox({
             {
               "cursor-pointer": !disabled,
             },
+            "contrast-more:h-5 contrast-more:min-h-5 contrast-more:w-10 contrast-more:min-w-10 contrast-more:border",
           )}
         >
-          <div
+          {/* <div
             className={cn(
               "h-4 w-4 rounded-full transition-all duration-100",
               checked && "ml-4",
@@ -84,7 +86,37 @@ export default function Checkbox({
                 disabled: disabled,
               }),
             )}
-          ></div>
+          ></div> */}
+          <FaCircle
+            className={cn(
+              "h-4 w-4 rounded-full transition-all duration-100",
+              checked && "ml-4",
+              // getUIStateColors({
+              //   colors: "light",
+              //   disabled: disabled,
+              // }),
+              defaultUITextColor,
+              "contrast-more:ml-0.5 contrast-more:h-3 contrast-more:w-3",
+              checked
+                ? "contrast-more:ml-6 contrast-more:border-green-400 contrast-more:fill-green-400"
+                : "contrast-more:bg-slate-300",
+            )}
+            role="text"
+          />
+          {/* <FaCircle
+            className={cn(
+              "h-4 w-4 rounded-full transition-all duration-100",
+              checked && "ml-4",
+              defaultUITextColor,
+              "contrast-more:ml-0.5 contrast-more:h-3 contrast-more:w-3",
+              checked
+                ? "contrast-more:ml-6 contrast-more:border-green-400"
+                : "contrast-more:bg-slate-300",
+            )}
+            style={{
+              fill: "currentColor", // Use currentColor to adapt to High Contrast mode
+            }}
+          /> */}
         </label>
         {/* Accessible label for the checkbox */}
         <span

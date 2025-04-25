@@ -25,7 +25,7 @@ function App() {
             <ToastContainer
               toastClassName={`${
                 darkMode ? "bg-slate-200" : "bg-slate-800"
-              } relative flex p-1 min-h-15 rounded-md justify-between overflow-hidden cursor-pointer`}
+              } relative flex p-1 min-h-15 rounded-md justify-between overflow-hidden cursor-pointer contrast-more:border`}
               position="top-right"
               autoClose={2000}
               hideProgressBar={false}

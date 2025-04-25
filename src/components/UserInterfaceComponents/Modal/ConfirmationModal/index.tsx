@@ -39,7 +39,7 @@ export default function ConfirmationModal({
       <div
         ref={modalRef}
         className={cn(
-          "h-fit max-h-[80vh] w-full max-w-[90vw] overflow-y-auto rounded-sm p-5 sm:w-2/3 md:my-20 md:w-3/5",
+          "h-fit max-h-[80vh] w-full max-w-[90vw] overflow-y-auto rounded-sm p-5 contrast-more:border sm:w-2/3 md:my-20 md:w-3/5",
           getUIStateColors({}),
         )}
         role="dialog" // Set the role to dialog

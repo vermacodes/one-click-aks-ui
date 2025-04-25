@@ -78,6 +78,7 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "system",
               hover: true,
             }),
+            theme === "system" && "contrast-more:border",
           )}
           tabIndex={0}
           aria-label="System Theme"
@@ -102,6 +103,7 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "light",
               hover: true,
             }),
+            theme === "light" && "contrast-more:border",
           )}
           onClick={() => handleThemeChange("light")}
           onKeyDown={(e) => {
@@ -126,6 +128,8 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "dark",
               hover: true,
             }),
+            theme === "dark" &&
+              "contrast-more:border contrast-more:fill-green-400",
           )}
           onClick={() => handleThemeChange("dark")}
           onKeyDown={(e) => {
