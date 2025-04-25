@@ -69,6 +69,7 @@ export default function ThemeSwitchRadioGroup({
           "contrast-more:border-current",
         )}
         role="radiogroup"
+        aria-label="Theme Switch"
       >
         <button
           role="radio"
