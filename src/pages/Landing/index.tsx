@@ -49,7 +49,7 @@ export default function Landing() {
               <a
                 href="https://dev.azure.com/Supportability/AzureContainers/_wiki/wikis/Containers%20Wiki/1280601/Getting-Started"
                 target={"_blank"}
-                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300"
+                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300 contrast-more:border"
               >
                 Get Started
               </a>
@@ -70,7 +70,7 @@ export default function Landing() {
             <div>
               <a
                 href="labs/publiclab"
-                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300"
+                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300 contrast-more:border"
               >
                 Check Out
               </a>
@@ -89,7 +89,7 @@ export default function Landing() {
             <div>
               <a
                 href="builder"
-                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300"
+                className="w-fit rounded-full bg-slate-200 px-8 py-2 text-2xl whitespace-nowrap text-blue-700 hover:bg-slate-300 contrast-more:border"
               >
                 Get to Work
               </a>

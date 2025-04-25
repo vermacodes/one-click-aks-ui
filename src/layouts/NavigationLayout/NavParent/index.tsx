@@ -1,6 +1,8 @@
 import { FaChevronRight } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import Tooltip from "../../../components/UserInterfaceComponents/Tooltip";
 import { getUIStateColors } from "../../../defaults";
+import { cn } from "../../../utils/cn"; // Ensure the correct import path for the cn utility
 
 type Props = {
   id: string;
@@ -34,16 +36,30 @@ export default function NavParent({
     : getUIStateColors({ hover: true });
 
   return (
-    <button
-      className={`${expanded === id && getUIStateColors({ hover: true, selected: true })} ${activeClass} flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base`}
-      onClick={() => {
-        setExpanded(expanded == id ? "" : id);
-      }}
-    >
-      <div className="flex items-center gap-1">{children}</div>
-      <div className={`${expanded === id && "rotate-90"} transition-all`}>
-        <FaChevronRight />
-      </div>
-    </button>
+    <Tooltip>
+      <Link
+        to={"#"}
+        className={cn(
+          "flex h-full w-full items-center justify-between gap-2 rounded px-4 py-3 text-left text-base",
+          activeClass,
+          expanded === id &&
+            getUIStateColors({
+              colors: "secondary",
+              hover: true,
+              selected: true,
+            }),
+          isActive && "contrast-more:outline-2",
+          isActive && expanded === id && "contrast-more:outline-0",
+        )}
+        onClick={() => {
+          setExpanded(expanded === id ? "" : id);
+        }}
+      >
+        <div className="flex items-center gap-1">{children}</div>
+        <div className={cn(expanded === id && "rotate-90", "transition-all")}>
+          <FaChevronRight />
+        </div>
+      </Link>
+    </Tooltip>
   );
 }

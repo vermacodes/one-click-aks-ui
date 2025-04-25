@@ -1,5 +1,8 @@
 import { InputHTMLAttributes } from "react";
+import { FaCircle } from "react-icons/fa";
 import {
+  defaultUIDisabledTextColor,
+  defaultUIInvertedTextColor,
   defaultUISecondaryTextColor,
   defaultUITextColor,
   getUIStateColors,
@@ -27,7 +30,6 @@ export default function Checkbox({
   tooltipAlign,
   handleOnChange,
   invertLabelColor = false,
-
   ...rest
 }: CheckboxProps) {
   const { checked = false, disabled = false, className, ...otherProps } = rest;
@@ -39,33 +41,25 @@ export default function Checkbox({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <div className="flex items-center gap-x-2 rounded-sm px-1 focus-within:outline-2">
-        {/* Hidden input for form submission */}
-        <input
-          type="checkbox"
+      <div className="flex items-center gap-x-2 rounded-sm px-1">
+        {/* Accessible button for the checkbox */}
+        <button
           id={id}
-          className="sr-only"
-          onChange={() => handleOnChange()}
-          checked={checked}
-          disabled={disabled}
-          {...otherProps}
-          tabIndex={0}
+          role="checkbox"
+          aria-checked={checked}
+          aria-disabled={disabled}
+          onClick={() => {
+            if (!disabled) handleOnChange();
+          }}
           onKeyDown={(e) => {
             if ((e.key === "Enter" || e.key === " ") && !disabled) {
               e.preventDefault(); // Prevent default scrolling behavior for Space
               handleOnChange();
             }
           }}
-          role="checkbox"
-          aria-checked={checked}
-          aria-disabled={disabled} // Indicate if the checkbox is disabled
-          aria-label={label} // Provide an accessible label
-        />
-        {/* Visual representation of the checkbox */}
-        <label
-          htmlFor={id}
+          disabled={disabled}
           className={cn(
-            "flex h-4 min-h-4 w-8 min-w-8 items-center rounded-full transition-all duration-100",
+            "flex h-5 w-10 items-center rounded-full outline-offset-2 transition-all duration-100 focus:outline-2",
             getUIStateColors({
               colors: `${checked ? "success" : "secondary"}`,
               disabled: disabled,
@@ -73,26 +67,26 @@ export default function Checkbox({
             {
               "cursor-pointer": !disabled,
             },
+            "contrast-more:bg-current contrast-more:outline-2 contrast-more:outline-offset-0 contrast-more:focus:outline-3",
           )}
         >
-          <div
+          <FaCircle
             className={cn(
-              "h-4 w-4 rounded-full transition-all duration-100",
-              checked && "ml-4",
-              getUIStateColors({
-                colors: "light",
-                disabled: disabled,
-              }),
+              "ml-1 h-3 w-3 rounded-full transition-all duration-100",
+              defaultUIInvertedTextColor,
+              checked && "ml-6",
+              disabled && defaultUIDisabledTextColor,
+              "contrast-more:fill-current contrast-more:text-current",
+              "dark:contrast-more:fill-current dark:contrast-more:text-current",
             )}
-          ></div>
-        </label>
+          />
+        </button>
         {/* Accessible label for the checkbox */}
         <span
           className={cn(
             "text-md transition-all duration-100",
             defaultUITextColor,
             disabled && defaultUISecondaryTextColor,
-            className,
           )}
         >
           {label}

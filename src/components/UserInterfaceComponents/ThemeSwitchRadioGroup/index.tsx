@@ -62,12 +62,13 @@ export default function ThemeSwitchRadioGroup({
     <Tooltip message={tooltipMessage} delay={tooltipDelay}>
       <div
         className={cn(
-          "flex items-center gap-1 rounded-full border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
+          "flex items-center gap-1 rounded-sm border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
           getUIStateColors({}),
+          "contrast-more:border-current",
         )}
         role="radiogroup"
       >
-        <div
+        <button
           role="radio"
           className={cn(
             "flex items-center justify-center rounded-full",
@@ -78,6 +79,8 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "system",
               hover: true,
             }),
+            theme === "system" && "contrast-more:border-2",
+            "contrast-more:hover:border-2",
           )}
           tabIndex={0}
           aria-label="System Theme"
@@ -91,8 +94,8 @@ export default function ThemeSwitchRadioGroup({
           }}
         >
           <FaComputer />
-        </div>
-        <div
+        </button>
+        <button
           role="radio"
           className={cn(
             "flex items-center justify-center rounded-full",
@@ -102,6 +105,8 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "light",
               hover: true,
             }),
+            theme === "light" && "contrast-more:border-2",
+            "contrast-more:hover:border-2",
           )}
           onClick={() => handleThemeChange("light")}
           onKeyDown={(e) => {
@@ -115,8 +120,8 @@ export default function ThemeSwitchRadioGroup({
           aria-label="Light Theme"
         >
           <FaSun />
-        </div>
-        <div
+        </button>
+        <button
           role="radio"
           className={cn(
             "flex items-center justify-center rounded-full",
@@ -126,6 +131,8 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "dark",
               hover: true,
             }),
+            theme === "dark" && "contrast-more:border-2",
+            "contrast-more:hover:border-2",
           )}
           onClick={() => handleThemeChange("dark")}
           onKeyDown={(e) => {
@@ -139,7 +146,7 @@ export default function ThemeSwitchRadioGroup({
           aria-label="Dark Theme"
         >
           <FaMoon />
-        </div>
+        </button>
       </div>
     </Tooltip>
   );

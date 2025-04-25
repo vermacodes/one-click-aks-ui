@@ -142,7 +142,7 @@ function getClassName(
   rest?: ButtonHTMLAttributes<HTMLButtonElement>,
 ) {
   return cn(
-    "h-full cursor-pointer text-bold flex items-center focus-visible:outline-2 outline-slate-950 dark:outline-slate-50 gap-2 rounded-sm whitespace-nowrap",
+    "h-full contrast-more:border cursor-pointer text-bold flex items-center focus-visible:outline-2 outline-slate-950 dark:outline-slate-50 gap-2 rounded-sm whitespace-nowrap",
     { hidden: hidden },
     variantStyles[variant],
     rest?.className,

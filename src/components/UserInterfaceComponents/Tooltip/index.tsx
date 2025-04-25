@@ -63,6 +63,7 @@ export default function Tooltip({
               "w-full": fullWidth, // Apply w-full if fullWidth is true
             },
             getUIStateColors({ inverted: true }),
+            "contrast-more:border",
           )}
         >
           {message}

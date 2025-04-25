@@ -36,16 +36,16 @@ export default function TerminalFullScreen({
       >
         <div
           className={cn(
-            "space-2 sticky top-0 -mb-10 flex items-center justify-end gap-x-2 gap-y-2 divide-x divide-slate-500 border-b p-2",
+            "sticky top-0 -mb-10 flex items-center justify-end gap-2 divide-x divide-slate-500 border-b p-2",
             getUIStateColors({}),
           )}
         >
-          <div className="pr-2">
+          <div className="px-2">
             {selectedDeployment && (
               <DeploymentStatus deployment={selectedDeployment} />
             )}
           </div>
-          <div className="px-2">
+          <div className="pr-2">
             <Checkbox
               id="terminal-auto-scroll"
               label="Auto Scroll"
@@ -58,6 +58,7 @@ export default function TerminalFullScreen({
             variant="text"
             disabled={actionStatus.inProgress}
             onClick={() => setLogs({ logs: "" })}
+            className="mr-2"
           >
             <FaTrashAlt /> Clear Logs
           </Button>

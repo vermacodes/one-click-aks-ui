@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import Tooltip from "../../../components/UserInterfaceComponents/Tooltip";
 import { getUIStateColors } from "../../../defaults";
+import { cn } from "../../../utils/cn"; // Ensure the correct import path for the cn utility
 
 type NavItemProps = {
   icon?: React.ReactNode;
@@ -83,12 +84,16 @@ export default function NavItem({
         <Link
           to={to}
           target={`${externalLink ? "_blank" : "_self"}`}
-          className={`m-[1px] flex h-full w-full items-center justify-start gap-2 rounded-sm px-4 py-3 text-left text-base ${activeClass}`}
+          className={cn(
+            "flex h-full w-full items-center justify-start gap-2 rounded-sm px-4 py-3 text-left text-base",
+            activeClass,
+            isActivePath(to, location.pathname) && "contrast-more:outline-2",
+          )}
           onClick={handleLinkClick}
           onKeyDown={handleKeyDown} // Use the new handler
           tabIndex={0}
         >
-          <div className={`ml-${depth * 4}`}>
+          <div className={cn(`ml-${depth * 4}`)}>
             <div className="flex items-center gap-2 text-base">
               {icon && <span>{icon}</span>}
               <span>{children || label}</span>
