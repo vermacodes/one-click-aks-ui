@@ -2,7 +2,7 @@ import { FaPlus } from "react-icons/fa";
 import LoginButton from "../../../components/Authentication/LoginButton";
 import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import ResetLabState from "../../../components/Lab/ResetLabState";
-import DarkModeSwitch from "../../../components/UserInterfaceComponents/DarkModeSwitch";
+import ThemeSwitchRadioGroup from "../../../components/UserInterfaceComponents/ThemeSwitchRadioGroup";
 import Title from "../Title";
 
 export default function HeaderLayout() {
@@ -21,12 +21,13 @@ export default function HeaderLayout() {
         </ResetLabState>
         {viewportWidth >= 512 && (
           <>
-            <DarkModeSwitch
+            <ThemeSwitchRadioGroup />
+            {/* <DarkModeSwitch
               handleOnChange={() => setDarkMode(!darkMode)}
               label=""
               id="darkModeSwitch"
               checked={darkMode}
-            />
+            /> */}
             <LoginButton showName={false} />
           </>
         )}

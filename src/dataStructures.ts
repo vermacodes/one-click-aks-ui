@@ -478,3 +478,5 @@ export type ServerHosting = {
   environment: "docker" | "azure";
   endpoint: string;
 };
+
+export type Theme = "system" | "dark" | "light";
