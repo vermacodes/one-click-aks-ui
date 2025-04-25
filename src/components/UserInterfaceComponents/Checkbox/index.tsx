@@ -45,6 +45,8 @@ export default function Checkbox({
         {/* Accessible button for the checkbox */}
         <button
           id={id}
+          name={label}
+          aria-labelledby={`${id}-label`}
           role="checkbox"
           aria-checked={checked}
           aria-disabled={disabled}
@@ -83,6 +85,7 @@ export default function Checkbox({
         </button>
         {/* Accessible label for the checkbox */}
         <span
+          id={`${id}-label`}
           className={cn(
             "text-md transition-all duration-100",
             defaultUITextColor,
