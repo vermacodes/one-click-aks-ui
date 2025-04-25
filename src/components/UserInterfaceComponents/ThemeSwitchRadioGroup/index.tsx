@@ -10,22 +10,24 @@ import Tooltip from "../Tooltip";
 type RadioGroupProps = {
   tooltipMessage?: string;
   tooltipDelay?: number;
-  radioSize?: "sm" | "md" | "lg";
+  variant?: "sm" | "md" | "lg" | "text";
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export default function ThemeSwitchRadioGroup({
   tooltipMessage,
   tooltipDelay,
-  radioSize = "md",
+  variant = "md",
   ...rest
 }: RadioGroupProps) {
   const { theme, setTheme, darkMode, setDarkMode } = useGlobalStateContext();
 
   let heightAndWidth = "h-5 w-5 lg:h-6 lg:w-6";
-  if (radioSize === "sm") {
+  if (variant === "sm") {
     heightAndWidth = "h-3 w-3 lg:h-4 lg:w-4";
-  } else if (radioSize === "lg") {
+  } else if (variant === "lg") {
     heightAndWidth = "h-7 w-7 lg:h-8 lg:w-8";
+  } else if (variant === "text") {
+    heightAndWidth = "min-w-fit rounded-sm px-3 py-1 hover:outline-1";
   }
 
   const handleThemeChange = (theme: Theme) => {
@@ -62,7 +64,7 @@ export default function ThemeSwitchRadioGroup({
     <Tooltip message={tooltipMessage} delay={tooltipDelay}>
       <div
         className={cn(
-          "flex items-center gap-1 rounded-sm border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
+          "flex w-auto items-center gap-1 rounded-sm border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
           getUIStateColors({}),
           "contrast-more:border-current",
         )}
@@ -94,6 +96,7 @@ export default function ThemeSwitchRadioGroup({
           }}
         >
           <FaComputer />
+          {variant === "text" && <span className="ml-1">System</span>}
         </button>
         <button
           role="radio"
@@ -119,7 +122,7 @@ export default function ThemeSwitchRadioGroup({
           tabIndex={0}
           aria-label="Light Theme"
         >
-          <FaSun />
+          <FaSun /> {variant === "text" && <span className="ml-1">Light</span>}
         </button>
         <button
           role="radio"
@@ -145,7 +148,7 @@ export default function ThemeSwitchRadioGroup({
           tabIndex={0}
           aria-label="Dark Theme"
         >
-          <FaMoon />
+          <FaMoon /> {variant === "text" && <span className="ml-1">Dark</span>}
         </button>
       </div>
     </Tooltip>

@@ -8,7 +8,7 @@ export default function Theme({}: Props) {
   return (
     <Container title="Theme" collapsible={true}>
       <div className="flex items-center justify-end py-2">
-        <ThemeSwitchRadioGroup radioSize="lg" />
+        <ThemeSwitchRadioGroup variant="text" />
       </div>
       <Footnote>
         <p>

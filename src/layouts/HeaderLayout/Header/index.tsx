@@ -22,12 +22,6 @@ export default function HeaderLayout() {
         {viewportWidth >= 512 && (
           <>
             <ThemeSwitchRadioGroup />
-            {/* <DarkModeSwitch
-              handleOnChange={() => setDarkMode(!darkMode)}
-              label=""
-              id="darkModeSwitch"
-              checked={darkMode}
-            /> */}
             <LoginButton showName={false} />
           </>
         )}
