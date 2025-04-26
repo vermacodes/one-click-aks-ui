@@ -61,7 +61,7 @@ export default function Checkbox({
           }}
           disabled={disabled}
           className={cn(
-            "flex h-5 w-10 items-center rounded-full outline-offset-2 outline-slate-950 transition-all duration-100 focus:outline-2 dark:outline-slate-50",
+            "flex h-5 w-10 min-w-10 items-center rounded-full outline-offset-2 outline-slate-950 transition-all duration-100 focus:outline-2 dark:outline-slate-50",
             getUIStateColors({
               colors: `${checked ? "success" : "secondary"}`,
               disabled: disabled,
