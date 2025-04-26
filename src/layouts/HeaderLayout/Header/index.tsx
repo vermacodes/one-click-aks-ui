@@ -19,9 +19,9 @@ export default function HeaderLayout() {
         <ResetLabState newLab={true}>
           <FaPlus /> New Lab
         </ResetLabState>
+        <ThemeSwitchRadioGroup className="hidden md:flex" />
         {viewportWidth >= 512 && (
           <>
-            <ThemeSwitchRadioGroup />
             <LoginButton showName={false} />
           </>
         )}

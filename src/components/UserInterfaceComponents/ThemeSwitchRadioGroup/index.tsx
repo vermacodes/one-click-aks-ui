@@ -67,6 +67,7 @@ export default function ThemeSwitchRadioGroup({
           "flex w-auto items-center gap-1 rounded-sm border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
           getUIStateColors({}),
           "contrast-more:border-current",
+          rest.className,
         )}
         role="radiogroup"
         aria-label="Theme Switch"
