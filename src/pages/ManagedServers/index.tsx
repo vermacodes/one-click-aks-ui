@@ -43,6 +43,7 @@ export default function ManagedServers({}: Props) {
           <Button
             variant="primary-text"
             onClick={() => queryClient.invalidateQueries("get-managed-servers")}
+            aria-label="Refresh Managed Servers"
           >
             <span>
               <FaSync />
@@ -99,7 +100,6 @@ export default function ManagedServers({}: Props) {
                         const now = new Date();
                         const elapsedMs =
                           now.getTime() - lastActivity.getTime();
-
                         const seconds = Math.floor((elapsedMs / 1000) % 60);
                         const minutes = Math.floor(
                           (elapsedMs / 1000 / 60) % 60,

@@ -34,6 +34,7 @@ export default function ManagedServerDeployButton({}: Props) {
 			variant="primary-text"
 			disabled={lock || managedServer.status === "Running"}
 			onClick={onDeployClick}
+			aria-label="Deploy Managed Server"
 			tooltipMessage={
 				managedServer.status === "Running"
 					? "Server is already running. If server was just deployed and status is 'Not Running', Please wait for DNS sync to complete and refresh the page after a few minutes. Re-deploy will not help."

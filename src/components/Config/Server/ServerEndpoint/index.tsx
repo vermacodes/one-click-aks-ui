@@ -77,7 +77,7 @@ export default function ServerEndpoint({
                   setEdit(false);
                   handleSwitch(baseUrl);
                 }}
-                aria-label="Save Edit"
+                aria-label="Save Endpoint Edit"
               >
                 <FaCheck />
               </Button>
@@ -86,7 +86,7 @@ export default function ServerEndpoint({
                 onClick={() => {
                   setEdit(false);
                 }}
-                aria-label="Cancel Edit"
+                aria-label="Cancel Endpoint Edit"
               >
                 <FaTimes />
               </Button>
@@ -99,7 +99,7 @@ export default function ServerEndpoint({
               onClick={() => {
                 setEdit(true);
               }}
-              aria-label="Edit"
+              aria-label="Edit Endpoint"
             >
               <FaEdit />
             </Button>

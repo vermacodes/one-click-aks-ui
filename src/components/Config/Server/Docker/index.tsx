@@ -30,13 +30,14 @@ export default function Docker({ serverHosting, setServerHosting }: Props) {
         <li className="py-1">
           Ensure that you've selected correct default account by running
           following command.
-          <CodeBlock codeString="az account show" copyEnabled={true} />
+          <CodeBlock codeString="az account show" copyEnabled={true} ariaLabel="Copy az account command to clipboard" />
         </li>
         <li className="py-1">
           Run following command to complete configuration and deployment.
           <CodeBlock
             codeString="curl -o actlabs.sh -sLO https://aka.ms/ACTLabStart; chmod +x actlabs.sh; ./actlabs.sh; rm actlabs.sh"
             copyEnabled={true}
+            ariaLabel="Copy install command to clipboard"
           />
         </li>
         <li className="py-1">
