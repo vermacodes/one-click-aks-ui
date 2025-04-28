@@ -19,7 +19,8 @@ export default function HeaderLayout() {
         <ResetLabState newLab={true}>
           <FaPlus /> New Lab
         </ResetLabState>
-        <ThemeSwitchRadioGroup className="hidden md:flex" />
+        {/* Theme switch is hidden from teh view, but mounted for the automatic theme switch.*/}
+        <ThemeSwitchRadioGroup className="hidden" />
         {viewportWidth >= 512 && (
           <>
             <LoginButton showName={false} />
