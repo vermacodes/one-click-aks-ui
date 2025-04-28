@@ -21,13 +21,14 @@ export default function ThemeSwitchRadioGroup({
 }: RadioGroupProps) {
   const { theme, setTheme, darkMode, setDarkMode } = useGlobalStateContext();
 
-  let heightAndWidth = "h-5 w-5 lg:h-6 lg:w-6";
+  let heightAndWidth = "h-5 w-5 lg:h-6 lg:w-6 focus:outline-offset-3";
   if (variant === "sm") {
-    heightAndWidth = "h-3 w-3 lg:h-4 lg:w-4";
+    heightAndWidth = "h-3 w-3 lg:h-4 lg:w-4 focus:outline-offset-3";
   } else if (variant === "lg") {
-    heightAndWidth = "h-7 w-7 lg:h-8 lg:w-8";
+    heightAndWidth = "h-7 w-7 lg:h-8 lg:w-8 focus:outline-offset-3";
   } else if (variant === "text") {
-    heightAndWidth = "min-w-fit rounded-sm px-3 py-1 hover:outline-1";
+    heightAndWidth =
+      "min-w-fit rounded-sm px-3 py-1 hover:outline-1 focus:outline-offset-3";
   }
 
   const handleThemeChange = (theme: Theme) => {
@@ -64,7 +65,7 @@ export default function ThemeSwitchRadioGroup({
     <Tooltip message={tooltipMessage} delay={tooltipDelay}>
       <div
         className={cn(
-          "flex w-auto items-center gap-1 rounded-sm border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
+          "flex w-auto flex-wrap items-center gap-2 rounded-sm border border-slate-300 p-0.5 lg:p-1 dark:border-slate-600",
           getUIStateColors({}),
           "contrast-more:border-current",
           rest.className,

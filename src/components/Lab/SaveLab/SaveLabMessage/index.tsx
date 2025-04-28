@@ -132,7 +132,7 @@ export default function SaveLabMessage({ lab, setLab }: Props) {
       additionalClasses="outline outline-slate-300 dark:outline-slate-700 flex"
     >
       <div className="flex flex-col space-y-2">
-        <div className="flex space-x-1">
+        <div className="flex flex-wrap space-x-1">
           <Button
             variant={
               editor.isActive("heading", { level: 4 })
