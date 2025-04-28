@@ -146,7 +146,7 @@ export default function ListAssignment({}: Props) {
       collapsible={true}
       additionalContainerBodyClasses={`h-fit overflow-auto ${defaultScrollbarStyle}`}
     >
-      <div className="flex flex-col justify-end gap-4 px-1 py-1 sm:h-10 sm:flex-row">
+      <div className="flex flex-wrap justify-end gap-4 px-1 py-1 sm:h-10">
         <FilterTextBox
           value={filterText}
           onChange={setFilterText}

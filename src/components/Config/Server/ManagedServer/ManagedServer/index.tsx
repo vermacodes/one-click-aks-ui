@@ -46,7 +46,7 @@ export default function ManagedServerComponent({
       >
         <div className="flex w-full flex-col gap-2">
           {graphResponse && managedServer && (
-            <div className="flex flex-col flex-wrap items-center gap-2 sm:flex-row">
+            <div className="flex flex-wrap items-center gap-2">
               <ManagedServerDomain />
               <ManagedServerVersion />
               <ManagedServerStatus />
@@ -58,7 +58,7 @@ export default function ManagedServerComponent({
             serverHosting={serverHosting}
             setServerHosting={setServerHosting}
           />
-          <div className="mt-8 flex flex-col flex-wrap gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-wrap gap-4">
             <ManagedServerDeployButton />
             <ManagedServerDestroyButton />
             <ManagedServerUnregisterButton />

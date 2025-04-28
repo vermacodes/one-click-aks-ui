@@ -22,13 +22,13 @@ export default function Deployment({ deployment, selectedDeployment }: Props) {
 
   return (
     <Container>
-      <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row">
-        <div className="flex flex-col items-center gap-x-2 gap-y-2 sm:flex-row">
+      <div className="flex flex-wrap justify-between gap-2 text-sm">
+        <div className="flex flex-wrap items-center gap-2">
           <h2 className={cn("text-xl", defaultUIPrimaryTextColor)}>
             {deployment.deploymentWorkspace}
           </h2>
         </div>
-        <div className="flex flex-col items-center justify-end gap-x-2 gap-y-2 sm:flex-row">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           <DeploymentStatus deployment={deployment} />
           <AutoDestroySwitch
             deployment={deployment}

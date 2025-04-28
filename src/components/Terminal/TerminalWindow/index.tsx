@@ -28,7 +28,7 @@ export default function TerminalWindow({
       className="mt-4 mb-4 flex w-full flex-col overflow-auto pt-1 sm:max-h-[80vh]"
       //style={{ maxHeight: "80vh" }}
     >
-      <div className="mb-1 flex flex-col items-center justify-end gap-2 divide-slate-500 sm:flex-row sm:divide-x">
+      <div className="mb-1 flex flex-wrap items-center justify-end gap-2 divide-slate-500 sm:divide-x">
         <div className="pr-4">
           {selectedDeployment && (
             <DeploymentStatus deployment={selectedDeployment} />
