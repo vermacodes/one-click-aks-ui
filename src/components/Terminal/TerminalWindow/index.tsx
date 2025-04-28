@@ -57,6 +57,7 @@ export default function TerminalWindow({
           variant="text"
           onClick={() => setFullScreen(true)}
           aria-label="Maximize Terminal"
+          className="mr-1"
         >
           <FaExpand /> Maximize
         </Button>
