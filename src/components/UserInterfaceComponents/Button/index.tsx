@@ -168,10 +168,6 @@ export default function Button({
   children,
   ...rest
 }: Props) {
-  // Extract className from rest and ignore it
-  const { className: restClassName, ...otherRest } = rest;
-
-  // Generate the final className
   const className = getClassName(variant, hidden, rest);
 
   return (
@@ -181,7 +177,7 @@ export default function Button({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <button className={className} {...otherRest} tabIndex={0} type="button" aria-label={rest["aria-label"]}>
+      <button {...rest} className={className} tabIndex={0} type="button">
         {children}
       </button>
     </Tooltip>

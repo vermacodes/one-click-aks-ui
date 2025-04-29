@@ -16,7 +16,7 @@ export default function HeaderLayout() {
 								<FaBug />
 							</Button>
 						</a> */}
-        <ResetLabState newLab={true}>
+        <ResetLabState newLab={true} aria-label="Create New Lab">
           <FaPlus /> New Lab
         </ResetLabState>
         {/* Theme switch is hidden from teh view, but mounted for the automatic theme switch.*/}

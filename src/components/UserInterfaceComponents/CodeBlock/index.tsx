@@ -42,7 +42,8 @@ export default function CodeBlock({
           <Button
             variant="primary-icon"
             onClick={() => handleCommandCopy()}
-            aria-label={ariaLabel}
+            aria-label={ariaLabel || "Copy to clipboard"}
+            name="Copy to clipboard"
           >
             {copy ? <FaCheck /> : <MdContentCopy />}
           </Button>
