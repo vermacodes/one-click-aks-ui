@@ -28,7 +28,7 @@ export default function ThemeSwitchRadioGroup({
     heightAndWidth = "h-7 w-7 lg:h-8 lg:w-8 focus:outline-offset-3";
   } else if (variant === "text") {
     heightAndWidth =
-      "min-w-fit rounded-sm px-3 py-1 hover:outline-1 focus:outline-offset-3";
+      "min-w-fit rounded-sm px-3 py-1 hover:outline-2 focus:outline-offset-3 outline-slate-950 dark:outline-slate-50";
   }
 
   const handleThemeChange = (theme: Theme) => {
@@ -84,7 +84,7 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "system",
               hover: true,
             }),
-            theme === "system" && "contrast-more:border-2",
+            theme === "system" && "outline-offset-2 contrast-more:border-2",
             "contrast-more:hover:border-2",
           )}
           tabIndex={0}
@@ -111,7 +111,7 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "light",
               hover: true,
             }),
-            theme === "light" && "contrast-more:border-2",
+            theme === "light" && "outline-offset-2 contrast-more:border-2",
             "contrast-more:hover:border-2",
           )}
           onClick={() => handleThemeChange("light")}
@@ -137,7 +137,7 @@ export default function ThemeSwitchRadioGroup({
               selected: theme === "dark",
               hover: true,
             }),
-            theme === "dark" && "contrast-more:border-2",
+            theme === "dark" && "outline-offset-2 contrast-more:border-2",
             "contrast-more:hover:border-2",
           )}
           onClick={() => handleThemeChange("dark")}
