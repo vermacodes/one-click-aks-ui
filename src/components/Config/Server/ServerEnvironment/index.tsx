@@ -8,7 +8,10 @@ type Props = {
   setServerHosting: (serverHosting: ServerHosting) => void;
 };
 
-export default function ServerEnvironment({ serverHosting, setServerHosting }: Props) {
+export default function ServerEnvironment({
+  serverHosting,
+  setServerHosting,
+}: Props) {
   const { data: managedServer } = useManagedServer();
 
   return (
@@ -23,7 +26,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
           <Checkbox
             id="docker"
             checked={serverHosting.environment === "docker"}
-            disabled={false}
+            disabled={serverHosting.environment === "docker"}
             handleOnChange={() =>
               setServerHosting({
                 environment: "docker",
@@ -37,7 +40,7 @@ export default function ServerEnvironment({ serverHosting, setServerHosting }: P
           <Checkbox
             id="managedServer"
             checked={serverHosting.environment === "azure"}
-            disabled={false}
+            disabled={serverHosting.environment === "azure"}
             handleOnChange={() =>
               setServerHosting({
                 environment: "azure",

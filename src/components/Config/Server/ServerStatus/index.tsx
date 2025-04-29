@@ -1,4 +1,8 @@
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import {
+  defaultUIErrorTextColor,
+  defaultUISuccessTextColor,
+} from "../../../../defaults";
 import { useServerStatus } from "../../../../hooks/useServerStatus";
 
 export default function ServerStatus() {
@@ -7,14 +11,14 @@ export default function ServerStatus() {
     <div className="flex justify-end gap-x-2 divide-x-2">
       {!isError && serverStatus && serverStatus.status === "OK" ? (
         <div className="flex items-center gap-x-2 px-2">
-          <span className="text-green-500">
+          <span className={defaultUISuccessTextColor}>
             <FaCheckCircle />{" "}
           </span>
           Connected
         </div>
       ) : (
         <div className="flex items-center gap-x-2 px-2">
-          <span className="text-rose-500">
+          <span className={defaultUIErrorTextColor}>
             <FaExclamationCircle />{" "}
           </span>
           Not Connected

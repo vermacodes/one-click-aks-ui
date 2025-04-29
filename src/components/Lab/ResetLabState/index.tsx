@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 import { FaRedo } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,7 +9,7 @@ import { useGlobalStateContext } from "../../Context/GlobalStateContext";
 import Button from "../../UserInterfaceComponents/Button";
 import ConfirmationModal from "../../UserInterfaceComponents/Modal/ConfirmationModal";
 
-type Props = {
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   buttonVariant?: ButtonVariant;
   children?: React.ReactNode;
   newLab?: boolean;
@@ -19,6 +19,7 @@ export default function ResetLabState({
   buttonVariant,
   children,
   newLab = false,
+  ...rest
 }: Props) {
   const [showModal, setShowModal] = useState(false);
 
@@ -73,6 +74,7 @@ export default function ResetLabState({
         variant={buttonVariant ? buttonVariant : "primary-text"}
         onClick={() => onClickHandler()}
         className="h-8"
+        {...rest}
       >
         {children ? (
           children
@@ -87,7 +89,9 @@ export default function ResetLabState({
           onClose={() => setShowModal(false)}
           onConfirm={handleResetLabState}
           title={newLab ? "Confirm Adding New Lab" : "Confirm Lab Reset"}
-          closeLabel={newLab ? "Close Add New Lab Modal" : "Close Lab Reset Modal"}
+          closeLabel={
+            newLab ? "Close Add New Lab Modal" : "Close Lab Reset Modal"
+          }
           confirmLabel={newLab ? "Confirm Adding New Lab" : "Confirm Lab Reset"}
           cancelLabel={newLab ? "Cancel Adding New Lab" : "Cancel Lab Reset"}
         >

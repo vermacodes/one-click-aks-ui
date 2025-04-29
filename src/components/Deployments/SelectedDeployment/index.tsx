@@ -50,7 +50,7 @@ export default function SelectedDeployment({ sticky = true }: Props) {
   return (
     <Container sticky={sticky} additionalClasses="mb-4 py-2 text-base">
       <div
-        className="flex flex-col justify-between gap-2 text-sm hover:cursor-pointer sm:flex-row"
+        className="flex flex-wrap justify-between gap-2 text-sm hover:cursor-pointer"
         key={selectedDeploymentState.deploymentId}
         onClick={() => navigate(`/deployments`)}
       >

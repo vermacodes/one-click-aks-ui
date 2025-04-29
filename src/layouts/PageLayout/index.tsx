@@ -32,7 +32,7 @@ export default function PageLayout({ heading, children }: Props) {
         >
           <div className="flex items-center">
             <h2
-              className="mt-2 mb-0.5 pb-4 text-xl md:text-4xl"
+              className="mt-2 mb-0.5 pb-2 text-xl md:text-4xl"
               tabIndex={-1}
               ref={pageHeading}
             >

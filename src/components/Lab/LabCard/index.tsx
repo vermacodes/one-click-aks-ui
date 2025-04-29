@@ -70,7 +70,7 @@ type LabHeaderProps = {
 
 function LabHeader({ lab, showVersions }: LabHeaderProps) {
   return (
-    <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+    <div className="flex flex-wrap items-center justify-between gap-4">
       <h3 className="text-3xl whitespace-pre-line">{lab.name}</h3>
       {showVersions && <LabVersionsButton lab={lab} />}
     </div>

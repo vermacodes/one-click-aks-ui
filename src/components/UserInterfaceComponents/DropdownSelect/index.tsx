@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { SelectHTMLAttributes, useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { defaultScrollbarStyle, getUIStateColors } from "../../../defaults";
 import Tooltip from "../Tooltip";
 
-type ItemProps<T> = {
+type ItemProps<T> = SelectHTMLAttributes<HTMLSelectElement> & {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   heading: React.ReactNode;
@@ -16,6 +16,7 @@ type ItemProps<T> = {
   tooltipDirection?: "top" | "bottom" | "left" | "right" | undefined;
   tooltipDelay?: number;
   closeMenuOnSelect?: boolean;
+  ariaLabel?: string; // Accessible label for the dropdown
 };
 
 export default function DropdownSelect<T>({
@@ -30,6 +31,8 @@ export default function DropdownSelect<T>({
   tooltipDirection = "top",
   tooltipDelay,
   closeMenuOnSelect = true,
+  ariaLabel,
+  ...rest
 }: ItemProps<T>) {
   // State to track whether the dropdown menu is open
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -67,9 +70,11 @@ export default function DropdownSelect<T>({
             }
           }}
           tabIndex={disabled ? -1 : 0} // Make the div focusable unless disabled
-          role="button" // Indicate that this div acts as a button
+          role="listbox" // Indicate that this div acts as a button
           aria-expanded={isMenuOpen} // Indicate whether the dropdown is open
           aria-haspopup="listbox" // Indicate that it opens a listbox
+          aria-label={rest["aria-label"]} // Provide an accessible label
+          id={rest.id}
         >
           <div>{heading}</div>
           <p>

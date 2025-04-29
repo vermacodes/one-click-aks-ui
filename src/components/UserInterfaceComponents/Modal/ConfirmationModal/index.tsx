@@ -68,7 +68,7 @@ export default function ConfirmationModal({
         >
           {children}
         </div>
-        <div className="mt-4 flex justify-end gap-x-4">
+        <div className="mt-4 flex flex-wrap justify-end gap-4">
           <Button
             variant="danger"
             onClick={() => onConfirm()}

@@ -10,7 +10,11 @@ type Props = {
   ariaLabel?: string | "Copy to clipboard";
 };
 
-export default function CodeBlock({ codeString, copyEnabled = false, ariaLabel }: Props) {
+export default function CodeBlock({
+  codeString,
+  copyEnabled = false,
+  ariaLabel,
+}: Props) {
   const [copy, setCopy] = useState<boolean>(false);
 
   function handleCommandCopy() {
@@ -24,21 +28,22 @@ export default function CodeBlock({ codeString, copyEnabled = false, ariaLabel }
 
   return (
     <div
-      className={`flex w-full items-center justify-between gap-4 rounded border-slate-300 bg-slate-300 px-2  py-1 dark:border-slate-700 dark:bg-slate-700 md:w-fit ${
+      className={`flex w-full items-center justify-between gap-4 rounded border-slate-300 bg-slate-300 px-2 py-1 md:w-fit dark:border-slate-700 dark:bg-slate-700 ${
         copy
-          ? "border-green-500 bg-green-700 bg-opacity-80 dark:bg-green-700"
+          ? "bg-opacity-80 border-green-500 bg-green-700 dark:bg-green-700"
           : "border-slate-400 dark:border-slate-600"
       }`}
     >
       <div>
-        <code>$ {codeString}</code>
+        <code className="text-wrap break-words break-all">$ {codeString}</code>
       </div>
       {copyEnabled && (
         <div>
           <Button
             variant="primary-icon"
             onClick={() => handleCommandCopy()}
-            aria-label={ariaLabel}
+            aria-label={ariaLabel || "Copy to clipboard"}
+            name="Copy to clipboard"
           >
             {copy ? <FaCheck /> : <MdContentCopy />}
           </Button>

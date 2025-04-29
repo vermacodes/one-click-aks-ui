@@ -39,12 +39,10 @@ export default function Deployments() {
 
   return (
     <PageLayout heading="Deployments">
-      <div className="flex flex-col items-center justify-between sm:flex-row">
+      <div className="flex flex-wrap items-center justify-between">
         <BackButton />
 
-        <div
-          className={`mb-3 flex flex-col justify-end gap-x-2 rounded-sm sm:flex-row`}
-        >
+        <div className={`mb-3 flex flex-wrap justify-end gap-x-2 rounded-sm`}>
           <Button
             variant="secondary-text"
             onClick={() => {
