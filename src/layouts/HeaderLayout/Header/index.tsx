@@ -10,7 +10,7 @@ export default function HeaderLayout() {
   return (
     <div className="flex h-[20%] w-full items-center justify-between pl-2 sm:h-[10%]">
       <Title />
-      <div className="flex items-center gap-4 pr-4">
+      <div className="flex items-center gap-2 pr-4">
         {/* <a href="https://teams.microsoft.com/l/chat/0/0?users=ashisverma@microsoft.com" target="_blank">
 							<Button variant="danger-icon" tooltipMessage="Found Bug? Report it Now!">
 								<FaBug />
