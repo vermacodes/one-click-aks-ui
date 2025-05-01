@@ -213,7 +213,7 @@ export default function ListAssignment({}: Props) {
                   <td
                     className={cn("space-x-2 px-4 py-2", defaultLinkTextStyle)}
                   >
-                    <Link to={`/lab/readinesslab/${assignment.labId}`}>
+                    <Link to={`/lab/assignment/${assignment.labId}`}>
                       {getLabName(assignment.labId)}
                     </Link>
                   </td>
