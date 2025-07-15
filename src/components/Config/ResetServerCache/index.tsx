@@ -29,7 +29,7 @@ export default function ResetServerCache({}: Props) {
 
 	return (
 		<div className="flex w-60 flex-col gap-2 p-2">
-			<Button variant="danger-outline" disabled={actionStatus.inProgress} onClick={handleResetServerCache}>
+			<Button variant="danger-outline" disabled={actionStatus.inProgress} onClick={handleResetServerCache} aria-label="Reset Server Cache">
 				Reset Server Cache
 			</Button>
 			<p className="text-xs">

@@ -20,7 +20,15 @@ type Props = {
   setShowModal: (showModal: boolean) => void;
 };
 
-export default function AddChallengesModal({ title, lab, challenges, meOwner, meChallenger, challengers, setShowModal }: Props) {
+export default function AddChallengesModal({
+  title,
+  lab,
+  challenges,
+  meOwner,
+  meChallenger,
+  challengers,
+  setShowModal,
+}: Props) {
   const [newChallenges, setNewChallenges] = useState<Challenge[]>([]);
   const [selectedProfiles, setSelectedProfiles] = useState<Profile[]>([]);
   const [usersIChallenged, setUsersIChallenged] = useState<string[]>([]);
@@ -37,7 +45,10 @@ export default function AddChallengesModal({ title, lab, challenges, meOwner, me
     if (challenges) {
       let usersIChallengedSet = new Set<string>(usersIChallenged);
       challenges.forEach((challenge) => {
-        if (challenge.createdBy === myProfile?.userPrincipal && challenge.labId === lab.id) {
+        if (
+          challenge.createdBy === myProfile?.userPrincipal &&
+          challenge.labId === lab.id
+        ) {
           usersIChallengedSet.add(challenge.userId);
         }
       });
@@ -115,20 +126,32 @@ export default function AddChallengesModal({ title, lab, challenges, meOwner, me
   function removeChallengeForProfileRemoved() {
     // find the removed profile
     const removedProfile = prevSelectedProfilesRef.current.find(
-      (profile) => !selectedProfiles.some((selectedProfile) => selectedProfile.userPrincipal === profile.userPrincipal)
+      (profile) =>
+        !selectedProfiles.some(
+          (selectedProfile) =>
+            selectedProfile.userPrincipal === profile.userPrincipal,
+        ),
     );
 
     // find the challenge for the removed profile
-    const challenge = newChallenges.find((challenge) => challenge.userId === removedProfile?.userPrincipal);
+    const challenge = newChallenges.find(
+      (challenge) => challenge.userId === removedProfile?.userPrincipal,
+    );
 
     // remove the challenge from newChallenges
     if (challenge) {
-      setNewChallenges((prevChallenges) => [...prevChallenges.filter((prevChallenge) => prevChallenge.userId !== challenge.userId)]);
+      setNewChallenges((prevChallenges) => [
+        ...prevChallenges.filter(
+          (prevChallenge) => prevChallenge.userId !== challenge.userId,
+        ),
+      ]);
     }
 
     // remove the user id from usersIChallenged
     if (challenge && usersIChallenged.includes(challenge.userId)) {
-      setUsersIChallenged((prev) => [...prev.filter((user) => user !== challenge.userId)]);
+      setUsersIChallenged((prev) => [
+        ...prev.filter((user) => user !== challenge.userId),
+      ]);
     }
   }
 
@@ -140,7 +163,10 @@ export default function AddChallengesModal({ title, lab, challenges, meOwner, me
   function addChallengeForProfileAdded() {
     // find the added profile
     const addedProfile = selectedProfiles.find(
-      (profile) => !prevSelectedProfilesRef.current.some((prevProfile) => prevProfile.userPrincipal === profile.userPrincipal)
+      (profile) =>
+        !prevSelectedProfilesRef.current.some(
+          (prevProfile) => prevProfile.userPrincipal === profile.userPrincipal,
+        ),
     );
 
     // create a new challenge for the added profile
@@ -161,7 +187,10 @@ export default function AddChallengesModal({ title, lab, challenges, meOwner, me
     }
 
     // add the user id to usersIChallenged
-    if (addedProfile && !usersIChallenged.includes(addedProfile.userPrincipal)) {
+    if (
+      addedProfile &&
+      !usersIChallenged.includes(addedProfile.userPrincipal)
+    ) {
       setUsersIChallenged((prev) => [...prev, addedProfile.userPrincipal]);
     }
   }
@@ -200,7 +229,14 @@ export default function AddChallengesModal({ title, lab, challenges, meOwner, me
   }
 
   return confirmationModal ? (
-    <ConfirmationModal onConfirm={onConfirm} onClose={() => setConfirmationModal(false)} title="Please confirm Challenges">
+    <ConfirmationModal
+      onConfirm={onConfirm}
+      onClose={() => setConfirmationModal(false)}
+      title="Please confirm Challenges"
+      closeLabel="Close peer challenge request modal"
+      confirmLabel="Confirm peer challenge request submission"
+      cancelLabel="Cancel peer challenge request submission"
+    >
       <p>
         <span>{`You are about to challenge `}</span>
         <span>
@@ -222,19 +258,23 @@ export default function AddChallengesModal({ title, lab, challenges, meOwner, me
       }}
     >
       <div
-        className="my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-y-auto rounded bg-slate-100 p-5 overflow-x-hidden scrollbar-thin  scrollbar-thumb-slate-400 dark:divide-slate-700 dark:bg-slate-900 dark:scrollbar-thumb-slate-600"
+        className="scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-600 my-20 h-[550px] w-1/3 divide-y divide-slate-300 overflow-x-hidden overflow-y-auto rounded-sm p-5 dark:divide-slate-700"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="w-100 flex justify-between pb-2 ">
+        <div className="flex w-100 justify-between pb-2">
           <h1 className="text-3xl">{"Add " + title}</h1>
-          <button onClick={() => setShowModal(false)} className="hover:text-sky-500">
+          <Button onClick={() => setShowModal(false)} variant="secondary-icon">
             <MdClose className="text-3xl" />
-          </button>
+          </Button>
         </div>
         <div className="flex h-[90%] w-full flex-col justify-between">
-          <SelectProfilesDropdown selectedProfiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles} noShowProfiles={challengers} />
+          <SelectProfilesDropdown
+            selectedProfiles={selectedProfiles}
+            setSelectedProfiles={setSelectedProfiles}
+            noShowProfiles={challengers}
+          />
           <div className="flex flex-row justify-end gap-2">
             <Button variant="primary" onClick={onUpdate}>
               Update

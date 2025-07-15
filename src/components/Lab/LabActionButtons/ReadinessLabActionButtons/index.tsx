@@ -16,8 +16,12 @@ type Props = {
 
 export default function ReadinessLabActionButtons({ lab }: Props) {
   const { data: profile } = useGetMyProfile();
-  const [buttons, setButtons] = useState<Record<string, ButtonContainerObj>>({});
-  const [overflowButtons, setOverflowButtons] = useState<Record<string, ButtonContainerObj>>({});
+  const [buttons, setButtons] = useState<Record<string, ButtonContainerObj>>(
+    {},
+  );
+  const [overflowButtons, setOverflowButtons] = useState<
+    Record<string, ButtonContainerObj>
+  >({});
 
   useEffect(() => {
     const initialButtons: Record<string, ButtonContainerObj> = {
@@ -25,7 +29,11 @@ export default function ReadinessLabActionButtons({ lab }: Props) {
         id: "loadToBuilderButton",
         order: 4,
         button: (
-          <LoadToBuilderButton key={"loadToBuilderButton"} lab={lab} variant="primary-outline">
+          <LoadToBuilderButton
+            key={"loadToBuilderButton"}
+            lab={lab}
+            variant="primary-text"
+          >
             Open in Builder
           </LoadToBuilderButton>
         ),
@@ -43,7 +51,12 @@ export default function ReadinessLabActionButtons({ lab }: Props) {
         id: "validateLabButton",
         order: 3,
         button: (
-          <ExtendButton key={"validateLabButton"} lab={lab} variant="success-text" mode="extend-validate">
+          <ExtendButton
+            key={"validateLabButton"}
+            lab={lab}
+            variant="success-text"
+            mode="extend-validate"
+          >
             <FaCheck /> Validate
           </ExtendButton>
         ),
@@ -61,7 +74,11 @@ export default function ReadinessLabActionButtons({ lab }: Props) {
         id: "shareLabButton",
         order: 5,
         button: (
-          <CopyLinkToLabButton key={"shareLabButton"} lab={lab} variant="secondary-text">
+          <CopyLinkToLabButton
+            key={"shareLabButton"}
+            lab={lab}
+            variant="secondary-text"
+          >
             <span>
               <FaCopy />
             </span>
@@ -73,7 +90,12 @@ export default function ReadinessLabActionButtons({ lab }: Props) {
         id: "shareAssignmentButton",
         order: 6,
         button: (
-          <CopyLinkToLabButton key={"shareAssignmentButton"} lab={lab} labType="assignment" variant="secondary-text">
+          <CopyLinkToLabButton
+            key={"shareAssignmentButton"}
+            lab={lab}
+            labType="assignment"
+            variant="secondary-text"
+          >
             <span>
               <FaCopy />
             </span>
@@ -109,12 +131,20 @@ export default function ReadinessLabActionButtons({ lab }: Props) {
   }
 
   useEffect(() => {
-    if (profile && lab.owners !== null && lab.owners.includes(profile.userPrincipal)) {
+    if (
+      profile &&
+      lab.owners !== null &&
+      lab.owners.includes(profile.userPrincipal)
+    ) {
       const deleteButton: ButtonContainerObj = {
         id: "deleteLabButton",
         order: 7,
         button: (
-          <DeleteLabButton lab={lab} key={"deleteLabButton"} variant="danger-text">
+          <DeleteLabButton
+            lab={lab}
+            key={"deleteLabButton"}
+            variant="danger-text"
+          >
             Delete
           </DeleteLabButton>
         ),

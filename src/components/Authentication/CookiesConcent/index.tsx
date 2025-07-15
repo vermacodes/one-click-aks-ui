@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { getUIStateColors } from "../../../defaults";
+import { cn } from "../../../utils/cn";
 import Button from "../../UserInterfaceComponents/Button";
 
 declare global {
@@ -18,20 +20,34 @@ export default function CookiesConsent() {
   }, []);
 
   function onClickHandler() {
-    localStorage.setItem("cookies_consent", "true");
-    window.clarity("consent");
-    setShowCookiesConsent(false);
+    try {
+      localStorage.setItem("cookies_consent", "true");
+      if (window.clarity) {
+        window.clarity("consent");
+      } else {
+        console.warn("Clarity is not defined on the window object.");
+      }
+      setShowCookiesConsent(false);
+    } catch (error) {
+      console.error("An error occurred while handling cookies consent:", error);
+    }
   }
 
   return (
     <>
       {showCookiesConsent && (
-        <div className="fixed bottom-0 left-1/2 mb-4 flex -translate-x-1/2 flex-col gap-8 rounded bg-slate-900 p-5  text-slate-100 dark:bg-slate-100 dark:text-slate-900">
+        // setting background color to highlight
+        <div
+          className={cn(
+            "fixed bottom-0 left-1/2 mb-4 flex -translate-x-1/2 flex-col gap-8 rounded-sm p-5",
+            getUIStateColors({ inverted: true }),
+          )}
+        >
           <div className="flex items-center">
             <p className="flex items-center justify-center text-7xl">🍪</p>
             <p className="text-xl">
-              This website uses cookies to enhance the user experience. By using this website, you consent to the use of
-              cookies.
+              This website uses cookies to enhance the user experience. By using
+              this website, you consent to the use of cookies.
             </p>
           </div>
           <div className="flex justify-end gap-4">

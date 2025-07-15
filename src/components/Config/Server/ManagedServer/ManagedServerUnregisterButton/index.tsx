@@ -29,6 +29,7 @@ export default function ManagedServerUnregisterButton({}: Props) {
 				tooltipMessage="Unregister the managed server."
 				tooltipDelay={1000}
 				disabled={lock || actionStatus.inProgress}
+				aria-label="Unregister subscription from Managed Server"
 			>
 				<FaTimes /> Unregister
 			</Button>
@@ -40,6 +41,9 @@ export default function ManagedServerUnregisterButton({}: Props) {
 						handleUnregister();
 					}}
 					onClose={() => setConfirmUnregister(false)}
+					closeLabel="Close Unregister Managed Server Modal"
+					confirmLabel="Unregister Managed Server"
+					cancelLabel="Cancel Unregister Managed Server"
 				>
 					<p className="text-xl">Are you sure you want to unregister the managed server?</p>
 					<ul className="ml-4 list-disc space-y-2">

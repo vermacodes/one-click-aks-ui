@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Profile } from "../../../../../dataStructures";
-import { useGetAllProfilesRedacted, useGetMyProfile } from "../../../../../hooks/useProfile";
+import { getUIStateColors } from "../../../../../defaults";
+import {
+  useGetAllProfilesRedacted,
+  useGetMyProfile,
+} from "../../../../../hooks/useProfile";
 import ProfileDisplay from "../../../../Authentication/ProfileDisplay";
 import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../../../UserInterfaceComponents/FilterTextBox";
@@ -12,11 +16,21 @@ type Props = {
   noShowProfiles?: Profile[]; // Profiles that should not be shown in the dropdown.
 };
 
-export default function SelectProfilesDropdown({ selectedProfiles, setSelectedProfiles, noShowProfiles }: Props) {
+export default function SelectProfilesDropdown({
+  selectedProfiles,
+  setSelectedProfiles,
+  noShowProfiles,
+}: Props) {
   //const [uniqueProfiles, setUniqueProfiles] = useState<string[]>([]);
   const [uniqueProfiles, setUniqueProfiles] = useState<Profile[]>([]);
   const [profileSearchTerm, setProfileSearchTerm] = useState<string>("");
-  const { data: profiles, isLoading: profilesLoading, isFetching: profilesFetching } = useGetAllProfilesRedacted();
+  const [isRenderUserHovered, setIsRenderUserHovered] = useState(false); // State to track hover
+
+  const {
+    data: profiles,
+    isLoading: profilesLoading,
+    isFetching: profilesFetching,
+  } = useGetAllProfilesRedacted();
   const { data: myProfile } = useGetMyProfile();
 
   /**
@@ -65,7 +79,7 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
         />
         {profileSearchTerm && (
           <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer"
             onClick={() => setProfileSearchTerm("")}
           />
         )}
@@ -82,7 +96,7 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
     setSelectedProfiles((selectedProfiles) =>
       selectedProfiles.includes(profile)
         ? selectedProfiles.filter((i) => i !== profile)
-        : [...selectedProfiles, profile]
+        : [...selectedProfiles, profile],
     );
   };
 
@@ -93,19 +107,36 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
    * @returns JSX.Element - The rendered profile.
    */
   const renderUser = (profile: Profile) => {
-    const isSelected = selectedProfiles.includes(profile);
+    const isActive = selectedProfiles.includes(profile);
+
+    const baseClasses =
+      "relative w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${hoverClasses}`;
+
     return (
       <div
-        className={`relative ${
-          isSelected
-            ? "bg-green-500 bg-opacity-25 hover:bg-green-500 hover:bg-opacity-40 "
-            : "hover:bg-sky-500 hover:bg-opacity-25 "
-        } rounded `}
+        className={containerClasses}
+        aria-label={profile.displayName}
+        onMouseEnter={() => setIsRenderUserHovered(true)} // Set hover state to true
+        onMouseLeave={() => setIsRenderUserHovered(false)} // Set hover state to false
       >
-        <div className="mt-1 cursor-pointer rounded p-2 hover:bg-opacity-40">
+        <div className="flex items-center">
           <ProfileDisplay profile={profile} />
         </div>
-        {isSelected && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />}
+        {isActive && (
+          <FaTimes className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer" />
+        )}
       </div>
     );
   };
@@ -113,14 +144,22 @@ export default function SelectProfilesDropdown({ selectedProfiles, setSelectedPr
   return (
     <div className="flex w-full">
       <DropdownSelect
-        heading={selectedProfiles.length > 0 ? selectedProfiles.length + " users selected." : "Select Users"}
+        heading={
+          selectedProfiles.length > 0
+            ? selectedProfiles.length + " users selected."
+            : "Select Users"
+        }
         disabled={profilesLoading || profilesFetching}
         items={[
           ...selectedProfiles,
           ...uniqueProfiles
             .filter((profile) => !selectedProfiles.includes(profile))
             .filter((profile) => !noShowProfiles?.includes(profile))
-            .filter((profile) => JSON.stringify(profile).toLowerCase().includes(profileSearchTerm.toLowerCase())),
+            .filter((profile) =>
+              JSON.stringify(profile)
+                .toLowerCase()
+                .includes(profileSearchTerm.toLowerCase()),
+            ),
         ]}
         renderItem={renderUser}
         onItemClick={onUserClick}

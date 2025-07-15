@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { defaultLinkTextStyle } from "../../../defaults";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
 import Workspaces from "../../Terraform/Workspaces";
 import Container from "../../UserInterfaceComponents/Container";
+import Footnote from "../../UserInterfaceComponents/Footnote";
 
 type WorkspaceProps = {};
 
@@ -17,20 +19,20 @@ export default function TerraformWorkspaces({}: WorkspaceProps) {
             <SelectedWorkspaceResources />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-xs text-slate-700 dark:text-slate-300">
+        <Footnote>
+          <p>
             1. If you see no workspaces listed. Thats probably because terraform
             is not yet initialized. This will populate once terraform is
             initialized.
           </p>
-          <p className="w-full rounded border border-yellow-600 bg-yellow-600 bg-opacity-10 py-1 px-3 text-xs md:w-fit">
-            Terraform workspaces are managed by{" "}
-            <Link to={"/deployments"} className="text-sky-500 underline">
+          <p>
+            2. Terraform workspaces are managed by{" "}
+            <Link to={"/deployments"} className={defaultLinkTextStyle}>
               deployments
             </Link>
             .
           </p>
-        </div>
+        </Footnote>
       </div>
     </Container>
   );

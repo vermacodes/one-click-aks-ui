@@ -51,6 +51,7 @@ export default function ResetActionStatus({
 				tooltipMessage={tooltipMessage}
 				tooltipDelay={tooltipDelay}
 				tooltipDirection={tooltipDirection}
+				aria-label="Stop Runaway Action Modal Button"
 			>
 				{children}
 			</Button>
@@ -59,6 +60,9 @@ export default function ResetActionStatus({
 					title="Confirm Stop Runaway Action"
 					onClose={() => setShowModal(false)}
 					onConfirm={onClickHandler}
+					closeLabel="Close Stop Runaway Action Modal"
+					confirmLabel="Confirm Stop Runaway Action"
+					cancelLabel="Cancel Stop Runaway Action"
 				>
 					<p className="text-lg">Are you sure you want to stop the running action?</p>
 					<p className="text-xs">

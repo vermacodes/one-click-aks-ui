@@ -70,7 +70,7 @@ export default function SaveLabSupportingDocument({ lab, setLab, supportingDocum
 					</span>
 				</label>
 				<input
-					className="rounded border border-slate-500 bg-slate-100 p-2 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"
+					className="rounded-sm border border-slate-500 bg-slate-100 p-2 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"
 					id="pdfAttachment"
 					type="file"
 					accept="application/pdf"

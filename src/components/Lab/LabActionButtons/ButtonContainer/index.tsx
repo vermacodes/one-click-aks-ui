@@ -7,6 +7,8 @@ import {
 } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import { ButtonContainerObj } from "../../../../dataStructures";
+import { getUIStateColors } from "../../../../defaults";
+import { cn } from "../../../../utils/cn";
 import Button from "../../../UserInterfaceComponents/Button";
 
 type Props = {
@@ -73,12 +75,12 @@ export default function ButtonContainer({
         ) {
           setButtons(
             Object.fromEntries(
-              Object.entries(sortedButtons).slice(0, maxButtons)
-            )
+              Object.entries(sortedButtons).slice(0, maxButtons),
+            ),
           );
 
           setOverflowButtons(
-            Object.fromEntries(Object.entries(sortedButtons).slice(maxButtons))
+            Object.fromEntries(Object.entries(sortedButtons).slice(maxButtons)),
           );
         }
       }
@@ -103,12 +105,19 @@ export default function ButtonContainer({
         </div>
         {Object.values(overflowButtons).length > 0 && (
           <div className="relative inline-block text-left">
-            <Button onClick={onDropdownOpen} variant="secondary-icon">
+            <Button
+              onClick={onDropdownOpen}
+              variant="secondary-icon"
+              aria-label="More actions"
+            >
               <FaEllipsisV />
             </Button>
             {showDropdown && (
               <div
-                className="space-2 absolute right-0 z-20 mt-2 flex w-fit flex-col gap-2 whitespace-nowrap rounded border border-slate-500 bg-slate-50 px-8 pb-6 pt-2 shadow-lg dark:bg-slate-900"
+                className={cn(
+                  "space-2 absolute right-0 z-20 mt-2 flex w-fit flex-col gap-2 rounded-sm border border-slate-500 px-8 pt-2 pb-6 whitespace-nowrap shadow-lg",
+                  getUIStateColors({ colors: "default" }),
+                )}
                 onMouseLeave={() => setShowDropdown(false)}
                 onMouseEnter={handleMouseEnterDropdown}
               >
@@ -118,9 +127,14 @@ export default function ButtonContainer({
           </div>
         )}
       </div>
+
+      {/* This button is used to measure the width of the buttons */}
       <button
         ref={hiddenButtonRef}
-        className="absolute -left-full  bg-blue-500 px-4 py-2"
+        className="absolute -left-full px-4 py-2"
+        tabIndex={-1}
+        aria-hidden="true"
+        role="presentation"
       >
         This is a button
       </button>

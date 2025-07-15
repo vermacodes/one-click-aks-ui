@@ -1,29 +1,49 @@
 import { useEffect, useState } from "react";
+import { cn } from "../../../utils/cn"; // Adjust the import path as needed
 
-type Props = {
-	variant?: "success" | "warning" | "danger" | "info";
-	children: React.ReactNode;
+type Props = React.HTMLAttributes<HTMLDivElement> & {
+  variant?: "success" | "warning" | "danger" | "info";
+  children: React.ReactNode;
 };
 
-export default function Alert({ variant = "info", children }: Props) {
-	const [color, setColor] = useState<string>("sky");
+export default function Alert({ variant = "info", children, ...rest }: Props) {
+  const [color, setColor] = useState<string>("");
 
-	useEffect(() => {
-		switch (variant) {
-			case "success":
-				setColor("border-green-500 bg-green-500");
-				break;
-			case "warning":
-				setColor("border-amber-500 bg-amber-500");
-				break;
-			case "danger":
-				setColor("border-rose-500 bg-rose-500");
-				break;
-			case "info":
-				setColor("border-sky-500 bg-sky-500");
-				break;
-		}
-	}, [variant]);
+  useEffect(() => {
+    switch (variant) {
+      case "success":
+        setColor(
+          "border-green-700 dark:border-green-400 bg-green-700/20 dark:bg-green-400/20",
+        );
+        break;
+      case "warning":
+        setColor(
+          "border-amber-700 dark:border-amber-400 bg-amber-700/20 dark:bg-amber-400/20",
+        );
+        break;
+      case "danger":
+        setColor(
+          "border-rose-700 dark:border-rose-400 bg-rose-700/20 dark:bg-rose-400/20",
+        );
+        break;
+      case "info":
+        setColor(
+          "border-sky-700 dark:border-sky-400 bg-sky-700/20 dark:bg-sky-400/20",
+        );
+        break;
+    }
+  }, [variant]);
 
-	return <div className={`${color} top-0 mt-2 rounded border bg-opacity-20 p-2`}>{children}</div>;
+  return (
+    <div
+      {...rest} // Spread all additional props onto the div
+      className={cn(
+        color,
+        "top-0 mb-4 rounded-sm border p-2",
+        rest.className, // Include any custom className passed via props
+      )}
+    >
+      {children}
+    </div>
+  );
 }

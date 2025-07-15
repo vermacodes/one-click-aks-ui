@@ -5,6 +5,7 @@ import { Lab, Profile } from "../../../dataStructures";
 import { useGetAllProfilesRedacted } from "../../../hooks/useProfile";
 import { decodeIfEncoded } from "../../../utils/helpers";
 import ProfileDisplay from "../../Authentication/ProfileDisplay";
+import Container from "../../UserInterfaceComponents/Container";
 import ChallengeProfiles from "../Challenge/ChallengeProfiles";
 import LabActionButtons from "../LabActionButtons/LabActionButtons";
 import LabProfiles from "../LabProfiles";
@@ -16,34 +17,36 @@ type Props = {
   showVersions?: boolean;
 };
 
-export default function LabCard({ lab, fullPage = false, showVersions = false }: Props) {
+export default function LabCard({
+  lab,
+  fullPage = false,
+  showVersions = false,
+}: Props) {
   function renderBody() {
     if (lab === undefined) {
       return <></>;
     }
     return (
-      <div className="flex h-fit w-full flex-col justify-between gap-4 rounded bg-slate-50 p-4 shadow-md outline-1 outline-slate-400 hover:shadow-lg hover:outline hover:outline-sky-500 dark:bg-slate-900 dark:outline-slate-600 dark:hover:outline-sky-500">
+      <Container additionalContainerBodyClasses="flex h-fit w-full flex-col justify-between gap-4">
         <LabHeader lab={lab} showVersions={showVersions} />
         <LabCredits lab={lab} />
         <LabDescription lab={lab} fullPage={fullPage} />
         <LabTags tags={lab.tags} />
-        {/* {!fullPage && (
-          <Button variant="primary-outline">
-            <FaUpRightFromSquare />
-            Open
-          </Button>
-        )} */}
         {fullPage && (
           <>
             <LabActionButtons lab={lab} />
             <LabProfiles lab={lab} profileType="owners" />
             <LabProfiles lab={lab} profileType="editors" />
-            {lab.category === "private" && <LabProfiles lab={lab} profileType="viewers" />}
-            {(lab.type === "challengelab" || lab.type === "challenge") && <ChallengeProfiles lab={lab} />}
+            {lab.category === "private" && (
+              <LabProfiles lab={lab} profileType="viewers" />
+            )}
+            {(lab.type === "challengelab" || lab.type === "challenge") && (
+              <ChallengeProfiles lab={lab} />
+            )}
           </>
         )}
-        <p className="text-xs text-slate-200 dark:text-slate-800">{lab.id}</p>
-      </div>
+        <p className="text-xs text-slate-600 dark:text-slate-400">{lab.id}</p>
+      </Container>
     );
   }
 
@@ -51,7 +54,13 @@ export default function LabCard({ lab, fullPage = false, showVersions = false }:
     return <></>;
   }
 
-  return fullPage ? renderBody() : <Link to={"/lab/" + lab.type + "/" + lab.id}>{renderBody()}</Link>;
+  return fullPage ? (
+    renderBody()
+  ) : (
+    <Link className="max-h-fit" to={"/lab/" + lab.type + "/" + lab.id}>
+      {renderBody()}
+    </Link>
+  );
 }
 
 type LabHeaderProps = {
@@ -61,8 +70,8 @@ type LabHeaderProps = {
 
 function LabHeader({ lab, showVersions }: LabHeaderProps) {
   return (
-    <div className="flex items-center justify-between">
-      <h1 className="whitespace-pre-line text-3xl">{lab.name}</h1>
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <h3 className="text-3xl whitespace-pre-line">{lab.name}</h3>
       {showVersions && <LabVersionsButton lab={lab} />}
     </div>
   );
@@ -78,7 +87,8 @@ function LabDescription({ lab, fullPage = false }: LabDescriptionProps) {
     <div
       className={`${
         !fullPage && "max-h-[180px]"
-      } overflow-y-auto px-1 overflow-x-hidden scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-900 dark:scrollbar-thumb-slate-700`}
+      } scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 scrollbar-thumb-rounded-full dark:scrollbar-track-slate-900 dark:scrollbar-thumb-slate-700 overflow-x-hidden overflow-y-auto px-1`}
+      tabIndex={fullPage ? -1 : 0}
     >
       {ReactHtmlParser(decodeIfEncoded(lab.description))}
     </div>
@@ -91,12 +101,12 @@ type LabTagsProps = {
 
 function LabTags({ tags }: LabTagsProps) {
   return (
-    <div className="flex flex-wrap gap-x-1 gap-y-1  pb-4 dark:border-slate-700">
+    <div className="flex flex-wrap gap-x-1 gap-y-1 pb-4 dark:border-slate-700">
       {tags &&
         tags.map((tag) => (
           <span
             key={tag}
-            className="rounded border px-3 py-1  text-xs selection:border-slate-300 dark:border-slate-700 "
+            className="rounded-sm border px-3 py-1 text-xs selection:border-slate-300 dark:border-slate-700"
           >
             {tag}
           </span>
@@ -117,8 +127,14 @@ function LabCredits({ lab }: LabCreditsProps) {
 
   useEffect(() => {
     if (profiles) {
-      setCreatedBy(profiles.find((profile) => profile.userPrincipal === lab.createdBy) || ({} as Profile));
-      setUpdatedBy(profiles.find((profile) => profile.userPrincipal === lab.updatedBy) || ({} as Profile));
+      setCreatedBy(
+        profiles.find((profile) => profile.userPrincipal === lab.createdBy) ||
+          ({} as Profile),
+      );
+      setUpdatedBy(
+        profiles.find((profile) => profile.userPrincipal === lab.updatedBy) ||
+          ({} as Profile),
+      );
     }
   }, [profiles, lab]);
 

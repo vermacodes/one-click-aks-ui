@@ -19,46 +19,43 @@ import VirtualMachine from "../VirtualMachine";
 import VirtualNetwork from "../VirtualNetwork";
 
 export default function Builder() {
-	const { data: lab } = useLab();
+  const { data: lab } = useLab();
 
-	const [_lab, _setLab] = useState<Lab | undefined>(lab);
+  const [_lab, _setLab] = useState<Lab | undefined>(lab);
 
-	return (
-		<Container
-			title="Builder"
-			additionalClasses="flex flex-col gap-4"
-			collapsible={true}
-			//className={`rounded bg-slate-50 p-3 outline-1 outline-sky-500 hover:outline dark:bg-slate-900`}
-		>
-			<div className="flex flex-wrap gap-4">
-				<ResourceGroup />
-				<VirtualNetwork />
-				<ContainerRegistry />
-				<AzureFirewall />
-				<AddKubernetesCluster />
-				<KubernetesCluster />
-				<VirtualMachine />
-				<ExtensionScript />
-			</div>
-			<div className={`mt-12 flex flex-wrap gap-2`}>
-				<PlanButton variant="success-text" lab={lab}>
-					Plan
-				</PlanButton>
-				<ApplyButton variant="primary-text" lab={lab}>
-					Deploy
-				</ApplyButton>
-				<DestroyButton variant="danger-text" lab={lab}>
-					Destroy
-				</DestroyButton>
-				{/* <Tooltip message="Update extension script" delay={500}>
-					<CodeEditor variant="secondary-text">Extension</CodeEditor>
-				</Tooltip> */}
-				{/* <LabBuilder variant="secondary-text">Save</LabBuilder> */}
-				<SaveLabButton />
-				<ResetLabState />
-				<ExportLabInBuilder variant="secondary-text">Download</ExportLabInBuilder>
-				<ImportLabToBuilder />
-			</div>
-		</Container>
-	);
+  return (
+    <Container
+      title="Builder"
+      additionalClasses="flex flex-col gap-4"
+      collapsible={true}
+    >
+      <div className="flex flex-wrap gap-4">
+        <ResourceGroup />
+        <VirtualNetwork />
+        <ContainerRegistry />
+        <AzureFirewall />
+        <AddKubernetesCluster />
+        <KubernetesCluster />
+        <VirtualMachine />
+        <ExtensionScript />
+      </div>
+      <div className={`mt-12 flex flex-wrap gap-2`}>
+        <PlanButton variant="success-text" lab={lab}>
+          Plan
+        </PlanButton>
+        <ApplyButton variant="primary-text" lab={lab}>
+          Deploy
+        </ApplyButton>
+        <DestroyButton variant="danger-text" lab={lab}>
+          Destroy
+        </DestroyButton>
+        <SaveLabButton />
+        <ResetLabState buttonVariant="secondary-text" />
+        <ExportLabInBuilder variant="secondary-text">
+          Download
+        </ExportLabInBuilder>
+        <ImportLabToBuilder />
+      </div>
+    </Container>
+  );
 }
