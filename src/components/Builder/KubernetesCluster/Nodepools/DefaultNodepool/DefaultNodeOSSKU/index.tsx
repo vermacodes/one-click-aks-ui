@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { getUIStateColors } from "../../../../../../defaults";
 import { useSetLogs } from "../../../../../../hooks/useLogs";
 import { useGlobalStateContext } from "../../../../../Context/GlobalStateContext";
 import { useWebSocketContext } from "../../../../../Context/WebSocketContext";
@@ -41,15 +41,24 @@ export default function DefaultNodeOSSKU({ index }: Props) {
   }
 
   const renderItem = (osSku: string) => {
-    return (
-      <div
-        className={`${osSku === currentNodeOSSKU &&
-          "bg-green-300 hover:text-slate-900 dark:text-slate-900"
-          } w-full cursor-pointer items-center justify-between rounded p-2 hover:bg-sky-500 hover:text-slate-100`}
-      >
-        {osSku}
-      </div>
-    );
+    const isActive = osSku === currentNodeOSSKU;
+
+    const baseClasses =
+      "relative w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${hoverClasses}`;
+
+    return <div className={containerClasses}>{osSku}</div>;
   };
 
   /**
@@ -59,7 +68,7 @@ export default function DefaultNodeOSSKU({ index }: Props) {
    * @returns JSX.Element - The rendered item
    */
   return (
-    <div className="flex items-center gap-2 whitespace-nowrap">
+    <div className="-m-2 flex w-64 flex-wrap items-center gap-2 whitespace-nowrap sm:flex-nowrap">
       <label htmlFor="nodeOSSKU">Node OS SKU</label>
       <DropdownSelect
         heading={currentNodeOSSKU == null ? "Ubuntu" : currentNodeOSSKU}

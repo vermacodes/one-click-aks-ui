@@ -3,6 +3,7 @@ import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Lab } from "../../../../dataStructures";
 import { useGetVersionsById } from "../../../../hooks/useBlobs";
+import { cn } from "../../../../utils/cn";
 import Button from "../../../UserInterfaceComponents/Button";
 import LabCard from "../../LabCard";
 import LabVersionDiff from "../LabVersionDiff";
@@ -42,7 +43,7 @@ export default function LabVersions({ lab }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-4">
       <div className="flex items-center text-lg">
         <Button variant="text" onClick={() => navigate(-1)}>
           <MdArrowBack /> Back
@@ -59,11 +60,11 @@ export default function LabVersions({ lab }: Props) {
         setVersionB={setVersionB}
       />
       <div
-        className={`${
-          versionA?.versionId !== versionB.versionId
-            ? "grid-cols-2 "
-            : "grid-cols-1 "
-        } grid gap-4`}
+        className={cn(
+          "grid gap-4",
+          versionA?.versionId !== versionB.versionId && "sm:grid-cols-2",
+          "grid-cols-1",
+        )}
       >
         <LabCard lab={versionA} fullPage={true} />
         {versionA?.versionId !== versionB.versionId && (

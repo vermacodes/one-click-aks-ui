@@ -18,56 +18,65 @@ import ManagedServerUnregisterButton from "../ManagedServerUnregisterButton";
 import ManagedServerVersion from "../ManagedServerVersion";
 
 type Props = {
-	serverHosting: ServerHosting;
-	setServerHosting: (serverHosting: ServerHosting) => void;
+  serverHosting: ServerHosting;
+  setServerHosting: (serverHosting: ServerHosting) => void;
 };
 
-export default function ManagedServerComponent({ serverHosting, setServerHosting }: Props) {
-	const { graphResponse } = useAuth();
-	const { data: managedServer } = useManagedServer();
+export default function ManagedServerComponent({
+  serverHosting,
+  setServerHosting,
+}: Props) {
+  const { graphResponse } = useAuth();
+  const { data: managedServer } = useManagedServer();
 
-	if (managedServer === undefined || (managedServer && managedServer.status === "Unregistered")) {
-		return <ManagedServerRegistration />;
-	}
+  if (
+    managedServer === undefined ||
+    (managedServer && managedServer.status === "Unregistered")
+  ) {
+    return <ManagedServerRegistration />;
+  }
 
-	return (
-		<GradientBorderContainer>
-			<Container
-				title="Managed Server (Azure) 🆕"
-				collapsible={true}
-				hoverEffect={false}
-				additionalClasses="border dark:border-slate-700 border-slate-300"
-			>
-				<div className="flex w-full flex-col flex-wrap gap-2">
-					{graphResponse && managedServer && (
-						<div className="flex flex-wrap items-center gap-2">
-							<ManagedServerDomain />
-							<ManagedServerVersion />
-							<ManagedServerStatus />
-							<ManagedServerAutoDeployAndDestroy />
-							<InactiveDuration managedServer={managedServer} />
-						</div>
-					)}
-					<ServerEndpoint serverHosting={serverHosting} setServerHosting={setServerHosting} />
-					<div className="mt-8 flex flex-wrap gap-4">
-						<ManagedServerDeployButton />
-						<ManagedServerDestroyButton />
-						<ManagedServerUnregisterButton />
-						<ResetServerCache
-							variant="danger-text"
-							tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
-						>
-							<FaRedo /> Reset Cache
-						</ResetServerCache>
-						<ResetActionStatus
-							variant="danger-text"
-							tooltipMessage="Reset Action Status. This will stop any long running action on server."
-						>
-							<FaStopCircle /> Stop Running Action
-						</ResetActionStatus>
-					</div>
-				</div>
-			</Container>
-		</GradientBorderContainer>
-	);
+  return (
+    <GradientBorderContainer>
+      <Container
+        title="Managed Server (Azure) 🆕"
+        collapsible={true}
+        hoverEffect={false}
+        additionalClasses="border dark:border-slate-700 border-slate-300"
+      >
+        <div className="flex w-full flex-col gap-2">
+          {graphResponse && managedServer && (
+            <div className="flex flex-wrap items-center gap-2">
+              <ManagedServerDomain />
+              <ManagedServerVersion />
+              <ManagedServerStatus />
+              <ManagedServerAutoDeployAndDestroy />
+              <InactiveDuration managedServer={managedServer} />
+            </div>
+          )}
+          <ServerEndpoint
+            serverHosting={serverHosting}
+            setServerHosting={setServerHosting}
+          />
+          <div className="mt-8 flex flex-wrap gap-4">
+            <ManagedServerDeployButton />
+            <ManagedServerDestroyButton />
+            <ManagedServerUnregisterButton />
+            <ResetServerCache
+              variant="danger-text"
+              tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
+            >
+              <FaRedo /> Reset Cache
+            </ResetServerCache>
+            <ResetActionStatus
+              variant="danger-text"
+              tooltipMessage="Reset Action Status. This will stop any long running action on server."
+            >
+              <FaStopCircle /> Stop Running Action
+            </ResetActionStatus>
+          </div>
+        </div>
+      </Container>
+    </GradientBorderContainer>
+  );
 }

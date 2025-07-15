@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Lab } from "../../../../../dataStructures";
+import { getUIStateColors } from "../../../../../defaults";
 import { useGetAllReadinessLabsRedacted } from "../../../../../hooks/useAssignment";
 import DropdownSelect from "../../../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../../../UserInterfaceComponents/FilterTextBox";
@@ -9,11 +10,18 @@ type Props = {
   selectedLabs: Lab[];
   setSelectedLabs: React.Dispatch<React.SetStateAction<Lab[]>>;
 };
-export default function SelectLabsDropdown({ selectedLabs, setSelectedLabs }: Props) {
+export default function SelectLabsDropdown({
+  selectedLabs,
+  setSelectedLabs,
+}: Props) {
   const [uniqueLabs, setUniqueLabs] = useState<Lab[]>([]);
   const [labsSearchTerm, setLabsSearchTerm] = useState<string>("");
 
-  const { data: labs, isLoading: labsLoading, isFetching: labsFetching } = useGetAllReadinessLabsRedacted();
+  const {
+    data: labs,
+    isLoading: labsLoading,
+    isFetching: labsFetching,
+  } = useGetAllReadinessLabsRedacted();
 
   /**
    * Effect hook to update the list of unique labs.
@@ -48,16 +56,9 @@ export default function SelectLabsDropdown({ selectedLabs, setSelectedLabs }: Pr
           value={labsSearchTerm}
           onChange={(value: string) => setLabsSearchTerm(value)}
         />
-        {/* <input
-          type="text"
-          placeholder="Search..."
-          value={labsSearchTerm}
-          onChange={(e) => setLabsSearchTerm(e.target.value)}
-          className="w-full rounded px-2 py-1 dark:bg-slate-700 dark:text-slate-100"
-        /> */}
         {labsSearchTerm && (
           <FaTimes
-            className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer"
             onClick={() => setLabsSearchTerm("")}
           />
         )}
@@ -72,7 +73,9 @@ export default function SelectLabsDropdown({ selectedLabs, setSelectedLabs }: Pr
    */
   const onLabClick = (lab: Lab) => {
     setSelectedLabs((selectedLabs) =>
-      selectedLabs.includes(lab) ? selectedLabs.filter((i) => i !== lab) : [...selectedLabs, lab]
+      selectedLabs.includes(lab)
+        ? selectedLabs.filter((i) => i !== lab)
+        : [...selectedLabs, lab],
     );
   };
 
@@ -83,19 +86,32 @@ export default function SelectLabsDropdown({ selectedLabs, setSelectedLabs }: Pr
    * @returns JSX.Element - The rendered lab in the dropdown.
    */
   const renderLab = (lab: Lab) => {
-    const isSelected = selectedLabs.includes(lab);
+    const isActive = selectedLabs.includes(lab);
+
+    const baseClasses =
+      "relative w-full cursor-pointer items-center justify-between rounded-sm p-2 mt-2";
+    const activeClasses = getUIStateColors({
+      selected: true,
+      hover: true,
+      colors: "success",
+    });
+    const hoverClasses = getUIStateColors({
+      hover: true,
+    });
+
+    const containerClasses = isActive
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${hoverClasses}`;
+
     return (
       <div
-        className={`relative ${
-          isSelected
-            ? "bg-green-500 bg-opacity-25 hover:bg-green-500 hover:bg-opacity-40 "
-            : "hover:bg-sky-500 hover:bg-opacity-25 "
-        } rounded `}
+        className={containerClasses}
+        aria-label={typeof lab === "string" ? lab : lab.name}
       >
-        <p className="mt-1 cursor-pointer rounded p-2 hover:bg-opacity-40">
-          {typeof lab === "string" ? lab : lab.name}
-        </p>
-        {isSelected && <FaTimes className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer" />}
+        <p>{typeof lab === "string" ? lab : lab.name}</p>
+        {isActive && (
+          <FaTimes className="absolute top-1/2 right-2 -translate-y-1/2 transform cursor-pointer" />
+        )}
       </div>
     );
   };
@@ -103,13 +119,19 @@ export default function SelectLabsDropdown({ selectedLabs, setSelectedLabs }: Pr
   return (
     <div className="flex w-full">
       <DropdownSelect
-        heading={selectedLabs.length > 0 ? selectedLabs.length + " labs selected." : "Select Labs"}
+        heading={
+          selectedLabs.length > 0
+            ? selectedLabs.length + " labs selected."
+            : "Select Labs"
+        }
         disabled={labsLoading || labsFetching}
         items={[
           ...selectedLabs.sort((a, b) => a.name.localeCompare(b.name)),
           ...uniqueLabs
             .filter((lab) => !selectedLabs.includes(lab))
-            .filter((lab) => lab.name.toLowerCase().includes(labsSearchTerm.toLowerCase()))
+            .filter((lab) =>
+              lab.name.toLowerCase().includes(labsSearchTerm.toLowerCase()),
+            )
             .sort((a, b) => a.name.localeCompare(b.name)),
         ]}
         renderItem={renderLab}

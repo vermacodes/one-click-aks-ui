@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FaPlus, FaTools } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CreateNewDeployment from "../../components/Deployments/CreateNewDeployment";
 import Deployment from "../../components/Deployments/Deployment";
 import Terminal from "../../components/Terminal/Terminal";
@@ -15,49 +15,61 @@ import PageLayout from "../../layouts/PageLayout";
 import ServerError from "../ServerError";
 
 export default function Deployments() {
-	const { data: deployments } = useGetMyDeployments();
-	const { data: workspaces } = useTerraformWorkspace();
-	const { data: serverStatus } = useServerStatus();
-	const { selectedDeployment } = useSelectedDeployment();
+  const { data: deployments } = useGetMyDeployments();
+  const { data: workspaces } = useTerraformWorkspace();
+  const { data: serverStatus } = useServerStatus();
+  const { selectedDeployment } = useSelectedDeployment();
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		document.title = "ACT Labs | Deployments";
-	}, []);
+  useEffect(() => {
+    document.title = "ACT Labs | Deployments";
+  }, []);
 
-	if (serverStatus?.status !== "OK") {
-		return <ServerError />;
-	}
+  if (serverStatus?.status !== "OK") {
+    return <ServerError />;
+  }
 
-	if (deployments === undefined || workspaces === undefined) {
-		return (
-			<PageLayout heading="Deployments">
-				<p className="text-4xl">Loading...</p>
-			</PageLayout>
-		);
-	}
+  if (deployments === undefined || workspaces === undefined) {
+    return (
+      <PageLayout heading="Deployments">
+        <p className="text-4xl">Loading...</p>
+      </PageLayout>
+    );
+  }
 
-	return (
-		<PageLayout heading="Deployments">
-			<div className="flex items-center justify-between">
-				<BackButton />
+  return (
+    <PageLayout heading="Deployments">
+      <div className="flex flex-wrap items-center justify-between">
+        <BackButton />
 
-				<div className={`mb-3 flex justify-end gap-x-2 rounded`}>
-					<Link to="/builder">
-						<Button variant="secondary-outline">
-							<FaTools /> Lab Builder
-						</Button>
-					</Link>
-					<CreateNewDeployment variant="primary">
-						<FaPlus /> Add Deployment
-					</CreateNewDeployment>
-				</div>
-			</div>
-			{deployments &&
-				deployments.length > 0 &&
-				deployments.map((deployment: DeploymentType) => (
-					<Deployment deployment={deployment} selectedDeployment={selectedDeployment} key={deployment.deploymentId} />
-				))}
-			<Terminal />
-		</PageLayout>
-	);
+        <div className={`mb-3 flex flex-wrap justify-end gap-x-2 rounded-sm`}>
+          <Button
+            variant="secondary-text"
+            onClick={() => {
+              if (workspaces.length > 0) {
+                navigate("/builder");
+              }
+            }}
+          >
+            <FaTools /> Lab Builder
+          </Button>
+          <CreateNewDeployment variant="primary-text">
+            <FaPlus /> Add Deployment
+          </CreateNewDeployment>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        {deployments &&
+          deployments.length > 0 &&
+          deployments.map((deployment: DeploymentType) => (
+            <Deployment
+              deployment={deployment}
+              selectedDeployment={selectedDeployment}
+              key={deployment.deploymentId}
+            />
+          ))}
+      </div>
+      <Terminal />
+    </PageLayout>
+  );
 }

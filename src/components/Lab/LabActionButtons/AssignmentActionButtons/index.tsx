@@ -10,8 +10,8 @@ type Props = {
 
 export default function AssignmentActionButtons({ lab }: Props) {
   return (
-    <div className="flex justify-start gap-1">
-      <ApplyButton variant="primary-outline" lab={lab}>
+    <div className="flex flex-wrap justify-start gap-1">
+      <ApplyButton variant="primary-text" lab={lab}>
         Deploy
       </ApplyButton>
       <ExtendButton lab={lab} variant="success-text" mode="extend-validate">

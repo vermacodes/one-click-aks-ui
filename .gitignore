@@ -1,6 +1,9 @@
 # Local .vscode directories
 **/.vscode/*
 
+# Local .idea directories
+**/.idea/*
+
 #  Local .terraform directories
 **/.terraform/*
 

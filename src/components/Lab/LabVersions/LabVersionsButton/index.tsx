@@ -1,7 +1,7 @@
+import { FaHistory } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { ButtonVariant, Lab } from "../../../../dataStructures";
 import Button from "../../../UserInterfaceComponents/Button";
-import { Link } from "react-router-dom";
-import { FaHistory } from "react-icons/fa";
 
 type Props = {
   variant?: ButtonVariant;
@@ -12,11 +12,13 @@ export default function LabVersionsButton({
   variant = "secondary-text",
   lab,
 }: Props) {
+  const navigate = useNavigate();
   return (
-    <Link to={"/lab/versions/" + lab.type + "/" + lab.id}>
-      <Button variant={variant}>
-        <FaHistory /> Versions
-      </Button>
-    </Link>
+    <Button
+      variant="secondary-text"
+      onClick={() => navigate(`/lab/versions/${lab.type}/${lab.id}`)}
+    >
+      <FaHistory /> Versions
+    </Button>
   );
 }
