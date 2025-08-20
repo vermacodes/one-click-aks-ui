@@ -31,8 +31,26 @@ export default function ManagedServerCard({ managedServer }: Props) {
     return <ProfileDisplay profile={profile} size="small" />;
   }
 
+  // Highlight logic
+  let highlight = false;
+  if (managedServer.status === "Running") {
+    const lastActivity = new Date(managedServer.lastActivityTime);
+    const now = new Date();
+    const elapsedSeconds = Math.floor(
+      (now.getTime() - lastActivity.getTime()) / 1000,
+    );
+    if (
+      typeof managedServer.inactivityDurationInSeconds === "number" &&
+      elapsedSeconds > managedServer.inactivityDurationInSeconds
+    ) {
+      highlight = true;
+    }
+  }
+
+  const containerClasses = `mb-4${highlight ? " outline-rose-700 dark:outline-rose-400 outline-2" : ""}`;
+
   return (
-    <Container additionalClasses="mb-4">
+    <Container additionalClasses={containerClasses}>
       <div className="flex">
         <div className="flex w-full justify-between">
           {getProfileByUserPrincipal(managedServer.userPrincipalName)}
