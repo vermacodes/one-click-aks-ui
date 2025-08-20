@@ -11,7 +11,7 @@ import LabPage from "../../pages/LabPage";
 import LabVersionsPage from "../../pages/LabVersionsPage";
 import LabsGridPage from "../../pages/LabsGridPage";
 import Landing from "../../pages/Landing";
-import ManagedServers from "../../pages/ManagedServers";
+import ManagedServersPage from "../../pages/ManagedServersPage";
 import MyAssignments from "../../pages/MyAssignments";
 import SaveLabPage from "../../pages/SaveLabPage";
 import Settings from "../../pages/Settings";
@@ -56,7 +56,7 @@ export default function MainLayout() {
               <Route path="/my/assignments" element={<MyAssignments />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/rbac" element={<AccessControl />} />
-              <Route path="/managed-servers" element={<ManagedServers />} />
+              <Route path="/managed-servers" element={<ManagedServersPage />} />
               <Route path="/feedback" element={<Feedback />} />
             </Routes>
           </main>
