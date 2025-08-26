@@ -40,7 +40,7 @@ export default function ManagedServerActivityMonitor() {
     // Check if the server hosting information is for an Azure environment and if the endpoint is not the same as the `managedServer`'s endpoint
     if (
       managedServer &&
-      (serverHostingFromLocalStorage == undefined ||
+      (serverHostingFromLocalStorage === undefined ||
         Object.keys(serverHostingFromLocalStorage).length === 0 ||
         (serverHostingFromLocalStorage.environment === "azure" &&
           serverHostingFromLocalStorage.endpoint !==
