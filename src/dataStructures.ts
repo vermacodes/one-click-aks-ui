@@ -287,12 +287,15 @@ export type Privilege = {
   isMentor: boolean;
 };
 
-// export type KubernetesOrchestrators = {
-//   id: string;
-//   name: string;
-//   orchestrators: Orchestrator[];
-//   type: string;
-// };
+export type AROVersions = {
+  value: Array<{
+    name: string;
+    type: string;
+    properties: {
+      version: string;
+    };
+  }>;
+};
 
 export type KubernetesOrchestrators = {
   values: Value[];

@@ -32,6 +32,7 @@ export default function VirtualNetwork() {
           cluster.privateClusterEnabled = "false";
           cluster.outboundType = "loadBalancer";
         });
+        newLab.template.aroClusters = [];
       }
 
       // Log the changes if not in progress
