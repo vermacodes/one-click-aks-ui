@@ -133,6 +133,10 @@ export type TfvarKubernetesClusterType = {
   defaultNodePool: TfvarDefaultNodepoolType;
 };
 
+export type TfvarAroClusterType = {
+  version: string;
+};
+
 interface tfvarJumpserver {
   adminUsername: string;
   adminPassword: string;
@@ -152,6 +156,7 @@ export type TfvarAppGatewayType = {};
 export type TfvarConfigType = {
   resourceGroup: TfvarResourceGroupType;
   kubernetesClusters: TfvarKubernetesClusterType[];
+  aroClusters: TfvarAroClusterType[];
   virtualNetworks: TfvarVirtualNetworkType;
   subnets: TfvarSubnetType;
   networkSecurityGroups: TfvarNetworkSecurityGroupType[];
