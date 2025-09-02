@@ -96,7 +96,7 @@ const defaultTfvarConfig: TfvarConfigType = {
     location: "East US",
   },
   kubernetesClusters: [defaultKubernetesCluster],
-  aroClusters: [defaultAroCluster],
+  aroClusters: [],
   virtualNetworks: [
     {
       addressSpace: ["10.1.0.0/16"],

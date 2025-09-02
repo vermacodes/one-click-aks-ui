@@ -51,7 +51,7 @@ export default function AddAroCluster() {
   return (
     <Checkbox
       id="toggle-aks"
-      label="Aro Cluster"
+      label="ARO Cluster"
       checked={checked || false}
       disabled={disabled}
       tooltipMessage={tooltipMessage}
