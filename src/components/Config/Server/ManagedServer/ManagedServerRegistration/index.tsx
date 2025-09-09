@@ -8,9 +8,8 @@ type Props = {};
 
 export default function ManagedServerRegistration({}: Props) {
   return (
-    <GradientBorderContainer>
       <Container
-        title="Managed Server Registration (Preview)"
+        title="Managed Server Registration"
         collapsible={true}
         hoverEffect={false}
         additionalClasses="border dark:border-slate-700 border-slate-300"
@@ -59,6 +58,5 @@ export default function ManagedServerRegistration({}: Props) {
           </ol>
         </div>
       </Container>
-    </GradientBorderContainer>
   );
 }

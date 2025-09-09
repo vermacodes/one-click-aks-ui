@@ -133,6 +133,10 @@ export type TfvarKubernetesClusterType = {
   defaultNodePool: TfvarDefaultNodepoolType;
 };
 
+export type TfvarAroClusterType = {
+  version: string;
+};
+
 interface tfvarJumpserver {
   adminUsername: string;
   adminPassword: string;
@@ -152,6 +156,7 @@ export type TfvarAppGatewayType = {};
 export type TfvarConfigType = {
   resourceGroup: TfvarResourceGroupType;
   kubernetesClusters: TfvarKubernetesClusterType[];
+  aroClusters: TfvarAroClusterType[];
   virtualNetworks: TfvarVirtualNetworkType;
   subnets: TfvarSubnetType;
   networkSecurityGroups: TfvarNetworkSecurityGroupType[];
@@ -282,12 +287,15 @@ export type Privilege = {
   isMentor: boolean;
 };
 
-// export type KubernetesOrchestrators = {
-//   id: string;
-//   name: string;
-//   orchestrators: Orchestrator[];
-//   type: string;
-// };
+export type AROVersions = {
+  value: Array<{
+    name: string;
+    type: string;
+    properties: {
+      version: string;
+    };
+  }>;
+};
 
 export type KubernetesOrchestrators = {
   values: Value[];

@@ -37,9 +37,8 @@ export default function ManagedServerComponent({
   }
 
   return (
-    <GradientBorderContainer>
       <Container
-        title="Managed Server (Azure) 🆕"
+        title="Managed Server"
         collapsible={true}
         hoverEffect={false}
         additionalClasses="border dark:border-slate-700 border-slate-300"
@@ -77,6 +76,5 @@ export default function ManagedServerComponent({
           </div>
         </div>
       </Container>
-    </GradientBorderContainer>
   );
 }

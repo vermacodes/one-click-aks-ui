@@ -8,7 +8,7 @@ import {
 import { useManagedServer } from "../../../hooks/useManagedServer";
 import Alert from "../../UserInterfaceComponents/Alert";
 
-export default function NewSubscriptionsNotSupported() {
+export default function ProdSubscriptionsNotSupported() {
   const [read, setRead] = useState(false);
 
   const [severHosting] = useState<ServerHosting>(getDefaultServerHosting());
@@ -19,8 +19,10 @@ export default function NewSubscriptionsNotSupported() {
   }
 
   if (
+    !managedServer ||
     severHosting.environment === "docker" ||
-    managedServer?.version === "V3"
+    managedServer?.version === "V3" ||
+    managedServer?.status === "Unregistered"
   ) {
     return <></>;
   }

@@ -5,6 +5,7 @@ import {
   TerraformOperation,
   TfvarAddonsType,
   TfvarAppGatewayType,
+  TfvarAroClusterType,
   TfvarConfigType,
   TfvarContainerRegistryType,
   TfvarDefaultNodepoolType,
@@ -78,8 +79,16 @@ const defaultKubernetesCluster: TfvarKubernetesClusterType = {
   workloadIdentityEnabled: false,
 };
 
+const defaultAroCluster: TfvarAroClusterType = {
+  version: "",
+};
+
 export function getDefaultKubernetesCluster(): TfvarKubernetesClusterType {
   return structuredClone(defaultKubernetesCluster);
+}
+
+export function getDefaultAroCluster(): TfvarAroClusterType {
+  return structuredClone(defaultAroCluster);
 }
 
 const defaultTfvarConfig: TfvarConfigType = {
@@ -87,6 +96,7 @@ const defaultTfvarConfig: TfvarConfigType = {
     location: "East US",
   },
   kubernetesClusters: [defaultKubernetesCluster],
+  aroClusters: [],
   virtualNetworks: [
     {
       addressSpace: ["10.1.0.0/16"],

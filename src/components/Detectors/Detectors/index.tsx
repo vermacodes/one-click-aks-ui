@@ -1,5 +1,5 @@
 import ActlabsHubEndpoint from "../ActlabsHubEndpoint";
-import NewSubscriptionNotSupported from "../NewSubscriptionsNotSupported";
+import NewSubscriptionNotSupported from "../ProdSubscriptionsNotSupported";
 import NoSubscriptionsFound from "../NoSubscriptionsFound";
 import SelectedTerraformWorkspaceNotFound from "../SelectedTerraformWorkspaceNotFound";
 import ServerNotConnected from "../ServerNotConnected";

@@ -9,6 +9,8 @@ import ApplyButton from "../../Terraform/ActionButtons/ApplyButton";
 import DestroyButton from "../../Terraform/ActionButtons/DestroyButton";
 import PlanButton from "../../Terraform/ActionButtons/PlanButton";
 import Container from "../../UserInterfaceComponents/Container";
+import AddAroCluster from "../AroCluster/AddAroCluster";
+import AroCluster from "../AroCluster/AroCluster";
 import AzureFirewall from "../AzureFirewall";
 import ContainerRegistry from "../ContainerRegistry";
 import ExtensionScript from "../ExtensionScript";
@@ -36,6 +38,8 @@ export default function Builder() {
         <AzureFirewall />
         <AddKubernetesCluster />
         <KubernetesCluster />
+        <AddAroCluster />
+        <AroCluster />
         <VirtualMachine />
         <ExtensionScript />
       </div>

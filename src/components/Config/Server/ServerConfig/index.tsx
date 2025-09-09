@@ -12,6 +12,7 @@ import Docker from "../Docker";
 import ManagedServerComponent from "../ManagedServer/ManagedServer";
 import ServerEnvironment from "../ServerEnvironment";
 import ServerStatus from "../ServerStatus";
+import { useGetMyProfile } from "../../../../hooks/useProfile";
 
 type Props = {};
 
@@ -20,6 +21,7 @@ export default function ServerConfig({}: Props) {
     getDefaultServerHosting(),
   );
   const { mutateAsync: resetServerCache } = useResetServerCache();
+  const { data: profile } = useGetMyProfile();
 
   useEffect(() => {
     const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
@@ -49,10 +51,12 @@ export default function ServerConfig({}: Props) {
     <Container title="Server">
       <div className="flex flex-col gap-4 pb-4">
         <ServerStatus />
-        <ServerEnvironment
-          serverHosting={serverHosting}
-          setServerHosting={handleServerHostingChange}
-        />
+        {profile && profile.roles.includes("admin") && (
+          <ServerEnvironment
+            serverHosting={serverHosting}
+            setServerHosting={handleServerHostingChange}
+          />
+        )}
         {serverHosting.environment === "docker" && (
           <Docker
             serverHosting={serverHosting}
