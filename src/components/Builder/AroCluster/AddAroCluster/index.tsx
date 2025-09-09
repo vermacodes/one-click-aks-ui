@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TfvarAroClusterType } from "../../../../dataStructures";
 import { getDefaultAroCluster } from "../../../../defaults";
 import { useGetDefaultAROVersion } from "../../../../hooks/useAroVersions";
@@ -16,6 +16,17 @@ export default function AddAroCluster() {
   const { data: defaultVersion } = useGetDefaultAROVersion();
 
   const noVirtualNetworksMessage = "Virtual Network Required.";
+
+  const disabled = (lab.template?.virtualNetworks.length ?? 0) === 0;
+  const checked = (lab?.template?.aroClusters?.length ?? 0) > 0;
+
+  useEffect(() => {
+    if (disabled && tooltipMessage !== noVirtualNetworksMessage) {
+      setTooltipMessage(noVirtualNetworksMessage);
+    } else if (!disabled && tooltipMessage) {
+      setTooltipMessage("");
+    }
+  }, [disabled, tooltipMessage, noVirtualNetworksMessage]);
 
   // The default value that kubernetes cluster will carry.
   function defaultValue(): TfvarAroClusterType {
@@ -35,17 +46,6 @@ export default function AddAroCluster() {
         setLogs({ logs: JSON.stringify(newLab.template, null, 4) });
       setLab(newLab);
     }
-  }
-
-  const disabled = (lab.template?.virtualNetworks.length ?? 0) === 0;
-  const checked = (lab?.template?.aroClusters?.length ?? 0) > 0;
-
-  if (disabled && tooltipMessage !== noVirtualNetworksMessage) {
-    setTooltipMessage(noVirtualNetworksMessage);
-  }
-
-  if (!disabled && tooltipMessage) {
-    setTooltipMessage("");
   }
 
   return (
