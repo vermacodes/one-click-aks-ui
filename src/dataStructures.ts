@@ -41,33 +41,6 @@ interface ResourceGroup {
 
 export type ResourceGroupType = ResourceGroup;
 
-interface StorageAccount {
-  id: string;
-  name: string;
-}
-
-export type StorageAccountType = StorageAccount;
-
-interface BlobContainer {
-  name: string;
-}
-
-export type BlobContainerType = BlobContainer;
-
-interface StateConfiguration {
-  resourceGroup: ResourceGroupType;
-  storageAccount: StorageAccountType;
-  blobContainer: BlobContainerType;
-}
-
-export type StateConfigurationType = StateConfiguration;
-
-interface StateConfigurationStatus {
-  isStateConfigured: boolean;
-}
-
-export type StateConfigurationStatusType = StateConfigurationStatus;
-
 interface ClusterConfiguration {
   networkPlugin: "azure" | "kubenet";
   networkPolicy: "azure" | "calico" | "null";
