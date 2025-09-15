@@ -21,7 +21,7 @@ export default function ActlabsHubEndpoint() {
     actlabsHubBaseUrl?.includes("actlabs-hub-capp.purplegrass") ||
     actlabsHubBaseUrl?.includes("localhost") ||
     actlabsHubBaseUrl?.includes("actlabs-hub-nprd-capp.salmonmeadow") ||
-    actlabsHubBaseUrl?.includes("msftactlabs.com/hub")
+    actlabsHubBaseUrl?.includes("msftactlabs.com")
   ) {
     return <></>;
   }
