@@ -3,7 +3,6 @@ import { getUIStateColors } from "../../../defaults";
 import { useLab } from "../../../hooks/useLab";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { usePreference, useSetPreference } from "../../../hooks/usePreference";
-import { useGetStorageAccount } from "../../../hooks/useStorageAccount";
 import Container from "../../UserInterfaceComponents/Container";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../UserInterfaceComponents/FilterTextBox";
@@ -79,9 +78,6 @@ export default function AzureRegion() {
     useSetPreference();
   const { data: lab } = useLab();
   const { mutate: setLogs } = useSetLogs();
-
-  const { data: storageAccount, isFetching: fetchingStorageAccount } =
-    useGetStorageAccount();
 
   /**
    * Handles the click event.
@@ -179,12 +175,7 @@ export default function AzureRegion() {
   return (
     <Container title="Azure Region" collapsible={true}>
       <div
-        className={`gap-x-reverse flex items-center justify-end gap-x-2 py-2 ${
-          (fetchingStorageAccount ||
-            storageAccount === undefined ||
-            storageAccount.name === "") &&
-          "text-slate-400"
-        }`}
+        className={`gap-x-reverse flex items-center justify-end gap-x-2 py-2`}
       >
         <DropdownSelect
           heading={heading()}

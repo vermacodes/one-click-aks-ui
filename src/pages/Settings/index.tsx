@@ -22,7 +22,6 @@ export default function Settings() {
         <ServerEndpoint /> */}
         {/* <WebSocketEndpoint /> */}
         <ActlabsHubEndpoint />
-        {/* <StorageAccount /> */}
         <AzureSubscriptionSetting />
         <AzureRegion />
 
