@@ -31,7 +31,7 @@ export default function Title() {
       <Link to={"/"} className="flex flex-col items-center gap-2 pr-4 md:gap-0">
         <h1 className="flex flex-row items-center">
           <img
-            src="/actlabs_logo_rocket.svg"
+            src="/ui/actlabs_logo_rocket.svg"
             className="mr-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
             alt="ACTLabs logo showing a rocket flying away from the moon."
           ></img>

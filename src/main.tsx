@@ -17,7 +17,7 @@ const msalInstance = new PublicClientApplication(msalConfig);
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MsalProvider instance={msalInstance}>
-      <BrowserRouter>
+      <BrowserRouter basename="/ui">
         <ScrollToTop />
         <QueryClientProvider client={queryClient}>
           <GlobalStateContextProvider>
@@ -27,5 +27,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </QueryClientProvider>
       </BrowserRouter>
     </MsalProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
