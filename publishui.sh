@@ -21,27 +21,27 @@ fi
 # Functions must be defined before the trap so they are available on exit
 function enablePublicNetworkAccess() {
   # Fetch public network access and default network rule in a single command
-  networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription "$subscription_id" --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json 2>>$LOG_FILE)
+  networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription "$subscription_id" --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json)
 
   publicNetworkAccess=$(echo "$networkSettings" | jq -r '.publicNetworkAccess')
   defaultAction=$(echo "$networkSettings" | jq -r '.defaultAction')
 
   # Enable public network access if not already enabled
   if [[ "$publicNetworkAccess" != "Enabled" || "$defaultAction" != "Allow" ]]; then
-    az storage account update --name "$sa" -g "$rg" --subscription "$subscription_id" --public-network-access Enabled --default-action Allow >>$LOG_FILE 2>&1
+    az storage account update --name "$sa" -g "$rg" --subscription "$subscription_id" --public-network-access Enabled --default-action Allow
   fi
 }
 
 function disablePublicNetworkAccess() {
   # Fetch public network access and default network rule in a single command
-  networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription "$subscription_id" --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json 2>>$LOG_FILE)
+  networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription "$subscription_id" --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json)
 
   publicNetworkAccess=$(echo "$networkSettings" | jq -r '.publicNetworkAccess')
   defaultAction=$(echo "$networkSettings" | jq -r '.defaultAction')
 
   # Disable public network access if not already disabled
   if [[ "$publicNetworkAccess" != "Disabled" || "$defaultAction" != "Deny" ]]; then
-    az storage account update --name "$sa" -g "$rg" --subscription "$subscription_id" --public-network-access Disabled --default-action Deny >>$LOG_FILE 2>&1
+    az storage account update --name "$sa" -g "$rg" --subscription "$subscription_id" --public-network-access Disabled --default-action Deny
   fi
 }
 
