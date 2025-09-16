@@ -241,10 +241,10 @@ export default function Pages() {
           icon={<FaComments />}
           label="Help & Feedback"
           to={
-            "https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyB_Mn8cPhhPoGtsF2A-X8pUQ1FUNTMwVDdTNUFEMllYWFUwSllYWFMyVy4u"
+            "https://dev.azure.com/Supportability/15ab72f0-1239-430d-95c3-59b5f706c68d/_workitems/create/Readiness%20Task?templateId=e266096f-54a9-4b5f-82cf-5826922f17ed&ownerId=7035a9a6-9825-497a-ba6d-8d2d115e9050"
           }
           externalLink={true}
-          toolTipMessage="Need help or have feedback? Please fill out the form and we will get back to you."
+          toolTipMessage="Need help or have feedback? Please create a new work item."
         />
         {/* <li>
 					<LoginButton />
