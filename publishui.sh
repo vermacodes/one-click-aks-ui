@@ -28,7 +28,7 @@ function enablePublicNetworkAccess() {
 
   # Enable public network access if not already enabled
   if [[ "$publicNetworkAccess" != "Enabled" || "$defaultAction" != "Allow" ]]; then
-    az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Enabled --default-action Allow
+    az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Enabled --default-action Allow >> /dev/null
   fi
 }
 
@@ -41,7 +41,7 @@ function disablePublicNetworkAccess() {
 
   # Disable public network access if not already disabled
   if [[ "$publicNetworkAccess" != "Disabled" || "$defaultAction" != "Deny" ]]; then
-    az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Disabled --default-action Deny
+    az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Disabled --default-action Deny >> /dev/null
   fi
 }
 
@@ -55,15 +55,35 @@ if [[ "$?" != "0" ]]; then
 fi
 
 enablePublicNetworkAccess
+sleep 5s
 
-cd dist && az storage blob upload-batch -d '$web' --account-name ${sa} -s "." --overwrite --subscription ACT-CSS-Readiness-NPRD --auth-mode login
+# Attempt upload and retry if storage is not yet accessible.
+# Try up to 18 times (every 10s = ~3 minutes total).
+max_attempts=18
+attempt=1
+while [ "$attempt" -le "$max_attempts" ]; do
+  ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  echo "[$ts] Upload attempt $attempt/$max_attempts to storage account ${sa}"
 
-# if published to default storage account. Purge the endpoint.
-if [[ "$sa" == "actlabsapp" ]]; then
-  az cdn endpoint purge --subscription ACT-CSS-Readiness-NPRD -g ${rg} -n actlabs --profile-name actlabs --content-paths "/*"
-fi
+  az storage blob upload-batch -d '$web' --account-name ${sa} -s "./dist" --overwrite --subscription ACT-CSS-Readiness-NPRD --auth-mode login
+  rc=$?
 
-# if published to default storage account. Purge the endpoint.
-if [[ "$sa" == "actlabsdev" ]]; then
-  az cdn endpoint purge --subscription ACT-CSS-Readiness-NPRD -g ${rg} -n actlabs --profile-name actlabs --content-paths "/*"
-fi
+  if [ "$rc" -eq 0 ]; then
+    ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    echo "[$ts] Upload succeeded on attempt $attempt."
+    break
+  else
+    ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    echo "[$ts] Upload failed on attempt $attempt with exit code $rc."
+  fi
+
+  if [ "$attempt" -eq "$max_attempts" ]; then
+    ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    echo "[$ts] Reached max attempts ($max_attempts). Aborting upload."
+    disablePublicNetworkAccess
+    exit 1
+  fi
+
+  attempt=$((attempt + 1))
+  sleep 10
+done
