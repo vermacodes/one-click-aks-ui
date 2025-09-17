@@ -41,7 +41,7 @@ export default function ProdSubscriptionsNotSupported() {
             subscription. If you need assistance,{" "}
             <a
               className={defaultLinkTextStyle}
-              href="https://app.msftactlabs.com/feedback"
+              href={`${window.location.origin}/ui/feedback`}
             >
               click here
             </a>
