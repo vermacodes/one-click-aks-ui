@@ -8,19 +8,19 @@ export default function ActlabsHubEndpoint() {
   if (
     actlabsHubBaseUrl === null ||
     actlabsHubBaseUrl ===
-      "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io"
+      "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io" ||
+    actlabsHubBaseUrl ===
+      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/"
   ) {
     localStorage.setItem(
       "actlabsHubBaseUrl",
-      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/",
+      "https://app.msftactlabs.com/hub/",
     );
     actlabsHubBaseUrl = localStorage.getItem("actlabsHubBaseUrl");
   }
 
   if (
-    actlabsHubBaseUrl?.includes("actlabs-hub-capp.purplegrass") ||
     actlabsHubBaseUrl?.includes("localhost") ||
-    actlabsHubBaseUrl?.includes("actlabs-hub-nprd-capp.salmonmeadow") ||
     actlabsHubBaseUrl?.includes("msftactlabs.com")
   ) {
     return <></>;
@@ -32,8 +32,7 @@ export default function ActlabsHubEndpoint() {
       <Link to="/settings" className={defaultLinkTextStyle}>
         Settings
       </Link>
-      , and change it to
-      https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/.
+      , and change it to https://app.msftactlabs.com/hub/.
     </Alert>
   );
 }

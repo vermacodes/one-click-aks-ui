@@ -71,11 +71,13 @@ export function setDefaultValuesInLocalStorage() {
   if (
     localStorage.getItem("actlabsHubBaseUrl") === null ||
     localStorage.getItem("actlabsHubBaseUrl") ===
-      "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io"
+      "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io" ||
+    localStorage.getItem("actlabsHubBaseUrl") ===
+      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io"
   ) {
     localStorage.setItem(
       "actlabsHubBaseUrl",
-      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/",
+      "https://app.msftactlabs.com/hub/",
     );
   }
 

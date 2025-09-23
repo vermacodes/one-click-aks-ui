@@ -9,7 +9,7 @@ type Props = {};
 
 export default function ActlabsHubEndpoint({}: Props) {
   const [baseUrl, setBaseUrl] = useState<string>(
-    "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io",
+    "https://app.msftactlabs.com/hub/",
   );
   const [edit, setEdit] = useState<boolean>(false);
 
@@ -17,13 +17,17 @@ export default function ActlabsHubEndpoint({}: Props) {
     const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
 
     if (
-      baseUrlFromLocalStorage != undefined &&
-      (baseUrlFromLocalStorage.includes(
-        "https://actlabs-auth.azurewebsites.net",
-      ) ||
-        baseUrlFromLocalStorage.includes(
-          "https://actlabs-hub.eastus.azurecontainer.io",
-        ))
+      (baseUrlFromLocalStorage != undefined &&
+        (baseUrlFromLocalStorage.includes(
+          "https://actlabs-auth.azurewebsites.net",
+        ) ||
+          baseUrlFromLocalStorage.includes(
+            "https://actlabs-hub.eastus.azurecontainer.io",
+          ))) ||
+      baseUrlFromLocalStorage ===
+        "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io" ||
+      baseUrlFromLocalStorage ===
+        "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/"
     ) {
       localStorage.setItem("actlabsHubBaseUrl", baseUrl);
       return;
