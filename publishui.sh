@@ -84,7 +84,7 @@ attempt=1
 while [ "$attempt" -le "$max_attempts" ]; do
   ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   log_info "[$ts] Upload attempt $attempt/$max_attempts to storage account ${sa}"
-  az storage blob upload-batch -d '$web' --account-name ${sa} -s "./dist" --overwrite --subscription ACT-CSS-Readiness-NPRD --auth-mode login
+  az storage blob upload-batch -d '$web' --account-name ${sa} -s "./dist" --overwrite --subscription ACT-CSS-Readiness-NPRD --auth-mode login 2>/dev/null
   rc=$?
   if [ "$rc" -eq 0 ]; then
     log_success "[$ts] Upload succeeded on attempt $attempt."
