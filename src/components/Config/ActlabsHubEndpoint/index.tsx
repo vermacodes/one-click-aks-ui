@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
+import { useGetMyProfile } from "../../../hooks/useProfile";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
 import Footnote from "../../UserInterfaceComponents/Footnote";
@@ -12,6 +13,8 @@ export default function ActlabsHubEndpoint({}: Props) {
     "https://app.msftactlabs.com/hub/",
   );
   const [edit, setEdit] = useState<boolean>(false);
+
+  const { data: profile } = useGetMyProfile();
 
   useEffect(() => {
     const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
@@ -46,6 +49,10 @@ export default function ActlabsHubEndpoint({}: Props) {
     localStorage.setItem("actlabsHubBaseUrl", baseUrl);
     setEdit(false);
     window.location.reload();
+  }
+
+  if (!profile || !profile.roles.includes("admin")) {
+    return <></>;
   }
 
   return (

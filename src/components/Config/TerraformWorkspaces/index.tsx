@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { defaultLinkTextStyle } from "../../../defaults";
+import { useServerStatus } from "../../../hooks/useServerStatus";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
 import Workspaces from "../../Terraform/Workspaces";
 import Container from "../../UserInterfaceComponents/Container";
@@ -8,6 +9,11 @@ import Footnote from "../../UserInterfaceComponents/Footnote";
 type WorkspaceProps = {};
 
 export default function TerraformWorkspaces({}: WorkspaceProps) {
+  const { data: serverStatus } = useServerStatus();
+
+  if (serverStatus?.status !== "OK") {
+    return <></>;
+  }
   return (
     <Container title="Terraform Workspace" collapsible={true}>
       <div className="flex w-full flex-col gap-2">

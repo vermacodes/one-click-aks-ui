@@ -1,9 +1,15 @@
 import { useDefaultAccount } from "../../../hooks/useDefaultAccount";
+import { useServerStatus } from "../../../hooks/useServerStatus";
 import Container from "../../UserInterfaceComponents/Container";
 import Footnote from "../../UserInterfaceComponents/Footnote";
 
 export default function AzureSubscription() {
   const { defaultAccount } = useDefaultAccount();
+  const { data: serverStatus } = useServerStatus();
+
+  if (serverStatus?.status !== "OK") {
+    return <></>;
+  }
 
   return (
     <Container title="Azure Subscription" collapsible={true}>

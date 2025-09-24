@@ -3,6 +3,7 @@ import { getUIStateColors } from "../../../defaults";
 import { useLab } from "../../../hooks/useLab";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { usePreference, useSetPreference } from "../../../hooks/usePreference";
+import { useServerStatus } from "../../../hooks/useServerStatus";
 import Container from "../../UserInterfaceComponents/Container";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
 import FilterTextBox from "../../UserInterfaceComponents/FilterTextBox";
@@ -10,6 +11,8 @@ import Footnote from "../../UserInterfaceComponents/Footnote";
 
 export default function AzureRegion() {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const { data: serverStatus } = useServerStatus();
+
   // az account list-locations --query "[?metadata.regionType!='Logical' && metadata.physicalLocation!=null].displayName" -o tsv | sed -e 's/^/"/' -e 's/$/"/' | paste -sd, -
   const azureRegions: string[] = [
     "East US",
@@ -78,6 +81,10 @@ export default function AzureRegion() {
     useSetPreference();
   const { data: lab } = useLab();
   const { mutate: setLogs } = useSetLogs();
+
+  if (serverStatus?.status !== "OK") {
+    return <></>;
+  }
 
   /**
    * Handles the click event.
