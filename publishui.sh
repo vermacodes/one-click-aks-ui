@@ -1,89 +1,102 @@
 #!/bin/bash
 
+# Color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+function log_info() {
+  echo -e "${BLUE}[INFO]${NC} $1"
+}
+function log_success() {
+  echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+function log_warn() {
+  echo -e "${YELLOW}[WARN]${NC} $1"
+}
+function log_error() {
+  echo -e "${RED}[ERROR]${NC} $1"
+}
+
 # Loading variables to run NVM
+log_info "Loading NVM and environment profiles..."
 source ~/.nvm/nvm.sh
 source ~/.profile
 source ~/.bashrc
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # default to dev environment
 if [[ "$1" == "prod" ]]; then
   sa="actlabsapp"
   rg="actlabs-app"
+  log_info "Using production storage account: $sa, resource group: $rg"
 else
   sa="actlabsdev"
   rg="actlabs-dev"
+  log_info "Using development storage account: $sa, resource group: $rg"
 fi
 
-# Functions must be defined before the trap so they are available on exit
 function enablePublicNetworkAccess() {
-  # Fetch public network access and default network rule in a single command
+  log_info "Enabling public network access for $sa..."
   networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json)
-
   publicNetworkAccess=$(echo "$networkSettings" | jq -r '.publicNetworkAccess')
   defaultAction=$(echo "$networkSettings" | jq -r '.defaultAction')
-
-  # Enable public network access if not already enabled
   if [[ "$publicNetworkAccess" != "Enabled" || "$defaultAction" != "Allow" ]]; then
     az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Enabled --default-action Allow >> /dev/null
+    log_success "Public network access enabled."
+  else
+    log_info "Public network access already enabled."
   fi
 }
 
 function disablePublicNetworkAccess() {
-  # Fetch public network access and default network rule in a single command
+  log_info "Disabling public network access for $sa..."
   networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json)
-
   publicNetworkAccess=$(echo "$networkSettings" | jq -r '.publicNetworkAccess')
   defaultAction=$(echo "$networkSettings" | jq -r '.defaultAction')
-
-  # Disable public network access if not already disabled
   if [[ "$publicNetworkAccess" != "Disabled" || "$defaultAction" != "Deny" ]]; then
     az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Disabled --default-action Deny >> /dev/null
+    log_success "Public network access disabled."
+  else
+    log_info "Public network access already disabled."
   fi
 }
 
-# Ensure public network access is disabled on any exit (success or failure)
 trap disablePublicNetworkAccess EXIT
 
+log_info "Building UI..."
 npm run build
 if [[ "$?" != "0" ]]; then
-  echo "Build failed"
+  log_error "Build failed"
   exit 1
 fi
 
 enablePublicNetworkAccess
 sleep 5s
 
-# Attempt upload and retry if storage is not yet accessible.
-# Try up to 18 times (every 10s = ~3 minutes total).
 max_attempts=18
 attempt=1
 while [ "$attempt" -le "$max_attempts" ]; do
   ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-  echo "[$ts] Upload attempt $attempt/$max_attempts to storage account ${sa}"
-
+  log_info "[$ts] Upload attempt $attempt/$max_attempts to storage account ${sa}"
   az storage blob upload-batch -d '$web' --account-name ${sa} -s "./dist" --overwrite --subscription ACT-CSS-Readiness-NPRD --auth-mode login
   rc=$?
-
   if [ "$rc" -eq 0 ]; then
-    ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    echo "[$ts] Upload succeeded on attempt $attempt."
+    log_success "[$ts] Upload succeeded on attempt $attempt."
     break
   else
-    ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    echo "[$ts] Upload failed on attempt $attempt with exit code $rc."
+    log_warn "[$ts] Upload failed on attempt $attempt with exit code $rc."
   fi
-
   if [ "$attempt" -eq "$max_attempts" ]; then
-    ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    echo "[$ts] Reached max attempts ($max_attempts). Aborting upload."
+    log_error "[$ts] Reached max attempts ($max_attempts). Aborting upload."
     disablePublicNetworkAccess
     exit 1
   fi
-
   attempt=$((attempt + 1))
   sleep 10
 done
