@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import Button from "../../UserInterfaceComponents/Button";
@@ -13,36 +13,7 @@ export default function ActlabsHubEndpoint({}: Props) {
     "https://app.msftactlabs.com/hub/",
   );
   const [edit, setEdit] = useState<boolean>(false);
-
   const { data: profile } = useGetMyProfile();
-
-  useEffect(() => {
-    const baseUrlFromLocalStorage = localStorage.getItem("actlabsHubBaseUrl");
-
-    if (
-      (baseUrlFromLocalStorage != undefined &&
-        (baseUrlFromLocalStorage.includes(
-          "https://actlabs-auth.azurewebsites.net",
-        ) ||
-          baseUrlFromLocalStorage.includes(
-            "https://actlabs-hub.eastus.azurecontainer.io",
-          ))) ||
-      baseUrlFromLocalStorage ===
-        "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io" ||
-      baseUrlFromLocalStorage ===
-        "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io/"
-    ) {
-      localStorage.setItem("actlabsHubBaseUrl", baseUrl);
-      return;
-    }
-
-    if (
-      baseUrlFromLocalStorage != undefined &&
-      baseUrlFromLocalStorage !== ""
-    ) {
-      setBaseUrl(baseUrlFromLocalStorage);
-    }
-  }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

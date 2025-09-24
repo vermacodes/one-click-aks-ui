@@ -9,7 +9,11 @@ import App from "./App";
 import { msalConfig } from "./authConfig";
 import { GlobalStateContextProvider } from "./components/Context/GlobalStateContext";
 import ScrollToTop from "./components/UserInterfaceComponents/ScrollToTop";
+import { initConfig } from "./config/initConfig";
 import "./index.css";
+
+// Initialize config before rendering the app
+initConfig();
 
 const queryClient = new QueryClient();
 const msalInstance = new PublicClientApplication(msalConfig);

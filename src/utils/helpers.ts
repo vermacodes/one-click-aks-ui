@@ -1,6 +1,6 @@
 import ansiHTML from "ansi-to-html";
 import DOMPurify from "dompurify";
-import { DeploymentType, ServerHosting } from "../dataStructures";
+import { DeploymentType } from "../dataStructures";
 
 // Function returns the new epoch time for deployment destroy time.
 export function calculateNewEpochTimeForDeployment(deployment: DeploymentType) {
@@ -52,44 +52,6 @@ export function getDeploymentDestroyTimeRemaining(
 
     return hours + "h " + minutes + "m " + seconds + "s";
   }, 1000);
-}
-
-// set default values in local storage
-export function setDefaultValuesInLocalStorage() {
-  // if (localStorage.getItem("darkMode") === null) {
-  // 	localStorage.setItem("darkMode", "false");
-  // }
-
-  if (localStorage.getItem("theme") === null) {
-    localStorage.setItem("theme", "system");
-  }
-
-  if (localStorage.getItem("autoScroll") === null) {
-    localStorage.setItem("autoScroll", "true");
-  }
-
-  if (
-    localStorage.getItem("actlabsHubBaseUrl") === null ||
-    localStorage.getItem("actlabsHubBaseUrl") ===
-      "https://actlabs-hub-capp.redisland-ff4b63ab.eastus.azurecontainerapps.io" ||
-    localStorage.getItem("actlabsHubBaseUrl") ===
-      "https://actlabs-hub-capp.purplegrass-7409b036.eastus.azurecontainerapps.io"
-  ) {
-    localStorage.setItem(
-      "actlabsHubBaseUrl",
-      "https://app.msftactlabs.com/hub/",
-    );
-  }
-
-  if (localStorage.getItem("serverHosting") === null) {
-    localStorage.setItem(
-      "serverHosting",
-      JSON.stringify({
-        endpoint: "",
-        environment: "azure",
-      } as ServerHosting),
-    );
-  }
 }
 
 // This function uses a hack to decode base64 strings.
