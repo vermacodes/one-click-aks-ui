@@ -20,7 +20,7 @@ export default function ActlabsHubEndpoint() {
       <Link to="/settings" className={defaultLinkTextStyle}>
         Settings
       </Link>
-      , and change it to https://app.msftactlabs.com/hub/.
+      , and change it to {import.meta.env.VITE_ACTLABS_HUB_BASE_URL}.
     </Alert>
   );
 }

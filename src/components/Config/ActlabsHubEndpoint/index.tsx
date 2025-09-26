@@ -10,7 +10,7 @@ type Props = {};
 
 export default function ActlabsHubEndpoint({}: Props) {
   const [baseUrl, setBaseUrl] = useState<string>(
-    "https://app.msftactlabs.com/hub/",
+    import.meta.env.VITE_ACTLABS_HUB_BASE_URL,
   );
   const [edit, setEdit] = useState<boolean>(false);
   const { data: profile } = useGetMyProfile();

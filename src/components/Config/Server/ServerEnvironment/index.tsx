@@ -30,7 +30,7 @@ export default function ServerEnvironment({
             handleOnChange={() =>
               setServerHosting({
                 environment: "docker",
-                endpoint: "http://localhost:8880/",
+                endpoint: "http://localhost:8881/",
               })
             }
             label={"Self-Hosted (Docker)"}
