@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import Button from "../../UserInterfaceComponents/Button";
@@ -14,6 +14,14 @@ export default function ActlabsHubEndpoint({}: Props) {
   );
   const [edit, setEdit] = useState<boolean>(false);
   const { data: profile } = useGetMyProfile();
+
+  // get baseUrl from localStorage on mount
+  useEffect(() => {
+    const storedBaseUrl = localStorage.getItem("actlabsHubBaseUrl");
+    if (storedBaseUrl) {
+      setBaseUrl(storedBaseUrl);
+    }
+  }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
