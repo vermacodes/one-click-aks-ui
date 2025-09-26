@@ -2,8 +2,7 @@
 // Ensures essential config values are set in localStorage at app startup
 
 const defaultBaseUrl =
-  import.meta.env.VITE_ACTLABS_HUB_BASE_URL ||
-  "https://app.msftactlabs.com/hub/";
+  import.meta.env.VITE_ACTLABS_HUB_BASE_URL || "http://localhost:8883/";
 const deprecatedEndpoints = [
   "https://actlabs-auth.azurewebsites.net",
   "https://actlabs-hub.eastus.azurecontainer.io",
