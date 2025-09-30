@@ -41,12 +41,24 @@ else
   log_info "Using development storage account: $sa, resource group: $rg"
 fi
 
+# Track original state to restore later
+original_public_access=""
+original_default_action=""
+
 function enablePublicNetworkAccess() {
-  log_info "Enabling public network access for $sa..."
+  log_info "Checking current network access for $sa..."
   networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json)
   publicNetworkAccess=$(echo "$networkSettings" | jq -r '.publicNetworkAccess')
   defaultAction=$(echo "$networkSettings" | jq -r '.defaultAction')
+  
+  # Store original state
+  original_public_access="$publicNetworkAccess"
+  original_default_action="$defaultAction"
+  
+  log_info "Original state: publicNetworkAccess=$original_public_access, defaultAction=$original_default_action"
+  
   if [[ "$publicNetworkAccess" != "Enabled" || "$defaultAction" != "Allow" ]]; then
+    log_info "Enabling public network access for $sa..."
     az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Enabled --default-action Allow >> /dev/null
     log_success "Public network access enabled."
   else
@@ -55,22 +67,27 @@ function enablePublicNetworkAccess() {
 }
 
 function disablePublicNetworkAccess() {
-  log_info "Disabling public network access for $sa..."
-  networkSettings=$(az storage account show --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --query "{publicNetworkAccess:publicNetworkAccess, defaultAction:networkRuleSet.defaultAction}" --output json)
-  publicNetworkAccess=$(echo "$networkSettings" | jq -r '.publicNetworkAccess')
-  defaultAction=$(echo "$networkSettings" | jq -r '.defaultAction')
-  if [[ "$publicNetworkAccess" != "Disabled" || "$defaultAction" != "Deny" ]]; then
-    az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access Disabled --default-action Deny >> /dev/null
-    log_success "Public network access disabled."
+  # Only disable if it was originally disabled
+  if [[ "$original_public_access" == "Disabled" || "$original_default_action" == "Deny" ]]; then
+    log_info "Restoring original network access state for $sa..."
+    az storage account update --name "$sa" -g "$rg" --subscription ACT-CSS-Readiness-NPRD --public-network-access "$original_public_access" --default-action "$original_default_action" >> /dev/null
+    log_success "Network access restored to original state."
   else
-    log_info "Public network access already disabled."
+    log_info "Keeping network access enabled (was originally enabled)."
   fi
 }
 
 trap disablePublicNetworkAccess EXIT
 
 log_info "Building UI..."
-npm run build
+
+# build for env
+if [[ "$1" == "prod" ]]; then
+  npm run build
+else 
+  npm run build -- --mode development
+fi
+
 if [[ "$?" != "0" ]]; then
   log_error "Build failed"
   exit 1
