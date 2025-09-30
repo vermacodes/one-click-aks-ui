@@ -145,11 +145,7 @@ export default function ManagedServerActivityMonitor() {
       return;
     }
 
-    if (
-      managedServer.status === "Deploying" ||
-      managedServer.status === "AutoDestroyed" ||
-      managedServer.status === "Destroyed"
-    ) {
+    if (managedServer.status === "Deploying") {
       const intervalId = setInterval(() => {
         if (
           managedServer !== undefined &&
