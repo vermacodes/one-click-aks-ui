@@ -30,7 +30,7 @@ export default function SelectedTerraformWorkspaceNotFound() {
     if (isError && serverStatus?.status === "OK") {
       setTimeout(() => {
         setShowError(true);
-      }, 120000);
+      }, 30000);
     }
   }, [terraformWorkspaces, isError]);
 
@@ -49,11 +49,11 @@ export default function SelectedTerraformWorkspaceNotFound() {
     return (
       <Alert variant="danger">
         <strong>🛑 Terraform Error:</strong> Unable to fetch terraform
-        workspaces. Try 'Reset Server Cache' from{" "}
+        workspaces. Try "Destroy" and "Deploy" from{" "}
         <Link to={"/settings"} className={defaultLinkTextStyle}>
           settings
         </Link>{" "}
-        or redeploy server.
+        .
       </Alert>
     );
   }

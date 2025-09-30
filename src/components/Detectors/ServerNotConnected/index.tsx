@@ -151,6 +151,7 @@ export default function ServerNotConnected() {
   return (
     <Alert variant="danger">
       <strong>🛑 Unexpected Error:</strong> Something unexpected happened.
+      Engage Support.
     </Alert>
   );
 }
