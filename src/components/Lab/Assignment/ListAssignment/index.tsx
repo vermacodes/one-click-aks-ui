@@ -152,6 +152,8 @@ export default function ListAssignment({}: Props) {
           onChange={setFilterText}
           placeHolderText="Filter assignments by lab name, user, or status"
         />
+      </div>
+      <div className="flex flex-wrap justify-end p-4">
         <ExportAssignments assignments={allAssignments} />
         <Button
           variant="danger-outline"
