@@ -1,6 +1,8 @@
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import { TbFidgetSpinner } from "react-icons/tb";
 import {
   defaultUIErrorTextColor,
+  defaultUIPrimaryTextColor,
   defaultUISuccessTextColor,
   defaultUIWarningTextColor,
 } from "../../../../../defaults";
@@ -34,6 +36,11 @@ export default function ManagedServerStatus({}: Props) {
           )}
           {managedServer.status === "Failed" && (
             <FaExclamationCircle className={defaultUIErrorTextColor} />
+          )}
+          {managedServer.status === "Deploying" && (
+            <TbFidgetSpinner
+              className={`${defaultUIPrimaryTextColor} animate-spin`}
+            />
           )}
           {managedServer.status}
         </div>

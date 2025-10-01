@@ -10,9 +10,18 @@ import { useManagedServer } from "../../../hooks/useManagedServer";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import Alert from "../../UserInterfaceComponents/Alert";
 
+interface DetectorCondition {
+  condition: () => boolean;
+  component: JSX.Element | null;
+  delay?: number; // milliseconds
+}
+
 export default function ServerNotConnected() {
   const [severHosting, setServerHosting] = useState<ServerHosting>(
     getDefaultServerHosting(),
+  );
+  const [delayedStates, setDelayedStates] = useState<Record<string, boolean>>(
+    {},
   );
   const { data: serverStatus, isError } = useServerStatus();
   const { data: managedServer } = useManagedServer();
@@ -27,131 +36,191 @@ export default function ServerNotConnected() {
     }
   }, []);
 
-  if (!isError && serverStatus && serverStatus.status === "OK") {
-    return <></>;
-  }
+  // Handle delayed rendering
+  const handleDelayedState = (
+    key: string,
+    delay: number,
+    condition: boolean,
+  ) => {
+    useEffect(() => {
+      if (condition && !delayedStates[key]) {
+        const timer = setTimeout(() => {
+          setDelayedStates((prev) => ({ ...prev, [key]: true }));
+        }, delay);
+        return () => clearTimeout(timer);
+      } else if (!condition) {
+        setDelayedStates((prev) => ({ ...prev, [key]: false }));
+      }
+    }, [condition, key, delay]);
 
-  if (severHosting.environment === "docker") {
-    return (
-      <Alert variant="warning">
-        <strong>⚠️ Server Not Connected:</strong> Your self-hosted server is not
-        available. Check your{" "}
-        <Link to="/settings" className={defaultLinkTextStyle}>
-          Settings
-        </Link>{" "}
-        to make sure server is deployed and{" "}
-        <a className="underline">endpoint</a> is correct.
-      </Alert>
+    return delayedStates[key] || false;
+  };
+
+  // Define detector conditions with optional delays
+  const detectorConditions: DetectorCondition[] = [
+    {
+      condition: () => !isError && serverStatus?.status === "OK",
+      component: null, // Don't show anything if server is OK
+    },
+    {
+      condition: () => severHosting.environment === "docker",
+      component: (
+        <Alert variant="warning">
+          <strong>⚠️ Server Not Connected:</strong> Your self-hosted server is
+          not available. Check your{" "}
+          <Link to="/settings" className={defaultLinkTextStyle}>
+            Settings
+          </Link>{" "}
+          to make sure server is deployed and{" "}
+          <a className="underline">endpoint</a> is correct.
+        </Alert>
+      ),
+    },
+    {
+      condition: () =>
+        managedServer === undefined || managedServer?.status === "Unregistered",
+      component: (
+        <Alert variant="warning">
+          <strong>⚠️ Server Not Deployed:</strong> ACT Labs{" "}
+          <a className="underline">requires user to deploy the server.</a> Goto{" "}
+          <Link to="/settings" className={defaultLinkTextStyle}>
+            Settings
+          </Link>{" "}
+          to register and deploy managed server or self-host on docker.
+        </Alert>
+      ),
+    },
+    {
+      condition: () => managedServer?.status === "Deploying",
+      component: (
+        <Alert variant="info">
+          <div className="flex items-center gap-2">
+            <TbFidgetSpinner className="animate-spin" />
+            <strong>Deploying Managed Server:</strong> Deployment is in
+            progress. Page will auto reload once deployment completes.
+          </div>
+        </Alert>
+      ),
+    },
+    {
+      condition: () => managedServer?.status === "Destroyed",
+      component: (
+        <Alert variant="warning">
+          <strong>⚠️ Managed Server Not Deployed:</strong> You have destroyed
+          server manually. Please deploy again from{" "}
+          <Link to="/settings" className={defaultLinkTextStyle}>
+            Settings
+          </Link>{" "}
+          page.
+        </Alert>
+      ),
+    },
+    {
+      condition: () =>
+        managedServer?.status === "AutoDestroyed" &&
+        managedServer?.autoCreate === true,
+      component: (
+        <Alert variant="info">
+          <div className="flex items-center gap-2">
+            <TbFidgetSpinner className="animate-spin" />
+            <strong>Deploying Managed Server:</strong> Managed server was
+            destroyed due to inactivity. Deploying again momentarily.
+          </div>
+        </Alert>
+      ),
+    },
+    {
+      condition: () =>
+        managedServer?.status === "AutoDestroyed" &&
+        managedServer?.autoCreate === false,
+      component: (
+        <Alert variant="warning">
+          <strong>Managed Server Destroyed:</strong> Managed server was
+          destroyed due to inactivity and auto-deploy is disabled. Deploy again
+          from{" "}
+          <Link to="/settings" className={defaultLinkTextStyle}>
+            Settings
+          </Link>
+          .
+        </Alert>
+      ),
+    },
+    {
+      condition: () =>
+        managedServer?.status === "Running" && serverStatus?.status !== "OK",
+      component: (
+        <Alert variant="info">
+          <div className="flex items-center gap-2">
+            <TbFidgetSpinner className="animate-spin" />
+            <strong>Waiting for DNS Sync:</strong> This can take several
+            minutes. Please don't destroy the managed server.
+          </div>
+        </Alert>
+      ),
+      delay: 60000, // Show after 60 seconds to avoid premature DNS warnings
+    },
+    {
+      condition: () =>
+        managedServer?.status === "Registered" && serverStatus?.status !== "OK",
+      component: (
+        <Alert variant="info">
+          <strong>☑️ Registration Completed:</strong> Managed server is
+          registered, now deploying.
+        </Alert>
+      ),
+    },
+    {
+      condition: () =>
+        managedServer?.status === "Failed" && serverStatus?.status !== "OK",
+      component: (
+        <Alert variant="danger">
+          <strong>⚠️ Managed Server Deployment Failed:</strong> Managed server
+          deployment failed. Deploy manually from{" "}
+          <Link to="/settings" className={defaultLinkTextStyle}>
+            Settings
+          </Link>
+          .
+        </Alert>
+      ),
+      delay: 30000, // Show after 30 seconds to avoid immediate error flash
+    },
+  ];
+
+  // Render the first matching condition with delay handling
+  const renderDetector = (): JSX.Element | null => {
+    for (const { condition, component, delay } of detectorConditions) {
+      const isConditionMet = condition();
+
+      if (isConditionMet) {
+        if (delay) {
+          const delayKey = `delay_${detectorConditions.indexOf({ condition, component, delay })}`;
+          const shouldShow = handleDelayedState(
+            delayKey,
+            delay,
+            isConditionMet,
+          );
+          return shouldShow ? component : null;
+        }
+        return component;
+      }
+    }
+
+    // Fallback with delay if needed
+    const fallbackCondition = true; // Always true as fallback
+    const fallbackDelay = 60000; // 60 seconds delay for fallback
+    const shouldShowFallback = handleDelayedState(
+      "fallback",
+      fallbackDelay,
+      fallbackCondition,
     );
-  }
 
-  if (managedServer === undefined || managedServer?.status === "Unregistered") {
-    return (
-      <Alert variant="warning">
-        <strong>⚠️ Server Not Deployed:</strong> ACT Labs{" "}
-        <a className="underline">requires user to deploy the server.</a> Goto{" "}
-        <Link to="/settings" className={defaultLinkTextStyle}>
-          Settings
-        </Link>{" "}
-        to register and deploy managed server or self-host on docker.
-      </Alert>
-    );
-  }
-
-  if (managedServer?.status === "Deploying") {
-    return (
-      <Alert variant="info">
-        <div className="flex items-center gap-2">
-          <TbFidgetSpinner className="animate-spin" />
-          <strong>Deploying Managed Server:</strong> Deployment is in progress.
-          Page will auto reload once deployment completes.
-        </div>
-      </Alert>
-    );
-  }
-
-  if (managedServer?.status === "Destroyed") {
-    return (
-      <Alert variant="warning">
-        <strong>⚠️ Managed Server Not Deployed:</strong> You have destroyed
-        server manually. Please deploy again from{" "}
-        <Link to="/settings" className={defaultLinkTextStyle}>
-          Settings
-        </Link>{" "}
-        page.
-      </Alert>
-    );
-  }
-
-  if (
-    managedServer?.status === "AutoDestroyed" &&
-    managedServer?.autoCreate === true
-  ) {
-    return (
-      <Alert variant="info">
-        <div className="flex items-center gap-2">
-          <TbFidgetSpinner className="animate-spin" />
-          <strong>Deploying Managed Server:</strong> Managed server was
-          destroyed due to inactivity. Deploying again momentarily.
-        </div>
-      </Alert>
-    );
-  }
-
-  if (
-    managedServer?.status === "AutoDestroyed" &&
-    managedServer?.autoCreate === false
-  ) {
-    return (
-      <Alert variant="warning">
-        <strong>Managed Server Destroyed:</strong> Managed server was destroyed
-        due to inactivity and auto-deploy is disabled. Deploy again from{" "}
-        <Link to="/settings" className={defaultLinkTextStyle}>
-          Settings
-        </Link>
-        .
-      </Alert>
-    );
-  }
-
-  if (managedServer?.status === "Running" && serverStatus?.status !== "OK") {
-    return (
-      <Alert variant="info">
-        <div className="flex items-center gap-2">
-          <TbFidgetSpinner className="animate-spin" />
-          <strong>Waiting for DNS Sync:</strong> This can take several minutes.
-          Please don't destroy the managed server.
-        </div>
-      </Alert>
-    );
-  }
-
-  if (managedServer?.status === "Registered" && serverStatus?.status !== "OK") {
-    return (
-      <Alert variant="info">
-        <strong>☑️ Registration Completed:</strong> Managed server is
-        registered, now deploying.
-      </Alert>
-    );
-  }
-
-  if (managedServer?.status === "Failed" && serverStatus?.status !== "OK") {
-    return (
+    return shouldShowFallback ? (
       <Alert variant="danger">
-        <strong>⚠️ Managed Server Deployment Failed:</strong> Managed server
-        deployment failed. Deploy manually from{" "}
-        <Link to="/settings" className={defaultLinkTextStyle}>
-          Settings
-        </Link>
-        .
+        <strong>🛑 Unexpected Error:</strong> Something unexpected happened.
+        Engage Support.
       </Alert>
-    );
-  }
+    ) : null;
+  };
 
-  return (
-    <Alert variant="danger">
-      <strong>🛑 Unexpected Error:</strong> Something unexpected happened.
-      Engage Support.
-    </Alert>
-  );
+  return renderDetector();
 }
