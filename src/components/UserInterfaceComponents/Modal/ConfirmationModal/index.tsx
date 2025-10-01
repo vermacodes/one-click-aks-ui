@@ -64,7 +64,7 @@ export default function ConfirmationModal({
         </div>
         <div
           id="dialogDescription"
-          className="flex min-w-full flex-col justify-between gap-y-12 py-4"
+          className="flex min-w-full flex-col justify-between gap-y-4 py-4"
         >
           {children}
         </div>

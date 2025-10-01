@@ -109,5 +109,5 @@ function getActlabsHubBaseUrl(): string {
     return baseUrlFromLocalStorage;
   }
 
-  return "https://app.msftactlabs.com/hub/";
+  return import.meta.env.VITE_ACTLABS_HUB_BASE_URL;
 }

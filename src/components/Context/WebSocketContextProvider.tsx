@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import ReconnectingWebSocket from "reconnecting-websocket";
-import { ActionStatusType, LogsStreamType, ServerNotification, TerraformOperation } from "../../dataStructures";
-import { getDefaultServerNotification, getDefaultTerraformOperation } from "../../defaults";
+import {
+  ActionStatusType,
+  LogsStreamType,
+  ServerNotification,
+  TerraformOperation,
+} from "../../dataStructures";
+import {
+  getDefaultServerNotification,
+  getDefaultTerraformOperation,
+} from "../../defaults";
 import { WebSocketContext } from "./WebSocketContext";
 
-export default function WebSocketContextProvider({ children }: { children: React.ReactNode }) {
+export default function WebSocketContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   // action status
   const [actionStatus, setActionStatus] = useState<ActionStatusType>({
     inProgress: false,
@@ -19,26 +31,34 @@ export default function WebSocketContextProvider({ children }: { children: React
   const [logStreamConnected, setLogStreamConnected] = useState(false);
 
   // terraform operation
-  const [terraformOperation, setTerraformOperation] = useState<TerraformOperation>(getDefaultTerraformOperation());
-  const [terraformOperationConnected, setTerraformOperationConnected] = useState(false);
+  const [terraformOperation, setTerraformOperation] =
+    useState<TerraformOperation>(getDefaultTerraformOperation());
+  const [terraformOperationConnected, setTerraformOperationConnected] =
+    useState(false);
 
   // server notification
-  const [serverNotification, setServerNotification] = useState<ServerNotification>(getDefaultServerNotification());
-  const [serverNotificationConnected, setServerNotificationConnected] = useState<boolean>(false);
+  const [serverNotification, setServerNotification] =
+    useState<ServerNotification>(getDefaultServerNotification());
+  const [serverNotificationConnected, setServerNotificationConnected] =
+    useState<boolean>(false);
 
   const queryClient = useQueryClient();
   useEffect(() => {
     // Action Status Socket. Use baseUrl from localStorage.
     // remove http from the beginning and replace with ws
     // add leading slash if not present
-    let serverHosting = JSON.parse(localStorage.getItem("serverHosting") || "{}");
-    let baseUrl = serverHosting.endpoint?.replace("http", "ws" || "ws://localhost:8880/");
+    let serverHosting = JSON.parse(
+      localStorage.getItem("serverHosting") || "{}",
+    );
+    let baseUrl = serverHosting.endpoint?.replace("http", "ws");
     if (baseUrl && !baseUrl.endsWith("/")) {
       baseUrl += "/";
     }
 
     // action status
-    const actionStatusWs = new ReconnectingWebSocket(baseUrl + "actionstatusws");
+    const actionStatusWs = new ReconnectingWebSocket(
+      baseUrl + "actionstatusws",
+    );
 
     actionStatusWs.onopen = () => {
       setActionStatusConnected(true);
@@ -69,7 +89,9 @@ export default function WebSocketContextProvider({ children }: { children: React
     };
 
     // terraform operation
-    const terraformOperationWs = new ReconnectingWebSocket(baseUrl + "terraform/statusws");
+    const terraformOperationWs = new ReconnectingWebSocket(
+      baseUrl + "terraform/statusws",
+    );
     terraformOperationWs.onopen = () => {
       setTerraformOperationConnected(true);
     };
@@ -81,7 +103,9 @@ export default function WebSocketContextProvider({ children }: { children: React
     };
 
     // server notification
-    const serverNotificationWs = new ReconnectingWebSocket(baseUrl + "serverNotificationWs");
+    const serverNotificationWs = new ReconnectingWebSocket(
+      baseUrl + "serverNotificationWs",
+    );
     serverNotificationWs.onopen = () => {
       setServerNotificationConnected(true);
     };

@@ -146,12 +146,14 @@ export default function ListAssignment({}: Props) {
       collapsible={true}
       additionalContainerBodyClasses={`h-fit overflow-auto ${defaultScrollbarStyle}`}
     >
-      <div className="flex flex-wrap justify-end gap-4 px-1 py-1 sm:h-10">
+      <div className="px-1 py-1 sm:h-10">
         <FilterTextBox
           value={filterText}
           onChange={setFilterText}
           placeHolderText="Filter assignments by lab name, user, or status"
         />
+      </div>
+      <div className="flex flex-wrap justify-end gap-4 p-4">
         <ExportAssignments assignments={allAssignments} />
         <Button
           variant="danger-outline"

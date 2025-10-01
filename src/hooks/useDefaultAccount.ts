@@ -6,6 +6,9 @@ export function useDefaultAccount() {
   const { data: accounts } = useAccount();
 
   function getDefaultAccount(accounts: AccountType[]): AccountType | undefined {
+    if (!Array.isArray(accounts)) {
+      return undefined;
+    }
     var defaultAccount = accounts.find((account) => account.isDefault);
     if (defaultAccount) {
       return defaultAccount;
