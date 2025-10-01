@@ -57,7 +57,7 @@ export default function ServerNotConnected() {
     // Check conditions that need delays
     setDelayedState(
       "dns_sync",
-      60000,
+      30000,
       managedServer?.status === "Running" && serverStatus?.status !== "OK",
     );
     setDelayedState(
