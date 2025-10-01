@@ -36,27 +36,43 @@ export default function ServerNotConnected() {
     }
   }, []);
 
-  // Handle delayed rendering
-  const handleDelayedState = (
-    key: string,
-    delay: number,
-    condition: boolean,
-  ) => {
-    useEffect(() => {
+  // Handle delayed states at component level
+  useEffect(() => {
+    const timers: Record<string, NodeJS.Timeout> = {};
+
+    const setDelayedState = (
+      key: string,
+      delay: number,
+      condition: boolean,
+    ) => {
       if (condition && !delayedStates[key]) {
-        const timer = setTimeout(() => {
+        timers[key] = setTimeout(() => {
           setDelayedStates((prev) => ({ ...prev, [key]: true }));
         }, delay);
-        return () => clearTimeout(timer);
-      } else if (!condition) {
+      } else if (!condition && delayedStates[key]) {
         setDelayedStates((prev) => ({ ...prev, [key]: false }));
       }
-    }, [condition, key, delay]);
+    };
 
-    return delayedStates[key] || false;
-  };
+    // Check conditions that need delays
+    setDelayedState(
+      "dns_sync",
+      60000,
+      managedServer?.status === "Running" && serverStatus?.status !== "OK",
+    );
+    setDelayedState(
+      "deployment_failed",
+      30000,
+      managedServer?.status === "Failed" && serverStatus?.status !== "OK",
+    );
+    setDelayedState("fallback", 60000, true); // Always start fallback timer
 
-  // Define detector conditions with optional delays
+    return () => {
+      Object.values(timers).forEach((timer) => clearTimeout(timer));
+    };
+  }, [managedServer?.status, serverStatus?.status, delayedStates]);
+
+  // Define detector conditions with delay flags
   const detectorConditions: DetectorCondition[] = [
     {
       condition: () => !isError && serverStatus?.status === "OK",
@@ -193,12 +209,14 @@ export default function ServerNotConnected() {
 
       if (isConditionMet) {
         if (delay) {
-          const delayKey = `delay_${detectorConditions.indexOf({ condition, component, delay })}`;
-          const shouldShow = handleDelayedState(
-            delayKey,
-            delay,
-            isConditionMet,
-          );
+          // Check if delayed state is ready
+          const delayKey =
+            delay === 60000
+              ? "dns_sync"
+              : delay === 30000
+                ? "deployment_failed"
+                : "unknown";
+          const shouldShow = delayedStates[delayKey] || false;
           return shouldShow ? component : null;
         }
         return component;
@@ -206,13 +224,7 @@ export default function ServerNotConnected() {
     }
 
     // Fallback with delay if needed
-    const fallbackCondition = true; // Always true as fallback
-    const fallbackDelay = 60000; // 60 seconds delay for fallback
-    const shouldShowFallback = handleDelayedState(
-      "fallback",
-      fallbackDelay,
-      fallbackCondition,
-    );
+    const shouldShowFallback = delayedStates["fallback"] || false;
 
     return shouldShowFallback ? (
       <Alert variant="danger">
@@ -221,6 +233,5 @@ export default function ServerNotConnected() {
       </Alert>
     ) : null;
   };
-
   return renderDetector();
 }
