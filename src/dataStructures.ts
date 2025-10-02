@@ -149,7 +149,10 @@ export type ActionStatusType = {
 };
 
 export type LogsStreamType = {
-  logs: string;
+  type: "logs";
+  data: {
+    logs: string;
+  };
 };
 
 export type TerraformWorkspace = {

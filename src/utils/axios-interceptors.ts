@@ -55,7 +55,7 @@ export const actlabsHubAxiosInstance = axios.create({
 });
 
 // Function to get auth token. This function is called by the axios interceptor
-async function getAuthToken(): Promise<string> {
+export async function getAuthToken(): Promise<string> {
   const accounts = await pca.getAllAccounts();
   const account = accounts[0];
 
@@ -78,7 +78,7 @@ async function getAuthToken(): Promise<string> {
   }
 }
 
-async function myInteractionInProgressHandler() {
+export async function myInteractionInProgressHandler() {
   // I am just going to wait for 5 seconds and then call myAcquireToken again.
   // Ideally, it should really be tracking the state of the interaction and then
   // call myAcquireToken again when the interaction is complete.
