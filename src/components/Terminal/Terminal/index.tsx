@@ -34,13 +34,13 @@ export default function Terminal() {
   }, []);
 
   function updateLogs(): string {
-    if (data.data !== undefined && data.data.logs !== undefined) {
+    if (data !== undefined && data.logs !== undefined) {
       var convert = new ansiHTML({
         newline: false,
         escapeXML: false,
         stream: true,
       });
-      const dirty = convert.toHtml(data.data.logs);
+      const dirty = convert.toHtml(data.logs);
 
       // Sanitize the HTML string
       const clean = DOMPurify.sanitize(dirty);
