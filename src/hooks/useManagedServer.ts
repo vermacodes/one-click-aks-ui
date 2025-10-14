@@ -37,98 +37,98 @@ export function useManagedServerActivityUpdate() {
   );
 }
 
-export function useDestroyManagedServer() {
-  const queryClient = useQueryClient();
-  return useMutation(() => actlabsHubAxiosInstance.delete("server"), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("get-managed-server");
-      queryClient.invalidateQueries("server-status");
-    },
-  });
-}
+// export function useDestroyManagedServer() {
+//   const queryClient = useQueryClient();
+//   return useMutation(() => actlabsHubAxiosInstance.delete("server"), {
+//     onSuccess: () => {
+//       queryClient.invalidateQueries("get-managed-server");
+//       queryClient.invalidateQueries("server-status");
+//     },
+//   });
+// }
 
-export function useAdminDestroyManagedServer() {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (userPrincipalName: string) =>
-      actlabsHubAxiosInstance.delete(`admin/server/${userPrincipalName}`),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("get-managed-servers");
-        queryClient.invalidateQueries("server-status");
-      },
-    },
-  );
-}
+// export function useAdminDestroyManagedServer() {
+//   const queryClient = useQueryClient();
+//   return useMutation(
+//     (userPrincipalName: string) =>
+//       actlabsHubAxiosInstance.delete(`admin/server/${userPrincipalName}`),
+//     {
+//       onSuccess: () => {
+//         queryClient.invalidateQueries("get-managed-servers");
+//         queryClient.invalidateQueries("server-status");
+//       },
+//     },
+//   );
+// }
 
-export function useCreateManagedServer() {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
-      actlabsHubAxiosInstance.put("server", managedServer),
-    {
-      onMutate: async (newManagedServer) => {
-        // Cancel any outgoing refetches
-        await queryClient.cancelQueries("get-managed-server");
+// export function useCreateManagedServer() {
+//   const queryClient = useQueryClient();
+//   return useMutation(
+//     (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
+//       actlabsHubAxiosInstance.put("server", managedServer),
+//     {
+//       onMutate: async (newManagedServer) => {
+//         // Cancel any outgoing refetches
+//         await queryClient.cancelQueries("get-managed-server");
 
-        // Snapshot the previous value
-        const previousManagedServer =
-          queryClient.getQueryData("get-managed-server");
+//         // Snapshot the previous value
+//         const previousManagedServer =
+//           queryClient.getQueryData("get-managed-server");
 
-        // Optimistically update to "Deploying" state
-        queryClient.setQueryData("get-managed-server", (old: any) => ({
-          ...old,
-          ...newManagedServer,
-          status: "Deploying",
-        }));
+//         // Optimistically update to "Deploying" state
+//         queryClient.setQueryData("get-managed-server", (old: any) => ({
+//           ...old,
+//           ...newManagedServer,
+//           status: "Deploying",
+//         }));
 
-        // Return context with snapshot for rollback
-        return { previousManagedServer };
-      },
-      onError: (err, newManagedServer, context) => {
-        // Rollback on error
-        if (context?.previousManagedServer) {
-          queryClient.setQueryData(
-            "get-managed-server",
-            context.previousManagedServer,
-          );
-        }
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries("get-managed-server");
-        queryClient.invalidateQueries("server-status");
-      },
-    },
-  );
-}
+//         // Return context with snapshot for rollback
+//         return { previousManagedServer };
+//       },
+//       onError: (err, newManagedServer, context) => {
+//         // Rollback on error
+//         if (context?.previousManagedServer) {
+//           queryClient.setQueryData(
+//             "get-managed-server",
+//             context.previousManagedServer,
+//           );
+//         }
+//       },
+//       onSuccess: () => {
+//         queryClient.invalidateQueries("get-managed-server");
+//         queryClient.invalidateQueries("server-status");
+//       },
+//     },
+//   );
+// }
 
-export function useUpdateManagedServer() {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
-      actlabsHubAxiosInstance.put("server/update", managedServer),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("get-managed-server");
-        queryClient.invalidateQueries("server-status");
-      },
-    },
-  );
-}
+// export function useUpdateManagedServer() {
+//   const queryClient = useQueryClient();
+//   return useMutation(
+//     (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
+//       actlabsHubAxiosInstance.put("server/update", managedServer),
+//     {
+//       onSuccess: () => {
+//         queryClient.invalidateQueries("get-managed-server");
+//         queryClient.invalidateQueries("server-status");
+//       },
+//     },
+//   );
+// }
 
-export function useAdminUpdateManagedServer() {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
-      actlabsHubAxiosInstance.put("admin/server/update", managedServer),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("get-managed-servers");
-        queryClient.invalidateQueries("server-status");
-      },
-    },
-  );
-}
+// export function useAdminUpdateManagedServer() {
+//   const queryClient = useQueryClient();
+//   return useMutation(
+//     (managedServer: ManagedServer): Promise<AxiosResponse<ManagedServer>> =>
+//       actlabsHubAxiosInstance.put("admin/server/update", managedServer),
+//     {
+//       onSuccess: () => {
+//         queryClient.invalidateQueries("get-managed-servers");
+//         queryClient.invalidateQueries("server-status");
+//       },
+//     },
+//   );
+// }
 
 export function useRegisterSubscription() {
   const queryClient = useQueryClient();
