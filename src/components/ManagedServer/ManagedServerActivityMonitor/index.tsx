@@ -42,25 +42,12 @@ export default function ManagedServerActivityMonitor() {
       (serverHostingFromLocalStorage === undefined ||
         Object.keys(serverHostingFromLocalStorage).length === 0 ||
         (serverHostingFromLocalStorage.environment === "azure" &&
-          serverHostingFromLocalStorage.endpoint !==
-            (managedServer.endpoint.includes("localhost")
-              ? "http://" +
-                managedServer.endpoint +
-                (managedServer?.endpoint?.endsWith("/") ? "" : "/")
-              : "https://" +
-                managedServer.endpoint +
-                (managedServer?.endpoint?.endsWith("/") ? "" : "/"))))
+          serverHostingFromLocalStorage.endpoint !== managedServer?.endpoint))
     ) {
       // Create a new server hosting object with the `managedServer`'s endpoint
       const newServerHosting: ServerHosting = {
         environment: "azure",
-        endpoint: managedServer.endpoint.includes("localhost")
-          ? "http://" +
-            managedServer.endpoint +
-            (managedServer?.endpoint?.endsWith("/") ? "" : "/")
-          : "https://" +
-            managedServer.endpoint +
-            (managedServer?.endpoint?.endsWith("/") ? "" : "/"),
+        endpoint: managedServer.endpoint,
       };
 
       // Update the server hosting information in both local storage and state
