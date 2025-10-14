@@ -44,7 +44,10 @@ export default function ServerEnvironment({
             handleOnChange={() =>
               setServerHosting({
                 environment: "azure",
-                endpoint: "https://" + managedServer?.endpoint + "/",
+                endpoint:
+                  "https://" +
+                  managedServer?.endpoint +
+                  (managedServer?.endpoint?.endsWith("/") ? "" : "/"),
               })
             }
             label={"Managed Server (Azure) 🆕"}
