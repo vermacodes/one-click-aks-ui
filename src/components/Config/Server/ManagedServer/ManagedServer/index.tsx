@@ -3,19 +3,11 @@ import { ServerHosting } from "../../../../../dataStructures";
 import { useManagedServer } from "../../../../../hooks/useManagedServer";
 import { useAuth } from "../../../../Context/AuthContext";
 import Container from "../../../../UserInterfaceComponents/Container";
-import GradientBorderContainer from "../../../../UserInterfaceComponents/GradientBorderContainer";
 import ResetActionStatus from "../../ResetActionStatus";
 import ResetServerCache from "../../ResetServerCache";
 import ServerEndpoint from "../../ServerEndpoint";
-import InactiveDuration from "../InactiveDuration";
-import ManagedServerAutoDeployAndDestroy from "../ManagedServerAutoDeployAndDestroy";
-import ManagedServerDeployButton from "../ManagedServerDeployButton";
-import ManagedServerDestroyButton from "../ManagedServerDestroyButton";
-import ManagedServerDomain from "../ManagedServerDomain";
 import ManagedServerRegistration from "../ManagedServerRegistration";
-import ManagedServerStatus from "../ManagedServerStatus";
 import ManagedServerUnregisterButton from "../ManagedServerUnregisterButton";
-import ManagedServerVersion from "../ManagedServerVersion";
 
 type Props = {
   serverHosting: ServerHosting;
@@ -37,44 +29,32 @@ export default function ManagedServerComponent({
   }
 
   return (
-      <Container
-        title="Managed Server"
-        collapsible={true}
-        hoverEffect={false}
-        additionalClasses="border dark:border-slate-700 border-slate-300"
-      >
-        <div className="flex w-full flex-col gap-2">
-          {graphResponse && managedServer && (
-            <div className="flex flex-wrap items-center gap-2">
-              <ManagedServerDomain />
-              <ManagedServerVersion />
-              <ManagedServerStatus />
-              <ManagedServerAutoDeployAndDestroy />
-              <InactiveDuration managedServer={managedServer} />
-            </div>
-          )}
-          <ServerEndpoint
-            serverHosting={serverHosting}
-            setServerHosting={setServerHosting}
-          />
-          <div className="mt-8 flex flex-wrap gap-4">
-            <ManagedServerDeployButton />
-            <ManagedServerDestroyButton />
-            <ManagedServerUnregisterButton />
-            <ResetServerCache
-              variant="danger-text"
-              tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
-            >
-              <FaRedo /> Reset Cache
-            </ResetServerCache>
-            <ResetActionStatus
-              variant="danger-text"
-              tooltipMessage="Reset Action Status. This will stop any long running action on server."
-            >
-              <FaStopCircle /> Stop Running Action
-            </ResetActionStatus>
-          </div>
+    <Container
+      collapsible={false}
+      hoverEffect={false}
+      additionalClasses="border dark:border-slate-700 border-slate-300 mt-16"
+    >
+      <div className="flex w-full flex-wrap gap-2">
+        <ServerEndpoint
+          serverHosting={serverHosting}
+          setServerHosting={setServerHosting}
+        />
+        <div className="mt-8 flex flex-wrap gap-4">
+          <ManagedServerUnregisterButton />
+          <ResetServerCache
+            variant="danger-text"
+            tooltipMessage="Reset server cache. This will clear all the cache on the server. Use this if you are facing issues with the server."
+          >
+            <FaRedo /> Reset Cache
+          </ResetServerCache>
+          <ResetActionStatus
+            variant="danger-text"
+            tooltipMessage="Reset Action Status. This will stop any long running action on server."
+          >
+            <FaStopCircle /> Stop Running Action
+          </ResetActionStatus>
         </div>
-      </Container>
+      </div>
+    </Container>
   );
 }
