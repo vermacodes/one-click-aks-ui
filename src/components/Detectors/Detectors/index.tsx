@@ -1,5 +1,6 @@
 import { Component, ReactNode } from "react";
 import ActlabsHubEndpoint from "../ActlabsHubEndpoint";
+import HubNotConnected from "../HubNotConnected";
 import NoSubscriptionsFound from "../NoSubscriptionsFound";
 import SelectedTerraformWorkspaceNotFound from "../SelectedTerraformWorkspaceNotFound";
 import ServerNotConnected from "../ServerNotConnected";
@@ -41,6 +42,10 @@ export default function Detectors() {
   return (
     <div className="detector-container">
       {/* Critical alerts first */}
+      <SafeDetector>
+        <HubNotConnected />
+      </SafeDetector>
+
       <SafeDetector>
         <ServerNotConnected />
       </SafeDetector>

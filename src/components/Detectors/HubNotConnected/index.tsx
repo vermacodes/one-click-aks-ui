@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { useServerStatus } from "../../../hooks/useServerStatus";
+import { useHubStatus } from "../../../hooks/useHubStatus";
 import Alert from "../../UserInterfaceComponents/Alert";
 
 // Global state to persist warning across page changes
 let hasShownInitialWarning = false;
-let serverConnectionFailed = false;
+let hubConnectionFailed = false;
 
-export default function ServerNotConnected() {
-  const { data: serverStatus, isLoading } = useServerStatus();
-  const [showWarning, setShowWarning] = useState(serverConnectionFailed);
+export default function HubNotConnected() {
+  const { data: hubStatus, isLoading } = useHubStatus();
+  const [showWarning, setShowWarning] = useState(hubConnectionFailed);
 
   useEffect(() => {
-    // If server is OK, hide warning immediately and reset flags
-    if (serverStatus?.status === "OK") {
+    // If hub is OK, hide warning immediately and reset flags
+    if (hubStatus?.status === "OK") {
       setShowWarning(false);
-      serverConnectionFailed = false;
+      hubConnectionFailed = false;
       hasShownInitialWarning = true;
       return;
     }
@@ -24,8 +24,8 @@ export default function ServerNotConnected() {
       return;
     }
 
-    // If we already know the server has failed, show warning immediately
-    if (serverConnectionFailed) {
+    // If we already know the hub has failed, show warning immediately
+    if (hubConnectionFailed) {
       setShowWarning(true);
       return;
     }
@@ -34,7 +34,7 @@ export default function ServerNotConnected() {
     if (!hasShownInitialWarning) {
       const timer = setTimeout(() => {
         setShowWarning(true);
-        serverConnectionFailed = true;
+        hubConnectionFailed = true;
         hasShownInitialWarning = true;
       }, 2000);
 
@@ -42,20 +42,20 @@ export default function ServerNotConnected() {
     } else {
       // We've already shown warning before, show immediately
       setShowWarning(true);
-      serverConnectionFailed = true;
+      hubConnectionFailed = true;
     }
-  }, [serverStatus?.status, isLoading]);
+  }, [hubStatus?.status, isLoading]);
 
   // Show warning only if showWarning state is true
   if (showWarning) {
     return (
       <Alert variant="warning">
-        <strong>⚠️ ACT Labs Server Not Connected:</strong> Unable to connect to
-        the ACT Labs Server.
+        <strong>⚠️ ACT Labs Hub Not Connected:</strong> Unable to connect to the
+        ACT Labs Hub.
       </Alert>
     );
   }
 
-  // If server is connected or still loading, don't show anything
+  // If hub is connected or still loading, don't show anything
   return null;
 }
