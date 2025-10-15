@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { actlabsHubAxiosInstance } from "../utils/axios-interceptors";
 
 interface HubStatus {
@@ -12,6 +12,8 @@ function getHubStatus(): Promise<AxiosResponse<any>> {
 }
 
 export function useHubStatus() {
+  const queryClient = useQueryClient();
+
   return useQuery("hub-status", getHubStatus, {
     select: (response): HubStatus => {
       // Since the endpoint only returns HTTP status, we derive the status from the response
@@ -21,15 +23,14 @@ export function useHubStatus() {
         httpStatus: response.status,
       };
     },
-    // Consider 4xx and 5xx as errors, but still process them in select
+    refetchInterval: 10000, // Refetch every 10 seconds
     retry: (failureCount, error: any) => {
-      // Don't retry on 4xx errors (client errors)
-      if (error?.response?.status >= 400 && error?.response?.status < 500) {
-        return false;
-      }
-      // Retry on network errors and 5xx errors, up to 3 times
-      return failureCount < 3;
+      // Don't retry on network/connection errors - fail fast
+      return false;
     },
-    refetchInterval: 5000, // Refetch every 5 seconds
+    onError: () => {
+      // Clear cached data when error occurs so data becomes undefined
+      queryClient.setQueryData("hub-status", undefined);
+    },
   });
 }
