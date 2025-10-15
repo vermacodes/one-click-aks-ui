@@ -1,8 +1,8 @@
 import React from "react";
-import { useActivityMonitoring } from "../hooks/useActivityMonitoring";
-import { useDeploymentPolling } from "../hooks/useDeploymentPolling";
-import { usePageVisibility } from "../hooks/usePageVisibility";
-import { useServerHostingSync } from "../hooks/useServerHostingSync";
+import { useActivityMonitoring } from "../../hooks/useActivityMonitoring";
+import { useDeploymentPolling } from "../../hooks/useDeploymentPolling";
+import { usePageVisibility } from "../../hooks/usePageVisibility";
+import { useServerHostingSync } from "../../hooks/useServerHostingSync";
 
 interface ManagedServerProviderProps {
   children: React.ReactNode;

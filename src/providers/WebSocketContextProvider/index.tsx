@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import ReconnectingWebSocket from "reconnecting-websocket";
-import { WebSocketContext } from "../context/WebSocketContext";
+import { WebSocketContext } from "../../context/WebSocketContext";
 import {
   ActionStatusType,
   LogsStreamType,
   ServerNotification,
   TerraformOperation,
-} from "../dataStructures";
+} from "../../dataStructures";
 import {
   getDefaultServerNotification,
   getDefaultTerraformOperation,
-} from "../defaults";
+} from "../../defaults";
 import {
   getAuthToken,
   myInteractionInProgressHandler,
-} from "../utils/axios-interceptors";
+} from "../../utils/axios-interceptors";
 
 export default function WebSocketContextProvider({
   children,

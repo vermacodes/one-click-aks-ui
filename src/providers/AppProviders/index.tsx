@@ -1,7 +1,7 @@
 import React from "react";
-import { AuthProvider } from "./AuthProvider";
-import { ManagedServerProvider } from "./ManagedServerProvider";
-import WebSocketContextProvider from "./WebSocketContextProvider";
+import { AuthProvider } from "../AuthProvider";
+import { ManagedServerProvider } from "../ManagedServerProvider";
+import WebSocketContextProvider from "../WebSocketContextProvider";
 
 interface AppProvidersProps {
   children: React.ReactNode;

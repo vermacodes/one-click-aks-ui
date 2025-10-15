@@ -4,11 +4,11 @@ import {
   LogsStreamType,
   ServerNotification,
   TerraformOperation,
-} from "../dataStructures";
+} from "../../dataStructures";
 import {
   getDefaultServerNotification,
   getDefaultTerraformOperation,
-} from "../defaults";
+} from "../../defaults";
 
 export interface WebSocketContextData {
   actionStatus: ActionStatusType;
