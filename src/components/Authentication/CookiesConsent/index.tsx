@@ -1,20 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { FaCheck, FaCog, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
+import { FaCheck, FaCog, FaTimes } from "react-icons/fa";
 import {
   COOKIE_CONSENT_KEY,
   COOKIE_CONSENT_PREFERENCES_KEY,
   CookieType,
   DEFAULT_COOKIE_PREFERENCES,
 } from "../../../constants/cookies";
-import { getUIStateColors } from "../../../defaults";
-import { cn } from "../../../utils/cn";
 import Button from "../../UserInterfaceComponents/Button";
 
 interface CookiePreferences {
   [CookieType.ESSENTIAL]: boolean;
   [CookieType.ANALYTICS]: boolean;
-  [CookieType.MARKETING]: boolean;
-  [CookieType.FUNCTIONAL]: boolean;
 }
 
 export default function CookiesConsent() {
@@ -117,8 +113,6 @@ export default function CookiesConsent() {
     const allAccepted = {
       [CookieType.ESSENTIAL]: true,
       [CookieType.ANALYTICS]: true,
-      [CookieType.MARKETING]: true,
-      [CookieType.FUNCTIONAL]: true,
     };
 
     setPreferences(allAccepted);
@@ -138,8 +132,6 @@ export default function CookiesConsent() {
     const essentialOnly = {
       [CookieType.ESSENTIAL]: true,
       [CookieType.ANALYTICS]: false,
-      [CookieType.MARKETING]: false,
-      [CookieType.FUNCTIONAL]: false,
     };
 
     setPreferences(essentialOnly);
@@ -167,7 +159,10 @@ export default function CookiesConsent() {
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-40 bg-black/50" aria-hidden="true" />
+      <div
+        className="animate-in fade-in fixed inset-0 z-40 bg-black/60 duration-300"
+        aria-hidden="true"
+      />
 
       {/* Cookie Banner */}
       <div
@@ -176,15 +171,9 @@ export default function CookiesConsent() {
         aria-labelledby="cookie-banner-title"
         aria-describedby="cookie-banner-description"
         aria-live="polite"
-        className="fixed bottom-0 left-1/2 z-50 mx-4 mb-4 w-full max-w-2xl -translate-x-1/2 transform"
+        className="animate-in slide-in-from-bottom fixed bottom-0 left-1/2 z-50 mx-4 mb-4 w-full max-w-2xl -translate-x-1/2 transform duration-300"
       >
-        <div
-          className={cn(
-            "rounded-lg border p-6 shadow-2xl",
-            getUIStateColors({ inverted: true }),
-            "animate-slide-up",
-          )}
-        >
+        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
           {/* Header */}
           <div className="mb-4 flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -193,7 +182,7 @@ export default function CookiesConsent() {
               </span>
               <h2
                 id="cookie-banner-title"
-                className="text-xl font-semibold text-gray-900 dark:text-gray-100"
+                className="text-xl font-semibold text-gray-900 dark:text-white"
               >
                 Cookie Preferences
               </h2>
@@ -201,109 +190,128 @@ export default function CookiesConsent() {
             <button
               ref={firstFocusableRef}
               onClick={handleDecline}
-              className="rounded-md p-2 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+              className="rounded-lg p-2 transition-colors hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:hover:bg-gray-800 dark:focus:ring-blue-400"
               aria-label="Decline all cookies"
             >
-              <FaTimes className="h-4 w-4" />
+              <FaTimes className="h-4 w-4 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
 
           {/* Description */}
           <div id="cookie-banner-description" className="mb-6">
-            <p className="mb-3 text-gray-700 dark:text-gray-300">
+            <p className="mb-3 leading-relaxed text-gray-700 dark:text-gray-300">
               We use cookies to enhance your experience, analyze site traffic,
               and provide personalized content. You can customize your
               preferences below.
             </p>
-            <a
+            {/* <a
               href="/privacy-policy"
-              className="inline-flex items-center gap-1 text-sm text-blue-600 hover:underline dark:text-blue-400"
+              className="inline-flex items-center gap-1 rounded px-1 text-sm font-medium text-blue-600 transition-colors hover:text-blue-800 hover:underline focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-blue-400 dark:hover:text-blue-300 dark:focus:ring-blue-400"
               target="_blank"
               rel="noopener noreferrer"
             >
               View Privacy Policy
               <FaExternalLinkAlt className="h-3 w-3" />
-            </a>
+            </a> */}
           </div>
 
           {/* Preferences Panel */}
           {showPreferences && (
-            <div className="mb-6 rounded-md bg-gray-50 p-4 dark:bg-gray-800">
-              <h3 className="mb-4 font-medium text-gray-900 dark:text-gray-100">
+            <div className="animate-in slide-in-from-top mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4 duration-200 dark:border-gray-700 dark:bg-gray-800">
+              <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
                 Cookie Categories
               </h3>
 
-              {Object.entries(preferences).map(([type, enabled]) => (
-                <div
-                  key={type}
-                  className="flex items-center justify-between py-2"
-                >
-                  <div>
-                    <label
-                      htmlFor={`cookie-${type}`}
-                      className="text-sm font-medium text-gray-900 capitalize dark:text-gray-100"
-                    >
-                      {type === CookieType.ESSENTIAL
-                        ? "Essential (Required)"
-                        : type}
-                    </label>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                      {type === CookieType.ESSENTIAL &&
-                        "Required for basic site functionality"}
-                      {type === CookieType.ANALYTICS &&
-                        "Help us understand how you use our site"}
-                      {type === CookieType.MARKETING &&
-                        "Used for advertising and marketing purposes"}
-                      {type === CookieType.FUNCTIONAL &&
-                        "Enable enhanced features and functionality"}
-                    </p>
+              <div className="space-y-4">
+                {Object.entries(preferences).map(([type, enabled]) => (
+                  <div
+                    key={type}
+                    className="flex items-start justify-between rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-900"
+                  >
+                    <div className="mr-4 flex-1">
+                      <label
+                        htmlFor={`cookie-${type}`}
+                        className="block cursor-pointer text-sm font-medium text-gray-900 capitalize dark:text-white"
+                      >
+                        {type === CookieType.ESSENTIAL
+                          ? "Essential (Required)"
+                          : type.charAt(0).toUpperCase() + type.slice(1)}
+                      </label>
+                      <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+                        {type === CookieType.ESSENTIAL &&
+                          "Required for basic site functionality and cannot be disabled"}
+                        {type === CookieType.ANALYTICS &&
+                          "Help us understand how you use our site to improve user experience"}
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        id={`cookie-${type}`}
+                        type="checkbox"
+                        checked={enabled}
+                        disabled={type === CookieType.ESSENTIAL}
+                        onChange={(e) =>
+                          handlePreferenceChange(
+                            type as CookieType,
+                            e.target.checked,
+                          )
+                        }
+                        className="h-5 w-5 rounded border-2 border-gray-300 bg-white text-blue-600 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:focus:ring-blue-400 dark:focus:ring-offset-gray-900"
+                      />
+                    </div>
                   </div>
-                  <input
-                    id={`cookie-${type}`}
-                    type="checkbox"
-                    checked={enabled}
-                    disabled={type === CookieType.ESSENTIAL}
-                    onChange={(e) =>
-                      handlePreferenceChange(
-                        type as CookieType,
-                        e.target.checked,
-                      )
-                    }
-                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col justify-end gap-3 sm:flex-row">
-            <Button
-              variant="secondary-outline"
-              onClick={() => setShowPreferences(!showPreferences)}
-              className="order-3 sm:order-1"
-            >
-              <FaCog className="h-4 w-4" />
-              {showPreferences ? "Hide" : "Customize"}
-            </Button>
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+            <div className="flex flex-1 gap-3">
+              <Button
+                variant="secondary-outline"
+                onClick={() => setShowPreferences(!showPreferences)}
+                className="flex-1"
+                aria-expanded={showPreferences}
+                aria-controls="cookie-preferences"
+              >
+                <FaCog className="h-4 w-4" />
+                {showPreferences ? "Hide Options" : "Customize"}
+              </Button>
 
-            <Button
-              variant="secondary-outline"
-              onClick={handleDecline}
-              className="order-2"
-            >
-              Decline All
-            </Button>
+              <Button
+                variant="danger-outline"
+                onClick={handleDecline}
+                className="flex-1"
+              >
+                <FaTimes className="h-4 w-4" />
+                Decline All
+              </Button>
+            </div>
 
             <Button
               variant="primary"
               onClick={showPreferences ? handleAcceptSelected : handleAcceptAll}
-              className="order-1 sm:order-3"
+              className="min-w-[140px]"
             >
               <FaCheck className="h-4 w-4" />
               {showPreferences ? "Accept Selected" : "Accept All"}
             </Button>
           </div>
+
+          {/* Footer */}
+          {/* <div className="mt-4 border-t border-gray-200 pt-4 dark:border-gray-700">
+            <p className="text-center text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+              You can change your preferences at any time in the{" "}
+              <button
+                onClick={() => (window.location.href = "/settings")}
+                className="rounded px-1 font-medium text-blue-600 hover:text-blue-800 hover:underline focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-blue-400 dark:hover:text-blue-300 dark:focus:ring-blue-400"
+              >
+                settings page
+              </button>
+              .
+            </p>
+          </div> */}
         </div>
       </div>
     </>

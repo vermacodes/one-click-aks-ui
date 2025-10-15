@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import CookiesConsent from "../../components/Authentication/CookiesConcent";
+import CookiesConsent from "../../components/Authentication/CookiesConsent";
 import { useGlobalStateContext } from "../../context/GlobalStateContext";
 import { defaultScrollbarStyle } from "../../defaults";
 import AccessControl from "../../pages/AccessControl";
