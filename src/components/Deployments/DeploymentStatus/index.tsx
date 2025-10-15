@@ -4,7 +4,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { DeploymentType } from "../../../dataStructures";
 import { defaultUIPrimaryTextColor } from "../../../defaults";
 import { cn } from "../../../utils/cn";
-import { useWebSocketContext } from "../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../context/WebSocketContext";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 
 type Props = {

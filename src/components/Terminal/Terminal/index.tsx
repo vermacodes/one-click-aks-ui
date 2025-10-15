@@ -1,7 +1,7 @@
 import ansiHTML from "ansi-to-html";
 import DOMPurify from "dompurify";
 import { useContext, useEffect, useState } from "react";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import TerminalContent from "../TerminalContent";
 import TerminalFullScreen from "../TerminalFullScreen";
 import TerminalWindow from "../TerminalWindow";

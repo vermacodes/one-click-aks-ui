@@ -4,7 +4,7 @@ import { getUIStateColors } from "../../../defaults";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import { cn } from "../../../utils/cn";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import DeploymentStatus from "../../Deployments/DeploymentStatus";
 import Button from "../../UserInterfaceComponents/Button";
 import Checkbox from "../../UserInterfaceComponents/Checkbox";

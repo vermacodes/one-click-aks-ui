@@ -4,7 +4,7 @@ import {
   useGetResources,
   useTerraformWorkspace,
 } from "../../../hooks/useWorkspace";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 
 type Props = {};
 

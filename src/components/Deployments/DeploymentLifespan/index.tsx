@@ -3,7 +3,7 @@ import { DeploymentType } from "../../../dataStructures";
 import { getUIStateColors } from "../../../defaults";
 import { usePatchDeployment } from "../../../hooks/useDeployments";
 import { calculateNewEpochTimeForDeployment } from "../../../utils/helpers";
-import { useWebSocketContext } from "../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../context/WebSocketContext";
 import DropdownSelect from "../../UserInterfaceComponents/DropdownSelect";
 
 type DeploymentLifespanProps = {

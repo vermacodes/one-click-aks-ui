@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { Lab, Theme } from "../../../dataStructures";
-import { getDefaultLab } from "../../../defaults";
-import { useLab, useSetLab } from "../../../hooks/useLab";
-import { useLocalStorageState } from "../../../hooks/useLocalStorageState";
+import { Lab, Theme } from "../../dataStructures";
+import { getDefaultLab } from "../../defaults";
+import { useLab, useSetLab } from "../../hooks/useLab";
+import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 
 interface GlobalStateContextContextData {
   theme: Theme;

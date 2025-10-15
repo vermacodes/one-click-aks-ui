@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useServerStatus } from "../../../hooks/useServerStatus";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Alert from "../../UserInterfaceComponents/Alert";
 
 export default function WebSocketConnectionStatus() {

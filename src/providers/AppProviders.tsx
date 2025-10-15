@@ -1,6 +1,7 @@
 import React from "react";
+import { AuthProvider } from "./AuthProvider";
 import { ManagedServerProvider } from "./ManagedServerProvider";
-// Import other providers as needed
+import WebSocketContextProvider from "./WebSocketContextProvider";
 
 interface AppProvidersProps {
   children: React.ReactNode;
@@ -8,9 +9,10 @@ interface AppProvidersProps {
 
 export function AppProviders({ children }: AppProvidersProps) {
   return (
-    <ManagedServerProvider>
-      {/* Add other providers here as you create them */}
-      {children}
-    </ManagedServerProvider>
+    <AuthProvider>
+      <WebSocketContextProvider>
+        <ManagedServerProvider>{children}</ManagedServerProvider>
+      </WebSocketContextProvider>
+    </AuthProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { DeploymentType } from "../../../dataStructures";
 import { defaultUIPrimaryTextColor } from "../../../defaults";
 import { cn } from "../../../utils/cn";
-import { useWebSocketContext } from "../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../context/WebSocketContext";
 import DestroyButton from "../../Terraform/ActionButtons/DestroyButton";
 import SelectedWorkspaceResources from "../../Terraform/SelectedWorkspaceResources";
 import Container from "../../UserInterfaceComponents/Container";

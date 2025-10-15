@@ -1,7 +1,7 @@
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import Button from "../../../components/UserInterfaceComponents/Button";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import { getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn";
 

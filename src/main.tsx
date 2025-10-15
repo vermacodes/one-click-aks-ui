@@ -7,9 +7,9 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { msalConfig } from "./authConfig";
-import { GlobalStateContextProvider } from "./components/Context/GlobalStateContext";
 import ScrollToTop from "./components/UserInterfaceComponents/ScrollToTop";
 import { initConfig } from "./config/initConfig";
+import { GlobalStateContextProvider } from "./context/GlobalStateContext";
 import "./index.css";
 
 // Initialize config before rendering the app

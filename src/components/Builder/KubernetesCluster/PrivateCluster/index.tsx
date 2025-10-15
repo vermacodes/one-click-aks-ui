@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSetLogs } from "../../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../../context/GlobalStateContext";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 
 type Props = {

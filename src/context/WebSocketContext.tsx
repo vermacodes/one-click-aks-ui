@@ -4,11 +4,11 @@ import {
   LogsStreamType,
   ServerNotification,
   TerraformOperation,
-} from "../../dataStructures";
+} from "../dataStructures";
 import {
   getDefaultServerNotification,
   getDefaultTerraformOperation,
-} from "../../defaults";
+} from "../defaults";
 
 export interface WebSocketContextData {
   actionStatus: ActionStatusType;
@@ -49,14 +49,14 @@ export const webSocketContextDataDefaultValue: WebSocketContextData = {
 };
 
 export const WebSocketContext = createContext<WebSocketContextData>(
-  webSocketContextDataDefaultValue
+  webSocketContextDataDefaultValue,
 );
 
 export function useWebSocketContext() {
   const context = React.useContext(WebSocketContext);
   if (context === undefined) {
     throw new Error(
-      "useWebSocketContext must be used within a WebSocketContextProvider"
+      "useWebSocketContext must be used within a WebSocketContextProvider",
     );
   }
   return context;

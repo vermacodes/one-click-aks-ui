@@ -3,7 +3,7 @@ import { useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
 import { graphAPIScope } from "../../../authConfig";
 import { GraphData } from "../../../dataStructures";
-import { useGlobalStateContext } from "../../Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 
 type TokenRequest = {
   scopes: string[];

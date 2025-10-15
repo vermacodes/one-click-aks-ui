@@ -17,7 +17,7 @@ import {
   FaUser,
   FaUsers,
 } from "react-icons/fa";
-import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import { useGetMyProfile } from "../../../hooks/useProfile";
 import NavItem from "../NavItem";
 import NavParent from "../NavParent";

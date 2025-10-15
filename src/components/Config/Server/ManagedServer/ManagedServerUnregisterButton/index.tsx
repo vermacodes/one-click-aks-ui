@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useDeployManagedServer } from "../../../../../hooks/useDeployManagedServer";
 import { useManagedServer } from "../../../../../hooks/useManagedServer";
-import { useWebSocketContext } from "../../../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../../../context/WebSocketContext";
 import Button from "../../../../UserInterfaceComponents/Button";
 import CodeBlock from "../../../../UserInterfaceComponents/CodeBlock";
 import ConfirmationModal from "../../../../UserInterfaceComponents/Modal/ConfirmationModal";

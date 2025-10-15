@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { ButtonVariant } from "../../../dataStructures";
 import { useDeleteLab, useLab } from "../../../hooks/useLab";
 import { useSetLogs } from "../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import Button from "../../UserInterfaceComponents/Button";
 import ConfirmationModal from "../../UserInterfaceComponents/Modal/ConfirmationModal";
 

@@ -1,8 +1,8 @@
 import { FaPlus } from "react-icons/fa";
 import LoginButton from "../../../components/Authentication/LoginButton";
-import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import ResetLabState from "../../../components/Lab/ResetLabState";
 import ThemeSwitchRadioGroup from "../../../components/UserInterfaceComponents/ThemeSwitchRadioGroup";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import Title from "../Title";
 
 export default function HeaderLayout() {

@@ -1,7 +1,7 @@
 import { FaUserNinja } from "react-icons/fa";
 import { getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 
 type Props = {

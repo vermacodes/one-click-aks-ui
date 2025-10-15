@@ -1,7 +1,7 @@
 import { FaRedo, FaStopCircle } from "react-icons/fa";
 import { ServerHosting } from "../../../../../dataStructures";
 import { useManagedServer } from "../../../../../hooks/useManagedServer";
-import { useAuth } from "../../../../Context/AuthContext";
+import { useAuth } from "../../../../../context/AuthContext";
 import Container from "../../../../UserInterfaceComponents/Container";
 import ResetActionStatus from "../../ResetActionStatus";
 import ResetServerCache from "../../ResetServerCache";

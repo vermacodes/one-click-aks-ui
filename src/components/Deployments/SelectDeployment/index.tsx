@@ -6,7 +6,7 @@ import { useSelectDeployment } from "../../../hooks/useDeployments";
 import { useGetSelectedTerraformWorkspace } from "../../../hooks/useGetSelectedTerraformWorkspace";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 import PleaseWaitModal from "../../UserInterfaceComponents/Modal/PleaseWaitModal";
 

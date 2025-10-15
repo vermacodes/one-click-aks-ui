@@ -3,7 +3,7 @@ import { ButtonVariant } from "../../../../dataStructures";
 import { useLab } from "../../../../hooks/useLab";
 import { useSelectedDeployment } from "../../../../hooks/useSelectedDeployment";
 import { useTerraformOperation } from "../../../../hooks/useTerraformOperation";
-import { useWebSocketContext } from "../../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../../context/WebSocketContext";
 import Button from "../../../UserInterfaceComponents/Button";
 
 type Props = {

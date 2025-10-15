@@ -2,7 +2,7 @@ import ReactHtmlParser from "html-react-parser";
 import { useContext, useEffect, useRef } from "react";
 import { defaultScrollbarStyle, getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 
 type Props = {
   autoScroll: boolean;

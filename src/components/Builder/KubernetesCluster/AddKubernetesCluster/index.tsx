@@ -3,8 +3,8 @@ import { TfvarKubernetesClusterType } from "../../../../dataStructures";
 import { getDefaultKubernetesCluster } from "../../../../defaults";
 import { useKubernetesVersions } from "../../../../hooks/useKubernetesVersions";
 import { useSetLogs } from "../../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
-import { WebSocketContext } from "../../../Context/WebSocketContext";
+import { useGlobalStateContext } from "../../../../context/GlobalStateContext";
+import { WebSocketContext } from "../../../../context/WebSocketContext";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 
 export default function AddKubernetesCluster() {

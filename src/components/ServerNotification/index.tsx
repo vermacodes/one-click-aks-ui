@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useWebSocketContext } from "../Context/WebSocketContext";
-import { toast } from "react-toastify";
 import { useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import { useWebSocketContext } from "../../context/WebSocketContext";
 
 export default function ServerNotification() {
   const { serverNotification, setServerNotification } = useWebSocketContext();

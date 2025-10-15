@@ -9,7 +9,7 @@ import { useLab } from "../../../hooks/useLab";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import { cn } from "../../../utils/cn";
 import { deploymentNameSchema } from "../../../zodSchemas";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 import Input from "../../UserInterfaceComponents/Input";
 import ModalBackdrop from "../../UserInterfaceComponents/Modal/ModalBackdrop";

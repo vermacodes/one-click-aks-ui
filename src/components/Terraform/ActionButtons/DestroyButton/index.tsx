@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { ButtonVariant, DeploymentType, Lab } from "../../../../dataStructures";
 import { useSelectedDeployment } from "../../../../hooks/useSelectedDeployment";
 import { useTerraformOperation } from "../../../../hooks/useTerraformOperation";
-import { useWebSocketContext } from "../../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../../context/WebSocketContext";
 import Button from "../../../UserInterfaceComponents/Button";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
 
