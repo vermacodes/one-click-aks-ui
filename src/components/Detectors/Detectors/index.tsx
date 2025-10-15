@@ -4,7 +4,6 @@ import NoSubscriptionsFound from "../NoSubscriptionsFound";
 import SelectedTerraformWorkspaceNotFound from "../SelectedTerraformWorkspaceNotFound";
 import ServerNotConnected from "../ServerNotConnected";
 import VersionCheck from "../VersionCheck";
-import WebSocketConnectionStatus from "../WebSocketConnectionStatus";
 
 // Simple error boundary component
 class DetectorErrorBoundary extends Component<
@@ -51,9 +50,9 @@ export default function Detectors() {
       </SafeDetector>
 
       {/* Connection status alerts */}
-      <SafeDetector>
+      {/* <SafeDetector>
         <WebSocketConnectionStatus />
-      </SafeDetector>
+      </SafeDetector> */}
 
       {/* Data loading alerts */}
       <SafeDetector>
