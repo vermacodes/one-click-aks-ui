@@ -74,40 +74,24 @@ export default function CookiesConsent() {
     };
   }, [showCookiesConsent, showPreferences]);
 
-  const updateClarityConsent = useCallback((preferences: CookiePreferences) => {
+  const saveConsent = useCallback((prefs: CookiePreferences) => {
     try {
-      if (window.clarity) {
-        if (preferences[CookieType.ANALYTICS]) {
-          window.clarity("consent");
-        }
-      }
+      localStorage.setItem(COOKIE_CONSENT_KEY, "true");
+      localStorage.setItem(
+        COOKIE_CONSENT_PREFERENCES_KEY,
+        JSON.stringify(prefs),
+      );
+
+      // Dispatch custom event for other parts of the app
+      window.dispatchEvent(
+        new CustomEvent("cookieConsentUpdated", {
+          detail: prefs,
+        }),
+      );
     } catch (error) {
-      console.warn("Error updating Clarity consent:", error);
+      console.error("Error saving cookie consent:", error);
     }
   }, []);
-
-  const saveConsent = useCallback(
-    (prefs: CookiePreferences) => {
-      try {
-        localStorage.setItem(COOKIE_CONSENT_KEY, "true");
-        localStorage.setItem(
-          COOKIE_CONSENT_PREFERENCES_KEY,
-          JSON.stringify(prefs),
-        );
-        updateClarityConsent(prefs);
-
-        // Dispatch custom event for other parts of the app
-        window.dispatchEvent(
-          new CustomEvent("cookieConsentUpdated", {
-            detail: prefs,
-          }),
-        );
-      } catch (error) {
-        console.error("Error saving cookie consent:", error);
-      }
-    },
-    [updateClarityConsent],
-  );
 
   const handleAcceptAll = useCallback(() => {
     const allAccepted = {

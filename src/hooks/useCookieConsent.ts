@@ -56,13 +56,6 @@ export function useCookieConsent() {
           detail: newPreferences,
         }),
       );
-
-      // Update analytics consent
-      if (window.clarity) {
-        if (newPreferences[CookieType.ANALYTICS]) {
-          window.clarity("consent");
-        }
-      }
     } catch (error) {
       console.error("Error updating cookie consent:", error);
     }

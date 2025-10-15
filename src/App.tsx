@@ -3,12 +3,17 @@ import "react-toastify/dist/ReactToastify.css";
 import RootErrorBoundary from "./components/ErrorBoundaries/RootErrorBoundary";
 import ServerNotification from "./components/ServerNotification";
 import { useGlobalStateContext } from "./context/GlobalStateContext";
+import { useClarityManager } from "./hooks/useClarityManager";
 import MainLayout from "./layouts/MainLayout";
 import { AppProviders } from "./providers/AppProviders";
 import { cn } from "./utils/cn";
 
 function App() {
   const { darkMode } = useGlobalStateContext();
+
+  // Manage Clarity based on cookie consent
+  useClarityManager();
+
   return (
     <div
       className={cn({
