@@ -246,9 +246,6 @@ export default function Pages() {
           externalLink={true}
           toolTipMessage="Need help or have feedback? Please create a new work item."
         />
-        {/* <li>
-					<LoginButton />
-				</li> */}
       </ul>
     </div>
   );

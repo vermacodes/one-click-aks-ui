@@ -1,5 +1,5 @@
 import { FaPlus } from "react-icons/fa";
-import LoginButton from "../../../components/Authentication/LoginButton";
+import UserProfile from "../../../components/Authentication/UserProfile";
 import ResetLabState from "../../../components/Lab/ResetLabState";
 import ThemeSwitchRadioGroup from "../../../components/UserInterfaceComponents/ThemeSwitchRadioGroup";
 import { useGlobalStateContext } from "../../../context/GlobalStateContext";
@@ -23,7 +23,7 @@ export default function HeaderLayout() {
         <ThemeSwitchRadioGroup className="hidden" />
         {viewportWidth >= 512 && (
           <>
-            <LoginButton showName={false} />
+            <UserProfile showName={false} size="medium" />
           </>
         )}
       </div>
