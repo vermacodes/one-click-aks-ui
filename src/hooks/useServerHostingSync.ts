@@ -1,13 +1,22 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { ServerHosting } from "../dataStructures";
+import { getDefaultServerHosting } from "../defaults";
 import { useManagedServer } from "./useManagedServer";
 import { useResetServerCache } from "./useServerCache";
 
 function getServerHostingFromLocalStorage(): ServerHosting {
   const serverHostingFromLocalStorageString =
     localStorage.getItem("serverHosting") || "{}";
-  return JSON.parse(serverHostingFromLocalStorageString);
+
+  try {
+    const parsed = JSON.parse(serverHostingFromLocalStorageString);
+    return Object.keys(parsed).length === 0
+      ? getDefaultServerHosting()
+      : parsed;
+  } catch {
+    return getDefaultServerHosting();
+  }
 }
 
 export function useServerHostingSync() {
@@ -19,6 +28,7 @@ export function useServerHostingSync() {
   const { mutateAsync: resetServerCache } = useResetServerCache();
   const queryClient = useQueryClient();
 
+  // Auto-sync with managed server
   useEffect(() => {
     const serverHostingFromLocalStorage: ServerHosting =
       getServerHostingFromLocalStorage();
@@ -45,5 +55,26 @@ export function useServerHostingSync() {
     }
   }, [managedServer, resetServerCache, queryClient]);
 
-  return { serverHosting };
+  // Manual update function
+  const updateServerHosting = useCallback(
+    (newServerHosting: ServerHosting) => {
+      if (
+        newServerHosting.environment === serverHosting.environment &&
+        newServerHosting.endpoint === serverHosting.endpoint
+      ) {
+        return;
+      }
+
+      localStorage.setItem("serverHosting", JSON.stringify(newServerHosting));
+      setServerHosting(newServerHosting);
+
+      window.location.reload();
+      resetServerCache().finally(() => {
+        queryClient.invalidateQueries();
+      });
+    },
+    [serverHosting, resetServerCache, queryClient],
+  );
+
+  return { serverHosting, updateServerHosting };
 }
