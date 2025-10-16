@@ -1,7 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { TbFidgetSpinner, TbRefresh } from "react-icons/tb";
 import { WebSocketContext } from "../../../context/WebSocketContext";
 import Alert from "../../UserInterfaceComponents/Alert";
+
+const INITIAL_DELAY_MS = 3000; // 3 seconds before showing alert
+const DEBOUNCE_CLEAR_MS = 12000; // 12 seconds of stable connection before clearing
 
 export default function WebSocketConnectionStatus() {
   const {
@@ -15,6 +18,10 @@ export default function WebSocketConnectionStatus() {
     manualRetry,
   } = useContext(WebSocketContext);
 
+  const [shouldShowAlert, setShouldShowAlert] = useState(false);
+  const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const clearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // Check connection status
   const allConnected =
     actionStatusConnected &&
@@ -22,41 +29,81 @@ export default function WebSocketConnectionStatus() {
     terraformOperationConnected &&
     serverNotificationConnected;
 
+  const hasConnectionIssues = !allConnected && serverIsOnline;
+
+  useEffect(() => {
+    const timestamp = new Date().toLocaleTimeString();
+    console.log(`[${timestamp}] Connection status:`, {
+      hasConnectionIssues,
+      allConnected,
+      serverIsOnline,
+      shouldShowAlert,
+    });
+
+    // Clear any existing timeouts
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = null;
+    }
+    if (clearTimeoutRef.current) {
+      clearTimeout(clearTimeoutRef.current);
+      clearTimeoutRef.current = null;
+    }
+
+    if (hasConnectionIssues) {
+      // Connection issues detected - show alert after initial delay (if not already shown)
+      if (!shouldShowAlert) {
+        console.log(
+          `[${timestamp}] Setting timeout to show alert in ${INITIAL_DELAY_MS}ms`,
+        );
+        showTimeoutRef.current = setTimeout(() => {
+          console.log(
+            `[${new Date().toLocaleTimeString()}] Showing alert after delay`,
+          );
+          setShouldShowAlert(true);
+        }, INITIAL_DELAY_MS);
+      }
+    } else if (allConnected && shouldShowAlert) {
+      // All connections restored - debounce clearing the alert
+      console.log(
+        `[${timestamp}] All connected, debouncing clear for ${DEBOUNCE_CLEAR_MS}ms`,
+      );
+      clearTimeoutRef.current = setTimeout(() => {
+        console.log(
+          `[${new Date().toLocaleTimeString()}] Clearing alert after stable connection`,
+        );
+        setShouldShowAlert(false);
+      }, DEBOUNCE_CLEAR_MS);
+    }
+
+    // Cleanup function
+    return () => {
+      if (showTimeoutRef.current) {
+        clearTimeout(showTimeoutRef.current);
+        showTimeoutRef.current = null;
+      }
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current);
+        clearTimeoutRef.current = null;
+      }
+    };
+  }, [hasConnectionIssues, allConnected, serverIsOnline, shouldShowAlert]);
+
+  // Don't show anything if server is offline or alert shouldn't be shown
+  if (!serverIsOnline || !shouldShowAlert) {
+    return null;
+  }
+
   const hasPartialConnection =
     actionStatusConnected ||
     logStreamConnected ||
     terraformOperationConnected ||
     serverNotificationConnected;
 
-  // Don't show anything if server is offline
-  if (!serverIsOnline) {
-    return (
-      <Alert variant="info">
-        <div className="flex items-center gap-2">
-          <TbFidgetSpinner className="animate-spin" />
-          <div className="flex flex-col">
-            <strong>Server Offline:</strong>
-            <span className="text-sm">
-              Waiting for server to come online. WebSocket connections will
-              resume automatically.
-            </span>
-          </div>
-        </div>
-      </Alert>
-    );
-  }
-
-  // Don't show anything if all connections are working
-  if (allConnected) {
-    return null;
-  }
-
-  // Determine if retries are exhausted for any connection
   const anyRetriesExhausted = Array.from(connectionStates.values()).some(
     (state) => state.maxRetriesReached,
   );
 
-  // Get alert content based on connection status
   const getAlertContent = () => {
     if (!hasPartialConnection) {
       if (anyRetriesExhausted && canAttemptReconnection) {
