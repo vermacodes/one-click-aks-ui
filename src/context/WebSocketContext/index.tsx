@@ -10,6 +10,16 @@ import {
   getDefaultTerraformOperation,
 } from "../../defaults";
 
+// Simple connection state type for smart WebSocket management
+export interface WebSocketConnectionState {
+  connectionAttempts: number;
+  lastConnectionAttempt: number;
+  maxRetriesReached: boolean;
+  nextRetryAt: number;
+  shouldAttemptConnection: boolean;
+  serverWasOffline: boolean;
+}
+
 export interface WebSocketContextData {
   actionStatus: ActionStatusType;
   setActionStatus: (value: ActionStatusType) => void;
@@ -27,6 +37,14 @@ export interface WebSocketContextData {
   setServerNotification: (value: ServerNotification) => void;
   serverNotificationConnected: boolean;
   setServerNotificationConnected: React.Dispatch<React.SetStateAction<boolean>>;
+
+  // Smart WebSocket Manager additions
+  connectionStates: Map<string, WebSocketConnectionState>;
+  serverIsOnline: boolean;
+  canAttemptReconnection: boolean;
+  manualRetry: () => void;
+  pauseAllConnections: () => void;
+  resumeAllConnections: () => void;
 }
 
 export const webSocketContextDataDefaultValue: WebSocketContextData = {
@@ -46,6 +64,14 @@ export const webSocketContextDataDefaultValue: WebSocketContextData = {
   setServerNotification: () => null,
   serverNotificationConnected: false,
   setServerNotificationConnected: () => null,
+
+  // Smart WebSocket Manager defaults
+  connectionStates: new Map(),
+  serverIsOnline: false,
+  canAttemptReconnection: false,
+  manualRetry: () => null,
+  pauseAllConnections: () => null,
+  resumeAllConnections: () => null,
 };
 
 export const WebSocketContext = createContext<WebSocketContextData>(

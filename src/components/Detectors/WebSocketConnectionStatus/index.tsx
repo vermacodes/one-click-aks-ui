@@ -1,74 +1,78 @@
-import { useContext, useEffect, useState } from "react";
-import { TbFidgetSpinner } from "react-icons/tb";
+import { useContext } from "react";
+import { TbFidgetSpinner, TbRefresh } from "react-icons/tb";
 import { WebSocketContext } from "../../../context/WebSocketContext";
-import { useServerStatus } from "../../../hooks/useServerStatus";
 import Alert from "../../UserInterfaceComponents/Alert";
 
-// Configuration for WebSocket connection timeouts
-const WEBSOCKET_CONFIG = {
-  WARNING_DELAY: 30_000, // Show warning after 30 seconds
-  RECONNECT_DELAY: 60_000, // Try reconnection after 60 seconds
-  MAX_RECONNECT_ATTEMPTS: 3,
-} as const;
-
 export default function WebSocketConnectionStatus() {
-  const { data: serverStatus, isError } = useServerStatus();
-  const { actionStatusConnected, logStreamConnected } =
-    useContext(WebSocketContext);
+  const {
+    actionStatusConnected,
+    logStreamConnected,
+    terraformOperationConnected,
+    serverNotificationConnected,
+    serverIsOnline,
+    canAttemptReconnection,
+    connectionStates,
+    manualRetry,
+  } = useContext(WebSocketContext);
 
-  const [showWarning, setShowWarning] = useState(false);
-  const [reconnectAttempts, setReconnectAttempts] = useState(0);
+  // Check connection status
+  const allConnected =
+    actionStatusConnected &&
+    logStreamConnected &&
+    terraformOperationConnected &&
+    serverNotificationConnected;
 
-  const bothConnected = actionStatusConnected && logStreamConnected;
-  const hasPartialConnection = actionStatusConnected || logStreamConnected;
+  const hasPartialConnection =
+    actionStatusConnected ||
+    logStreamConnected ||
+    terraformOperationConnected ||
+    serverNotificationConnected;
 
-  useEffect(() => {
-    // Reset warning and attempts if both connections are successful
-    if (bothConnected) {
-      setShowWarning(false);
-      setReconnectAttempts(0);
-      return;
-    }
+  // Don't show anything if server is offline
+  if (!serverIsOnline) {
+    return (
+      <Alert variant="info">
+        <div className="flex items-center gap-2">
+          <TbFidgetSpinner className="animate-spin" />
+          <div className="flex flex-col">
+            <strong>Server Offline:</strong>
+            <span className="text-sm">
+              Waiting for server to come online. WebSocket connections will
+              resume automatically.
+            </span>
+          </div>
+        </div>
+      </Alert>
+    );
+  }
 
-    // Set timeout to show warning after configured delay
-    const warningTimer = setTimeout(() => {
-      setShowWarning(true);
-    }, WEBSOCKET_CONFIG.WARNING_DELAY);
-
-    // Set timeout for reconnection attempt
-    const reconnectTimer = setTimeout(() => {
-      if (reconnectAttempts < WEBSOCKET_CONFIG.MAX_RECONNECT_ATTEMPTS) {
-        setReconnectAttempts((prev) => prev + 1);
-        // Trigger a page reload to attempt reconnection
-        // This is a simple reconnection strategy
-        window.location.reload();
-      }
-    }, WEBSOCKET_CONFIG.RECONNECT_DELAY);
-
-    return () => {
-      clearTimeout(warningTimer);
-      clearTimeout(reconnectTimer);
-    };
-  }, [bothConnected, reconnectAttempts]);
-
-  // Don't show anything if server is not running
-  if (isError || serverStatus?.status !== "OK") {
+  // Don't show anything if all connections are working
+  if (allConnected) {
     return null;
   }
 
-  // Don't show warning if not ready to show or if fully connected
-  if (!showWarning || bothConnected) {
-    return null;
-  }
+  // Determine if retries are exhausted for any connection
+  const anyRetriesExhausted = Array.from(connectionStates.values()).some(
+    (state) => state.maxRetriesReached,
+  );
 
-  // Determine alert variant and message based on connection status
+  // Get alert content based on connection status
   const getAlertContent = () => {
-    if (!actionStatusConnected && !logStreamConnected) {
+    if (!hasPartialConnection) {
+      if (anyRetriesExhausted && canAttemptReconnection) {
+        return {
+          variant: "warning" as const,
+          title: "WebSocket Connection Failed",
+          message:
+            "Real-time features are unavailable. Manual retry available.",
+          showRetry: true,
+        };
+      }
       return {
         variant: "warning" as const,
         title: "WebSocket Connection Failed",
-        message:
-          "Unable to establish real-time connections. Some features may not work properly.",
+        message: "Attempting to restore real-time features...",
+        showRetry: false,
       };
     }
 
@@ -77,7 +81,8 @@ export default function WebSocketConnectionStatus() {
         variant: "info" as const,
         title: "Partial WebSocket Connection",
         message:
-          "Some real-time features may be limited due to partial connection.",
+          "Some real-time features may be limited. Attempting to restore full connectivity.",
+        showRetry: anyRetriesExhausted,
       };
     }
 
@@ -85,25 +90,42 @@ export default function WebSocketConnectionStatus() {
       variant: "info" as const,
       title: "Connecting WebSockets",
       message: "Establishing real-time connections. Please wait...",
+      showRetry: false,
     };
   };
 
-  const { variant, title, message } = getAlertContent();
+  const { variant, title, message, showRetry } = getAlertContent();
+
+  const handleManualRetry = () => {
+    manualRetry();
+  };
 
   return (
     <Alert variant={variant}>
-      <div className="flex items-center gap-2">
-        <TbFidgetSpinner className="animate-spin" />
-        <div className="flex flex-col">
-          <strong>{title}:</strong>
-          <span className="text-sm">{message}</span>
-          {reconnectAttempts > 0 && (
-            <span className="text-xs opacity-75">
-              Reconnection attempts: {reconnectAttempts}/
-              {WEBSOCKET_CONFIG.MAX_RECONNECT_ATTEMPTS}
-            </span>
-          )}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <TbFidgetSpinner className="animate-spin" />
+          <div className="flex flex-col">
+            <strong>{title}:</strong>
+            <span className="text-sm">{message}</span>
+            <div className="mt-1 text-xs opacity-75">
+              Status: {actionStatusConnected ? "✓" : "✗"} Actions,{" "}
+              {logStreamConnected ? "✓" : "✗"} Logs,{" "}
+              {terraformOperationConnected ? "✓" : "✗"} Terraform,{" "}
+              {serverNotificationConnected ? "✓" : "✗"} Notifications
+            </div>
+          </div>
         </div>
+        {showRetry && (
+          <button
+            onClick={handleManualRetry}
+            className="ml-4 flex items-center gap-1 rounded border border-current bg-white/20 px-3 py-1 text-sm transition-colors hover:bg-white/30"
+            title="Retry WebSocket connections"
+          >
+            <TbRefresh className="h-4 w-4" />
+            Retry
+          </button>
+        )}
       </div>
     </Alert>
   );
