@@ -24,7 +24,7 @@ const WS_CONFIG = {
   maxRetries: 5,
   maxReconnectionDelay: 10000,
   minReconnectionDelay: 1000,
-  reconnectionDelayGrowFactor: 1.3,
+  reconnectionDelayGrowFactor: 2,
   minUptime: 5000,
   debug: false,
 };
@@ -74,7 +74,7 @@ export default function WebSocketContextProvider({
     serverNotificationWs?: ReconnectingWebSocket;
   }>({});
 
-  // Connection state management
+  // Connection state management (simplified)
   const createDefaultConnectionState = () => ({
     connectionAttempts: 0,
     lastConnectionAttempt: 0,
@@ -84,52 +84,27 @@ export default function WebSocketContextProvider({
     serverWasOffline: false,
   });
 
+  const CONNECTION_TYPES = [
+    "actionStatus",
+    "logStream",
+    "terraformOperation",
+    "serverNotification",
+  ] as const;
+
   const [connectionStates, setConnectionStates] = useState(() => {
     const initialStates = new Map();
     const defaultState = createDefaultConnectionState();
-    [
-      "actionStatus",
-      "logStream",
-      "terraformOperation",
-      "serverNotification",
-    ].forEach((type) => {
+    CONNECTION_TYPES.forEach((type) => {
       initialStates.set(type, { ...defaultState });
     });
     return initialStates;
   });
 
-  // Connection state helpers
-  const markRetriesExhausted = (connectionType: string) => {
-    setConnectionStates((prev) => {
-      const newStates = new Map(prev);
-      const currentState =
-        newStates.get(connectionType) || createDefaultConnectionState();
-      newStates.set(connectionType, {
-        ...currentState,
-        maxRetriesReached: true,
-        shouldAttemptConnection: false,
-      });
-      return newStates;
-    });
-  };
-
-  const resetConnectionState = (connectionType: string) => {
-    setConnectionStates((prev) => {
-      const newStates = new Map(prev);
-      newStates.set(connectionType, createDefaultConnectionState());
-      return newStates;
-    });
-  };
-
+  // Reset all connection states
   const resetAllConnectionStates = () => {
     setConnectionStates(() => {
       const newStates = new Map();
-      [
-        "actionStatus",
-        "logStream",
-        "terraformOperation",
-        "serverNotification",
-      ].forEach((type) => {
+      CONNECTION_TYPES.forEach((type) => {
         newStates.set(type, createDefaultConnectionState());
       });
       return newStates;
@@ -232,18 +207,40 @@ export default function WebSocketContextProvider({
       // Create new session ID to invalidate old connections
       sessionId.current = Date.now();
       const currentSessionId = sessionId.current;
-      console.log(`Starting new WebSocket session: ${currentSessionId}`);
 
       resetAllConnectionStates();
 
-      // Connection timeout
+      // Connection timeout - mark failed connections as exhausted
       const connectionTimeout = setTimeout(() => {
-        if (!actionStatusConnected) markRetriesExhausted("actionStatus");
-        if (!logStreamConnected) markRetriesExhausted("logStream");
-        if (!terraformOperationConnected)
-          markRetriesExhausted("terraformOperation");
-        if (!serverNotificationConnected)
-          markRetriesExhausted("serverNotification");
+        setConnectionStates((prev) => {
+          const newStates = new Map(prev);
+          const connections = [
+            { type: "actionStatus", connected: actionStatusConnected },
+            { type: "logStream", connected: logStreamConnected },
+            {
+              type: "terraformOperation",
+              connected: terraformOperationConnected,
+            },
+            {
+              type: "serverNotification",
+              connected: serverNotificationConnected,
+            },
+          ];
+
+          connections.forEach(({ type, connected }) => {
+            if (!connected) {
+              const currentState =
+                newStates.get(type) || createDefaultConnectionState();
+              newStates.set(type, {
+                ...currentState,
+                maxRetriesReached: true,
+                shouldAttemptConnection: false,
+              });
+            }
+          });
+
+          return newStates;
+        });
       }, CONNECTION_TIMEOUT);
 
       setTimeout(
@@ -257,56 +254,50 @@ export default function WebSocketContextProvider({
       // Create new connections
       const connections = [
         {
-          ref: "actionStatusWs",
+          ref: "actionStatusWs" as const,
           endpoint: "actionstatusws",
-          handlers: createWebSocketHandlers(
-            "Action Status",
-            setActionStatusConnected,
-            setActionStatus,
-            currentSessionId,
-          ),
+          name: "Action Status",
+          setState: setActionStatusConnected,
+          setData: setActionStatus,
         },
         {
-          ref: "logStreamWs",
+          ref: "logStreamWs" as const,
           endpoint: "logsws",
-          handlers: createWebSocketHandlers(
-            "Log Stream",
-            setLogStreamConnected,
-            setLogStream,
-            currentSessionId,
-          ),
+          name: "Log Stream",
+          setState: setLogStreamConnected,
+          setData: setLogStream,
         },
         {
-          ref: "terraformOperationWs",
+          ref: "terraformOperationWs" as const,
           endpoint: "terraform/statusws",
-          handlers: createWebSocketHandlers(
-            "Terraform Operation",
-            setTerraformOperationConnected,
-            setTerraformOperation,
-            currentSessionId,
-          ),
+          name: "Terraform Operation",
+          setState: setTerraformOperationConnected,
+          setData: setTerraformOperation,
         },
         {
-          ref: "serverNotificationWs",
+          ref: "serverNotificationWs" as const,
           endpoint: "serverNotificationWs",
-          handlers: createWebSocketHandlers(
-            "Server Notification",
-            setServerNotificationConnected,
-            setServerNotification,
-            currentSessionId,
-          ),
+          name: "Server Notification",
+          setState: setServerNotificationConnected,
+          setData: setServerNotification,
         },
       ];
 
-      connections.forEach(({ ref, endpoint, handlers }) => {
+      connections.forEach(({ ref, endpoint, name, setState, setData }) => {
         const ws = createAuthenticatedWebSocket(baseUrl, endpoint);
+        const handlers = createWebSocketHandlers(
+          name,
+          setState,
+          setData,
+          currentSessionId,
+        );
 
         ws.addEventListener("open", handlers.onopen);
         ws.addEventListener("close", handlers.onclose);
         ws.addEventListener("message", handlers.onmessage);
         ws.addEventListener("error", handlers.onerror);
 
-        websocketRefs.current[ref as keyof typeof websocketRefs.current] = ws;
+        websocketRefs.current[ref] = ws;
       });
     } catch (error) {
       console.error("Failed to initialize authenticated WebSockets:", error);
@@ -364,7 +355,7 @@ export default function WebSocketContextProvider({
         serverNotificationConnected,
         setServerNotificationConnected,
 
-        // Smart WebSocket Manager values
+        // Connection management
         connectionStates,
         serverIsOnline: !isError && serverStatus?.status === "OK",
         canAttemptReconnection: true,
