@@ -38,6 +38,9 @@ export default function WebSocketContextProvider({
 }) {
   const queryClient = useQueryClient();
 
+  // Session ID to track current connection generation
+  const sessionId = useRef(Date.now());
+
   // Connection states
   const [actionStatusConnected, setActionStatusConnected] = useState(false);
   const [logStreamConnected, setLogStreamConnected] = useState(false);
@@ -163,31 +166,51 @@ export default function WebSocketContextProvider({
     connectionName: string,
     setConnected: (connected: boolean) => void,
     setData: (data: any) => void,
+    currentSessionId: number,
   ) => {
     return {
       onopen: () => {
-        console.log(`${connectionName} WebSocket connected`);
-        setConnected(true);
+        console.log(
+          `[${currentSessionId}] ${connectionName} WebSocket connected`,
+        );
+        // Only update state if this is from current session
+        if (sessionId.current === currentSessionId) {
+          setConnected(true);
+        }
       },
       onclose: () => {
-        console.log(`${connectionName} WebSocket disconnected`);
-        setConnected(false);
+        console.log(
+          `[${currentSessionId}] ${connectionName} WebSocket disconnected`,
+        );
+        // Only update state if this is from current session
+        if (sessionId.current === currentSessionId) {
+          setConnected(false);
+        }
       },
       onmessage: (event: MessageEvent) => {
-        setConnected(true);
-        try {
-          const data = JSON.parse(event.data);
-          setData(data);
-        } catch (error) {
-          console.error(`Failed to parse ${connectionName} message:`, error);
+        // Only update state if this is from current session
+        if (sessionId.current === currentSessionId) {
+          setConnected(true);
+          try {
+            const data = JSON.parse(event.data);
+            setData(data);
+          } catch (error) {
+            console.error(
+              `[${currentSessionId}] Failed to parse ${connectionName} message:`,
+              error,
+            );
+          }
         }
       },
       onerror: (event: ErrorEvent) => {
         console.error(
-          `${connectionName} WebSocket error:`,
+          `[${currentSessionId}] ${connectionName} WebSocket error:`,
           event.error || event.message,
         );
-        setConnected(false);
+        // Only update state if this is from current session
+        if (sessionId.current === currentSessionId) {
+          setConnected(false);
+        }
       },
     };
   };
@@ -205,6 +228,11 @@ export default function WebSocketContextProvider({
         console.warn("No server hosting endpoint found");
         return;
       }
+
+      // Create new session ID to invalidate old connections
+      sessionId.current = Date.now();
+      const currentSessionId = sessionId.current;
+      console.log(`Starting new WebSocket session: ${currentSessionId}`);
 
       resetAllConnectionStates();
 
@@ -235,6 +263,7 @@ export default function WebSocketContextProvider({
             "Action Status",
             setActionStatusConnected,
             setActionStatus,
+            currentSessionId,
           ),
         },
         {
@@ -244,6 +273,7 @@ export default function WebSocketContextProvider({
             "Log Stream",
             setLogStreamConnected,
             setLogStream,
+            currentSessionId,
           ),
         },
         {
@@ -253,6 +283,7 @@ export default function WebSocketContextProvider({
             "Terraform Operation",
             setTerraformOperationConnected,
             setTerraformOperation,
+            currentSessionId,
           ),
         },
         {
@@ -262,6 +293,7 @@ export default function WebSocketContextProvider({
             "Server Notification",
             setServerNotificationConnected,
             setServerNotification,
+            currentSessionId,
           ),
         },
       ];
