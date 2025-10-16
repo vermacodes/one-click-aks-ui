@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
-import ReconnectingWebSocket from "reconnecting-websocket";
+import ReconnectingWebSocket, { ErrorEvent } from "reconnecting-websocket";
 import { WebSocketContext } from "../../context/WebSocketContext";
 import {
   ActionStatusType,
@@ -160,37 +160,37 @@ export default function WebSocketContextProvider({
 
   // WebSocket handlers
   const createWebSocketHandlers = (
-    type: string,
+    connectionName: string,
     setConnected: (connected: boolean) => void,
-    setData?: (data: any) => void,
-  ) => ({
-    onopen: () => {
-      setConnected(true);
-      resetConnectionState(type.toLowerCase().replace(" ", ""));
-    },
-    onclose: () => {
-      setConnected(false);
-    },
-    onmessage: (event: MessageEvent) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "auth-response") {
-        if (!data.success) {
-          console.error(`WebSocket authentication failed for ${type}`);
+    setData: (data: any) => void,
+  ) => {
+    return {
+      onopen: () => {
+        console.log(`${connectionName} WebSocket connected`);
+        setConnected(true);
+      },
+      onclose: () => {
+        console.log(`${connectionName} WebSocket disconnected`);
+        setConnected(false);
+      },
+      onmessage: (event: MessageEvent) => {
+        setConnected(true);
+        try {
+          const data = JSON.parse(event.data);
+          setData(data);
+        } catch (error) {
+          console.error(`Failed to parse ${connectionName} message:`, error);
         }
-        return;
-      }
-      if (setData) setData(data);
-
-      // Invalidate queries for action status
-      if (type === "Action Status") {
-        queryClient.invalidateQueries("list-deployments");
-        queryClient.invalidateQueries("list-terraform-workspaces");
-        queryClient.invalidateQueries("get-selected-terraform-workspace");
-        queryClient.invalidateQueries("get-resources");
-      }
-    },
-    onerror: (error: Event) => console.error(`${type} WebSocket error:`, error),
-  });
+      },
+      onerror: (event: ErrorEvent) => {
+        console.error(
+          `${connectionName} WebSocket error:`,
+          event.error || event.message,
+        );
+        setConnected(false);
+      },
+    };
+  };
 
   // WebSocket initialization
   const initializeWebSockets = () => {
@@ -268,7 +268,12 @@ export default function WebSocketContextProvider({
 
       connections.forEach(({ ref, endpoint, handlers }) => {
         const ws = createAuthenticatedWebSocket(baseUrl, endpoint);
-        Object.assign(ws, handlers);
+
+        ws.addEventListener("open", handlers.onopen);
+        ws.addEventListener("close", handlers.onclose);
+        ws.addEventListener("message", handlers.onmessage);
+        ws.addEventListener("error", handlers.onerror);
+
         websocketRefs.current[ref as keyof typeof websocketRefs.current] = ws;
       });
     } catch (error) {
