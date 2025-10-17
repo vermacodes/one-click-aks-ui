@@ -100,6 +100,19 @@ export default function WebSocketContextProvider({
     return initialStates;
   });
 
+  // Refetch data on actionstatus changes
+  const invalidateQueriesOnActionStatusChange = (connectionName: string) => {
+    if (connectionName === "Action Status") {
+      // Add 1 second delay before refetching
+      setTimeout(() => {
+        queryClient.refetchQueries("list-deployments");
+        queryClient.refetchQueries("list-terraform-workspaces");
+        queryClient.refetchQueries("get-selected-terraform-workspace");
+        queryClient.refetchQueries("get-resources");
+      }, 1000);
+    }
+  };
+
   // Reset all connection states
   const resetAllConnectionStates = () => {
     setConnectionStates(() => {
@@ -129,7 +142,6 @@ export default function WebSocketContextProvider({
         )
         .catch((error) => {
           myInteractionInProgressHandler();
-          console.error("Failed to send auth token for WebSocket:", error);
         });
     });
 
@@ -145,43 +157,31 @@ export default function WebSocketContextProvider({
   ) => {
     return {
       onopen: () => {
-        console.log(
-          `[${currentSessionId}] ${connectionName} WebSocket connected`,
-        );
         // Only update state if this is from current session
         if (sessionId.current === currentSessionId) {
           setConnected(true);
         }
       },
       onclose: () => {
-        console.log(
-          `[${currentSessionId}] ${connectionName} WebSocket disconnected`,
-        );
         // Only update state if this is from current session
         if (sessionId.current === currentSessionId) {
           setConnected(false);
         }
       },
       onmessage: (event: MessageEvent) => {
+        // Refetch relevant queries on action status updates
+        invalidateQueriesOnActionStatusChange(connectionName);
+
         // Only update state if this is from current session
         if (sessionId.current === currentSessionId) {
           setConnected(true);
           try {
             const data = JSON.parse(event.data);
             setData(data);
-          } catch (error) {
-            console.error(
-              `[${currentSessionId}] Failed to parse ${connectionName} message:`,
-              error,
-            );
-          }
+          } catch (error) {}
         }
       },
       onerror: (event: ErrorEvent) => {
-        console.error(
-          `[${currentSessionId}] ${connectionName} WebSocket error:`,
-          event.error || event.message,
-        );
         // Only update state if this is from current session
         if (sessionId.current === currentSessionId) {
           setConnected(false);
@@ -200,7 +200,6 @@ export default function WebSocketContextProvider({
       if (baseUrl && !baseUrl.endsWith("/")) baseUrl += "/";
 
       if (!baseUrl) {
-        console.warn("No server hosting endpoint found");
         return;
       }
 
@@ -299,9 +298,7 @@ export default function WebSocketContextProvider({
 
         websocketRefs.current[ref] = ws;
       });
-    } catch (error) {
-      console.error("Failed to initialize authenticated WebSockets:", error);
-    }
+    } catch (error) {}
   };
 
   // Initial WebSocket setup
@@ -310,7 +307,7 @@ export default function WebSocketContextProvider({
     return () => {
       Object.values(websocketRefs.current).forEach((ws) => ws?.close());
     };
-  }, [queryClient]);
+  }, []);
 
   // Server status monitoring
   useEffect(() => {
