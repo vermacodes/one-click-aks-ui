@@ -46,8 +46,6 @@ export default function Terminal() {
       const clean = DOMPurify.sanitize(dirty);
 
       return clean;
-    } else {
-      console.log(JSON.stringify(data));
     }
     return "";
   }

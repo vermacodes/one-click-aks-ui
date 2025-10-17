@@ -33,12 +33,6 @@ export default function WebSocketConnectionStatus() {
 
   useEffect(() => {
     const timestamp = new Date().toLocaleTimeString();
-    console.log(`[${timestamp}] Connection status:`, {
-      hasConnectionIssues,
-      allConnected,
-      serverIsOnline,
-      shouldShowAlert,
-    });
 
     // Clear any existing timeouts
     if (showTimeoutRef.current) {
@@ -53,25 +47,14 @@ export default function WebSocketConnectionStatus() {
     if (hasConnectionIssues) {
       // Connection issues detected - show alert after initial delay (if not already shown)
       if (!shouldShowAlert) {
-        console.log(
-          `[${timestamp}] Setting timeout to show alert in ${INITIAL_DELAY_MS}ms`,
-        );
         showTimeoutRef.current = setTimeout(() => {
-          console.log(
-            `[${new Date().toLocaleTimeString()}] Showing alert after delay`,
-          );
           setShouldShowAlert(true);
         }, INITIAL_DELAY_MS);
       }
     } else if (allConnected && shouldShowAlert) {
       // All connections restored - debounce clearing the alert
-      console.log(
-        `[${timestamp}] All connected, debouncing clear for ${DEBOUNCE_CLEAR_MS}ms`,
-      );
+
       clearTimeoutRef.current = setTimeout(() => {
-        console.log(
-          `[${new Date().toLocaleTimeString()}] Clearing alert after stable connection`,
-        );
         setShouldShowAlert(false);
       }, DEBOUNCE_CLEAR_MS);
     }
