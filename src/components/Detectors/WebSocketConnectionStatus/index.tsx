@@ -3,8 +3,8 @@ import { TbFidgetSpinner, TbRefresh } from "react-icons/tb";
 import { WebSocketContext } from "../../../context/WebSocketContext";
 import Alert from "../../UserInterfaceComponents/Alert";
 
-const INITIAL_DELAY_MS = 3000; // 3 seconds before showing alert
-const DEBOUNCE_CLEAR_MS = 12000; // 12 seconds of stable connection before clearing
+const INITIAL_DELAY_MS = 30000; // 30 seconds before showing alert
+const DEBOUNCE_CLEAR_MS = 2000; // 2 seconds of stable connection before clearing
 
 export default function WebSocketConnectionStatus() {
   const {

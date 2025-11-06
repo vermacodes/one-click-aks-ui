@@ -26,7 +26,7 @@ export default function Deployments() {
   }, []);
 
   if (serverStatus?.status !== "OK") {
-    return <ServerError />;
+    return <ServerError hostPageHeading="Deployments" />;
   }
 
   if (deployments === undefined || workspaces === undefined) {

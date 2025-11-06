@@ -1,11 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ServerConfig from "../../components/Config/Server/ServerConfig";
 import PageLayout from "../../layouts/PageLayout";
 
-export default function ServerError() {
+type Props = {
+  hostPageHeading?: string;
+};
+
+export default function ServerError({
+  hostPageHeading = "Please wait",
+}: Props) {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     document.title = "ACT Labs | Where is the server?";
+
+    // Show loading for 5 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, []);
+
+  if (isLoading) {
+    return (
+      <PageLayout heading={hostPageHeading}>
+        <p className="text-4xl">Loading...</p>
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout heading="Where is the server?">
