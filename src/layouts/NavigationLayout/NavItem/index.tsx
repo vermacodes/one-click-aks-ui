@@ -1,7 +1,7 @@
 import { BsArrowUpRight } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useGlobalStateContext } from "../../../components/Context/GlobalStateContext";
 import Tooltip from "../../../components/UserInterfaceComponents/Tooltip";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import { getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn"; // Ensure the correct import path for the cn utility
 

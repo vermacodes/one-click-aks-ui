@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 import { ButtonVariant, Lab } from "../../../../dataStructures";
 import { useSelectedDeployment } from "../../../../hooks/useSelectedDeployment";
 import { useTerraformOperation } from "../../../../hooks/useTerraformOperation";
-import { useWebSocketContext } from "../../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../../context/WebSocketContext";
 import Button from "../../../UserInterfaceComponents/Button";
 
 type Props = {

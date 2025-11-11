@@ -4,7 +4,7 @@ import { FaComputer } from "react-icons/fa6";
 import { Theme } from "../../../dataStructures";
 import { getUIStateColors } from "../../../defaults";
 import { cn } from "../../../utils/cn";
-import { useGlobalStateContext } from "../../Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import Tooltip from "../Tooltip";
 
 type RadioGroupProps = {

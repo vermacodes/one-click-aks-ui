@@ -1,8 +1,8 @@
 import { getUIStateColors } from "../../../../defaults";
 import { useGetAROVersions } from "../../../../hooks/useAroVersions";
 import { useSetLogs } from "../../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
-import { useWebSocketContext } from "../../../Context/WebSocketContext";
+import { useGlobalStateContext } from "../../../../context/GlobalStateContext";
+import { useWebSocketContext } from "../../../../context/WebSocketContext";
 import DropdownSelect from "../../../UserInterfaceComponents/DropdownSelect";
 
 type Props = {

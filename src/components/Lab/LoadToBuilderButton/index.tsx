@@ -5,8 +5,8 @@ import { ButtonVariant, Lab, Profile } from "../../../dataStructures";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { usePreference } from "../../../hooks/usePreference";
 import { useGetMyProfile } from "../../../hooks/useProfile";
-import { useGlobalStateContext } from "../../Context/GlobalStateContext";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 
 type Props = {

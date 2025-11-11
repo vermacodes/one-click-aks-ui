@@ -3,8 +3,8 @@ import { TfvarAroClusterType } from "../../../../dataStructures";
 import { getDefaultAroCluster } from "../../../../defaults";
 import { useGetDefaultAROVersion } from "../../../../hooks/useAroVersions";
 import { useSetLogs } from "../../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
-import { WebSocketContext } from "../../../Context/WebSocketContext";
+import { useGlobalStateContext } from "../../../../context/GlobalStateContext";
+import { WebSocketContext } from "../../../../context/WebSocketContext";
 import Checkbox from "../../../UserInterfaceComponents/Checkbox";
 
 export default function AddAroCluster() {

@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import { useWebSocketContext } from "../Context/WebSocketContext";
 import { toast } from "react-toastify";
-import { useQueryClient } from "react-query";
+import { useWebSocketContext } from "../../context/WebSocketContext";
 
 export default function ServerNotification() {
   const { serverNotification, setServerNotification } = useWebSocketContext();
   const [toastShown, setToastShown] = useState(false);
-
-  const queryClient = useQueryClient();
-  const invalidateQueriesList = ["list-deployments"];
 
   useEffect(() => {
     if (!toastShown && serverNotification.message !== "") {
@@ -20,7 +16,6 @@ export default function ServerNotification() {
             : serverNotification.autoClose,
       });
       setToastShown(true);
-      queryClient.invalidateQueries(invalidateQueriesList);
     }
   }, [serverNotification, toastShown]);
 

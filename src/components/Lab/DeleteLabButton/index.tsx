@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonVariant, Lab } from "../../../dataStructures";
 import { useDeleteLab, useDeleteMyLab } from "../../../hooks/useBlobs";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 import ConfirmationModal from "../../UserInterfaceComponents/Modal/ConfirmationModal";
 

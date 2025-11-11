@@ -6,7 +6,7 @@ import { useGetMyDeployments } from "../../../hooks/useDeployments";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import { useBreakBlobLease } from "../../../hooks/useStorageAccount";
 import { useTerraformWorkspace } from "../../../hooks/useWorkspace";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 

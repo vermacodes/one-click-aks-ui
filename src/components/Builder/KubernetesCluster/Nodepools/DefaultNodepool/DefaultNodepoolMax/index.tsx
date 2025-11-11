@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useSetLogs } from "../../../../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../../../../Context/GlobalStateContext";
-import { WebSocketContext } from "../../../../../Context/WebSocketContext";
+import { useGlobalStateContext } from "../../../../../../context/GlobalStateContext";
+import { WebSocketContext } from "../../../../../../context/WebSocketContext";
 import NumberInput from "../../../../../UserInterfaceComponents/NumberInput";
 
 type Props = {

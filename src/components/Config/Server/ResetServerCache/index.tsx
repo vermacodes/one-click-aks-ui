@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonVariant } from "../../../../dataStructures";
 import { useResetServerCache } from "../../../../hooks/useServerCache";
-import { WebSocketContext } from "../../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../../context/WebSocketContext";
 import Button from "../../../UserInterfaceComponents/Button";
 import ConfirmationModal from "../../../UserInterfaceComponents/Modal/ConfirmationModal";
 

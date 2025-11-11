@@ -9,20 +9,15 @@ function getServerStatus(): Promise<AxiosResponse<ServerStatus>> {
 
 export function useServerStatus() {
   const queryClient = useQueryClient();
+
   return useQuery("server-status", getServerStatus, {
     select: (data): ServerStatus => {
       return data.data;
     },
+    refetchInterval: 10000,
     onError: () => {
-      queryClient.invalidateQueries("login-status");
+      // Clear cached data when error occurs so data becomes undefined
+      queryClient.setQueryData("server-status", undefined);
     },
-    // cacheTime: 1000,
-    // staleTime: 1000,
-    refetchInterval: 5000,
   });
-}
-
-export function useInvalidateServerStatus() {
-  const queryClient = useQueryClient();
-  queryClient.invalidateQueries("server-status");
 }

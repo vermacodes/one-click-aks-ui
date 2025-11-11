@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { FaExpand, FaTrashAlt } from "react-icons/fa";
 import { useSetLogs } from "../../../hooks/useLogs";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import DeploymentStatus from "../../Deployments/DeploymentStatus";
 import Button from "../../UserInterfaceComponents/Button";
 import Checkbox from "../../UserInterfaceComponents/Checkbox";

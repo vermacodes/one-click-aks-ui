@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useWebSocketContext } from "../../../context/WebSocketContext";
 import { DeploymentType } from "../../../dataStructures";
 import { defaultUIPrimaryTextColor } from "../../../defaults";
 import { cn } from "../../../utils/cn";
-import { useWebSocketContext } from "../../Context/WebSocketContext";
 import Tooltip from "../../UserInterfaceComponents/Tooltip";
 
 type Props = {
@@ -13,12 +14,33 @@ type Props = {
 
 export default function DeploymentStatus({ deployment }: Props) {
   const { actionStatus } = useWebSocketContext();
+  const [showUnknownStatus, setShowUnknownStatus] = useState(false);
+
+  // Reset the timer when actionStatus.inProgress changes
+  useEffect(() => {
+    if (actionStatus.inProgress) {
+      setShowUnknownStatus(false);
+      return;
+    }
+
+    // Only start the timer if we're in a progress state and action is not in progress
+    if (
+      deployment.deploymentStatus === "Deployment In Progress" ||
+      deployment.deploymentStatus === "Destroy In Progress"
+    ) {
+      const timer = setTimeout(() => {
+        setShowUnknownStatus(true);
+      }, 10000); // 10 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [actionStatus.inProgress, deployment.deploymentStatus]);
 
   if (
     deployment.deploymentStatus === "Deployment In Progress" ||
     deployment.deploymentStatus === "Destroy In Progress"
   ) {
-    if (!actionStatus.inProgress) {
+    if (!actionStatus.inProgress && showUnknownStatus) {
       return (
         <Tooltip
           message={`Can not accurately determine the deployment status. If you see no logs flowing, try repeating the last action manually or re-deploy your server.`}

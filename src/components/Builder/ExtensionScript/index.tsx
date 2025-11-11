@@ -1,7 +1,7 @@
 import Editor, { useMonaco } from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 import { FaBook, FaCheck, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
-import { useGlobalStateContext } from "../../Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
 import ExtendButton from "../../Terraform/ActionButtons/ExtendButton";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";

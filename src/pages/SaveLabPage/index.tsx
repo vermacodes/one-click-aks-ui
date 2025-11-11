@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useGlobalStateContext } from "../../components/Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../context/GlobalStateContext";
 import SaveLabDescription from "../../components/Lab/SaveLab/SaveLabDescription";
 import SaveLabMessage from "../../components/Lab/SaveLab/SaveLabMessage";
 import SaveLabName from "../../components/Lab/SaveLab/SaveLabName";

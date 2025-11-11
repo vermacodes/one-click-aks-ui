@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { getDefaultTfvarConfig } from "../../../defaults";
 import { useSetLogs } from "../../../hooks/useLogs";
-import { useGlobalStateContext } from "../../Context/GlobalStateContext";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { useGlobalStateContext } from "../../../context/GlobalStateContext";
+import { WebSocketContext } from "../../../context/WebSocketContext";
 import Checkbox from "../../UserInterfaceComponents/Checkbox";
 
 export default function VirtualMachine() {

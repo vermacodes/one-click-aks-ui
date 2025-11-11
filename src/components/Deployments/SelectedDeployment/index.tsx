@@ -7,7 +7,7 @@ import { defaultUIPrimaryTextColor } from "../../../defaults";
 import { useGetMyDeployments } from "../../../hooks/useDeployments";
 import { useSelectedDeployment } from "../../../hooks/useSelectedDeployment";
 import { cn } from "../../../utils/cn";
-import { useWebSocketContext } from "../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../context/WebSocketContext";
 import Button from "../../UserInterfaceComponents/Button";
 import Container from "../../UserInterfaceComponents/Container";
 import AutoDestroySwitch from "../AutoDestroySwitch";

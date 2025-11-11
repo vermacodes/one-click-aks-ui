@@ -1,50 +1,22 @@
-import { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
 import { ServerHosting } from "../../../../dataStructures";
-import {
-  defaultLinkTextStyle,
-  getDefaultServerHosting,
-} from "../../../../defaults";
-import { useResetServerCache } from "../../../../hooks/useServerCache";
+import { defaultLinkTextStyle } from "../../../../defaults";
+import { useGetMyProfile } from "../../../../hooks/useProfile";
+import { useServerHostingSync } from "../../../../hooks/useServerHostingSync";
 import Container from "../../../UserInterfaceComponents/Container";
 import Footnote from "../../../UserInterfaceComponents/Footnote";
 import Docker from "../Docker";
 import ManagedServerComponent from "../ManagedServer/ManagedServer";
 import ServerEnvironment from "../ServerEnvironment";
 import ServerStatus from "../ServerStatus";
-import { useGetMyProfile } from "../../../../hooks/useProfile";
 
 type Props = {};
 
 export default function ServerConfig({}: Props) {
-  const [serverHosting, setServerHosting] = useState<ServerHosting>(
-    getDefaultServerHosting(),
-  );
-  const { mutateAsync: resetServerCache } = useResetServerCache();
+  const { serverHosting, updateServerHosting } = useServerHostingSync();
   const { data: profile } = useGetMyProfile();
 
-  useEffect(() => {
-    const serverHostingFromLocalStorage = localStorage.getItem("serverHosting");
-    if (serverHostingFromLocalStorage != null) {
-      setServerHosting(JSON.parse(serverHostingFromLocalStorage));
-    }
-  }, []);
-
   function handleServerHostingChange(newServerHosting: ServerHosting) {
-    if (
-      newServerHosting.environment === serverHosting.environment &&
-      newServerHosting.endpoint === serverHosting.endpoint
-    ) {
-      return;
-    }
-
-    localStorage.setItem("serverHosting", JSON.stringify(newServerHosting));
-    setServerHosting(newServerHosting);
-    window.location.reload();
-    resetServerCache().finally(() => {
-      const queryClient = useQueryClient();
-      queryClient.invalidateQueries();
-    });
+    updateServerHosting(newServerHosting);
   }
 
   return (

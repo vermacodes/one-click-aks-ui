@@ -12,16 +12,20 @@ export default function PageLayout({ heading, children }: Props) {
   const pageHeading = useRef<null | HTMLHeadingElement>(null);
 
   useEffect(() => {
-    if (outerDivRef.current !== null) {
-      outerDivRef.current.scrollIntoView();
-    }
+    // Use setTimeout to allow Detectors to render first
+    setTimeout(() => {
+      if (outerDivRef.current !== null) {
+        outerDivRef.current.scrollIntoView();
+      }
+    }, 10); // Small delay for rendering
+
     if (pageHeading.current !== null) {
-      pageHeading.current.focus(); // Focus the page heading
+      pageHeading.current.focus();
     }
   }, [heading]);
 
   return (
-    <div ref={outerDivRef}>
+    <div ref={outerDivRef} className="">
       <Detectors />
       {heading !== undefined && (
         <div

@@ -1,4 +1,4 @@
-import { useGlobalStateContext } from "../../../Context/GlobalStateContext";
+import { useGlobalStateContext } from "../../../../context/GlobalStateContext";
 import Container from "../../../UserInterfaceComponents/Container";
 import AppGateway from "../Addons/AppGateway";
 import HttpApplicationRouting from "../Addons/HttpApplicationRouting";

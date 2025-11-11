@@ -2,7 +2,7 @@ import React from "react";
 import { FaFile } from "react-icons/fa";
 import { ButtonVariant, Lab } from "../../../../dataStructures";
 import Button from "../../../UserInterfaceComponents/Button";
-import { useWebSocketContext } from "../../../Context/WebSocketContext";
+import { useWebSocketContext } from "../../../../context/WebSocketContext";
 import { useTerraformOperation } from "../../../../hooks/useTerraformOperation";
 import { v4 as uuid } from "uuid";
 import { useSelectedDeployment } from "../../../../hooks/useSelectedDeployment";
