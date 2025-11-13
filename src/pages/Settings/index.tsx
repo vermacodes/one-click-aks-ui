@@ -6,6 +6,7 @@ import ServerConfig from "../../components/Config/Server/ServerConfig";
 import TerraformInit from "../../components/Config/TerraformInit";
 import TerraformWorkspaces from "../../components/Config/TerraformWorkspaces";
 import Theme from "../../components/Config/Theme";
+import UserDefaultVMSize from "../../components/Config/UserDefaultVMSize";
 import PageLayout from "../../layouts/PageLayout";
 
 export default function Settings() {
@@ -24,6 +25,7 @@ export default function Settings() {
         <ActlabsHubEndpoint />
         <AzureSubscriptionSetting />
         <AzureRegion />
+        <UserDefaultVMSize />
 
         <TerraformInit />
         <TerraformWorkspaces />

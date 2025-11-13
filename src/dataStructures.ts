@@ -159,6 +159,7 @@ export type TerraformWorkspace = {
 
 export type Preference = {
   azureRegion: string;
+  userDefaultVMSize: string;
   terminalAutoScroll: boolean;
 };
 
