@@ -29,19 +29,26 @@ export default function UserDefaultVMSize() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (preference !== undefined) {
-      setPreference(
-        {
-          ...preference,
-          userDefaultVMSize: userDefaultVMSize,
-        },
-        {
-          onSuccess: () => {
-            setEdit(false);
-          },
-        },
-      );
+    const trimmedValue = userDefaultVMSize.trim();
+
+    // Don't submit if the value is empty after trimming
+    if (!trimmedValue || preference === undefined) {
+      return;
     }
+
+    setPreference(
+      {
+        ...preference,
+        userDefaultVMSize: trimmedValue,
+      },
+      {
+        onSuccess: () => {
+          // Update the state with the trimmed value
+          setUserDefaultVMSize(trimmedValue);
+          setEdit(false);
+        },
+      },
+    );
   }
 
   if (serverStatus?.status !== "OK") {
