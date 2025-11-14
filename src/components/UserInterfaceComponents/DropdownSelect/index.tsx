@@ -135,6 +135,16 @@ const DropdownMenu = <T,>({
 
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    // Don't interfere with typing in the search input
+    if ((e.target as HTMLElement).tagName === "INPUT") {
+      if (e.key === "Escape") {
+        // Allow Escape to close the menu even from the search input
+        setMenuOpen(false);
+        e.preventDefault();
+      }
+      return;
+    }
+
     if (e.key === "ArrowDown") {
       // Move focus to the next item
       setFocusedIndex((prev) =>
