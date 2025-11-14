@@ -177,7 +177,7 @@ export default function Button({
       direction={tooltipDirection}
       align={tooltipAlign}
     >
-      <button {...rest} className={className} tabIndex={0} type="button">
+      <button type="button" {...rest} className={className} tabIndex={0}>
         {children}
       </button>
     </Tooltip>
