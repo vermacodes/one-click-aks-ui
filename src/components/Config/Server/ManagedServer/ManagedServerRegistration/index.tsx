@@ -2,6 +2,7 @@ import { SiMicrosoftazure } from "react-icons/si";
 import Button from "../../../../UserInterfaceComponents/Button";
 import CodeBlock from "../../../../UserInterfaceComponents/CodeBlock";
 import Container from "../../../../UserInterfaceComponents/Container";
+import ManagedServerRegistrationForm from "../ManagedServerRegistrationForm";
 
 type Props = {};
 
@@ -59,6 +60,14 @@ export default function ManagedServerRegistration({}: Props) {
             Run following command in Azure Cloud Shell to complete
             configurations.
             <CodeBlock codeString={registrationCommand} copyEnabled={true} />
+          </li>
+          <li className="py-1">
+            Fill and submit the form below to complete registration.
+            <p className="my-2 text-sm text-slate-500">
+              All inputs required for registration will be in the output of the
+              previous command.
+            </p>
+            <ManagedServerRegistrationForm />
           </li>
         </ol>
       </div>

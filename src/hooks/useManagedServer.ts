@@ -40,8 +40,8 @@ export function useManagedServerActivityUpdate() {
 export function useRegisterSubscription() {
   const queryClient = useQueryClient();
   return useMutation(
-    (subscriptionId: string) =>
-      actlabsHubAxiosInstance.put(`server/register/${subscriptionId}`),
+    (serverData: Partial<ManagedServer>) =>
+      actlabsHubAxiosInstance.put("server/register", serverData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("get-managed-server");
