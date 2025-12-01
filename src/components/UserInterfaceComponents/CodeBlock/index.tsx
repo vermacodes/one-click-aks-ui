@@ -8,12 +8,14 @@ type Props = {
   codeString: string;
   copyEnabled?: boolean;
   ariaLabel?: string | "Copy to clipboard";
+  showPrefix?: boolean;
 };
 
 export default function CodeBlock({
   codeString,
   copyEnabled = false,
   ariaLabel,
+  showPrefix = true,
 }: Props) {
   const [copy, setCopy] = useState<boolean>(false);
 
@@ -28,17 +30,20 @@ export default function CodeBlock({
 
   return (
     <div
-      className={`flex w-full items-center justify-between gap-4 rounded border-slate-300 bg-slate-300 px-2 py-1 md:w-fit dark:border-slate-700 dark:bg-slate-700 ${
+      className={`flex w-full items-start justify-between gap-4 rounded border px-3 py-2 ${
         copy
-          ? "bg-opacity-80 border-green-500 bg-green-700 dark:bg-green-700"
-          : "border-slate-400 dark:border-slate-600"
+          ? "border-green-500 bg-green-700/20 dark:bg-green-700/20"
+          : "border-slate-400 bg-slate-200 dark:border-slate-600 dark:bg-slate-800"
       }`}
     >
-      <div>
-        <code className="text-wrap break-words break-all">$ {codeString}</code>
+      <div className="flex-1 overflow-x-auto">
+        <code className="font-mono text-sm break-words whitespace-pre-wrap">
+          {showPrefix && "$ "}
+          {codeString}
+        </code>
       </div>
       {copyEnabled && (
-        <div>
+        <div className="flex-shrink-0">
           <Button
             variant="primary-icon"
             onClick={() => handleCommandCopy()}

@@ -159,20 +159,21 @@ export default function UserDefaultVMSize() {
           </p>
           <CodeBlock
             copyEnabled={true}
+            showPrefix={false}
             codeString={`region="${preference?.azureRegion || "eastus"}"
 
-            az vm list-skus --location "$region" --resource-type virtualMachines \\
-              --query "[?
-                  to_number(capabilities[?name=='vCPUs'].value | [0]) >= \\\`2\\\` &&
-                  to_number(capabilities[?name=='vCPUs'].value | [0]) <= \\\`4\\\` &&
-                  length(restrictions[?reasonCode=='NotAvailableForSubscription']) == \\\`0\\\`
-                ].{
-                  Name:name,
-                  Family:family,
-                  Cores:capabilities[?name=='vCPUs'].value | [0],
-                  MemoryGB:capabilities[?name=='MemoryGB'].value | [0]
-                }" \\
-              -o table`}
+az vm list-skus --location "$region" --resource-type virtualMachines \\
+  --query "[?
+      to_number(capabilities[?name=='vCPUs'].value | [0]) >= \\\`2\\\` &&
+      to_number(capabilities[?name=='vCPUs'].value | [0]) <= \\\`4\\\` &&
+      length(restrictions[?reasonCode=='NotAvailableForSubscription']) == \\\`0\\\`
+    ].{
+      Name:name,
+      Family:family,
+      Cores:capabilities[?name=='vCPUs'].value | [0],
+      MemoryGB:capabilities[?name=='MemoryGB'].value | [0]
+    }" \\
+  -o table`}
           />
         </Footnote>
       </div>
