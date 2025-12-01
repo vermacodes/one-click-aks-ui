@@ -3,6 +3,7 @@ import { FaCheck, FaEdit, FaTimes } from "react-icons/fa";
 import { usePreference, useSetPreference } from "../../../hooks/usePreference";
 import { useServerStatus } from "../../../hooks/useServerStatus";
 import Button from "../../UserInterfaceComponents/Button";
+import CodeBlock from "../../UserInterfaceComponents/CodeBlock";
 import Container from "../../UserInterfaceComponents/Container";
 import Footnote from "../../UserInterfaceComponents/Footnote";
 import Input from "../../UserInterfaceComponents/Input";
@@ -150,6 +151,29 @@ export default function UserDefaultVMSize() {
             setting can be overridden during lab creation. Please select the VM
             Size available in your Azure region.
           </p>
+          <p className="my-2">
+            To find available VM SKUs with 2-4 vCPUs in{" "}
+            {preference?.azureRegion || "eastus"}, run this command in Azure
+            Cloud Shell. You can adjust the vCPU range by changing the numbers
+            in the query filter.
+          </p>
+          <CodeBlock
+            copyEnabled={true}
+            codeString={`region="${preference?.azureRegion || "eastus"}"
+
+            az vm list-skus --location "$region" --resource-type virtualMachines \\
+              --query "[?
+                  to_number(capabilities[?name=='vCPUs'].value | [0]) >= \\\`2\\\` &&
+                  to_number(capabilities[?name=='vCPUs'].value | [0]) <= \\\`4\\\` &&
+                  length(restrictions[?reasonCode=='NotAvailableForSubscription']) == \\\`0\\\`
+                ].{
+                  Name:name,
+                  Family:family,
+                  Cores:capabilities[?name=='vCPUs'].value | [0],
+                  MemoryGB:capabilities[?name=='MemoryGB'].value | [0]
+                }" \\
+              -o table`}
+          />
         </Footnote>
       </div>
     </Container>
