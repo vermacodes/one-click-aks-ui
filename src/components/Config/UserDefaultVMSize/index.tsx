@@ -157,6 +157,10 @@ export default function UserDefaultVMSize() {
             Cloud Shell. You can adjust the vCPU range by changing the numbers
             in the query filter.
           </p>
+          <p className="my-2">
+            Please be sure that the VM size supports Hypervisor V2 (newer
+            series).
+          </p>
           <CodeBlock
             copyEnabled={true}
             showPrefix={false}
