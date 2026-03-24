@@ -153,9 +153,9 @@ export default function UserDefaultVMSize() {
           </p>
           <p className="my-2">
             To find available VM SKUs with 2-4 vCPUs in{" "}
-            {preference?.azureRegion || "eastus"}, run this command in Azure
-            Cloud Shell. You can adjust the vCPU range by changing the numbers
-            in the query filter.
+            {preference?.azureRegion || "West Central US"}, run this command in
+            Azure Cloud Shell. You can adjust the vCPU range by changing the
+            numbers in the query filter.
           </p>
           <p className="my-2">
             Please be sure that the VM size supports Hypervisor V2 (newer
@@ -164,7 +164,7 @@ export default function UserDefaultVMSize() {
           <CodeBlock
             copyEnabled={true}
             showPrefix={false}
-            codeString={`region="${preference?.azureRegion || "eastus"}"
+            codeString={`region="${preference?.azureRegion || "West Central US"}"
 
 az vm list-skus --location "$region" --resource-type virtualMachines \\
   --query "[?

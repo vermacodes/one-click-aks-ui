@@ -93,7 +93,7 @@ export function getDefaultAroCluster(): TfvarAroClusterType {
 
 const defaultTfvarConfig: TfvarConfigType = {
   resourceGroup: {
-    location: "East US",
+    location: "West Central US",
   },
   kubernetesClusters: [defaultKubernetesCluster],
   aroClusters: [],
