@@ -200,6 +200,12 @@ export const LAB_TYPE = {
 
 export type LabType = ObjectValues<typeof LAB_TYPE>;
 
+export type LabControlsType = {
+  challengeLabAllowUserToDeleteChallenge: boolean;
+  challengeLabAllowChallengeForwarding: boolean;
+  challengeLabAllowChallengerToDeleteChallenge: boolean;
+};
+
 export type Lab = {
   id: string;
   name: string;
@@ -222,6 +228,7 @@ export type Lab = {
   versionId: string;
   isCurrentVersion: boolean;
   supportingDocumentId: string;
+  labControls: LabControlsType;
 };
 
 export type Assignment = {

@@ -274,19 +274,23 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
             <FaTrophy /> Accept Challenge
           </Button>
         )}
-      {/* {challenge.createdBy === myProfile?.userPrincipal &&
-				challenge.status !== "completed" &&
-				challenge.status !== "created" && (
-					<Button
-						variant="primary-text"
-						tooltipMessage="Mark completed once your challenger solves the problem and Validation looks good."
-						onClick={onCompleteChallenge}
-					>
-						<FaCheckCircle /> Mark Completed
-					</Button>
-				)} */}
-      {(challenge.userId === myProfile?.userPrincipal ||
-        challenge.createdBy === myProfile?.userPrincipal) && (
+      {/* Show delete button if:
+          - The challenged user is allowed to delete their own challenge, OR
+          - The challenger (creator) is allowed to delete the challenge, OR
+          - The current user is a lab owner (always allowed) */}
+      {(() => {
+        const isOwner =
+          myProfile?.userPrincipal &&
+          lab.owners.includes(myProfile.userPrincipal);
+        const challengedUserCanDelete =
+          challenge.userId === myProfile?.userPrincipal &&
+          lab.labControls.challengeLabAllowUserToDeleteChallenge;
+        const challengerCanDelete =
+          challenge.createdBy === myProfile?.userPrincipal &&
+          lab.labControls.challengeLabAllowChallengerToDeleteChallenge;
+
+        return isOwner || challengedUserCanDelete || challengerCanDelete;
+      })() && (
         <Button
           variant="danger-icon"
           onClick={() => onDeleteChallenge(challengerProfile)}
@@ -315,7 +319,7 @@ export default function SelectedChallengeProfile({ challenge, lab }: Props) {
         <ConfirmationModal
           onClose={() => setShowConfirmCompleteModal(false)}
           onConfirm={onConfirmCompleteChallenge}
-          title={"Confirm Delete Challenge"}
+          title={"Confirm Complete Challenge"}
         >
           <p>
             Are you sure you want to mark this challenge complete for{" "}

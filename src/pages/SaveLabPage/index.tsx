@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useGlobalStateContext } from "../../context/GlobalStateContext";
+import SaveLabControls from "../../components/Lab/SaveLab/SaveLabControls";
 import SaveLabDescription from "../../components/Lab/SaveLab/SaveLabDescription";
 import SaveLabMessage from "../../components/Lab/SaveLab/SaveLabMessage";
 import SaveLabName from "../../components/Lab/SaveLab/SaveLabName";
@@ -12,6 +12,7 @@ import SaveLabTags from "../../components/Lab/SaveLab/SaveLabTags";
 import SaveLabType from "../../components/Lab/SaveLab/SaveLabType";
 import Button from "../../components/UserInterfaceComponents/Button";
 import ConfirmationModal from "../../components/UserInterfaceComponents/Modal/ConfirmationModal";
+import { useGlobalStateContext } from "../../context/GlobalStateContext";
 import { Lab } from "../../dataStructures";
 import { defaultScrollbarStyle, getDefaultLab } from "../../defaults";
 import {
@@ -166,6 +167,7 @@ export default function SaveLabPage() {
         <SaveLabTags lab={labState} setLab={setLabState} />
         <SaveLabType lab={labState} setLab={setLabState} />
         <SaveLabRbacEnforcedProtectedLab lab={labState} setLab={setLabState} />
+        <SaveLabControls lab={labState} setLab={setLabState} />
 
         <SaveLabDescription lab={labState} setLab={setLabState} />
         {(labState.type === "challengelab" ||
