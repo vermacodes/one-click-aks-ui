@@ -34,7 +34,7 @@ export default function ChallengeLabControls({ lab, setLab }: Props) {
       <Checkbox
         checked={lab.labControls.challengeLabAllowChallengeForwarding === true}
         disabled={false}
-        tooltipMessage="This will be saved privately in your storage account."
+        tooltipMessage="This allows the user to forward the challenge."
         id="challengeLabAllowChallengeForwarding"
         key={"challengeLabAllowChallengeForwarding"}
         label="Allow Challenge Forwarding"
@@ -55,7 +55,7 @@ export default function ChallengeLabControls({ lab, setLab }: Props) {
           lab.labControls.challengeLabAllowChallengerToDeleteChallenge === true
         }
         disabled={false}
-        tooltipMessage="This will be visible to you and other owners."
+        tooltipMessage="This allows the challenger to delete the challenge they forwarded."
         id="challengeLabAllowChallengerToDeleteChallenge"
         key={"challengeLabAllowChallengerToDeleteChallenge"}
         label="Allow Challenger to Delete Challenge"

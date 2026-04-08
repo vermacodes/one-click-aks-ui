@@ -169,6 +169,11 @@ const defaultLab: Lab = {
   versionId: "",
   isCurrentVersion: true,
   supportingDocumentId: "",
+  labControls: {
+    challengeLabAllowChallengeForwarding: true,
+    challengeLabAllowChallengerToDeleteChallenge: true,
+    challengeLabAllowUserToDeleteChallenge: true,
+  },
 };
 export function getDefaultLab(): Lab {
   return structuredClone(defaultLab);
